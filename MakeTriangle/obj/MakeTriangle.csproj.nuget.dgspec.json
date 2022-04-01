@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\source\\repos\\ConsoleApp4\\ConsoleApp4.csproj": {}
+    "C:\\Users\\user\\Desktop\\개발\\MakeTriangle\\MakeTriangle.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\source\\repos\\ConsoleApp4\\ConsoleApp4.csproj": {
+    "C:\\Users\\user\\Desktop\\개발\\MakeTriangle\\MakeTriangle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\source\\repos\\ConsoleApp4\\ConsoleApp4.csproj",
-        "projectName": "ConsoleApp4",
-        "projectPath": "C:\\Users\\user\\source\\repos\\ConsoleApp4\\ConsoleApp4.csproj",
+        "projectUniqueName": "C:\\Users\\user\\Desktop\\개발\\MakeTriangle\\MakeTriangle.csproj",
+        "projectName": "MakeTriangle",
+        "projectPath": "C:\\Users\\user\\Desktop\\개발\\MakeTriangle\\MakeTriangle.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\source\\repos\\ConsoleApp4\\obj\\",
+        "outputPath": "C:\\Users\\user\\Desktop\\개발\\MakeTriangle\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

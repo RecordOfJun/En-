@@ -6,15 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "ConsoleApp4/1.0.0": {
+      "MakeTriangle/1.0.0": {
         "runtime": {
-          "ConsoleApp4.dll": {}
+          "MakeTriangle.dll": {}
         }
       }
     }
   },
   "libraries": {
-    "ConsoleApp4/1.0.0": {
+    "MakeTriangle/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
