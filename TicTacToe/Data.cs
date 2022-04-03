@@ -10,7 +10,7 @@ namespace TicTacToe
         public Data()
         {
         }
-        public void PrintSqaure(int numOfLine)
+        public void PrintSqaure(int numOfLine)//틱택토 3x1 한줄 출력 메소드
         {
             int leftSquareNum = numOfLine*3;
             int middleSquareNum = numOfLine * 3 + 1;
@@ -38,6 +38,20 @@ namespace TicTacToe
                 Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write(squareLocation);
             Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowMenu()
+        {
+            Console.WriteLine(" #########  #     ###     #########      #        ###    #########     ##      ######## ");
+            Console.WriteLine("     #      #    #            #         # #      #           #        #  #     #        ");
+            Console.WriteLine("     #      #   #             #        #####    #            #       #    #    ######## ");
+            Console.WriteLine("     #      #    #            #       #     #    #           #        #  #     #        ");
+            Console.WriteLine("     #      #     ###         #      #       #    ###        #         ##      ######## ");
+            Console.WriteLine("                                                                                        ");
+            Console.WriteLine("                                                                                        ");
+            Console.WriteLine("                                 메뉴를 선택해 주세요!                                    ");
+            Console.WriteLine("                                1. Player1 vs Player2                                     ");
+            Console.WriteLine("                                2. Player vs Computer                                     ");
+            Console.WriteLine("                                3.    SocreBoard                                          ");
         }
     }
 }
