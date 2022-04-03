@@ -6,10 +6,8 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            Data data = new Data();
-            data.ShowMenu();
-            for (int i = 0; i < 3; i++)
-                data.PrintSqaure(i);
+            Game game = new Game();
+            game.Start();
         }
     }
 }
