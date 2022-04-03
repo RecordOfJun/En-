@@ -8,7 +8,7 @@ namespace TicTacToe
         {
             Data data = new Data();
             for (int i = 0; i < 3; i++)
-                data.Sqaure(i);
+                data.PrintSqaure(i);
         }
     }
 }
