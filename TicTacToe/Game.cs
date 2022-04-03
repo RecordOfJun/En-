@@ -20,7 +20,7 @@ namespace TicTacToe
             for (int i = 0; i < 10; i++)
             {
                 userInput = Console.ReadLine();
-                Console.WriteLine(utility.CheckException(userInput));
+                Console.WriteLine(utility.IsContainChar(userInput));
             }
             /*
             switch (userInput)
