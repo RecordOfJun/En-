@@ -25,7 +25,7 @@ namespace TicTacToe
                 Console.WriteLine("자연수를 입력해주세요!");
                 return exceptionReturn;
             }
-            else if (IsTooLong(userInput)==exceoptionOccur)
+            else if (IsTooLong(userInput) == exceoptionOccur)
             {
                 Console.WriteLine("숫자가 너무 큽니다!");
                 return exceptionReturn;
@@ -36,7 +36,11 @@ namespace TicTacToe
                 return exceptionReturn;
             }
             //실수 음수 int범위 외의 숫자 들어오면 어떻게 구분할거임?
-            return true;
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                return true;
+            }
         }
         private bool IsContainChar(string userInput)
         {
