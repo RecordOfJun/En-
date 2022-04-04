@@ -49,10 +49,11 @@ namespace TicTacToe
             Console.Clear();
             gameData.ShowLabel();
             gameData.ShowMenu();
-            for(int index= 0; index < 9; index++)//틱택토 리스트 초기화
+            for (int index= 0; index < 9; index++)//틱택토 문자열, 정수 리스트 초기화
             {
                 gameData.stateOfSquare[index] = (index + 1).ToString();
-                gameData.indexOfSquare = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+                gameData.indexOfSquare.Remove(index);
+                gameData.indexOfSquare.Add(index);
             }
         }
 
@@ -100,9 +101,9 @@ namespace TicTacToe
                 selectedNumber = SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
                 Console.WriteLine("----------------------------------------------------------------------------------------");
 
-                selectedNumber = CheckSelected(selectedNumber);
+                selectedNumber = CheckSelected(selectedNumber);//영역선택 예외처리
 
-                gameResult = ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);
+                gameResult = ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);//선택영역 관리,게임결과 관리
             }
             Console.Clear();
             ShowTicTacToe();
@@ -110,7 +111,7 @@ namespace TicTacToe
             AfterMethod();//게임이 끝난 후 메뉴로 돌아갈지 종료할지 물어본다.
         }
 
-        private void PlayWithComputer()
+        private void PlayWithComputer()//VS컴퓨터
         {
             int keepGoing = 3;//틱택토 진행판단 변수
             int gameCount = 0;//게임 진행 횟수 판단 변수
@@ -202,7 +203,7 @@ namespace TicTacToe
             }
         }
 
-        private int CheckSelected(int selectedNumber)
+        private int CheckSelected(int selectedNumber)//선택한 영역이 이미 선택되었는지 확인해주는 메소드
         {
             while (!(gameData.indexOfSquare.Exists(element=> element==selectedNumber-1)))//이미 선택된 영역에 대해 예외처리
             {
@@ -228,25 +229,31 @@ namespace TicTacToe
             return gameResult;
         }
         private void ShowResult(int gameResult, int firstCondition,int secondCondition,string firstName,string secondName)
-        {
+        {//게임 결과를 보여주는 메소드
             if (gameResult == firstCondition)
             {//게임 결과가 유저 순서와 일치할 때
                 Console.WriteLine(firstName+" 승리!");
-                gameData.userWin++;
+                if (firstName == "User")
+                    gameData.userWin++;
+                else
+                    gameData.firstPlayerWin++;
             }
             else if (gameResult == secondCondition)
             {// 게임 결과가 컴퓨터 순서와 일치할 때              
                 Console.WriteLine(secondName+" 승리!");
-                gameData.computerWin++;
+                if (secondName == "Computer")
+                    gameData.userWin++;
+                else
+                    gameData.secondPlayerWin++;
             }
             else//무승부일 때, 승리횟수 변화없음
                 Console.WriteLine("무승부 입니다!");
             Console.WriteLine("----------------------------------------------------------------------------------------");
         }
-        private int ComputerChoice(string computerString,string userString ,int squenceOfComputer)
+        private int ComputerChoice(string computerString,string userString ,int squenceOfComputer)//컴퓨터 영역선택 메소드
         {
             int userSequence = (squenceOfComputer + 1) % 2;
-            //case1 놓으면 게임 끝날 때
+            //우선순위1 놓으면 게임 끝날 때
             foreach (int index in gameData.indexOfSquare)
             {
                 gameData.stateOfSquare[index] = computerString;
@@ -257,7 +264,7 @@ namespace TicTacToe
                 }
                 gameData.stateOfSquare[index] = (index + 1).ToString();
             }
-            //case2 놓으면 상대방의 승리를 막을 때
+            //우선순위2 놓으면 상대방의 승리를 막을 때
             foreach (int index in gameData.indexOfSquare)
             {
                 gameData.stateOfSquare[index] = userString;
@@ -268,7 +275,7 @@ namespace TicTacToe
                 }
                 gameData.stateOfSquare[index] = (index + 1).ToString();
             }
-            //case3 2목 2줄을 만들 수 있을 때
+            //우선순위3 2목 2줄을 만들 수 있을 때
             foreach (int index in gameData.indexOfSquare)
             {
                 int row = index / 3;//행 검사를 위한 정수
@@ -295,7 +302,7 @@ namespace TicTacToe
                 if (rowExisted == true && columnExisted == true && otherExisted == false)          
                     return index;
             }
-            //case4 상대방의 2목 2줄을 막을 때
+            //우선순위4 상대방의 2목 2줄을 막을 때
             foreach (int index in gameData.indexOfSquare)
             {
                 int row = index / 3;//행 검사를 위한 정수
@@ -322,8 +329,8 @@ namespace TicTacToe
                 if (rowExisted == true && columnExisted == true && otherExisted == false)              
                     return index;
             }
-            //case5 모서리에 이미 돌이 있다면 반대편 모서리에 두기
-            for(int startIndex = 0; startIndex < 9; startIndex += 2)
+            //우선순위5 모서리에 이미 돌이 있다면 반대편 모서리에 두기
+            for (int startIndex = 0; startIndex < 9; startIndex += 2)
             {
                 if (startIndex == 4)
                 {
@@ -338,15 +345,16 @@ namespace TicTacToe
                     }
                 }
             }
-            //case6 중간에 두기
+            //우선순위6 중간에 두기
             if (gameData.stateOfSquare[4] == "5")
                 return 4;
-            //case7 구석에 두기
+            //우선순위7 모서리에 두기
             for (int startIndex = 0; startIndex < 9; startIndex += 2)
             {
                 if (gameData.stateOfSquare[startIndex] == (startIndex + 1).ToString())
                     return startIndex;
             }
+            //아무곳이나 두기
             return gameData.indexOfSquare[0];
         }
     }

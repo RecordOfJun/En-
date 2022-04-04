@@ -6,8 +6,8 @@ namespace TicTacToe
 {
     class Data//게임에 필요한 각종 데이터 및 출력물들을 관리하는 클래스
     {
-        public List<string> stateOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태에 따라 변화
-        public List<int> indexOfSquare  = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        public List<string> stateOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//영역 선택을 반영해 출력하기 위한 문자열 리스트
+        public List<int> indexOfSquare  = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };//각종 메소드 활용 용도 정수 리스트
         //게임 결과에 따른 승리 횟수
         public int userWin=0;
         public int computerWin = 0;
