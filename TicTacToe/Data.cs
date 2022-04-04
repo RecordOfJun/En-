@@ -6,7 +6,7 @@ namespace TicTacToe
 {
     class Data
     {
-        public List<string> indexOfSquare = new List<string> { "X", "2", "O", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태
+        public List<string> indexOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태
         public Data()
         {
         }
@@ -52,6 +52,7 @@ namespace TicTacToe
             Console.WriteLine("                                1. Player1 vs Player2                                   ");
             Console.WriteLine("                                2. Player vs Computer                                   ");
             Console.WriteLine("                                3.    SocreBoard                                        ");
+            Console.WriteLine("                                4.   프로그램 종료                                       ");
             Console.WriteLine("----------------------------------------------------------------------------------------");
             Console.Write("메뉴번호입력&엔터=>");
         }

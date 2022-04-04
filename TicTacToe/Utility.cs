@@ -69,5 +69,40 @@ namespace TicTacToe
             else
                 return false;
         }
+        public int CheckResult(List<string> indexOfSquare)
+        {
+            int leftComponent = -1;
+            int rightComponent = 1;
+            int upComponent = -3;
+            int downComponent = 3;
+            int result=3;
+            for(int secondColumnIndex=1; secondColumnIndex <= 7; secondColumnIndex += 3)
+            {
+                if(indexOfSquare[secondColumnIndex]== indexOfSquare[secondColumnIndex+leftComponent] && indexOfSquare[secondColumnIndex] == indexOfSquare[secondColumnIndex + rightComponent])
+                {
+                    result = CheckOX(indexOfSquare[secondColumnIndex]);
+                }
+            }
+            for (int secondRowIndex =3 ; secondRowIndex <=5; secondRowIndex ++)
+            {
+                if (indexOfSquare[secondRowIndex] == indexOfSquare[secondRowIndex + upComponent] && indexOfSquare[secondRowIndex] == indexOfSquare[secondRowIndex + downComponent])
+                {
+                    result = CheckOX(indexOfSquare[secondRowIndex]);
+                }
+            }
+            if ((indexOfSquare[4] == indexOfSquare[0] && indexOfSquare[4] == indexOfSquare[8]) || (indexOfSquare[4] == indexOfSquare[2] && indexOfSquare[4] == indexOfSquare[6]))
+                result = CheckOX(indexOfSquare[4]);
+            return result;
+        }
+        private int CheckOX(string square)
+        {
+            int firstWin = 1;
+            int secondWin = 2;
+            if (square == "O")
+                return firstWin;
+            else
+                return secondWin;
+
+        }
     }
 }
