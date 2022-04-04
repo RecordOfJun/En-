@@ -23,7 +23,7 @@ namespace TicTacToe
             gameData.ShowMenu();
             while (isStart)
             {
-                seletedNumber = SelectNumber(1, 4);//메뉴 선택
+                seletedNumber = gameUtility.SelectNumber(1, 4);//메뉴 선택
                 switch (seletedNumber)
                 {
                     case 1://1번 선택 시 Player간 대결
@@ -58,20 +58,6 @@ namespace TicTacToe
         }
 
 
-        private int SelectNumber(int startNumber, int endNumber)// 정해진 숫자 범위를 인자로 받는 사용자 입력받기 메소드
-        {
-            string userInput;
-            bool isException = false;//예외발생 판단 변수
-            userInput = Console.ReadLine();
-            while (gameUtility.IsParseException(userInput, startNumber, endNumber) == isException)//예외 발생하는 동안 계속해서 새로 입력 받기
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("----------------------------------------------------------------------------------------");
-                Console.Write("다시 입력해 주세요!:");
-                userInput = Console.ReadLine();
-            }
-            return int.Parse(userInput);//예외가 없을 경우 사용자가 입력한 숫자를 리턴
-        }
 
 
         private void PlayWithUser()//플레이어간 틱택토 대결 메소드
@@ -98,10 +84,10 @@ namespace TicTacToe
                     Console.Write("Player2  차례입니다! 1~9 중에서 하나를 선택해 주세요:");
                     inputToSquare = "O";//리스트에 O를 넣어준다
                 }
-                selectedNumber = SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
+                selectedNumber = gameUtility.SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
                 Console.WriteLine("----------------------------------------------------------------------------------------");
 
-                selectedNumber = CheckSelected(selectedNumber);//영역선택 예외처리
+                selectedNumber = CheckSelected(selectedNumber, gameData.indexOfSquare);//영역선택 예외처리
 
                 gameResult = ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);//선택영역 관리,게임결과 관리
             }
@@ -126,7 +112,7 @@ namespace TicTacToe
 
 
             //첫번째를 시작하면 1저장,두번째를 선택하면 0 저장
-            userSequence = SelectNumber(1, 2) % 2;//사용자의 순서 저장
+            userSequence = gameUtility.SelectNumber(1, 2) % 2;//사용자의 순서 저장
             computerSequence = (userSequence + 1) % 2;//컴퓨터의 순서 저장
 
 
@@ -139,9 +125,9 @@ namespace TicTacToe
                 {
                     Console.Write("당신의  차례입니다! 1~9 중에서 하나를 선택해 주세요:");
                     inputToSquare = strSequence[userSequence];//유저 선택 시 틱택토에 표기할 문자 설정
-                    selectedNumber = SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
+                    selectedNumber = gameUtility.SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
                     Console.WriteLine("----------------------------------------------------------------------------------------");
-                    selectedNumber = CheckSelected(selectedNumber);//이미 선택되었는지 확인
+                    selectedNumber = CheckSelected(selectedNumber, gameData.indexOfSquare);//이미 선택되었는지 확인
                 }
                 else//computer차례
                 {
@@ -169,7 +155,7 @@ namespace TicTacToe
         private void AfterMethod()//게임을 하거나 스코어보드를 출력하고 나서 마지막에 진행여부를 물어보는 메소드
         {
             Console.Write("게임을 종료하고 싶으면 1, 메뉴로 돌아가고 싶으면 2를 입력해 주세요:");
-            if (SelectNumber(1, 2) == 1)
+            if (gameUtility.SelectNumber(1, 2) == 1)
             {
                 Console.WriteLine("----------------------------------------------------------------------------------------");
                 ConfirmExit();//종료할지 한번 더 확인
@@ -182,7 +168,7 @@ namespace TicTacToe
         {
             int selectedNumber;
             Console.Write("정말 종료하시겠습니까?  맞으면 1, 아니면 2를 입력해 주세요: ");
-            selectedNumber = SelectNumber(1, 2);//1과2중 하나를 입력받는다.
+            selectedNumber = gameUtility.SelectNumber(1, 2);//1과2중 하나를 입력받는다.
             Console.WriteLine("----------------------------------------------------------------------------------------");
             if (selectedNumber == 1)//프로그램 종료
             {
@@ -203,14 +189,14 @@ namespace TicTacToe
             }
         }
 
-        private int CheckSelected(int selectedNumber)//선택한 영역이 이미 선택되었는지 확인해주는 메소드
+        public int CheckSelected(int selectedNumber,List<int> indexOfSquare)//선택한 영역이 이미 선택되었는지 확인해주는 메소드
         {
-            while (!(gameData.indexOfSquare.Exists(element=> element==selectedNumber-1)))//이미 선택된 영역에 대해 예외처리
+            while (!(indexOfSquare.Exists(element=> element==selectedNumber-1)))//이미 선택된 영역에 대해 예외처리
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("이미 선택된 영역입니다! 다시 선택해 주세요!:");
                 Console.ForegroundColor = ConsoleColor.White;
-                selectedNumber = SelectNumber(1, 9);//선택되지 않았을때까지 계속 선택
+                selectedNumber = gameUtility.SelectNumber(1, 9);//선택되지 않았을때까지 계속 선택
                 Console.WriteLine("----------------------------------------------------------------------------------------");
             }
             return selectedNumber;
@@ -242,7 +228,7 @@ namespace TicTacToe
             {// 게임 결과가 컴퓨터 순서와 일치할 때              
                 Console.WriteLine(secondName+" 승리!");
                 if (secondName == "Computer")
-                    gameData.userWin++;
+                    gameData.computerWin++;
                 else
                     gameData.secondPlayerWin++;
             }

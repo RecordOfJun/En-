@@ -10,6 +10,20 @@ namespace TicTacToe
         {
 
         }
+        public int SelectNumber(int startNumber, int endNumber)// 정해진 숫자 범위를 인자로 받는 사용자 입력받기 메소드
+        {
+            string userInput;
+            bool isException = false;//예외발생 판단 변수
+            userInput = Console.ReadLine();
+            while (IsParseException(userInput, startNumber, endNumber) == isException)//예외 발생하는 동안 계속해서 새로 입력 받기
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+                Console.Write("다시 입력해 주세요!:");
+                userInput = Console.ReadLine();
+            }
+            return int.Parse(userInput);//예외가 없을 경우 사용자가 입력한 숫자를 리턴
+        }
         public bool IsParseException(string userInput,int startNumber,int endNumber)//int.Parse 예외처리를 위한 메소드
         {
             bool exceoptionOccur = true;//예외 감지를 위한 bool
@@ -110,6 +124,18 @@ namespace TicTacToe
             else
                 return secondWin;
 
+        }
+        public int CheckSelected(int selectedNumber, List<int> indexOfSquare)//선택한 영역이 이미 선택되었는지 확인해주는 메소드
+        {
+            while (!(indexOfSquare.Exists(element => element == selectedNumber - 1)))//이미 선택된 영역에 대해 예외처리
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("이미 선택된 영역입니다! 다시 선택해 주세요!:");
+                Console.ForegroundColor = ConsoleColor.White;
+                selectedNumber = SelectNumber(1, 9);//선택되지 않았을때까지 계속 선택
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+            }
+            return selectedNumber;
         }
     }
 }
