@@ -7,6 +7,10 @@ namespace TicTacToe
     class Data
     {
         public List<string> indexOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태
+        public int userWin=0;
+        public int computerWin = 0;
+        public int firstPlayerWin = 0;
+        public int secondPlayerWin = 0;
         public Data()
         {
         }
@@ -39,7 +43,7 @@ namespace TicTacToe
             Console.Write(squareLocation);
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void ShowMenu()
+        public void ShowLabel()
         {
             Console.WriteLine(" #########  #     ###     #########      #        ###    #########     ##      ######## ");
             Console.WriteLine("     #      #    #            #         # #      #           #        #  #     #        ");
@@ -48,13 +52,28 @@ namespace TicTacToe
             Console.WriteLine("     #      #     ###         #      #       #    ###        #         ##      ######## ");
             Console.WriteLine("                                                                                        ");
             Console.WriteLine("                                                                                        ");
+
+        }
+        public void ShowMenu()
+        {
             Console.WriteLine("                                 메뉴를 선택해 주세요!                                  ");
             Console.WriteLine("                                1. Player1 vs Player2                                   ");
-            Console.WriteLine("                                2. Player vs Computer                                   ");
+            Console.WriteLine("                                2.   User vs Computer                                   ");
             Console.WriteLine("                                3.    SocreBoard                                        ");
             Console.WriteLine("                                4.   프로그램 종료                                       ");
             Console.WriteLine("----------------------------------------------------------------------------------------");
             Console.Write("메뉴번호입력&엔터=>");
+        }
+        public void ScoreBoard()
+        {
+            Console.WriteLine("                                     SCORE BOARD                                  ");
+            Console.WriteLine("                            {0}  Player1 vs Player2  {1}                                   ",firstPlayerWin,secondPlayerWin);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                            {0}    User  vs Computer {1}                                   ", userWin, computerWin);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------------------------------------------------------------------");
         }
     }
 }
