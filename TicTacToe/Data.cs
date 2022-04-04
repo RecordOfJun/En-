@@ -4,9 +4,11 @@ using System.Text;
 
 namespace TicTacToe
 {
-    class Data
+    class Data//게임에 필요한 각종 데이터 및 출력물들을 관리하는 클래스
     {
-        public List<string> indexOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태
+        public List<string> stateOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//틱택토 인덱스 번호,플레이어 선택 상태에 따라 변화
+        public List<int> indexOfSquare  = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        //게임 결과에 따른 승리 횟수
         public int userWin=0;
         public int computerWin = 0;
         public int firstPlayerWin = 0;
@@ -14,9 +16,9 @@ namespace TicTacToe
         public Data()
         {
         }
-        public void PrintSqaure(int numberOfLine)//틱택토 3x1 한줄 출력 메소드
+        public void PrintSqaure(int numberOfLine)//틱택토 1x3 한줄 출력 메소드, 3x3 matrix에서 행의 seauence를 인자로 받는다.
         {
-            int leftSquareNum = numberOfLine*3;
+            int leftSquareNum = numberOfLine*3;//해당 행의 사각형들에 리스트 인덱스 부착
             int middleSquareNum = numberOfLine * 3 + 1;
             int rightSquareNum = numberOfLine * 3 + 2;
             if (numberOfLine==0)
@@ -24,26 +26,26 @@ namespace TicTacToe
             Console.WriteLine("#             #             #             #");
             Console.WriteLine("#             #             #             #");
             Console.Write("#      ");
-            CheckSelected(indexOfSquare[leftSquareNum]);
+            CheckSelected(stateOfSquare[leftSquareNum]);//선택 여부에 따라 색깔 표기
             Console.Write("      #      "); 
-            CheckSelected(indexOfSquare[middleSquareNum]);
+            CheckSelected(stateOfSquare[middleSquareNum]);
             Console.Write("      #      ");
-            CheckSelected(indexOfSquare[rightSquareNum]);
+            CheckSelected(stateOfSquare[rightSquareNum]);
             Console.WriteLine("      #");
             Console.WriteLine("#             #             #             #");
             Console.WriteLine("#             #             #             #");
             Console.WriteLine("###########################################");
         }
-        private void CheckSelected(string squareLocation )
+        private void CheckSelected(string squareLocation )//영역별 선택 여부에 따라 색깔을 다르게 표현해주는 메소드
         {
-            if (squareLocation == "O")
+            if (squareLocation == "O")//첫번째 순서가 선택한 영역을 빨간색으로 출력
                 Console.ForegroundColor = ConsoleColor.Red;
-            else if (squareLocation == "X")
+            else if (squareLocation == "X")//두번째 순서가 선택한 영역을 파란색으로 출력
                 Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write(squareLocation);
+            Console.Write(squareLocation);//나머지는 흰색
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void ShowLabel()
+        public void ShowLabel()//틱택토 레이블 출력물
         {
             Console.WriteLine(" #########  #     ###     #########      #        ###    #########     ##      ######## ");
             Console.WriteLine("     #      #    #            #         # #      #           #        #  #     #        ");
@@ -54,7 +56,7 @@ namespace TicTacToe
             Console.WriteLine("                                                                                        ");
 
         }
-        public void ShowMenu()
+        public void ShowMenu()//틱택토 메뉴 선택 출력물
         {
             Console.WriteLine("                                 메뉴를 선택해 주세요!                                  ");
             Console.WriteLine("                                1. Player1 vs Player2                                   ");
@@ -64,7 +66,7 @@ namespace TicTacToe
             Console.WriteLine("----------------------------------------------------------------------------------------");
             Console.Write("메뉴번호입력&엔터=>");
         }
-        public void ScoreBoard()
+        public void ScoreBoard()//스코어보드 출력물
         {
             Console.WriteLine("                                     SCORE BOARD                                  ");
             Console.WriteLine("");

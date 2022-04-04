@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe
 {
-    class Utility
+    class Utility//게임 진행과 사용자 입력에 대한 여러가지 상황을 처리해주는 클래스
     {
         public Utility()
         {
@@ -97,8 +97,8 @@ namespace TicTacToe
         private int CheckOX(string square)
         {
             int firstWin = 1;
-            int secondWin = 2;
-            if (square == "O")
+            int secondWin = 0;
+            if (square == "X")
                 return firstWin;
             else
                 return secondWin;
