@@ -13,27 +13,37 @@ namespace TicTacToe
         }
         public void Start()
         {
-            string userInput;
             int seletedNumber;
             int vsPlayer=1;
             gameData.ShowMenu();
-            for (int i = 0; i < 10; i++)
+            seletedNumber = SelectNumber(1,3);
+            
+            switch (seletedNumber)
             {
-                userInput = Console.ReadLine();
-                Console.WriteLine(utility.IsContainChar(userInput));
-            }
-            /*
-            switch (userInput)
-            {
-                case "1":
+                case 1:
+                    Console.Clear();
                     PlayWithUser();
                     break;
-                case "2":
+                case 2:
                     break;
-                case "3":
+                case 3:
                     return;
             }
-            */
+            
+        }
+        private int SelectNumber(int startNumber,int endNumber)
+        {
+            string userInput;
+            bool isException = false;
+            userInput = Console.ReadLine();
+            while (utility.IsParseException(userInput, startNumber, endNumber) == isException)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+                Console.Write("메뉴번호 입력&엔터=>");
+                userInput = Console.ReadLine();
+            }
+            return int.Parse(userInput);
         }
         private void PlayWithUser()
         {

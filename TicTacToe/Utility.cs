@@ -10,23 +10,35 @@ namespace TicTacToe
         {
 
         }
-        public bool IsOccurException(string userInput)
+        public bool IsParseException(string userInput,int startNumber,int endNumber)//
         {
-            bool exceptionOccur = false;
-            if (IsEmpty(userInput) == true)
+            bool exceoptionOccur = true;
+            bool exceptionReturn = false;
+            Console.ForegroundColor = ConsoleColor.Red;
+            if (IsEmpty(userInput) == exceoptionOccur)
             {
                 Console.WriteLine("공백을 입력했습니다!");
-                return exceptionOccur;
+                return exceptionReturn;
             }
-            else if (IsContainChar(userInput) == true)
+            else if (IsContainChar(userInput) == exceoptionOccur)
             {
-                Console.WriteLine("숫자를 입력해주세요!");
-                return exceptionOccur;
+                Console.WriteLine("자연수를 입력해주세요!");
+                return exceptionReturn;
+            }
+            else if (IsTooLong(userInput)==exceoptionOccur)
+            {
+                Console.WriteLine("숫자가 너무 큽니다!");
+                return exceptionReturn;
+            }
+            else if (int.Parse(userInput) < startNumber || int.Parse(userInput) > endNumber)
+            {
+                Console.WriteLine(startNumber + "~" + endNumber + "에서 숫자를 선택해 주세요!");
+                return exceptionReturn;
             }
             //실수 음수 int범위 외의 숫자 들어오면 어떻게 구분할거임?
-            else return true;
+            return true;
         }
-        public bool IsContainChar(string userInput)
+        private bool IsContainChar(string userInput)
         {
             string needToCheck = userInput;
             string[] numberToRemove = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
@@ -38,6 +50,13 @@ namespace TicTacToe
                 return false;
             else
                 return true;
+        }
+        private bool IsTooLong(string userInput)
+        {
+            int integerBoundary = 9;
+            if (userInput.Length >= integerBoundary)
+                return true;
+            else return false;
         }
         private bool IsEmpty(string userInput)
         {
