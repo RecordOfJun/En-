@@ -78,6 +78,7 @@ namespace TicTacToe
             int keepGoing = 3;//틱택토 진행판단 변수
             int gameCount = 0;//게임 진행 횟수 판단 변수
             int firstPlayer = 1;
+            int secondPlayer = 0;
             int selectedNumber;
             string inputToSquare;//틱택토 리스트에 넣을 문자를 설정할 변수
             int gameResult = gameUtility.CheckResult(gameData.stateOfSquare);//게임의 결과를 판단할 변수
@@ -101,28 +102,11 @@ namespace TicTacToe
 
                 selectedNumber = CheckSelected(selectedNumber);
 
-                gameData.indexOfSquare.Remove(selectedNumber - 1);
-                gameData.stateOfSquare[selectedNumber - 1] = inputToSquare;//리스트의 인덱스와 틱택토 출력 인덱스가 1씩 차이나므로 입력 숫자에 -1하여 문자 대입
-                gameResult = gameUtility.CheckResult(gameData.stateOfSquare);
-                if (gameCount >= 9 && gameResult == keepGoing)//게임 횟수가 9번째인데 계속 진행하려 한다면 무승부로 판별
-                {
-                    gameResult = 2;
-                }
+                gameResult = ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);
             }
             Console.Clear();
             ShowTicTacToe();
-            if (gameResult == 1) {//게임 결과가 1일 때 플레이어1의 승리, 승리횟수 +1
-                Console.WriteLine("Player1 승리!");
-                gameData.firstPlayerWin++;
-            }
-            else if (gameResult == 0)//게임 결과가 0일 때 플레이어2의 승리, 승리횟수 +1
-            {
-                Console.WriteLine("Player2 승리!");
-                gameData.secondPlayerWin++;
-            }
-            else//무승부일 때, 승리횟수 변화없음
-                Console.WriteLine("무승부 입니다!");
-            Console.WriteLine("----------------------------------------------------------------------------------------");
+            ShowResult(gameResult, firstPlayer, secondPlayer, "Player1", "Player2");
             AfterMethod();//게임이 끝난 후 메뉴로 돌아갈지 종료할지 물어본다.
         }
 
@@ -164,32 +148,12 @@ namespace TicTacToe
                     selectedNumber = ComputerChoice(inputToSquare, strSequence[userSequence], computerSequence)+1;//컴퓨터의 영역 선택 메소드
                 }
 
-                gameData.indexOfSquare.Remove(selectedNumber - 1);//컴퓨터 영역 선택 메소드 활용을 위한 정수형 인덱스 리스트에서 원소값 제거
-
-                gameData.stateOfSquare[selectedNumber - 1] = inputToSquare;//문자열 리스트의 인덱스와 틱택토 출력 인덱스가 1씩 차이나므로 입력 숫자에 -1하여 문자 대입
-                
-                gameResult = gameUtility.CheckResult(gameData.stateOfSquare);//게임의 결과 판단. 0이면 두번째 순서 승리,1이면 첫번째 순서 승리,계속 진행한다면 3 
-                if (gameCount >= 9 && gameResult == keepGoing)//게임 횟수가 9번째인데 계속 진행하려 한다면 무승부로 판별
-                {
-                    gameResult = 2;//무승부일때 2로 설정
-                }
+                gameResult=ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);
             }
             Console.Clear();
             ShowTicTacToe();
 
-            if (gameResult == userSequence)
-            {//게임 결과가 유저 순서와 일치할 때
-                Console.WriteLine("User 승리!");
-                gameData.userWin++;
-            }
-            else if (gameResult == computerSequence)
-            {// 게임 결과가 컴퓨터 순서와 일치할 때              
-                Console.WriteLine("Computer 승리!");
-                gameData.computerWin++;
-            }
-            else//무승부일 때, 승리횟수 변화없음
-                Console.WriteLine("무승부 입니다!");
-            Console.WriteLine("----------------------------------------------------------------------------------------");
+            ShowResult(gameResult, userSequence, computerSequence, "User", "Computer");
             AfterMethod();//게임이 끝난 후 메뉴로 돌아갈지 종료할지 물어본다.
         }
         private void ShowScore()//스코어보드를 보여주는 함수
@@ -250,7 +214,35 @@ namespace TicTacToe
             }
             return selectedNumber;
         }
+        private int ManageListAndResult(int selectedNumber,string inputToSquare,int gameCount,int keepGoing)
+        {
+            gameData.indexOfSquare.Remove(selectedNumber - 1);//영역 선택 시 별도의 정수형 리스트에서 선택한 원소 삭제=>영역 탐색 편의를 위해
 
+            gameData.stateOfSquare[selectedNumber - 1] = inputToSquare;//문자열 리스트의 인덱스와 틱택토 출력 인덱스가 1씩 차이나므로 입력 숫자에 -1하여 문자 대입
+
+            int gameResult = gameUtility.CheckResult(gameData.stateOfSquare);//게임의 결과 판단. 0이면 두번째 순서 승리,1이면 첫번째 순서 승리,계속 진행한다면 3 
+            if (gameCount >= 9 && gameResult == keepGoing)//게임 횟수가 9번째인데 계속 진행하려 한다면 무승부로 판별
+            {
+                gameResult = 2;//무승부일때 2로 설정
+            }
+            return gameResult;
+        }
+        private void ShowResult(int gameResult, int firstCondition,int secondCondition,string firstName,string secondName)
+        {
+            if (gameResult == firstCondition)
+            {//게임 결과가 유저 순서와 일치할 때
+                Console.WriteLine(firstName+" 승리!");
+                gameData.userWin++;
+            }
+            else if (gameResult == secondCondition)
+            {// 게임 결과가 컴퓨터 순서와 일치할 때              
+                Console.WriteLine(secondName+" 승리!");
+                gameData.computerWin++;
+            }
+            else//무승부일 때, 승리횟수 변화없음
+                Console.WriteLine("무승부 입니다!");
+            Console.WriteLine("----------------------------------------------------------------------------------------");
+        }
         private int ComputerChoice(string computerString,string userString ,int squenceOfComputer)
         {
             int userSequence = (squenceOfComputer + 1) % 2;
