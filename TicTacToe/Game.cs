@@ -102,15 +102,18 @@ namespace TicTacToe
             }
             Console.Clear();
             ShowTicTacToe();
-            if(gameResult==firstPlayer||gameResult==firstPlayer+1)
-                Console.WriteLine("Player" + gameResult + " 승리!");
-            else
-                Console.WriteLine("무승부 입니다!");
-            Console.WriteLine("----------------------------------------------------------------------------------------");
-            if (gameResult == 1)
+            if (gameResult == 1) {
+                Console.WriteLine("Player1 승리!");
                 gameData.firstPlayerWin++;
-            else
+            }
+            else if (gameResult == 2)
+            {
+                Console.WriteLine("Player2 승리!");
                 gameData.secondPlayerWin++;
+            }
+            else
+                        Console.WriteLine("무승부 입니다!");
+            Console.WriteLine("----------------------------------------------------------------------------------------");
             AfterMethod();
         }
         private void ShowScore()
