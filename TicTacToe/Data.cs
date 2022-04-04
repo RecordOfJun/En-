@@ -67,10 +67,12 @@ namespace TicTacToe
         public void ScoreBoard()
         {
             Console.WriteLine("                                     SCORE BOARD                                  ");
-            Console.WriteLine("                            {0}  Player1 vs Player2  {1}                                   ",firstPlayerWin,secondPlayerWin);
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("                            {0}    User  vs Computer {1}                                   ", userWin, computerWin);
+            Console.WriteLine("                              {0}  Player1 vs Player2  {1}                                   ",firstPlayerWin,secondPlayerWin);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                              {0}   User   vs Computer {1}                                   ", userWin, computerWin);
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("----------------------------------------------------------------------------------------");

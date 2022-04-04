@@ -31,7 +31,7 @@ namespace TicTacToe
                         ShowScore();
                         break;
                     case 4:
-                        ConfirmExit(-1);
+                        ConfirmExit();
                         break;
                 }
                 Reset();
@@ -86,44 +86,65 @@ namespace TicTacToe
                     inputToSquare = "X";
                 }
                 selectedNumber = SelectNumber(1, 9);
-                while(gameData.indexOfSquare[selectedNumber-1]=="O"|| gameData.indexOfSquare[selectedNumber - 1] == "X")
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+                while (gameData.indexOfSquare[selectedNumber-1]=="O"|| gameData.indexOfSquare[selectedNumber - 1] == "X")
                 {
                     Console.Write("이미 선택된 영역입니다! 다시 선택해 주세요!:");
                     selectedNumber = SelectNumber(1, 9);
+                    Console.WriteLine("----------------------------------------------------------------------------------------");
                 }
                 gameData.indexOfSquare[selectedNumber - 1] = inputToSquare;
                 gameResult = utility.CheckResult(gameData.indexOfSquare);
+                if (gameCount >= 9 && gameResult == keepGoing)
+                {
+                    gameResult = 0;
+                }
             }
             Console.Clear();
             ShowTicTacToe();
-            Console.WriteLine("Player" + gameResult + " 승리!");
+            if(gameResult==firstPlayer||gameResult==firstPlayer+1)
+                Console.WriteLine("Player" + gameResult + " 승리!");
+            else
+                Console.WriteLine("무승부 입니다!");
             Console.WriteLine("----------------------------------------------------------------------------------------");
             if (gameResult == 1)
                 gameData.firstPlayerWin++;
             else
                 gameData.secondPlayerWin++;
-            ConfirmExit(1);
+            AfterMethod();
         }
         private void ShowScore()
         {
+            Console.Clear();
             gameData.ShowLabel();
             gameData.ScoreBoard();
-            ConfirmExit(1);
+            AfterMethod();
         }
-        private void ConfirmExit(int type)
+        private void ConfirmExit()
         {
             int selectedNumber;
             int afterMethod = 1;
             int selectFourth = -1;
-            if (type == afterMethod)
-                Console.Write("계속 하려면 1, 종료하려면 2를 입력해 주세요:");
-            else
-                Console.WriteLine("정말 종료하시겠습니까? 메뉴로 돌아가려면 1, 종료하려면 2를 입력해 주세요:");
+            Console.Write("정말 종료하시겠습니까?  맞으면 1, 아니면 2를 입력해 주세요: ");
             selectedNumber = SelectNumber(1, 2);
-            if (selectedNumber == 2)
-                return;
+            Console.WriteLine("----------------------------------------------------------------------------------------");
+            if (selectedNumber == 1)
+            {
+                Console.WriteLine("프로그램을 종료합니다.");
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+                Environment.Exit(0);
+            }
         }
-
+        private void AfterMethod()
+        {
+            Console.Write("게임을 종료하고 싶으면 1, 메뉴로 돌아가고 싶으면 2를 입력해 주세요:");
+            if (SelectNumber(1, 2) == 1)
+            {
+                Console.WriteLine("----------------------------------------------------------------------------------------");
+                ConfirmExit();
+            }
+                   
+        }
         private void ShowTicTacToe()
         {
             int numberOfLine;
