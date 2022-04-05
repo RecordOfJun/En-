@@ -21,6 +21,8 @@ namespace TicTacToe
                 Console.WriteLine("----------------------------------------------------------------------------------------");
                 Console.Write("다시 입력해 주세요!:");
                 userInput = Console.ReadLine();
+                //라인 세개 매직넘버
+                ClearConsoleLine(3);
             }
             return int.Parse(userInput);//예외가 없을 경우 사용자가 입력한 숫자를 리턴
         }
@@ -134,8 +136,18 @@ namespace TicTacToe
                 Console.ForegroundColor = ConsoleColor.White;
                 selectedNumber = SelectNumber(1, 9);//선택되지 않았을때까지 계속 선택
                 Console.WriteLine("----------------------------------------------------------------------------------------");
+                
+                ClearConsoleLine(2);
             }
             return selectedNumber;
+        }
+        private void ClearConsoleLine(int numberOfLine)
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - numberOfLine);
+            int currentLineCursor = Console.CursorTop;
+            for(int line=0;line<numberOfLine;line++)
+                Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
         }
     }
 }

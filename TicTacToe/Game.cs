@@ -87,7 +87,7 @@ namespace TicTacToe
                 selectedNumber = gameUtility.SelectNumber(1, 9);//선택할 틱택토 영역을 입력받기
                 Console.WriteLine("----------------------------------------------------------------------------------------");
 
-                selectedNumber = CheckSelected(selectedNumber, gameData.indexOfSquare);//영역선택 예외처리
+                selectedNumber = gameUtility.CheckSelected(selectedNumber, gameData.indexOfSquare);//영역선택 예외처리
 
                 gameResult = ManageListAndResult(selectedNumber, inputToSquare, gameCount, keepGoing);//선택영역 관리,게임결과 관리
             }
@@ -187,6 +187,8 @@ namespace TicTacToe
             {
                 gameData.PrintSqaure(numberOfLine);
             }
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------------------------------------------------------------------");
         }
 
         public int CheckSelected(int selectedNumber,List<int> indexOfSquare)//선택한 영역이 이미 선택되었는지 확인해주는 메소드
@@ -218,7 +220,7 @@ namespace TicTacToe
         {//게임 결과를 보여주는 메소드
             if (gameResult == firstCondition)
             {//게임 결과가 유저 순서와 일치할 때
-                Console.WriteLine(firstName+" 승리!");
+                Console.WriteLine(firstName + " 승리!");
                 if (firstName == "User")
                     gameData.userWin++;
                 else
@@ -226,14 +228,20 @@ namespace TicTacToe
             }
             else if (gameResult == secondCondition)
             {// 게임 결과가 컴퓨터 순서와 일치할 때              
-                Console.WriteLine(secondName+" 승리!");
+                Console.WriteLine(secondName + " 승리!");
                 if (secondName == "Computer")
                     gameData.computerWin++;
                 else
                     gameData.secondPlayerWin++;
             }
-            else//무승부일 때, 승리횟수 변화없음
+            else
+            {//무승부일 때, 승리횟수 변화없음
                 Console.WriteLine("무승부 입니다!");
+                if (firstName == "User")
+                    gameData.drawVersusComputer++;
+                else
+                    gameData.drawVersusPlayer++;
+            }
             Console.WriteLine("----------------------------------------------------------------------------------------");
         }
         private int ComputerChoice(string computerString,string userString ,int squenceOfComputer)//컴퓨터 영역선택 메소드
@@ -318,14 +326,10 @@ namespace TicTacToe
             //우선순위5 모서리에 이미 돌이 있다면 반대편 모서리에 두기
             for (int startIndex = 0; startIndex < 9; startIndex += 2)
             {
-                if (startIndex == 4)
-                {
-
-                }
-                else
+                if (startIndex != 4)
                 {
                     int oppositIndex = 8 - startIndex;//반대편 모서리 인덱스
-                    if(gameData.stateOfSquare[startIndex]==(startIndex+1).ToString()&&gameData.stateOfSquare[oppositIndex]== computerString)
+                    if (gameData.stateOfSquare[startIndex] == (startIndex + 1).ToString() && gameData.stateOfSquare[oppositIndex] == computerString)
                     {
                         return startIndex;
                     }
