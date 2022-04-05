@@ -19,5 +19,6 @@ namespace TicTacToe
         public const int FIRSTPLAYER = 1;
         public const int SECONDPLAYER = 0;
         public const int KEEPGOING = 3;
+        public const int GOBACK = 10;
     }
 }

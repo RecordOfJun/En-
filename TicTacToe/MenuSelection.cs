@@ -6,7 +6,7 @@ namespace TicTacToe
 {
     class MenuSelection//게임 시작 및 게임 내 여러 기능을 관리하는 클래스
     {
-        public Data gameData = new Data();
+        public View gameData = new View();
         public Utility gameUtility = new Utility();
 
 
@@ -28,23 +28,26 @@ namespace TicTacToe
                 {
                     case 1://1번 선택 시 Player간 대결
                         PlayingWithUser firstMenu=new PlayingWithUser();
-                        firstMenu.init(gameData, gameUtility);
+                        firstMenu.Init(gameData, gameUtility);
                         firstMenu.PlayGame();
                         break;
                     case 2:
                         Console.Clear();
                         PlayingWithComputer secondMenu=new PlayingWithComputer();//2번 선택 시 컴퓨터와 대결
-                        secondMenu.init(gameData, gameUtility);
+                        secondMenu.Init(gameData, gameUtility);
                         secondMenu.PlayGame();
                         break;
                     case 3://3번 선택 시 스코어보드 출력
                         ShowScore();
                         break;
-                    case 4://4번 선택 시 종료한번 더 물어보기
+                    case 4:
+                        gameData.ShowRule();
+                        break;
+                    case 5://4번 선택 시 종료한번 더 물어보기
                         ConfirmExit();
                         break;
                 }
-                if(seletedNumber!=4)
+                if(seletedNumber!=5)
                     AfterMethod();//게임이 끝난 후 메뉴로 돌아갈지 종료할지 물어본다.
                 Reset();
             }

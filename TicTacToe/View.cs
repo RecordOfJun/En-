@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TicTacToe
 {
-    class Data//게임에 필요한 각종 데이터 및 출력물들을 관리하는 클래스
+    class View//게임에 필요한 각종 데이터 및 출력물들을 관리하는 클래스
     {
         //게임 결과에 따른 승리 횟수
         public int userWin;
@@ -13,7 +13,7 @@ namespace TicTacToe
         public int secondPlayerWin;
         public int drawVersusPlayer;
         public int drawVersusComputer;
-        public Data()
+        public View()
         {
             userWin = 0;
             computerWin = 0;
@@ -69,7 +69,8 @@ namespace TicTacToe
             Console.WriteLine("                                1. Player1 vs Player2                                   ");
             Console.WriteLine("                                2.   User vs Computer                                   ");
             Console.WriteLine("                                3.    SocreBoard                                        ");
-            Console.WriteLine("                                4.   프로그램 종료                                       ");
+            Console.WriteLine("                                4.   게임 룰 설명                                       ");
+            Console.WriteLine("                                5.   프로그램 종료                                       ");
             Console.WriteLine("----------------------------------------------------------------------------------------");
             Console.Write("메뉴 번호 중 하나를 골라 입력해 주세요!:");
         }
@@ -84,6 +85,23 @@ namespace TicTacToe
             Console.WriteLine("                             {0}    User   vs Computer {1}                                    ", userWin, computerWin);
             Console.WriteLine("                                     무승부 수:{0}",drawVersusComputer);
             Console.WriteLine("");
+            Console.WriteLine("----------------------------------------------------------------------------------------");
+        }
+        public void ShowRule()
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("1.첫 번째 순서인 플레이어는 X를, 두 번째 순서인 플레이어는 O를 본인의 말로 할당받습니다.");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("        2.두 플레이어가 순서를 번갈아가며 3x3 영역 안에 본인의 말을 추가합니다.");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                   3.이미 말이 놓여진 자리에는 말을 놓을 수 없습니다.");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("    4.가로,세로,대각선 중 한 줄로 자신의 말 세 개를 먼저 놓는 플레이어가 승리합니다.");
             Console.WriteLine("----------------------------------------------------------------------------------------");
         }
     }

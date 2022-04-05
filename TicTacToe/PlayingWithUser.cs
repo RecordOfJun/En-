@@ -46,9 +46,11 @@ namespace TicTacToe
                     Console.Write("Player2  차례입니다! 1~9 중에서 하나를 선택해 주세요:");
                     inputToSquare = "O";//리스트에 O를 넣어준다
                 }
-                selectedNumber = gameUtility.SelectNumber(9);//선택할 틱택토 영역을 입력받기
+                selectedNumber = gameUtility.SelectNumber(10);//선택할 틱택토 영역을 입력받기
                 Console.WriteLine("----------------------------------------------------------------------------------------");
 
+                if (selectedNumber == Constant.GOBACK)
+                    return;
                 selectedNumber = gameUtility.CheckSelected(selectedNumber, indexOfSquare);//영역선택 예외처리
 
                 ManageListAndResult();//선택영역 관리,게임결과 관리
@@ -67,6 +69,7 @@ namespace TicTacToe
                 gameData.PrintSqaure(numberOfLine,stateOfSquare);
             }
             Console.WriteLine("");
+            Console.WriteLine("프로그램을 종료하거나 뒤(메뉴)로 돌아가고 싶으면 10을 입력하세요.");
             Console.WriteLine("----------------------------------------------------------------------------------------");
         }
         public void ManageListAndResult()

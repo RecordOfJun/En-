@@ -20,7 +20,6 @@ namespace TicTacToe
                 Console.WriteLine("----------------------------------------------------------------------------------------");
                 Console.Write("다시 입력해 주세요!:");
                 userInput = Console.ReadLine();
-                //라인 세개 매직넘버
                 ClearConsoleLine(3);
             }
             return int.Parse(userInput);//예외가 없을 경우 사용자가 입력한 숫자를 리턴

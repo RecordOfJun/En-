@@ -33,8 +33,10 @@ namespace TicTacToe
                 {
                     Console.Write("당신의  차례입니다! 1~9 중에서 하나를 선택해 주세요:");
                     inputToSquare = strSequence[userSequence];//유저 선택 시 틱택토에 표기할 문자 설정
-                    selectedNumber = gameUtility.SelectNumber(9);//선택할 틱택토 영역을 입력받기
+                    selectedNumber = gameUtility.SelectNumber(10);//선택할 틱택토 영역을 입력받기
                     Console.WriteLine("----------------------------------------------------------------------------------------");
+                    if (selectedNumber == Constant.GOBACK)
+                        return;
                     selectedNumber = gameUtility.CheckSelected(selectedNumber, indexOfSquare);//이미 선택되었는지 확인
                 }
                 else//computer차례
