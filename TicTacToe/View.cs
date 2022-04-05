@@ -6,8 +6,6 @@ namespace TicTacToe
 {
     class Data//게임에 필요한 각종 데이터 및 출력물들을 관리하는 클래스
     {
-        public List<string> stateOfSquare = new List<string> { "1", "2", "3", "4", "5", "6", "7", "8", "9" };//영역 선택을 반영해 출력하기 위한 문자열 리스트
-        public List<int> indexOfSquare  = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 };//각종 메소드 활용 용도 정수 리스트
         //게임 결과에 따른 승리 횟수
         public int userWin;
         public int computerWin;
@@ -24,7 +22,7 @@ namespace TicTacToe
             drawVersusComputer = 0;
             drawVersusPlayer = 0;
         }
-        public void PrintSqaure(int numberOfLine)//틱택토 1x3 한줄 출력 메소드, 3x3 matrix에서 행의 seauence를 인자로 받는다.
+        public void PrintSqaure(int numberOfLine,List<string> stateOfSquare)//틱택토 1x3 한줄 출력 메소드, 3x3 matrix에서 행의 seauence를 인자로 받는다.
         {
             int leftSquareNum = numberOfLine*3;//해당 행의 사각형들에 리스트 인덱스 부착
             int middleSquareNum = numberOfLine * 3 + 1;
@@ -80,10 +78,10 @@ namespace TicTacToe
             Console.WriteLine("                                     SCORE BOARD                                  ");
             Console.WriteLine("");
             Console.WriteLine("                             승                      승             ");
-            Console.WriteLine("                             {0}   Player1 vs Player2  {0}                                   ", firstPlayerWin,secondPlayerWin);
+            Console.WriteLine("                             {0}   Player1 vs Player2  {1}                                   ", firstPlayerWin,secondPlayerWin);
             Console.WriteLine("                                     무승부 수:{0}",drawVersusPlayer);
             Console.WriteLine("");
-            Console.WriteLine("                             {0}    User   vs Computer {0}                                    ", userWin, computerWin);
+            Console.WriteLine("                             {0}    User   vs Computer {1}                                    ", userWin, computerWin);
             Console.WriteLine("                                     무승부 수:{0}",drawVersusComputer);
             Console.WriteLine("");
             Console.WriteLine("----------------------------------------------------------------------------------------");

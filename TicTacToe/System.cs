@@ -2,11 +2,11 @@
 
 namespace TicTacToe
 {
-    class Program
+    class System
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            MenuSelection game = new MenuSelection();
             game.Start();
         }
     }
