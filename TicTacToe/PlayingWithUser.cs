@@ -30,6 +30,12 @@ namespace TicTacToe
         }
         public void PlayGame()
         {
+            for(int index=0;index<9;index++)
+            {
+                stateOfSquare[index] = (index + 1).ToString();
+                indexOfSquare[index] = index;
+            }
+            gameCount = 0;
             gameResult = gameUtility.CheckResult(stateOfSquare);
             while (gameResult == Constant.KEEPGOING)//게임 결과가 계속해서 진행일 때
             {

@@ -12,6 +12,13 @@ namespace TicTacToe
         
         public void PlayGame()//VS컴퓨터
         {
+            for (int index = 0; index < 9; index++)
+            {
+                stateOfSquare[index] = (index + 1).ToString();
+                indexOfSquare.Remove(index);
+                indexOfSquare.Add(index);
+            }
+            gameCount = 0;
             int userSequence;//유저의 순서를 저장하는 변수
             int computerSequence;//컴퓨터의 순서를 저장하는 변수
             string[] strSequence = { "O", "X" };//순서에 따른 선택시 표기 배열

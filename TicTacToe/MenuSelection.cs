@@ -8,10 +8,13 @@ namespace TicTacToe
     {
         public View gameData = new View();
         public Utility gameUtility = new Utility();
-
+        PlayingWithUser firstMenu = new PlayingWithUser();
+        PlayingWithComputer secondMenu = new PlayingWithComputer();
 
         public MenuSelection()
         {
+            firstMenu.Init(gameData, gameUtility);
+            secondMenu.Init(gameData, gameUtility);
         }
 
 
@@ -27,14 +30,11 @@ namespace TicTacToe
                 switch (seletedNumber)
                 {
                     case 1://1번 선택 시 Player간 대결
-                        PlayingWithUser firstMenu=new PlayingWithUser();
-                        firstMenu.Init(gameData, gameUtility);
+                        Console.Clear();
                         firstMenu.PlayGame();
                         break;
                     case 2:
                         Console.Clear();
-                        PlayingWithComputer secondMenu=new PlayingWithComputer();//2번 선택 시 컴퓨터와 대결
-                        secondMenu.Init(gameData, gameUtility);
                         secondMenu.PlayGame();
                         break;
                     case 3://3번 선택 시 스코어보드 출력
