@@ -2,7 +2,7 @@
 
 namespace Library
 {
-    class Program
+    class LibrarySystem
     {
         static void Main(string[] args)
         {
