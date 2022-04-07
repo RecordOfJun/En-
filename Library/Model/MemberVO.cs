@@ -9,19 +9,21 @@ namespace Library.Model
         private string id;
         private string password;
         private string name;
+        private string personalCode;
         private string phoneNumber;
         private string address;
         private List<BookVO> borrowedBook;
         public MemberVO()
         {
         }
-        public MemberVO(string id,string password,string name,string phoneNumber,string address)
+        public MemberVO(string id,string password,string name,string phoneNumber,string address,string personalCode)
         {
             this.id = id;
             this.password = password;
             this.name = name;
             this.phoneNumber = phoneNumber;
             this.address = address;
+            this.personalCode = personalCode;
         }
         public string Id
         {
@@ -47,6 +49,11 @@ namespace Library.Model
         {
             get { return address; }
             set { address = value; }
+        }
+        public string PersonalCode
+        {
+            get { return personalCode; }
+            set { personalCode = value; }
         }
     }
 }
