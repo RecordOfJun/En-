@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Library
+namespace Library.View
 {
-    class LibrarySystem
+    class UI
     {
-        static void Main(string[] args)
+        public UI()
         {
-            Console.SetWindowSize(81, 40);
+        }
+        public void LibraryLabel()
+        {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("|         ##      ##  ######   ######        ###      ######   ##    ##         |");
             Console.WriteLine("|         ##      ##  ##   ##  ##   ##      ## ##     ##   ##   ##  ##          |");
@@ -14,6 +18,8 @@ namespace Library
             Console.WriteLine("|         ##      ##  ##   ##  ##   ##    ##     ##   ##   ##     ##            |");
             Console.WriteLine("|         ######  ##  ######   ##    ##  ##       ##  ##    ##    ##            |");
             Console.WriteLine("---------------------------------------------------------------------------------");
+
+
         }
     }
 }
