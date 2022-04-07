@@ -13,10 +13,11 @@ namespace Library.Controller
             Console.SetWindowSize(81, 40);
             ui = new UI();
         }
-        public void SelectMenu()
+        public int SelectMenu()
         {
             bool isEnter = false;
             int index = 0;
+            int selectedMenu;
             while (!isEnter)
             {
                 Console.Clear();
@@ -24,15 +25,15 @@ namespace Library.Controller
                 ui.MenuGuide();
                 SwitchMenu(index);
                 ConsoleKeyInfo upAndDown = Console.ReadKey();
-                switch (upAndDown.KeyChar)
+                switch (upAndDown.Key)
                 {
-                    case 'w':
+                    case ConsoleKey.W:
                         index+= Constant.UP;
                         break;
-                    case 's':
+                    case ConsoleKey.S:
                         index+= Constant.DOWN;
                         break;
-                    case '\n':
+                    case ConsoleKey.Enter:
                         isEnter = true;
                         break;
                     default:
@@ -42,6 +43,8 @@ namespace Library.Controller
                     index += Constant.MENU_LENGTH;
                 index = index % Constant.MENU_LENGTH;
             }
+            selectedMenu = index;
+            return index;
         }
         private void SwitchMenu(int index)
         {
