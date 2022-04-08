@@ -23,10 +23,11 @@ namespace Library
         public const int ID_ADD_INDEX = 17;
         public const int NEXT_INDEX = 2;
         public const int PASSWORD_ADD_INDEX = 19;
-        public const int NAME_ADD_INDEX = 21;
-        public const int PERSONAL_ADD_INDEX = 23;
-        public const int PHONE_ADD_INDEX = 25;
-        public const int ADDRESS_ADD_INDEX = 27;
+        public const int PASSWORD_CONFIRM_INDEX = 21;
+        public const int NAME_ADD_INDEX = 23;
+        public const int PERSONAL_ADD_INDEX = 25;
+        public const int PHONE_ADD_INDEX = 27;
+        public const int ADDRESS_ADD_INDEX = 29;
         public const int LEFT = -1;
 
         //Exeption
@@ -42,6 +43,7 @@ namespace Library
         
         public const int ID_PASSWORD_MINIMUM_LENGTH = 6;
         public const int ID_PASSWORD_LENGTH = 10;
+        public const int PASSWORD_LENGTH = 12;
         public const int NAME_LENGTH = 4;
         public const int PERSONAL_LENGTH = 13;
         public const int PHONE_LENGTH = 11;

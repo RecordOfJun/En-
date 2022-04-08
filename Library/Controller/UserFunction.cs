@@ -14,6 +14,7 @@ namespace Library.Controller
         UI ui = new UI();
         private string id;
         private string password;
+        private string identicalpassword;
         private string name;
         private string personalCode;
         private string phoneNumber;
@@ -25,8 +26,14 @@ namespace Library.Controller
         }
         public void Login()
         {
-
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.LoginForm();
+            exceptionView.ClearLine(0);
+            id = GetData(Constant.ID_PASSWORD_LENGTH);
+            password = GetData(Constant.PASSWORD_LENGTH);
         }
+        //private bool 
         public void AddMember()
         {
             isBack = false;
@@ -35,6 +42,7 @@ namespace Library.Controller
             ui.AddMemberForm();
             id=SetData(Constant.ID_ADD_INDEX);
             password = SetData(Constant.PASSWORD_ADD_INDEX);
+            SetData(Constant.PASSWORD_CONFIRM_INDEX);
             name = SetData(Constant.NAME_ADD_INDEX);
             personalCode = SetData(Constant.PERSONAL_ADD_INDEX);
             phoneNumber = SetData(Constant.PHONE_ADD_INDEX);
@@ -66,9 +74,17 @@ namespace Library.Controller
                 exceptionView.ClearLine(index);
                 switch (index)
                 {
-                    case Constant.ID_ADD_INDEX: case Constant.PASSWORD_ADD_INDEX:
+                    case Constant.ID_ADD_INDEX:
                         userInput = GetData(Constant.ID_PASSWORD_LENGTH);
-                        isException = exception.IsExceptionIdPassword(userInput,memberList);
+                        isException = exception.IsIdException(userInput,memberList);
+                        break;
+                    case Constant.PASSWORD_ADD_INDEX:
+                        userInput = GetData(Constant.PASSWORD_LENGTH);
+                        isException = exception.IsExceptionIdPassword(userInput);
+                        break;
+                    case Constant.PASSWORD_CONFIRM_INDEX:
+                        userInput = GetData(Constant.PASSWORD_LENGTH);
+                        isException = exception.IsIdentical(userInput,password);
                         break;
                     case Constant.NAME_ADD_INDEX:
                         userInput = GetData(Constant.NAME_LENGTH);
@@ -122,7 +138,10 @@ namespace Library.Controller
                     
                     inputString += userinput;
                 }
-                ui.SetInputCursor(inputString);
+                if (maximumLength == Constant.PASSWORD_LENGTH)
+                    ui.WritePassword(inputString);
+                else
+                    ui.SetInputCursor(inputString);
             }
             return inputString;
         }

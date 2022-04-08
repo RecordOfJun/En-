@@ -23,7 +23,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-
+                        userFunction.Login();
                         break;
                     case Constant.SECOND_MENU:
                         userFunction.AddMember();

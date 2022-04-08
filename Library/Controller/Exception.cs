@@ -14,9 +14,17 @@ namespace Library.Controller
         public Exception()
         {
         }
-        public bool IsExceptionIdPassword(string userInput,List<MemberVO> memberList)
+        public bool IsIdException(string userInput, List<MemberVO> memberList)
         {
-            string id = userInput;
+            if (memberList.Exists(element => element.Id == userInput))
+            {
+                exceptionView.ExistedId(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            return IsExceptionIdPassword(userInput);
+        }
+        public bool IsExceptionIdPassword(string userInput)
+        {
             int length = userInput.Length;
             int deletedLength;
             if(userInput==Constant.ESCAPE)
@@ -47,14 +55,17 @@ namespace Library.Controller
                 exceptionView.IdPasswordNotContain(length);
                 return Constant.IS_EXCEPTION;
             }
-            if (memberList.Exists(element => element.Id == id))
+            return !Constant.IS_EXCEPTION;
+        }
+        public bool IsIdentical(string userInput,string password)
+        {
+            if (userInput != password)
             {
-                exceptionView.ExistedId(length);
+                exceptionView.NotIdentical(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
         }
-
         public bool IsNameException(string userInput)
         {
             bool isContainKorean;

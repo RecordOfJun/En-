@@ -82,7 +82,9 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
             Console.WriteLine(":");
-            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
+            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("PASSWORD확인");
             Console.WriteLine(":");
             Console.WriteLine("이름[한글만 입력해 주세요]");
             Console.WriteLine(":");
@@ -107,6 +109,25 @@ namespace Library.View
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
             Console.Write(inputString);
+        }
+        public void WritePassword(string inputString)
+        {
+            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
+            Console.Write(new string('*', inputString.Length));
+        }
+        public void LoginForm()
+        {
+            Console.WriteLine("                        도서관 시스템을 이용하시려면                          ");
+            Console.WriteLine("                     아이디와 비밀번호를 입력해 주세요!                       ");
+            Console.WriteLine("                       (ESC입력 시 메뉴로 돌아갑니다.)             ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
+            Console.WriteLine(":");
         }
     }
 }
