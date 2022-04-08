@@ -27,10 +27,10 @@ namespace Library.Controller
                 ConsoleKeyInfo upAndDown = Console.ReadKey();
                 switch (upAndDown.Key)
                 {
-                    case ConsoleKey.W:
+                    case ConsoleKey.UpArrow:
                         index+= Constant.UP;
                         break;
-                    case ConsoleKey.S:
+                    case ConsoleKey.DownArrow:
                         index+= Constant.DOWN;
                         break;
                     case ConsoleKey.Enter:

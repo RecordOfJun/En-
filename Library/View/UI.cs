@@ -27,7 +27,7 @@ namespace Library.View
             Console.WriteLine("");
             Console.WriteLine("                     도서관리 시스템에 오신것을 환영합니다!                      ");
             Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
-            Console.WriteLine("                      (w,s 버튼으로 위, 아래 이동 후 엔터)                     ");
+            Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
             Console.WriteLine("");
         }
         public void SelectFirst() 

@@ -38,5 +38,11 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(Constant.TWO_SECOND);
         }
+        public void ClearLine(int index)
+        {
+            Console.SetCursorPosition(Constant.ADD_INDEX, index);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(Constant.ADD_INDEX, index);
+        }
     }
 }

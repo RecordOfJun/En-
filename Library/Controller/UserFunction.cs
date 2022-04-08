@@ -8,6 +8,7 @@ namespace Library.Controller
 {
     class UserFunction
     {
+        ExceptionView exceptionView = new ExceptionView();
         Exception exception = new Exception();
         UI ui = new UI();
         private string id;
@@ -29,9 +30,8 @@ namespace Library.Controller
             Console.Clear();
             ui.LibraryLabel();
             ui.AddMemberForm();
-            SetIdPassword(Constant.ID_ADD_INDEX);
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_ADD_INDEX);
-            password = Console.ReadLine();
+            id=SetIdPassword(Constant.ID_ADD_INDEX);
+            password = SetIdPassword(Constant.PASSWORD_ADD_INDEX);
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.NAME_ADD_INDEX);
             name = Console.ReadLine();
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PERSONAL_ADD_INDEX);
@@ -41,20 +41,18 @@ namespace Library.Controller
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ADDRESS_ADD_INDEX);
             address = Console.ReadLine();
         }
-        private void SetIdPassword(int index)
+        private string SetIdPassword(int index)
         {
             string userInput="";
             string id;
             bool isException = Constant.IS_EXCEPTION;
             while (!isException)
             {
-                Console.SetCursorPosition(Constant.ADD_INDEX, index);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(Constant.ADD_INDEX, index);
+                exceptionView.ClearLine(index);
                 userInput = GetData(10);
                 isException = exception.IsExceptionIdPassword(userInput);
             }
-            id = userInput;
+            return userInput;
         }
         private string GetData(int maximumLength)
         {
@@ -67,6 +65,7 @@ namespace Library.Controller
             {
                 
                 key = Console.ReadKey();
+                bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.UpArrow) || (key.Key == ConsoleKey.DownArrow));
                 userinput = key.KeyChar.ToString();
                 if (key.Key == ConsoleKey.Enter)
                     break;
@@ -78,7 +77,7 @@ namespace Library.Controller
                         inputString[index] = Constant.EMPTY;
                     }
                 }
-                else if (index < maximumLength)
+                else if (index < maximumLength&&!isArrow)
                 {
                     
                     inputString[index] = userinput;
