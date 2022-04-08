@@ -99,7 +99,7 @@ namespace Library.Controller
         private string InsertNameAndCode(string userInput,int type)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
-            userInput = userFunction.GetData(10);
+            userInput = userFunction.GetData(10,Constant.EMPTY);
             if (userInput == Constant.ESCAPE)
                 return userInput;
             Console.Clear();
@@ -115,7 +115,7 @@ namespace Library.Controller
                 ShowMyBook(userInput);
             }
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.BORROW_INDEX);
-            userInput = userFunction.GetData(10);
+            userInput = userFunction.GetData(10, Constant.EMPTY);
             return userInput;
         }
     }

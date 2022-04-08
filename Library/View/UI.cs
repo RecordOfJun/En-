@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Library.Model;
-
+using System.Threading;
 namespace Library.View
 {
     class UI
@@ -44,41 +44,29 @@ namespace Library.View
         {
             Console.WriteLine("                                 >1.로그인                                        ");
             Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 3.도서검색                                      ");
-            Console.WriteLine("                                 4.관리자 로그인                                 ");
-            Console.WriteLine("                                 5.프로그램 종료                                 ");
+            Console.WriteLine("                                 3.관리자 로그인                                 ");
+            Console.WriteLine("                                 4.프로그램 종료                                 ");
         }
         public void SelectSecond()
         {
             Console.WriteLine("                                 1.로그인                                        ");
             Console.WriteLine("                                 >2.회원가입                                      ");
-            Console.WriteLine("                                 3.도서검색                                      ");
-            Console.WriteLine("                                 4.관리자 로그인                                 ");
-            Console.WriteLine("                                 5.프로그램 종료                                 ");
+            Console.WriteLine("                                 3.관리자 로그인                                 ");
+            Console.WriteLine("                                 4.프로그램 종료                                 ");
         }
         public void SelectThird()
         {
             Console.WriteLine("                                 1.로그인                                        ");
             Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 >3.도서검색                                      ");
-            Console.WriteLine("                                 4.관리자 로그인                                 ");
-            Console.WriteLine("                                 5.프로그램 종료                                 ");
+            Console.WriteLine("                                 >3.관리자 로그인                                 ");
+            Console.WriteLine("                                 4.프로그램 종료                                 ");
         }
         public void SelectFourth()
         {
             Console.WriteLine("                                 1.로그인                                        ");
             Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 3.도서검색                                      ");
-            Console.WriteLine("                                 >4.관리자 로그인                                 ");
-            Console.WriteLine("                                 5.프로그램 종료                                 ");
-        }
-        public void SelectFifth()
-        {
-            Console.WriteLine("                                 1.로그인                                        ");
-            Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 3.도서검색                                      ");
-            Console.WriteLine("                                 4.관리자 로그인                                 ");
-            Console.WriteLine("                                 >5.프로그램 종료                                ");
+            Console.WriteLine("                                 3.관리자 로그인                                 ");
+            Console.WriteLine("                                 >4.프로그램 종료                                 ");
         }
 
         public void AddMemberForm()
@@ -106,12 +94,44 @@ namespace Library.View
             Console.WriteLine(":");
 
         }
+        public void ReviseForm()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다!                 ");
+            Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("PASSWORD확인");
+            Console.WriteLine(":");
+            Console.WriteLine("이름[한글만 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("주민번호[숫자 13자리를 입력해주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("전화번호[숫자만 입력해 주세요 EX)01026763147]");
+            Console.WriteLine(":");
+            Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
+            Console.WriteLine(":");
+
+        }
         public void ConfirmAddForm()
         {
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("완료하시려면 아무키나 입력해 주세요.(단,ESC입력시 취소 됩니다.)");
+        }
+        public void ReviseDone()
+        {
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("메뉴로 돌아가시려면 아무키나 입력해 주세요.");
         }
         public void SetInputCursor(string inputString)
         {
@@ -246,6 +266,13 @@ namespace Library.View
             Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
-        
+        public void Revised(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("  (수정이 완료되었습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }

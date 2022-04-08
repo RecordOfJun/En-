@@ -33,9 +33,6 @@ namespace Library.Controller
 
                         break;
                     case Constant.FOURTH_MENU:
-
-                        break;
-                    case Constant.FIFTH_MENU:
                         exception.ExitProgramm();
                         break;
                 }
