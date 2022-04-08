@@ -9,6 +9,7 @@ namespace Library.Controller
     {
         VOList listData = new VOList();
         MenuSelection menuSelection = new MenuSelection();
+        Exception exception = new Exception();
         UserFunction userFunction;
         public LibraryProgram()
         {
@@ -35,7 +36,8 @@ namespace Library.Controller
 
                         break;
                     case Constant.FIFTH_MENU:
-                        return;
+                        exception.ExitProgramm();
+                        break;
                 }
             }
         }

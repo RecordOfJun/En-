@@ -141,5 +141,27 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
+        public bool IsEscape()
+        {
+            ConsoleKeyInfo key;
+            exceptionView.AskEscape();
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Enter)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void ExitProgramm()
+        {
+            ConsoleKeyInfo key;
+            exceptionView.AskExit();
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Enter)
+            {
+                Environment.Exit(0);
+            }
+            return;
+        }
     }
 }

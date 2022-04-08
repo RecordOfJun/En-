@@ -215,7 +215,7 @@ namespace Library.View
         public void SearchGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("                                도서대여 방법");
+            Console.WriteLine("                                  도서대여 방법");
             Console.WriteLine("                         1.원하는 도서의 이름을 입력한다.");
             Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
@@ -233,8 +233,8 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                도서반납 방법");
-            Console.WriteLine("                         1.원하는 도서의 이름을 입력한다.");
-            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                         1.빌린 도서의 이름을 입력한다.");
+            Console.WriteLine("                        2.엔터를 눌러 빌린 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 반납한다.");
             Console.WriteLine();
@@ -246,5 +246,6 @@ namespace Library.View
             Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
+        
     }
 }

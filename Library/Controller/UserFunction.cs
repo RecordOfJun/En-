@@ -215,10 +215,11 @@ namespace Library.Controller
 
                         break;
                     case Constant.FOURTH_MENU:
-                        return;
+                        isExit = exception.IsEscape();
+                        break;
                     case Constant.FIFTH_MENU:
-                        Environment.Exit(0);
-                        return;
+                        exception.ExitProgramm();
+                        break;
                 }
             }
         }
