@@ -67,5 +67,64 @@ namespace Library.Controller
                     break;
             }
         }
+        public int SelectUserMenu()
+        {
+            bool isEnter = false;
+            int index = 0;
+            int selectedMenu;
+            while (!isEnter)
+            {
+                Console.Clear();
+                ui.LibraryLabel();
+                ui.MenuGuide();
+                SwitchUserMenu(index);
+                ConsoleKeyInfo upAndDown = Console.ReadKey();
+                switch (upAndDown.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        index += Constant.UP;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        index += Constant.DOWN;
+                        break;
+                    case ConsoleKey.Enter:
+                        isEnter = true;
+                        break;
+                    case ConsoleKey.Escape:
+                        break;
+                    default:
+                        break;
+                }
+                if (index < Constant.INDEX_MINIMUM)
+                    index += Constant.USER_MENU_LENGTH;
+                index = index % Constant.USER_MENU_LENGTH;
+            }
+            selectedMenu = index;
+            return index;
+        }
+        private void SwitchUserMenu(int index)
+        {
+            switch (index)
+            {
+                case Constant.FIRST_MENU:
+                    ui.UserSelectFirst();
+                    break;
+                case Constant.SECOND_MENU:
+                    ui.UserSelectSecond();
+                    break;
+                case Constant.THIRD_MENU:
+                    ui.UserSelectThird();
+                    break;
+                case Constant.FOURTH_MENU:
+                    ui.UserSelectFourth();
+                    break;
+                case Constant.FIFTH_MENU:
+                    ui.UserSelectFifth();
+                    break;
+                case Constant.SIXTH_MENU:
+                    ui.UserSelectSixth();
+                    break;
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Library.Controller
         Exception exception = new Exception();
         List<MemberVO> memberList;
         UI ui = new UI();
+        MenuSelection menuSelection = new MenuSelection();
         private string id;
         private string password;
         private string name;
@@ -25,6 +26,7 @@ namespace Library.Controller
         }
         public void Login()
         {
+            isBack = false;
             bool isCorrect = false;
             Console.Clear();
             ui.LibraryLabel();
@@ -35,27 +37,31 @@ namespace Library.Controller
                 if (isBack)
                     return;
             }
-            
+            ConfirmKeep();
+            UserSelectMenu();
         }
         private bool ChekId()
         {
             bool isException = false;
-            while (!isException) {
+            while (!isException&&!isBack) {
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 id = GetData(Constant.ID_LENGTH);
                 isException = exception.IsExceptionIdPassword(id);
             }
             isException = false;
-            while (!isException)
+            while (!isException && !isBack)
             {
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 password = GetData(Constant.PASSWORD_LENGTH);
                 isException = exception.IsExceptionIdPassword(password);
             }
+            if (isBack)
+                return Constant.IS_EXCEPTION;
             if (memberList.Exists(element => element.Id == id)&&memberList.Find(element => element.Id == id).Password==password)
             {
                 return !Constant.IS_EXCEPTION;
             }
+            
             exceptionView.CanNotLogin(password.Length);
             return Constant.IS_EXCEPTION;
         }
@@ -74,11 +80,7 @@ namespace Library.Controller
             address = SetData(Constant.ADDRESS_ADD_INDEX);
             if (isBack)
                 return;
-            ui.ConfirmAddForm();
-            ConsoleKeyInfo key;
-            key = Console.ReadKey();
-            if (key.Key == ConsoleKey.Escape)
-                return;
+            ConfirmKeep();
             CreateTable();
             foreach(MemberVO member in memberList)
             {
@@ -86,9 +88,13 @@ namespace Library.Controller
             }
 
         }
-        private void Insert(string type,int index)
+        private void ConfirmKeep()
         {
-            type = SetData(index);
+            ui.ConfirmAddForm();
+            ConsoleKeyInfo key;
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Escape)
+                return;
         }
         private string SetData(int index)
         {
@@ -180,6 +186,35 @@ namespace Library.Controller
             member.PhoneNumber = phoneNumber;
             member.Address = address;
             memberList.Add(member);
+        }
+        public void UserSelectMenu()
+        {
+            int selectedMenu;
+            bool isExit = false;
+            while (!isExit)
+            {
+                selectedMenu = menuSelection.SelectUserMenu();
+                switch (selectedMenu)
+                {
+                    case Constant.FIRST_MENU:
+                        
+                        break;
+                    case Constant.SECOND_MENU:
+                        
+                        break;
+                    case Constant.THIRD_MENU:
+
+                        break;
+                    case Constant.FOURTH_MENU:
+
+                        break;
+                    case Constant.FIFTH_MENU:
+                        return;
+                    case Constant.SIXTH_MENU:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
         }
     }
 }
