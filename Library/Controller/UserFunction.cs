@@ -10,8 +10,9 @@ namespace Library.Controller
     {
         ExceptionView exceptionView = new ExceptionView();
         Exception exception = new Exception();
-        List<MemberVO> memberList;
+        VOList voList;
         UI ui = new UI();
+        BookFunction bookFunction;
         MenuSelection menuSelection = new MenuSelection();
         private string id;
         private string password;
@@ -20,10 +21,12 @@ namespace Library.Controller
         private string phoneNumber;
         private string address;
         private bool isBack;
-        public UserFunction(List<MemberVO> memberList)
+        public UserFunction(VOList voList)
         {
-            this.memberList = memberList;
+            this.voList = voList;
+            bookFunction = new BookFunction(voList.bookList);
         }
+        //로그인 기능
         public void Login()
         {
             isBack = false;
@@ -57,7 +60,7 @@ namespace Library.Controller
             }
             if (isBack)
                 return Constant.IS_EXCEPTION;
-            if (memberList.Exists(element => element.Id == id)&&memberList.Find(element => element.Id == id).Password==password)
+            if (voList.memberList.Exists(element => element.Id == id)&& voList.memberList.Find(element => element.Id == id).Password==password)
             {
                 return !Constant.IS_EXCEPTION;
             }
@@ -65,6 +68,8 @@ namespace Library.Controller
             exceptionView.CanNotLogin(password.Length);
             return Constant.IS_EXCEPTION;
         }
+
+        //회원가입 기능
         public void AddMember()
         {
             isBack = false;
@@ -82,7 +87,7 @@ namespace Library.Controller
                 return;
             ConfirmKeep();
             CreateTable();
-            foreach(MemberVO member in memberList)
+            foreach(MemberVO member in voList.memberList)
             {
                 Console.WriteLine(member.ToString());
             }
@@ -107,7 +112,7 @@ namespace Library.Controller
                 {
                     case Constant.ID_ADD_INDEX:
                         userInput = GetData(Constant.ID_LENGTH);
-                        isException = exception.IsIdException(userInput,memberList);
+                        isException = exception.IsIdException(userInput, voList.memberList);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
                         userInput = GetData(Constant.PASSWORD_LENGTH);
@@ -123,11 +128,11 @@ namespace Library.Controller
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
                         userInput = GetData(Constant.PERSONAL_LENGTH);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH,memberList);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH, voList.memberList);
                         break;
                     case Constant.PHONE_ADD_INDEX:
                         userInput = GetData(Constant.PHONE_LENGTH);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH,memberList);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH, voList.memberList);
                         break;
                     case Constant.ADDRESS_ADD_INDEX:
                         userInput = GetData(Console.WindowWidth-1);
@@ -185,8 +190,10 @@ namespace Library.Controller
             member.PersonalCode = personalCode;
             member.PhoneNumber = phoneNumber;
             member.Address = address;
-            memberList.Add(member);
+            voList.memberList.Add(member);
         }
+
+        //로그인 후 메뉴 선택기능
         public void UserSelectMenu()
         {
             int selectedMenu;
@@ -197,7 +204,8 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        
+                        bookFunction.ShowBookList();
+                        Console.ReadLine();
                         break;
                     case Constant.SECOND_MENU:
                         
@@ -206,13 +214,10 @@ namespace Library.Controller
 
                         break;
                     case Constant.FOURTH_MENU:
-
-                        break;
-                    case Constant.FIFTH_MENU:
                         return;
-                    case Constant.SIXTH_MENU:
+                    case Constant.FIFTH_MENU:
                         Environment.Exit(0);
-                        break;
+                        return;
                 }
             }
         }

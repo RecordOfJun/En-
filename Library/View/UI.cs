@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Library.Model;
 
 namespace Library.View
 {
@@ -26,6 +27,15 @@ namespace Library.View
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("                     도서관리 시스템에 오신것을 환영합니다!                      ");
+            Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
+            Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
+            Console.WriteLine("");
+        }
+        public void MemberGuide()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                              회원 전용 메뉴입니다!                 ");
             Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
             Console.WriteLine("");
@@ -131,57 +141,66 @@ namespace Library.View
         }
         public void UserSelectFirst()
         {
-            Console.WriteLine("                                 >1.도서 검색                                        ");
-            Console.WriteLine("                                 2.도서 대여                                     ");
-            Console.WriteLine("                                 3.도서 반납                                      ");
-            Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 >1.도서 대여                                        ");
+            Console.WriteLine("                                 2.도서 반납                                      ");
+            Console.WriteLine("                                 3.개인정보 수정                                ");
+            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         public void UserSelectSecond()
         {
-            Console.WriteLine("                                 1.도서 검색                                        ");
-            Console.WriteLine("                                 >2.도서 대여                                     ");
-            Console.WriteLine("                                 3.도서 반납                                      ");
-            Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 1.도서 대여                                        ");
+            Console.WriteLine("                                 >2.도서 반납                                      ");
+            Console.WriteLine("                                 3.개인정보 수정                                ");
+            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         public void UserSelectThird()
         {
-            Console.WriteLine("                                 1.도서 검색                                        ");
-            Console.WriteLine("                                 2.도서 대여                                     ");
-            Console.WriteLine("                                 >3.도서 반납                                      ");
-            Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 1.도서 대여                                        ");
+            Console.WriteLine("                                 2.도서 반납                                      ");
+            Console.WriteLine("                                >3.개인정보 수정                                ");
+            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         public void UserSelectFourth()
         {
-            Console.WriteLine("                                 1.도서 검색                                        ");
-            Console.WriteLine("                                 2.도서 대여                                     ");
-            Console.WriteLine("                                 3.도서 반납                                      ");
-            Console.WriteLine("                                 >4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 1.도서 대여                                        ");
+            Console.WriteLine("                                 2.도서 반납                                      ");
+            Console.WriteLine("                                 3.개인정보 수정                                ");
+            Console.WriteLine("                                 >4.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         public void UserSelectFifth()
         {
-            Console.WriteLine("                                 1.도서 검색                                        ");
-            Console.WriteLine("                                 2.도서 대여                                     ");
-            Console.WriteLine("                                 3.도서 반납                                      ");
-            Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 >5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 1.도서 대여                                        ");
+            Console.WriteLine("                                 2.도서 반납                                      ");
+            Console.WriteLine("                                 3.개인정보 수정                                ");
+            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 >5.프로그램 종료                                ");
         }
-        public void UserSelectSixth()
+        
+        public void BookInformation(BookVO book)
         {
-            Console.WriteLine("                                 1.도서 검색                                        ");
-            Console.WriteLine("                                 2.도서 대여                                     ");
-            Console.WriteLine("                                 3.도서 반납                                      ");
-            Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 >6.프로그램 종료                                ");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.Write("도서코드:{0}", book.Id);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("도서명:{0}",book.Name);
+            Console.Write("출판사:{0}",book.Publisher);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("저자명:{0}", book.Author);
+            Console.Write("가격:{0}",book.Price);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("대여 가능 수량:{0}", book.Quantity);
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
+        public void SearchGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                 도서대여 방법");
+            Console.WriteLine("                          1.원하는 도서의 이름을 입력한다.");
+            Console.WriteLine("                           2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                          3.찾은 도서의 도서코드를 입력한다.");
         }
     }
 }

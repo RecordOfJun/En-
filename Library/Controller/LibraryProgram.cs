@@ -12,7 +12,7 @@ namespace Library.Controller
         UserFunction userFunction;
         public LibraryProgram()
         {
-            userFunction= new UserFunction(listData.memberList);
+            userFunction= new UserFunction(listData);
         }
         public void start()
         {

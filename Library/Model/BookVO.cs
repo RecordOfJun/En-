@@ -11,11 +11,12 @@ namespace Library.Model
         private string publisher;
         private string author;
         private string price;
-        private string quantity;
+        private int quantity;
+        private int borrowed;
         public BookVO()
         {    
         }
-        public BookVO(string id, string name, string publisher, string author, string price, string quantity)
+        public BookVO(string id, string name, string publisher, string author, string price, int quantity)
         {
             this.id = id;
             this.name = name;
@@ -49,7 +50,7 @@ namespace Library.Model
             get { return price; }
             set { price = value; }
         }
-        public string Quantity
+        public int Quantity
         {
             get { return quantity; }
             set { quantity = value; }

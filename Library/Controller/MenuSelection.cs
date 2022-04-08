@@ -76,7 +76,7 @@ namespace Library.Controller
             {
                 Console.Clear();
                 ui.LibraryLabel();
-                ui.MenuGuide();
+                ui.MemberGuide();
                 SwitchUserMenu(index);
                 ConsoleKeyInfo upAndDown = Console.ReadKey();
                 switch (upAndDown.Key)
@@ -120,9 +120,6 @@ namespace Library.Controller
                     break;
                 case Constant.FIFTH_MENU:
                     ui.UserSelectFifth();
-                    break;
-                case Constant.SIXTH_MENU:
-                    ui.UserSelectSixth();
                     break;
             }
         }
