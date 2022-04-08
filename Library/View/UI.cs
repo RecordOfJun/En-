@@ -90,8 +90,17 @@ namespace Library.View
             Console.WriteLine("전화번호[숫자만 입력해 주세요]");
             Console.WriteLine(":");
             Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
+            Console.WriteLine(":");
 
+            Console.WriteLine("모두 입력 완료하시면 자동으로 회원가입이 완료 됩니다.");
 
+        }
+        public void SetIdPasswordCursor(string [] inputString)
+        {
+            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
+            Console.Write(String.Join("", inputString));
         }
     }
 }
