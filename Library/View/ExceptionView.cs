@@ -169,6 +169,15 @@ namespace Library.View
             Thread.Sleep(Constant.TWO_SECOND);
             ClearLine(Console.CursorTop);
         }
+        public void AdminError(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (틀렸습니다! 다시 입력해 주세요!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+        }
         public void ClearLine(int index)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, index);

@@ -62,6 +62,7 @@ namespace Library.Controller
         private bool ChekId()
         {
             bool isException = false;
+            exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
             while (!isException && !isBack) {
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 id = GetData(Constant.ID_LENGTH, Constant.EMPTY);

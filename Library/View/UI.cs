@@ -178,9 +178,9 @@ namespace Library.View
             Console.WriteLine("                       (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("ID");
+            Console.WriteLine("ID[관리자 전용 ID를 입력해 주세요]");
             Console.WriteLine(":");
-            Console.WriteLine("PASSWORD");
+            Console.WriteLine("PASSWORD[관리자 전용 PASSWORD를 입력해 주세요]");
             Console.WriteLine(":");
         }
         public void UserSelectFirst()
