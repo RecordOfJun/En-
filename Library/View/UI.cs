@@ -92,8 +92,13 @@ namespace Library.View
             Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
             Console.WriteLine(":");
 
-            Console.WriteLine("모두 입력 완료하시면 자동으로 회원가입이 완료 됩니다.");
-
+        }
+        public void ConfirmAddForm()
+        {
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("완료하시려면 아무키나 입력해 주세요.(단,ESC입력시 회원가입이 취소 됩니다.)");
         }
         public void SetInputCursor(string inputString)
         {

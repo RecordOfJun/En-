@@ -10,6 +10,7 @@ namespace Library.Controller
     {
         ExceptionView exceptionView = new ExceptionView();
         Exception exception = new Exception();
+        List<MemberVO> memberList;
         UI ui = new UI();
         private string id;
         private string password;
@@ -17,9 +18,9 @@ namespace Library.Controller
         private string personalCode;
         private string phoneNumber;
         private string address;
-        public UserFunction()
+        public UserFunction(List<MemberVO> memberList)
         {
-
+            this.memberList = memberList;
         }
         public void Login()
         {
@@ -36,6 +37,17 @@ namespace Library.Controller
             personalCode = SetData(Constant.PERSONAL_ADD_INDEX);
             phoneNumber = SetData(Constant.PHONE_ADD_INDEX);
             address = SetData(Constant.ADDRESS_ADD_INDEX);
+            ui.ConfirmAddForm();
+            ConsoleKeyInfo key;
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Escape)
+                return;
+            CreateTable();
+            foreach(MemberVO member in memberList)
+            {
+                Console.WriteLine(member.ToString());
+            }
+
         }
         private string SetData(int index)
         {
@@ -48,7 +60,7 @@ namespace Library.Controller
                 {
                     case Constant.ID_ADD_INDEX: case Constant.PASSWORD_ADD_INDEX:
                         userInput = GetData(Constant.ID_PASSWORD_LENGTH);
-                        isException = exception.IsExceptionIdPassword(userInput);
+                        isException = exception.IsExceptionIdPassword(userInput,memberList);
                         break;
                     case Constant.NAME_ADD_INDEX:
                         userInput = GetData(Constant.NAME_LENGTH);
@@ -56,15 +68,15 @@ namespace Library.Controller
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
                         userInput = GetData(Constant.PERSONAL_LENGTH);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH,memberList);
                         break;
                     case Constant.PHONE_ADD_INDEX:
                         userInput = GetData(Constant.PHONE_LENGTH);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH,memberList);
                         break;
                     case Constant.ADDRESS_ADD_INDEX:
                         userInput = GetData(Console.WindowWidth-1);
-                        isException = exception.IsNameException(userInput);
+                        isException = !Constant.IS_EXCEPTION;
                         break;
                 }
                 
@@ -100,6 +112,17 @@ namespace Library.Controller
                 ui.SetInputCursor(inputString);
             }
             return inputString;
+        }
+        private void CreateTable()
+        {
+            MemberVO member = new MemberVO();
+            member.Id = id;
+            member.Password = password;
+            member.Name = name;
+            member.PersonalCode = personalCode;
+            member.PhoneNumber = phoneNumber;
+            member.Address = address;
+            memberList.Add(member);
         }
     }
 }

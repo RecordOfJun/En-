@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Library.View;
+using Library.Model;
 
 namespace Library.Controller
 {
@@ -13,8 +14,9 @@ namespace Library.Controller
         public Exception()
         {
         }
-        public bool IsExceptionIdPassword(string userInput)
+        public bool IsExceptionIdPassword(string userInput,List<MemberVO> memberList)
         {
+            string id = userInput;
             int length = userInput.Length;
             int deletedLength;
             if (length < Constant.ID_PASSWORD_MINIMUM_LENGTH ) {
@@ -43,6 +45,11 @@ namespace Library.Controller
                 exceptionView.IdPasswordNotContain(length);
                 return Constant.IS_EXCEPTION;
             }
+            if (memberList.Exists(element => element.Id == id))
+            {
+                exceptionView.ExistedId(length);
+                return Constant.IS_EXCEPTION;
+            }
             return !Constant.IS_EXCEPTION;
         }
 
@@ -60,7 +67,7 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
-        public bool IsPersnoalAndPhoneException(string userInput,int length)
+        public bool IsPersnoalAndPhoneException(string userInput,int length,List<MemberVO> memberList)
         {
             bool isContainNumber;
             if (length != userInput.Length)
@@ -82,10 +89,10 @@ namespace Library.Controller
                 return IsPhoneException(userInput);
 
             else if (length == Constant.PERSONAL_LENGTH)
-                return IsPersnolException(userInput);
+                return IsPersnolException(userInput,memberList);
             return !Constant.IS_EXCEPTION;
         }
-        public bool IsPersnolException(string userInput)
+        public bool IsPersnolException(string userInput,List<MemberVO> memberList)
         {
             string month = userInput.Substring(2, 2);//매직넘버
             string date= userInput.Substring(4, 2);
@@ -98,6 +105,11 @@ namespace Library.Controller
             if(int.Parse(gender) > 4 || int.Parse(gender) == 0)//매직넘버
             {
                 exceptionView.CheckGender(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            if (memberList.Exists(member => member.PersonalCode == userInput))
+            {
+                exceptionView.ExistedCode(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
 

@@ -92,6 +92,24 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(Constant.TWO_SECOND);
         }
+        public void ExistedId(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (이미 존재하는 아이디 입니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+        }
+        public void ExistedCode(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (이미 가입이 완료된 사용자 입니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+        }
         public void ClearLine(int index)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, index);

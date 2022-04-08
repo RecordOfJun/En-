@@ -55,5 +55,9 @@ namespace Library.Model
             get { return personalCode; }
             set { personalCode = value; }
         }
+        public override string ToString()
+        {
+            return "Id:" + id + ", Password:" + password;
+        }
     }
 }
