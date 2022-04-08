@@ -22,6 +22,18 @@ namespace Library.View
             Console.WriteLine("|                                                                               |");
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
+        public void AdminLabel()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("|                                                                               |");
+            Console.WriteLine("|             ###        ######     ####    ####     ##     ####    ##          |");
+            Console.WriteLine("|            ## ##       ##   ##    ## ##  ## ##     ##     ## ##   ##          |");
+            Console.WriteLine("|           #######      ##   ##    ##  ####  ##     ##     ##  ##  ##          |");
+            Console.WriteLine("|          ##     ##     ##   ##    ##   ##   ##     ##     ##   ## ##          |");
+            Console.WriteLine("|         ##       ##    ######     ##        ##     ##     ##    ####          |");
+            Console.WriteLine("|                                                                               |");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
         public void MenuGuide()
         {
             Console.WriteLine("");
@@ -159,6 +171,18 @@ namespace Library.View
             Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
             Console.WriteLine(":");
         }
+        public void AdminLoginForm()
+        {
+            Console.WriteLine("                        관리자 로그인 메뉴입니다.                         ");
+            Console.WriteLine("                     아이디와 비밀번호를 입력해 주세요!                       ");
+            Console.WriteLine("                       (ESC입력 시 메뉴로 돌아갑니다.)             ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("ID");
+            Console.WriteLine(":");
+            Console.WriteLine("PASSWORD");
+            Console.WriteLine(":");
+        }
         public void UserSelectFirst()
         {
             Console.WriteLine("                                 >1.도서 대여                                        ");
@@ -273,6 +297,34 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("  (수정이 완료되었습니다!)");
             Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void AdminSelectFirst()
+        {
+            Console.WriteLine("                                 >1.도서 관리                                        ");
+            Console.WriteLine("                                 2.회원 관리                                      ");
+            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 4.프로그램 종료                                ");
+        }
+        public void AdminSelectSecond()
+        {
+            Console.WriteLine("                                 1.도서 관리                                        ");
+            Console.WriteLine("                                 >2.회원 관리                                      ");
+            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 4.프로그램 종료                                ");
+        }
+        public void AdminSelectThird()
+        {
+            Console.WriteLine("                                 1.도서 관리                                        ");
+            Console.WriteLine("                                 2.회원 관리                                      ");
+            Console.WriteLine("                                 >3.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 4.프로그램 종료                                ");
+        }
+        public void AdminSelectFourth()
+        {
+            Console.WriteLine("                                 1.도서 관리                                        ");
+            Console.WriteLine("                                 2.회원 관리                                      ");
+            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 >4.프로그램 종료                                ");
         }
     }
 }

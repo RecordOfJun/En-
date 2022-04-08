@@ -17,34 +17,19 @@ namespace Library.Controller
         {
             bool isEnter = false;
             int index = 0;
-            int selectedMenu;
+            int selectedMenu = index;
             while (!isEnter)
             {
                 Console.Clear();
                 ui.LibraryLabel();
                 ui.MenuGuide();
                 SwitchMenu(index);
-                ConsoleKeyInfo upAndDown = Console.ReadKey();
-                switch (upAndDown.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        index+= Constant.UP;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        index+= Constant.DOWN;
-                        break;
-                    case ConsoleKey.Enter:
-                        isEnter = true;
-                        break;
-                    default:
-                        break;
-                }
-                if (index < Constant.INDEX_MINIMUM)
-                    index += Constant.MENU_LENGTH;
-                index = index % Constant.MENU_LENGTH;
+                index = CheckKey(index, Constant.MAIN_MENU_LENGTH);
+                if (index == -1)
+                    break;
+                selectedMenu = index;
             }
-            selectedMenu = index;
-            return index;
+            return selectedMenu;
         }
         private void SwitchMenu(int index)
         {
@@ -68,36 +53,19 @@ namespace Library.Controller
         {
             bool isEnter = false;
             int index = 0;
-            int selectedMenu;
+            int selectedMenu = index;
             while (!isEnter)
             {
                 Console.Clear();
                 ui.LibraryLabel();
                 ui.MemberGuide();
                 SwitchUserMenu(index);
-                ConsoleKeyInfo upAndDown = Console.ReadKey();
-                switch (upAndDown.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        index += Constant.UP;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        index += Constant.DOWN;
-                        break;
-                    case ConsoleKey.Enter:
-                        isEnter = true;
-                        break;
-                    case ConsoleKey.Escape:
-                        break;
-                    default:
-                        break;
-                }
-                if (index < Constant.INDEX_MINIMUM)
-                    index += Constant.USER_MENU_LENGTH;
-                index = index % Constant.USER_MENU_LENGTH;
+                index = CheckKey(index, Constant.USER_MENU_LENGTH);
+                if (index == -1)
+                    break;
+                selectedMenu = index;
             }
-            selectedMenu = index;
-            return index;
+            return selectedMenu;
         }
         private void SwitchUserMenu(int index)
         {
@@ -119,6 +87,66 @@ namespace Library.Controller
                     ui.UserSelectFifth();
                     break;
             }
+        }
+        public int SelectAdminMenu()
+        {
+            bool isEnter = false;
+            int index = 0;
+            int selectedMenu = index;
+            while (!isEnter)
+            {
+                Console.Clear();
+                ui.AdminLabel();
+                ui.MemberGuide();
+                SwitchAdminMenu(index);
+                index = CheckKey(index, Constant.ADMIN_MENU_LENGTH);
+                if (index == -1)
+                    break;
+                selectedMenu = index;
+            }
+
+            return selectedMenu;
+        }
+        private void SwitchAdminMenu(int index)
+        {
+            switch (index)
+            {
+                case Constant.FIRST_MENU:
+                    ui.AdminSelectFirst();
+                    break;
+                case Constant.SECOND_MENU:
+                    ui.AdminSelectSecond();
+                    break;
+                case Constant.THIRD_MENU:
+                    ui.AdminSelectThird();
+                    break;
+                case Constant.FOURTH_MENU:
+                    ui.AdminSelectFourth();
+                    break;
+            }
+        }
+        private int CheckKey(int index,int Lenth)
+        {
+            ConsoleKeyInfo upAndDown = Console.ReadKey();
+            switch (upAndDown.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    index += Constant.UP;
+                    break;
+                case ConsoleKey.DownArrow:
+                    index += Constant.DOWN;
+                    break;
+                case ConsoleKey.Enter:
+                    return -1;
+                case ConsoleKey.Escape:
+                    break;
+                default:
+                    break;
+            }
+            if (index < Constant.INDEX_MINIMUM)
+                index += Lenth;
+            index = index % Lenth;
+            return index;
         }
     }
 }

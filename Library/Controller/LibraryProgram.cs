@@ -11,9 +11,11 @@ namespace Library.Controller
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         UserFunction userFunction;
+        AdminFuncion adminFuncion;
         public LibraryProgram()
         {
             userFunction= new UserFunction(listData);
+            adminFuncion=new AdminFuncion(listData);
         }
         public void start()
         {
@@ -30,7 +32,7 @@ namespace Library.Controller
                         userFunction.AddMember();
                         break;
                     case Constant.THIRD_MENU:
-
+                        adminFuncion.AdminLogin();
                         break;
                     case Constant.FOURTH_MENU:
                         exception.ExitProgramm();

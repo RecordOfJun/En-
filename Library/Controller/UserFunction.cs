@@ -8,12 +8,12 @@ namespace Library.Controller
 {
     class UserFunction
     {
-        ExceptionView exceptionView = new ExceptionView();
-        Exception exception = new Exception();
-        VOList voList;
-        UI ui = new UI();
-        BookFunction bookFunction;
-        MenuSelection menuSelection = new MenuSelection();
+        public ExceptionView exceptionView = new ExceptionView();
+        public Exception exception = new Exception();
+        public VOList voList;
+        public UI ui = new UI();
+        public BookFunction bookFunction;
+        public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
         private string id;
         private string password;
@@ -22,7 +22,11 @@ namespace Library.Controller
         private string personalCode;
         private string phoneNumber;
         private string address;
-        private bool isBack;
+        public bool isBack;
+        public UserFunction()
+        {
+
+        }
         public UserFunction(VOList voList)
         {
             this.voList = voList;
@@ -46,7 +50,7 @@ namespace Library.Controller
             LinkData();
             UserSelectMenu();
         }
-        private void LinkData()
+        public void LinkData()
         {
             this.id = LoginMember.Id;
             this.password = LoginMember.Password;
@@ -138,7 +142,7 @@ namespace Library.Controller
             ReviseData();
 
         }
-        private void ReviseData()
+        public void ReviseData()
         {
             LoginMember.Id = this.id;
             LoginMember.Password = this.password;
@@ -147,11 +151,11 @@ namespace Library.Controller
             LoginMember.PersonalCode = this.personalCode;
             LoginMember.Address = this.address;
         }
-        private void WriteData(int index, string data){
+        public void WriteData(int index, string data){
             Console.SetCursorPosition(Constant.ADD_INDEX, index);
             Console.Write(data);
         }
-        private void ConfirmKeep(int type)
+        public void ConfirmKeep(int type)
         {   if (type == 1)
                 ui.ConfirmAddForm();
             else
@@ -161,7 +165,7 @@ namespace Library.Controller
             if (key.Key == ConsoleKey.Escape)
                 return;
         }
-        private string SetData(int index,string userInput)
+        public string SetData(int index,string userInput)
         {
             bool isException = Constant.IS_EXCEPTION;
             string nullCheck = userInput;

@@ -17,8 +17,9 @@ namespace Library
         public const int FIFTH_MENU = 4;
         public const int SIXTH_MENU = 5;
         public const int INDEX_MINIMUM = 0;
-        public const int MENU_LENGTH = 4;
+        public const int MAIN_MENU_LENGTH = 4;
         public const int USER_MENU_LENGTH = 5;
+        public const int ADMIN_MENU_LENGTH = 5;
 
         //Cursor
         public const int ADD_INDEX = 1;
@@ -56,7 +57,8 @@ namespace Library
         public const int PHONE_LENGTH = 11;
         public const string ESCAPE = "0000000000000000000000000000000";
 
-        //Cursor
+        public const string ADMIN_ID = "1111111111";
+        public const string ADMIN_PASSWORD = "9999999999";
 
     }
 }
