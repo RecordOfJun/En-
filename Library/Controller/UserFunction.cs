@@ -18,6 +18,7 @@ namespace Library.Controller
         private string personalCode;
         private string phoneNumber;
         private string address;
+        private bool isBack;
         public UserFunction(List<MemberVO> memberList)
         {
             this.memberList = memberList;
@@ -28,6 +29,7 @@ namespace Library.Controller
         }
         public void AddMember()
         {
+            isBack = false;
             Console.Clear();
             ui.LibraryLabel();
             ui.AddMemberForm();
@@ -37,6 +39,8 @@ namespace Library.Controller
             personalCode = SetData(Constant.PERSONAL_ADD_INDEX);
             phoneNumber = SetData(Constant.PHONE_ADD_INDEX);
             address = SetData(Constant.ADDRESS_ADD_INDEX);
+            if (isBack)
+                return;
             ui.ConfirmAddForm();
             ConsoleKeyInfo key;
             key = Console.ReadKey();
@@ -49,11 +53,15 @@ namespace Library.Controller
             }
 
         }
+        private void Insert(string type,int index)
+        {
+            type = SetData(index);
+        }
         private string SetData(int index)
         {
             string userInput="";
             bool isException = Constant.IS_EXCEPTION;
-            while (!isException)
+            while (!isException&&!isBack)
             {
                 exceptionView.ClearLine(index);
                 switch (index)
@@ -89,12 +97,17 @@ namespace Library.Controller
             ConsoleKeyInfo key;
             string userinput;
             bool isEnter = false;
-            while (!isEnter)
+            while (!isEnter&&!isBack)
             {
                 
                 key = Console.ReadKey();
                 bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.UpArrow) || (key.Key == ConsoleKey.DownArrow));
                 userinput = key.KeyChar.ToString();
+                if (key.Key == ConsoleKey.Escape)
+                {
+                    isBack = true;
+                    return Constant.ESCAPE;
+                }
                 if (key.Key == ConsoleKey.Enter)
                     break;
                 if (userinput == "\b")

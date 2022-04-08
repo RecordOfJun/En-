@@ -19,6 +19,8 @@ namespace Library.Controller
             string id = userInput;
             int length = userInput.Length;
             int deletedLength;
+            if(userInput==Constant.ESCAPE)
+                return Constant.IS_EXCEPTION;
             if (length < Constant.ID_PASSWORD_MINIMUM_LENGTH ) {
                 exceptionView.IdPasswordLength(length);
                 return Constant.IS_EXCEPTION;
@@ -56,7 +58,9 @@ namespace Library.Controller
         public bool IsNameException(string userInput)
         {
             bool isContainKorean;
-            foreach(char letter in userInput)
+            if (userInput == Constant.ESCAPE)
+                return Constant.IS_EXCEPTION;
+            foreach (char letter in userInput)
             {
                 isContainKorean = (Constant.KOREAN_FIRST <= letter && letter <= Constant.KOREAN_SECOND) || (Constant.KOREAN_THIRD <= letter && letter <= Constant.KOREAN_FOURTH);
                 if (!isContainKorean)
@@ -70,6 +74,8 @@ namespace Library.Controller
         public bool IsPersnoalAndPhoneException(string userInput,int length,List<MemberVO> memberList)
         {
             bool isContainNumber;
+            if (userInput == Constant.ESCAPE)
+                return Constant.IS_EXCEPTION;
             if (length != userInput.Length)
             {
                 exceptionView.PersonalAndPhoneLength(userInput.Length);

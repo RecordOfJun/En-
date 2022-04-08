@@ -20,13 +20,13 @@ namespace Library
 
         //Cursor
         public const int ADD_INDEX = 1;
-        public const int ID_ADD_INDEX = 16;
+        public const int ID_ADD_INDEX = 17;
         public const int NEXT_INDEX = 2;
-        public const int PASSWORD_ADD_INDEX = 18;
-        public const int NAME_ADD_INDEX = 20;
-        public const int PERSONAL_ADD_INDEX = 22;
-        public const int PHONE_ADD_INDEX = 24;
-        public const int ADDRESS_ADD_INDEX = 26;
+        public const int PASSWORD_ADD_INDEX = 19;
+        public const int NAME_ADD_INDEX = 21;
+        public const int PERSONAL_ADD_INDEX = 23;
+        public const int PHONE_ADD_INDEX = 25;
+        public const int ADDRESS_ADD_INDEX = 27;
         public const int LEFT = -1;
 
         //Exeption
@@ -39,12 +39,13 @@ namespace Library
         public const int KOREAN_FOURTH = 0x318E;
         public const int NUMBER_START = 0x30;
         public const int NUMBER_END = 0x39;
-
+        
         public const int ID_PASSWORD_MINIMUM_LENGTH = 6;
         public const int ID_PASSWORD_LENGTH = 10;
         public const int NAME_LENGTH = 4;
         public const int PERSONAL_LENGTH = 13;
         public const int PHONE_LENGTH = 11;
+        public const string ESCAPE = "0000000000000000000000000000000";
         //Cursor
 
     }

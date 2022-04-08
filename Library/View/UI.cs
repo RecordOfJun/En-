@@ -77,6 +77,7 @@ namespace Library.View
             Console.WriteLine("");
             Console.WriteLine("                     회원가입 후 도서 대여 및 반납이 가능합니다!                 ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
