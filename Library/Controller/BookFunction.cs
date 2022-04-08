@@ -98,6 +98,7 @@ namespace Library.Controller
             if (bookCode == "")
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
+            RefreshAdminBook(bookCode);
             if (book != null)
             {
                 if (exception.IsDelete(book.Name))
@@ -118,6 +119,8 @@ namespace Library.Controller
         {
             bool isNumber = false;
             string quantity=Constant.EMPTY;
+            if (bookCode == "")
+                return quantity;
             while (!isNumber) {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
                 quantity = userFunction.GetData(2, Constant.EMPTY);
@@ -125,9 +128,6 @@ namespace Library.Controller
                     return quantity;
                 isNumber = exception.IsNumber(quantity);
             }
-            if (bookCode == "")
-                return quantity;
-            Console.Clear();
             ReviseAdminBook(bookCode);
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
             if (book != null)
@@ -182,6 +182,9 @@ namespace Library.Controller
                     break;
                 case 2:
                     RefreshBorrowBook(userInput);
+                    break;
+                case 3:
+                    RefreshAdminBook(userInput);
                     break;
                 case 4:
                     ReviseAdminBook(userInput);

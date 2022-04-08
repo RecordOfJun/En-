@@ -35,7 +35,8 @@ namespace Library
         public const int ID_LOGIN_INDEX = 15;
         public const int PASSWORD_LOGIN_INDEX = 17;
         public const int SEARCH_INDEX = 20;
-        public const int BORROW_INDEX = 22;
+        public const int CODE_INDEX = 22;
+        public const int QUANTITY_INDEX = 24;
 
         //Exeption
         public const bool IS_EXCEPTION = false;

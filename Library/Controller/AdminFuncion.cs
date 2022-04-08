@@ -49,7 +49,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        
+                        ManageBook();
                         break;
                     case Constant.SECOND_MENU:
                         
@@ -60,6 +60,36 @@ namespace Library.Controller
                     case Constant.FOURTH_MENU:
                         exception.ExitProgramm();
                         break;
+                }
+            }
+        }
+        private void ManageBook()
+        {
+            bool isInsert = false;
+            Console.Clear();
+            ui.AdminLabel();
+            ui.BookManage();
+            while (!isInsert)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop);
+                switch (key.Key)
+                {
+                    case ConsoleKey.D1:
+                        isInsert = true;
+                        bookFunction.SearchAndChoice(4);
+                        break;
+                    case ConsoleKey.D2:
+                        isInsert = true;
+                        bookFunction.SearchAndChoice(3);
+                        break;
+                    case ConsoleKey.D3:
+                        isInsert = true;
+                        break;
+                    case ConsoleKey.Escape:
+                        return;
                 }
             }
         }
