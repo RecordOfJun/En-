@@ -209,7 +209,7 @@ namespace Library.Controller
                         bookFunction.SearchAndBrrow();
                         break;
                     case Constant.SECOND_MENU:
-                        bookFunction.ShowMyBook();
+                        bookFunction.ReturnBook();
                         break;
                     case Constant.THIRD_MENU:
 

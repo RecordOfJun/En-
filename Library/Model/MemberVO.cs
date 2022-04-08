@@ -25,7 +25,7 @@ namespace Library.Model
         private string personalCode;
         private string phoneNumber;
         private string address;
-        public List<MyBook> borrowedBook=new List<MyBook>();
+        public List<MyBook> borrowedBook = new List<MyBook>();
         public MemberVO()
         {
         }
@@ -74,9 +74,9 @@ namespace Library.Model
             MyBook myBook=new MyBook(book,DateTime.Now.ToString("yyyy-MM-dd"),DateTime.Now.AddDays(7).ToString("yyyy-MM-dd"));
             borrowedBook.Add(myBook);
         }
-        public void RemoveBook(BookVO book)
+        public void RemoveBook(MyBook mybook)
         {
-            borrowedBook.Remove(borrowedBook.Find(element => element.book == book));
+            borrowedBook.Remove(borrowedBook.Find(element => element == mybook));
         }
         public bool IsHaveBook(BookVO book)
         {

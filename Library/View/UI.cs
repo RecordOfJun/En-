@@ -229,5 +229,22 @@ namespace Library.View
             Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
+        public void ReturnGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                도서반납 방법");
+            Console.WriteLine("                         1.원하는 도서의 이름을 입력한다.");
+            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
+            Console.WriteLine("                          4.엔터를 눌러 도서를 반납한다.");
+            Console.WriteLine();
+            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
+            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+        }
     }
 }
