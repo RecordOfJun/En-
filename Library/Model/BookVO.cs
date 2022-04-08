@@ -55,5 +55,10 @@ namespace Library.Model
             get { return quantity; }
             set { quantity = value; }
         }
+        public int Borrowed
+        {
+            get { return borrowed; }
+            set { borrowed = value; }
+        }
     }
 }

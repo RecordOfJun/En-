@@ -38,6 +38,7 @@ namespace Library
 
         //Exeption
         public const bool IS_EXCEPTION = false;
+        public const bool IS_HAVE = true;
         public const int TWO_SECOND = 2000;
         public const string EMPTY = "";
         public const int KOREAN_FIRST = 0xAC00;
@@ -54,6 +55,7 @@ namespace Library
         public const int PERSONAL_LENGTH = 13;
         public const int PHONE_LENGTH = 11;
         public const string ESCAPE = "0000000000000000000000000000000";
+
         //Cursor
 
     }

@@ -129,6 +129,46 @@ namespace Library.View
             Thread.Sleep(Constant.TWO_SECOND);
             ClearLine(Console.CursorTop);
         }
+        public void BorrowSuccess(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("  (대여가 완료되었습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
+        public void NotExisted(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (코드와 일치하는 도서가 존재하지 않습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
+        public void NotRemain(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (남은 수량이 없어 대여할 수 없습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
+        public void AlreadyHas(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (이미 이 도서를 대여 하셨습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
         public void ClearLine(int index)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, index);

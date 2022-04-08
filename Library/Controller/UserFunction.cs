@@ -14,6 +14,7 @@ namespace Library.Controller
         UI ui = new UI();
         BookFunction bookFunction;
         MenuSelection menuSelection = new MenuSelection();
+        public MemberVO LoginMember;
         private string id;
         private string password;
         private string name;
@@ -24,7 +25,7 @@ namespace Library.Controller
         public UserFunction(VOList voList)
         {
             this.voList = voList;
-            bookFunction = new BookFunction(voList.bookList,this);
+            bookFunction = new BookFunction(voList,this);
         }
         //로그인 기능
         public void Login()
@@ -62,6 +63,7 @@ namespace Library.Controller
                 return Constant.IS_EXCEPTION;
             if (voList.memberList.Exists(element => element.Id == id)&& voList.memberList.Find(element => element.Id == id).Password==password)
             {
+                LoginMember = voList.memberList.Find(element => element.Id == id);
                 return !Constant.IS_EXCEPTION;
             }
             
@@ -207,7 +209,7 @@ namespace Library.Controller
                         bookFunction.SearchAndBrrow();
                         break;
                     case Constant.SECOND_MENU:
-                        
+                        bookFunction.ShowMyBook();
                         break;
                     case Constant.THIRD_MENU:
 

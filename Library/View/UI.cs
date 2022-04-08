@@ -191,7 +191,25 @@ namespace Library.View
             Console.WriteLine("저자명:{0}", book.Author);
             Console.Write("가격:{0}",book.Price);
             Console.SetCursorPosition(40, Console.CursorTop);
-            Console.WriteLine("대여 가능 수량:{0}", book.Quantity);
+            Console.WriteLine("대여 가능 수량:{0}", book.Quantity-book.Borrowed);
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
+        public void BorrowInformation(MyBook myBook)
+        {
+            BookVO book = myBook.book;
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.Write("도서코드:{0}", book.Id);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("도서명:{0}", book.Name);
+            Console.Write("출판사:{0}", book.Publisher);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("저자명:{0}", book.Author);
+            Console.Write("가격:{0}", book.Price);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine();
+            Console.Write("대여 날짜:{0}", myBook.borrowedTime);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("반납 기한:{0}", myBook.returnTime);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
         public void SearchGuide()

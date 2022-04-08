@@ -4,15 +4,28 @@ using System.Text;
 
 namespace Library.Model
 {
+    class MyBook
+    {
+        public BookVO book;
+        public string borrowedTime;
+        public string returnTime;
+        public MyBook(BookVO book,string borrowedTime,string returnTime)
+        {
+            this.book = book;
+            this.borrowedTime = borrowedTime;
+            this.returnTime = returnTime;
+        }
+    }
     class MemberVO
     {
+
         private string id;
         private string password;
         private string name;
         private string personalCode;
         private string phoneNumber;
         private string address;
-        private List<BookVO> borrowedBook;
+        public List<MyBook> borrowedBook=new List<MyBook>();
         public MemberVO()
         {
         }
@@ -24,7 +37,7 @@ namespace Library.Model
             this.phoneNumber = phoneNumber;
             this.address = address;
             this.personalCode = personalCode;
-        }
+    }
         public string Id
         {
             get { return id; }
@@ -54,6 +67,22 @@ namespace Library.Model
         {
             get { return personalCode; }
             set { personalCode = value; }
+        }
+        
+        public void AddBook(BookVO book)
+        {
+            MyBook myBook=new MyBook(book,DateTime.Now.ToString("yyyy-MM-dd"),DateTime.Now.AddDays(7).ToString("yyyy-MM-dd"));
+            borrowedBook.Add(myBook);
+        }
+        public void RemoveBook(BookVO book)
+        {
+            borrowedBook.Remove(borrowedBook.Find(element => element.book == book));
+        }
+        public bool IsHaveBook(BookVO book)
+        {
+            if (borrowedBook.Exists(element => element.book == book))
+                return Constant.IS_HAVE;
+            return !Constant.IS_HAVE;
         }
         public override string ToString()
         {
