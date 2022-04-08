@@ -139,6 +139,16 @@ namespace Library.View
             Thread.Sleep(Constant.TWO_SECOND);
             ClearLine(Console.CursorTop);
         }
+        public void DeleteSuccess(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("  (삭제 완료되었습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
         public void NotExisted(int length)
         {
             int printLocation = Constant.ADD_INDEX + length;
@@ -195,6 +205,27 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                            정말 종료하시겠습니까?");
             Console.WriteLine("    종료하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
+        }
+        public void AskDelete(string name)
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                   {0}을 정말 삭제하시겠습니까?",name);
+            Console.WriteLine("    삭제하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
+        }
+        public void AskRevise(string name)
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                   {0}의 수량을 정말 수정하시겠습니까?", name);
+            Console.WriteLine("    수정하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
+        }
+        public void EmptyString()
+        {
+            int printLocation = Constant.ADD_INDEX;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (아무것도 입력하지 않았습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
         }
     }
 }

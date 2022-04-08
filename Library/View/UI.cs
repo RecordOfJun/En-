@@ -290,6 +290,42 @@ namespace Library.View
             Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
+        public void DeleteGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                도서삭제 방법");
+            Console.WriteLine("                         1.삭제할 도서의 이름을 입력한다.");
+            Console.WriteLine("                        2.엔터를 눌러 삭제할 도서를 검색한다.");
+            Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
+            Console.WriteLine("                          4.엔터를 눌러 도서를 삭제한다.");
+            Console.WriteLine();
+            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
+            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+        }
+        public void ReviseGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                               도서수량 수정 방법");
+            Console.WriteLine("                         1.수정할 도서의 이름을 입력한다.");
+            Console.WriteLine("                        2.엔터를 눌러 수정할 도서를 검색한다.");
+            Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
+            Console.WriteLine("                          4.엔터를 눌러 도서를 선택한다.");
+            Console.WriteLine("                           5.수량을 입력 후 엔터를 누른다.");
+            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
+            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
+            Console.WriteLine(":");
+        }
         public void Revised(int length)
         {
             int printLocation = Constant.ADD_INDEX + length;
@@ -325,6 +361,22 @@ namespace Library.View
             Console.WriteLine("                                 2.회원 관리                                      ");
             Console.WriteLine("                                 3.메인메뉴 복귀                                ");
             Console.WriteLine("                                 >4.프로그램 종료                                ");
+        }
+        public void DeleteDone()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                            삭제가 완료되었습니다.");
+            Thread.Sleep(Constant.TWO_SECOND);
+        }
+        public void BookManage()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("                            도서 수정을 원하시면 1번,");
+            Console.WriteLine("                            도서 삭제를 원하시면 2번,");
+            Console.WriteLine("                            도서 추가를 원하시면 3번");
+            Console.WriteLine("                                 을 눌러주세요!");
+            Thread.Sleep(Constant.TWO_SECOND);
         }
     }
 }

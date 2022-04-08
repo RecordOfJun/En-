@@ -275,7 +275,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        bookFunction.SearchAndBrrow();
+                        bookFunction.SearchAndChoice(1);
                         break;
                     case Constant.SECOND_MENU:
                         bookFunction.ReturnBook();

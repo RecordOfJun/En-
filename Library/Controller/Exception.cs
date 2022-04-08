@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Library.View;
 using Library.Model;
+using System.Text.RegularExpressions;
 
 namespace Library.Controller
 {
@@ -162,6 +163,46 @@ namespace Library.Controller
                 Environment.Exit(0);
             }
             return;
+        }
+        public bool IsDelete(string name)
+        {
+            ConsoleKeyInfo key;
+            exceptionView.AskDelete(name);
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Enter)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsRevise(string name)
+        {
+            ConsoleKeyInfo key;
+            exceptionView.AskRevise(name);
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Enter)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool IsNumber(string input)
+        {
+            if (input == "")
+            {
+                exceptionView.EmptyString();
+                return false;
+            }
+            foreach (string element in number)//인풋에서 숫자 제거
+            {
+                input = input.Replace(element, "");
+            }
+            if (input != "")
+            {
+                exceptionView.NumberContain(input.Length);
+                return false;
+            }
+            return true;
         }
     }
 }

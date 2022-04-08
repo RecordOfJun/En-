@@ -10,25 +10,52 @@ namespace Library.Controller
         VOList voList;
         UserFunction userFunction;
         ExceptionView exceptionView = new ExceptionView();
+        Exception exception = new Exception();
         UI ui = new UI();
         public BookFunction(VOList voList, UserFunction userFunction)
         {
             this.voList = voList;
             this.userFunction = userFunction;
         }
-        public void SearchAndBrrow()
+        public void SearchAndChoice(int type)
         {
             string userInput = "";
             Console.Clear();
-            ui.LibraryLabel();
-            ui.SearchGuide();
+            switch (type)
+            {
+                case 1:
+                    RefreshUserBook("");
+                    break;
+                case 3:
+                    ui.AdminLabel();
+                    ui.DeleteGuide();
+                    break;
+                case 4:
+                    ui.AdminLabel();
+                    ui.ReviseGuide();
+                    break;
+            }
             ShowBookList(userInput);
             while (userInput!=Constant.ESCAPE)
             {
-                userInput = InsertNameAndCode(userInput,1);
+                userInput = InsertNameAndCode(userInput,type);
                 if (userInput == Constant.ESCAPE)
                     return;
-                BorrowBook(userInput);
+                switch (type)
+                {
+                    case 1:
+                        BorrowBook(userInput);
+                        break;
+                    case 3:
+                        DeleteBook(userInput);
+                        break;
+                    case 4:
+                        string temp=ReviseBook(userInput);
+                        if (temp == Constant.ESCAPE)
+                            return;
+                        break;
+                }
+                RefreshUserBook("");
             }
         }
         private void ShowBookList(string bookName)
@@ -66,6 +93,55 @@ namespace Library.Controller
                 exceptionView.NotExisted(bookCode.Length);
             }
         }
+        private void DeleteBook(string bookCode)
+        {
+            if (bookCode == "")
+                return;
+            BookVO book = voList.bookList.Find(book => book.Id == bookCode);
+            if (book != null)
+            {
+                if (exception.IsDelete(book.Name))
+                {
+                    foreach(MemberVO member in voList.memberList)
+                    {
+                        MyBook myBook=member.borrowedBook.Find(element=>element.book==book);
+                        member.RemoveBook(myBook);
+                    }
+                    voList.bookList.Remove(book);
+                }
+                return;
+            }
+            else
+                exceptionView.NotExisted(bookCode.Length);
+        }
+        private string ReviseBook(string bookCode)
+        {
+            bool isNumber = false;
+            string quantity=Constant.EMPTY;
+            while (!isNumber) {
+                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
+                quantity = userFunction.GetData(2, Constant.EMPTY);
+                if (quantity == Constant.ESCAPE)
+                    return quantity;
+                isNumber = exception.IsNumber(quantity);
+            }
+            if (bookCode == "")
+                return quantity;
+            Console.Clear();
+            ReviseAdminBook(bookCode);
+            BookVO book = voList.bookList.Find(book => book.Id == bookCode);
+            if (book != null)
+            {
+                if (exception.IsRevise(book.Name))
+                {
+                    book.Quantity = int.Parse(quantity);
+                }
+                return quantity;
+            }
+            else
+                exceptionView.NotExisted(bookCode.Length);
+            return quantity;
+        }
         private void ShowMyBook(string userInput)
         {
             foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(userInput)))
@@ -76,19 +152,16 @@ namespace Library.Controller
         public void ReturnBook()
         {
             string userInput=Constant.EMPTY;
-            Console.Clear();
-            ui.LibraryLabel();
-            ui.ReturnGuide();
-            ShowMyBook(userInput);
             while (userInput != Constant.ESCAPE)
             {
+                RefreshBorrowBook("");
                 userInput = InsertNameAndCode(userInput,2);
                 if (userInput == Constant.ESCAPE)
                     return;
-                DeleteBook(userInput);
+                UpdateBookCount(userInput);
             }
         }
-        private void DeleteBook(string Code)
+        private void UpdateBookCount(string Code)
         {
             if (Code == "")
                 return;
@@ -96,27 +169,56 @@ namespace Library.Controller
             userFunction.LoginMember.RemoveBook(myBook);
             myBook.book.Borrowed--;
         }
-        private string InsertNameAndCode(string userInput,int type)
+        private string InsertNameAndCode(string userInput, int type)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
-            userInput = userFunction.GetData(10,Constant.EMPTY);
+            userInput = userFunction.GetData(10, Constant.EMPTY);
             if (userInput == Constant.ESCAPE)
                 return userInput;
-            Console.Clear();
-            ui.LibraryLabel();
-            if (type == 1)
+            switch (type)
             {
-                ui.SearchGuide();
-                ShowBookList(userInput);
+                case 1:
+                    RefreshUserBook(userInput);
+                    break;
+                case 2:
+                    RefreshBorrowBook(userInput);
+                    break;
+                case 4:
+                    ReviseAdminBook(userInput);
+                    break;
             }
-            else
-            {
-                ui.ReturnGuide();
-                ShowMyBook(userInput);
-            }
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.BORROW_INDEX);
+       
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
             userInput = userFunction.GetData(10, Constant.EMPTY);
             return userInput;
+        }
+        private void RefreshUserBook(string input)
+        {
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.SearchGuide();
+            ShowBookList(input);
+        }
+        private void RefreshAdminBook(string input)
+        {
+            Console.Clear();
+            ui.AdminLabel();
+            ui.SearchGuide();
+            ShowBookList(input);
+        }
+        private void ReviseAdminBook(string input)
+        {
+            Console.Clear();
+            ui.AdminLabel();
+            ui.ReviseGuide();
+            ShowBookList(input);
+        }
+        private void RefreshBorrowBook(string input)
+        {
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.ReturnGuide();
+            ShowMyBook(input);
         }
     }
 }
