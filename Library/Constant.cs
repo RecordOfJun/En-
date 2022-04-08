@@ -29,6 +29,8 @@ namespace Library
         public const int PHONE_ADD_INDEX = 27;
         public const int ADDRESS_ADD_INDEX = 29;
         public const int LEFT = -1;
+        public const int ID_LOGIN_INDEX = 15;
+        public const int PASSWORD_LOGIN_INDEX = 17;
 
         //Exeption
         public const bool IS_EXCEPTION = false;
@@ -42,7 +44,7 @@ namespace Library
         public const int NUMBER_END = 0x39;
         
         public const int ID_PASSWORD_MINIMUM_LENGTH = 6;
-        public const int ID_PASSWORD_LENGTH = 10;
+        public const int ID_LENGTH = 10;
         public const int PASSWORD_LENGTH = 12;
         public const int NAME_LENGTH = 4;
         public const int PERSONAL_LENGTH = 13;

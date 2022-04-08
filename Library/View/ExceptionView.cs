@@ -119,6 +119,16 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(Constant.TWO_SECOND);
         }
+        public void CanNotLogin(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (아이디와 비밀번호를 확인해 주세요!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
         public void ClearLine(int index)
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, index);

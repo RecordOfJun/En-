@@ -14,7 +14,6 @@ namespace Library.Controller
         UI ui = new UI();
         private string id;
         private string password;
-        private string identicalpassword;
         private string name;
         private string personalCode;
         private string phoneNumber;
@@ -26,14 +25,40 @@ namespace Library.Controller
         }
         public void Login()
         {
+            bool isCorrect = false;
             Console.Clear();
             ui.LibraryLabel();
             ui.LoginForm();
-            exceptionView.ClearLine(0);
-            id = GetData(Constant.ID_PASSWORD_LENGTH);
-            password = GetData(Constant.PASSWORD_LENGTH);
+            while (!isCorrect)
+            {
+                isCorrect = ChekId();
+                if (isBack)
+                    return;
+            }
+            
         }
-        //private bool 
+        private bool ChekId()
+        {
+            bool isException = false;
+            while (!isException) {
+                exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
+                id = GetData(Constant.ID_LENGTH);
+                isException = exception.IsExceptionIdPassword(id);
+            }
+            isException = false;
+            while (!isException)
+            {
+                exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
+                password = GetData(Constant.PASSWORD_LENGTH);
+                isException = exception.IsExceptionIdPassword(password);
+            }
+            if (memberList.Exists(element => element.Id == id)&&memberList.Find(element => element.Id == id).Password==password)
+            {
+                return !Constant.IS_EXCEPTION;
+            }
+            exceptionView.CanNotLogin(password.Length);
+            return Constant.IS_EXCEPTION;
+        }
         public void AddMember()
         {
             isBack = false;
@@ -75,7 +100,7 @@ namespace Library.Controller
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX:
-                        userInput = GetData(Constant.ID_PASSWORD_LENGTH);
+                        userInput = GetData(Constant.ID_LENGTH);
                         isException = exception.IsIdException(userInput,memberList);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
