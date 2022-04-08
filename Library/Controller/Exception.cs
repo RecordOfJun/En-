@@ -17,7 +17,7 @@ namespace Library.Controller
         {
             int length = userInput.Length;
             int deletedLength;
-            if (length < 6 || length > 10) {
+            if (length < Constant.ID_PASSWORD_MINIMUM_LENGTH ) {
                 exceptionView.IdPasswordLength(length);
                 return Constant.IS_EXCEPTION;
             }
@@ -25,9 +25,9 @@ namespace Library.Controller
             {
                 userInput = userInput.Replace(element, "");
             }
-            bool isDeleteInt = userInput.Length < length;
+            bool isDeleteInt = userInput.Length < length;//숫자가 지워졌는지 확인
             deletedLength = userInput.Length;
-            foreach(string element in alphabat)
+            foreach(string element in alphabat)//문자제거
             {
                 userInput = userInput.Replace(element, "");
                 userInput = userInput.Replace(element.ToUpper(), "");
@@ -41,6 +41,73 @@ namespace Library.Controller
             if (!isDeleteInt || !isDeletechar)
             {
                 exceptionView.IdPasswordNotContain(length);
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
+
+        public bool IsNameException(string userInput)
+        {
+            bool isContainKorean;
+            foreach(char letter in userInput)
+            {
+                isContainKorean = (Constant.KOREAN_FIRST <= letter && letter <= Constant.KOREAN_SECOND) || (Constant.KOREAN_THIRD <= letter && letter <= Constant.KOREAN_FOURTH);
+                if (!isContainKorean)
+                {
+                    exceptionView.NameContain(userInput.Length);
+                    return Constant.IS_EXCEPTION;
+                }
+            }
+            return !Constant.IS_EXCEPTION;
+        }
+        public bool IsPersnoalAndPhoneException(string userInput,int length)
+        {
+            bool isContainNumber;
+            if (length != userInput.Length)
+            {
+                exceptionView.PersonalAndPhoneLength(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            foreach(char letter in userInput)
+            {
+                isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
+                if (!isContainNumber)
+                {
+                    exceptionView.NumberContain(userInput.Length);
+                    return Constant.IS_EXCEPTION;
+                }
+
+            }
+            if (length == Constant.PHONE_LENGTH)
+                return IsPhoneException(userInput);
+
+            else if (length == Constant.PERSONAL_LENGTH)
+                return IsPersnolException(userInput);
+            return !Constant.IS_EXCEPTION;
+        }
+        public bool IsPersnolException(string userInput)
+        {
+            string month = userInput.Substring(2, 2);//매직넘버
+            string date= userInput.Substring(4, 2);
+            string gender = userInput.Substring(6, 1);
+            if (int.Parse(month)>12||int.Parse(date)>31)//매직넘버
+            {
+                exceptionView.CheckDate(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            if(int.Parse(gender) > 4 || int.Parse(gender) == 0)//매직넘버
+            {
+                exceptionView.CheckGender(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+
+            return !Constant.IS_EXCEPTION;
+        }
+        public bool IsPhoneException(string userInput)
+        {
+            if (userInput.Substring(0, 3) != "010")
+            {
+                exceptionView.StartWith010(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;

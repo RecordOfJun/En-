@@ -33,8 +33,19 @@ namespace Library
         public const bool IS_EXCEPTION = false;
         public const int TWO_SECOND = 2000;
         public const string EMPTY = "";
+        public const int KOREAN_FIRST = 0xAC00;
+        public const int KOREAN_SECOND = 0xD7A3;
+        public const int KOREAN_THIRD = 0x3131;
+        public const int KOREAN_FOURTH = 0x318E;
+        public const int NUMBER_START = 0x30;
+        public const int NUMBER_END = 0x39;
 
+        public const int ID_PASSWORD_MINIMUM_LENGTH = 6;
+        public const int ID_PASSWORD_LENGTH = 10;
+        public const int NAME_LENGTH = 4;
+        public const int PERSONAL_LENGTH = 13;
+        public const int PHONE_LENGTH = 11;
         //Cursor
-        
+
     }
 }

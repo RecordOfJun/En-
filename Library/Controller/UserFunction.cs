@@ -30,34 +30,50 @@ namespace Library.Controller
             Console.Clear();
             ui.LibraryLabel();
             ui.AddMemberForm();
-            id=SetIdPassword(Constant.ID_ADD_INDEX);
-            password = SetIdPassword(Constant.PASSWORD_ADD_INDEX);
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.NAME_ADD_INDEX);
-            name = Console.ReadLine();
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PERSONAL_ADD_INDEX);
-            personalCode = Console.ReadLine();
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PHONE_ADD_INDEX);
-            phoneNumber = Console.ReadLine();
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ADDRESS_ADD_INDEX);
-            address = Console.ReadLine();
+            id=SetData(Constant.ID_ADD_INDEX);
+            password = SetData(Constant.PASSWORD_ADD_INDEX);
+            name = SetData(Constant.NAME_ADD_INDEX);
+            personalCode = SetData(Constant.PERSONAL_ADD_INDEX);
+            phoneNumber = SetData(Constant.PHONE_ADD_INDEX);
+            address = SetData(Constant.ADDRESS_ADD_INDEX);
         }
-        private string SetIdPassword(int index)
+        private string SetData(int index)
         {
             string userInput="";
-            string id;
             bool isException = Constant.IS_EXCEPTION;
             while (!isException)
             {
                 exceptionView.ClearLine(index);
-                userInput = GetData(10);
-                isException = exception.IsExceptionIdPassword(userInput);
+                switch (index)
+                {
+                    case Constant.ID_ADD_INDEX: case Constant.PASSWORD_ADD_INDEX:
+                        userInput = GetData(Constant.ID_PASSWORD_LENGTH);
+                        isException = exception.IsExceptionIdPassword(userInput);
+                        break;
+                    case Constant.NAME_ADD_INDEX:
+                        userInput = GetData(Constant.NAME_LENGTH);
+                        isException = exception.IsNameException(userInput);
+                        break;
+                    case Constant.PERSONAL_ADD_INDEX:
+                        userInput = GetData(Constant.PERSONAL_LENGTH);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH);
+                        break;
+                    case Constant.PHONE_ADD_INDEX:
+                        userInput = GetData(Constant.PHONE_LENGTH);
+                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH);
+                        break;
+                    case Constant.ADDRESS_ADD_INDEX:
+                        userInput = GetData(Console.WindowWidth-1);
+                        isException = exception.IsNameException(userInput);
+                        break;
+                }
+                
             }
             return userInput;
         }
         private string GetData(int maximumLength)
         {
-            int index = 0;// Constant.INDEX_MINIMUM;
-            string[] inputString = { "", "", "", "", "", "", "", "", "", "" };
+            string inputString = Constant.EMPTY;
             ConsoleKeyInfo key;
             string userinput;
             bool isEnter = false;
@@ -71,21 +87,19 @@ namespace Library.Controller
                     break;
                 if (userinput == "\b")
                 {
-                    if (index > 0)
+                    if (inputString.Length > 0)
                     {
-                        index--;
-                        inputString[index] = Constant.EMPTY;
+                        inputString = inputString.Substring(0, inputString.Length-1);
                     }
                 }
-                else if (index < maximumLength&&!isArrow)
+                else if (inputString.Length < maximumLength&&!isArrow)
                 {
                     
-                    inputString[index] = userinput;
-                    index++;
+                    inputString += userinput;
                 }
-                ui.SetIdPasswordCursor(inputString);
+                ui.SetInputCursor(inputString);
             }
-            return String.Join("",inputString);
+            return inputString;
         }
     }
 }
