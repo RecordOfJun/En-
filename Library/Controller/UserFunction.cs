@@ -24,7 +24,7 @@ namespace Library.Controller
         public UserFunction(VOList voList)
         {
             this.voList = voList;
-            bookFunction = new BookFunction(voList.bookList);
+            bookFunction = new BookFunction(voList.bookList,this);
         }
         //로그인 기능
         public void Login()
@@ -143,13 +143,13 @@ namespace Library.Controller
             }
             return userInput;
         }
-        private string GetData(int maximumLength)
+        public string GetData(int maximumLength)
         {
             string inputString = Constant.EMPTY;
             ConsoleKeyInfo key;
             string userinput;
             bool isEnter = false;
-            while (!isEnter&&!isBack)
+            while (!isEnter)
             {
                 
                 key = Console.ReadKey();
@@ -204,8 +204,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        bookFunction.ShowBookList();
-                        Console.ReadLine();
+                        bookFunction.SearchAndBrrow();
                         break;
                     case Constant.SECOND_MENU:
                         
