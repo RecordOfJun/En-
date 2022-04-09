@@ -13,7 +13,7 @@ namespace Library.Controller
             Console.SetWindowSize(81, 40);
             ui = new UI();
         }
-        public int SelectMenu()
+        public int SelectMenu()//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
         {
             bool isEnter = false;
             int index = 0;
@@ -25,13 +25,13 @@ namespace Library.Controller
                 ui.MenuGuide();
                 SwitchMenu(index);
                 index = CheckKey(index, Constant.MAIN_MENU_LENGTH);
-                if (index == -1)
+                if (index == Constant.QUIT)
                     break;
                 selectedMenu = index;
             }
             return selectedMenu;
         }
-        private void SwitchMenu(int index)
+        private void SwitchMenu(int index)//가리키는 인덱스별 화면 전환
         {
             switch (index)
             {
@@ -49,7 +49,7 @@ namespace Library.Controller
                     break;
             }
         }
-        public int SelectUserMenu()
+        public int SelectUserMenu()//로그인 후 나오는 메뉴 선택
         {
             bool isEnter = false;
             int index = 0;
@@ -61,13 +61,13 @@ namespace Library.Controller
                 ui.MemberGuide();
                 SwitchUserMenu(index);
                 index = CheckKey(index, Constant.USER_MENU_LENGTH);
-                if (index == -1)
+                if (index == Constant.QUIT)
                     break;
                 selectedMenu = index;
             }
             return selectedMenu;
         }
-        private void SwitchUserMenu(int index)
+        private void SwitchUserMenu(int index)//해당 출력물 전환
         {
             switch (index)
             {
@@ -88,7 +88,7 @@ namespace Library.Controller
                     break;
             }
         }
-        public int SelectAdminMenu()
+        public int SelectAdminMenu()//관리자 메뉴 선택
         {
             bool isEnter = false;
             int index = 0;
@@ -100,7 +100,7 @@ namespace Library.Controller
                 ui.MemberGuide();
                 SwitchAdminMenu(index);
                 index = CheckKey(index, Constant.ADMIN_MENU_LENGTH);
-                if (index == -1)
+                if (index == Constant.QUIT)
                     break;
                 selectedMenu = index;
             }
@@ -125,7 +125,7 @@ namespace Library.Controller
                     break;
             }
         }
-        private int CheckKey(int index,int Lenth)
+        private int CheckKey(int index,int Lenth)//어떤 키가 들어왔는지 감지 (단,위 아래 엔터 ESC만 감지)
         {
             ConsoleKeyInfo upAndDown = Console.ReadKey();
             switch (upAndDown.Key)
@@ -137,7 +137,7 @@ namespace Library.Controller
                     index += Constant.DOWN;
                     break;
                 case ConsoleKey.Enter:
-                    return -1;
+                    return Constant.QUIT;
                 case ConsoleKey.Escape:
                     break;
                 default:

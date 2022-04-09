@@ -17,25 +17,25 @@ namespace Library.Controller
             userFunction= new UserFunction(listData);
             adminFuncion=new AdminFuncion(listData);
         }
-        public void start()
+        public void start()//프로그램 시작
         {
             int selectedMenu;
             bool isExit = false;
             while (!isExit) {
-                selectedMenu = menuSelection.SelectMenu();
+                selectedMenu = menuSelection.SelectMenu();//선택한 메뉴값을 전달해주는 메소드
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        userFunction.Login();
+                        userFunction.Login();//로그인
                         break;
                     case Constant.SECOND_MENU:
-                        userFunction.AddMember();
+                        userFunction.AddMember();//회원가입
                         break;
                     case Constant.THIRD_MENU:
-                        adminFuncion.AdminLogin();
+                        adminFuncion.AdminLogin();//관리자 로그인
                         break;
                     case Constant.FOURTH_MENU:
-                        exception.ExitProgramm();
+                        exception.ExitProgramm();//프로그램 종료
                         break;
                 }
             }

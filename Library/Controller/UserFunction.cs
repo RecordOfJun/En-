@@ -6,7 +6,7 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class UserFunction
+    class UserFunction//사용자 기능 클래스
     {
         public ExceptionView exceptionView = new ExceptionView();
         public Exception exception = new Exception();
@@ -33,7 +33,7 @@ namespace Library.Controller
             bookFunction = new BookFunction(voList, this);
         }
         //로그인 기능
-        public void Login()
+        public void Login()//로그인 메소드
         {
             isBack = false;
             bool isCorrect = false;
@@ -46,13 +46,13 @@ namespace Library.Controller
                 if (isBack)
                     return;
             }
-            if (IsConfirm(1))
+            if (IsConfirm(Constant.CONFRIM_LOGIN))
             {
                 LinkData();
                 UserSelectMenu();
             }
         }
-        public void LinkData()
+        public void LinkData()//로그인 성공 시 해당 계정 정보 불러오기
         {
             this.id = LoginMember.Id;
             this.password = LoginMember.Password;
@@ -61,7 +61,7 @@ namespace Library.Controller
             this.personalCode = LoginMember.PersonalCode;
             this.address = LoginMember.Address;
         }
-        private bool ChekId()
+        private bool ChekId()//아이디와 비밀번호가 일치하는 계정이 있는지 확인
         {
             bool isException = false;
             exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
@@ -99,7 +99,7 @@ namespace Library.Controller
             address = "";
         }
         //회원가입 기능
-        public void AddMember()
+        public void AddMember()//회원가입
         {
             isBack = false;
             InitString();
@@ -116,11 +116,11 @@ namespace Library.Controller
             address = SetData(Constant.ADDRESS_ADD_INDEX, address);
             if (isBack)
                 return;
-            if(IsConfirm(1))
+            if(IsConfirm(Constant.CONFRIM_ADD))
                 CreateTable();
 
         }
-        public void ReviseMember()
+        public void ReviseMember()//개인정보 수정
         {
             isBack = false;
             LinkData();
@@ -141,11 +141,11 @@ namespace Library.Controller
             address = SetData(Constant.ADDRESS_ADD_INDEX, address);
             if (isBack)
                 return;
-            if(IsConfirm(2))
+            if(IsConfirm(Constant.CONFIRM_REVISE))
                 ReviseData();
 
         }
-        public void ReviseData()
+        public void ReviseData()//수정된 데이터 업데이트
         {
             LoginMember.Id = this.id;
             LoginMember.Password = this.password;
@@ -154,12 +154,12 @@ namespace Library.Controller
             LoginMember.PersonalCode = this.personalCode;
             LoginMember.Address = this.address;
         }
-        public void WriteData(int index, string data){
+        public void WriteData(int index, string data){//화면에 계정정보 출력
             Console.SetCursorPosition(Constant.ADD_INDEX, index);
             Console.Write(data);
         }
-        public bool IsConfirm(int type)
-        {   if (type == 1)
+        public bool IsConfirm(int type)//기능 수행 후 재확인 
+        {   if (type == Constant.CONFRIM_ADD)
                 ui.ConfirmAddForm();
             else
                 ui.ReviseDone();
@@ -169,7 +169,7 @@ namespace Library.Controller
                 return false;
             return true;
         }
-        public string SetData(int index,string userInput)
+        public string SetData(int index,string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
             string nullCheck = userInput;
@@ -214,7 +214,7 @@ namespace Library.Controller
                 ui.Revised(userInput.Length);
             return userInput;
         }
-        public string GetData(int maximumLength,string inputString)
+        public string GetData(int maximumLength,string inputString)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
         {
             ConsoleKeyInfo key;
             string userinput;
@@ -255,7 +255,7 @@ namespace Library.Controller
             }
             return inputString;
         }
-        private void CreateTable()
+        private void CreateTable()//새 계정 생성
         {
             MemberVO member = new MemberVO();
             member.Id = id;
@@ -278,7 +278,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        bookFunction.SearchAndChoice(1);
+                        bookFunction.SearchAndChoice(Constant.BOOK_BORROW);
                         break;
                     case Constant.SECOND_MENU:
                         bookFunction.ReturnBook();

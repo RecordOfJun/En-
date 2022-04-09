@@ -37,6 +37,7 @@ namespace Library
         public const int SEARCH_INDEX = 20;
         public const int CODE_INDEX = 22;
         public const int QUANTITY_INDEX = 24;
+        public const int WIDTH = 40;
 
         //Exeption
         public const bool IS_EXCEPTION = false;
@@ -57,9 +58,36 @@ namespace Library
         public const int PERSONAL_LENGTH = 13;
         public const int PHONE_LENGTH = 11;
         public const string ESCAPE = "0000000000000000000000000000000";
+        public const int BOOK_ID_LENGTH = 8;
+        public const int BOOK_STRING_LENGTH = 20;
+        public const int BOOK_PRICE_LENGTH = 6;
+        public const int BOOK_QUANTITY_LENGTH = 2;
+        public const int MEMBER_NAME_LENGTH = 2;
+        public const int MEMBER_PERSONALCODE_LENGTH = 13;
 
+        //if-else,switch
+        public const int CONFRIM_LOGIN = 1;
+        public const int CONFRIM_ADD = 1;
+        public const int CONFIRM_REVISE = 2;
+        public const int QUIT = -1;
+        public const int MONTH_INDEX = 2;
+        public const int DAY_INDEX = 4;
+        public const int GENDER_INDEX = 6;
+        public const int MONTH_LENGTH = 12;
+        public const int DAY_LENGTH = 31;
+        public const int GENDER_FIRST = 1;
+        public const int GENDER_LAST = 4;
+        public const int BOOK_BORROW = 1;
+        public const int BOOK_RETURN = 2;
+        public const int BOOK_DELETE = 3;
+        public const int BOOK_REVISE = 4;
+        public const int MEMBER_REVISE = 1;
+        public const int MEMBER_DELETE = 2;
+
+        //ADMIN
         public const string ADMIN_ID = "1111111111";
         public const string ADMIN_PASSWORD = "9999999999";
 
+        
     }
 }

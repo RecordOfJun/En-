@@ -84,9 +84,5 @@ namespace Library.Model
                 return Constant.IS_HAVE;
             return !Constant.IS_HAVE;
         }
-        public override string ToString()
-        {
-            return "Id:" + id + ", Password:" + password;
-        }
     }
 }

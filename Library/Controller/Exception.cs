@@ -36,17 +36,17 @@ namespace Library.Controller
             }
             foreach (string element in number)//인풋에서 숫자 제거
             {
-                userInput = userInput.Replace(element, "");
+                userInput = userInput.Replace(element, Constant.EMPTY);
             }
             bool isDeleteInt = userInput.Length < length;//숫자가 지워졌는지 확인
             deletedLength = userInput.Length;
             foreach(string element in alphabat)//문자제거
             {
-                userInput = userInput.Replace(element, "");
-                userInput = userInput.Replace(element.ToUpper(), "");
+                userInput = userInput.Replace(element, Constant.EMPTY);
+                userInput = userInput.Replace(element.ToUpper(), Constant.EMPTY);
             }
             bool isDeletechar = userInput.Length < deletedLength;
-            if (userInput != "")
+            if (userInput != Constant.EMPTY)
             {
                 exceptionView.IdPasswordContain(length);
                 return Constant.IS_EXCEPTION;
@@ -112,15 +112,15 @@ namespace Library.Controller
         }
         public bool IsPersnolException(string userInput,List<MemberVO> memberList)
         {
-            string month = userInput.Substring(2, 2);//매직넘버
-            string date= userInput.Substring(4, 2);
-            string gender = userInput.Substring(6, 1);
-            if (int.Parse(month)>12||int.Parse(date)>31)//매직넘버
+            string month = userInput.Substring(Constant.MONTH_INDEX, 2);//매직넘버
+            string date= userInput.Substring(Constant.DAY_INDEX, 2);
+            string gender = userInput.Substring(Constant.GENDER_INDEX, 1);
+            if (int.Parse(month)>Constant.MONTH_LENGTH||int.Parse(date)>Constant.DAY_LENGTH)//매직넘버
             {
                 exceptionView.CheckDate(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
-            if(int.Parse(gender) > 4 || int.Parse(gender) == 0)//매직넘버
+            if(int.Parse(gender) > Constant.GENDER_LAST || int.Parse(gender) < Constant.GENDER_FIRST)//매직넘버
             {
                 exceptionView.CheckGender(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -188,16 +188,16 @@ namespace Library.Controller
         }
         public bool IsNumber(string input)
         {
-            if (input == "")
+            if (input == Constant.EMPTY)
             {
                 exceptionView.EmptyString();
                 return false;
             }
             foreach (string element in number)//인풋에서 숫자 제거
             {
-                input = input.Replace(element, "");
+                input = input.Replace(element, Constant.EMPTY);
             }
-            if (input != "")
+            if (input != Constant.EMPTY)
             {
                 exceptionView.NumberContain(input.Length);
                 return false;

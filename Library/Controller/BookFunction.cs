@@ -17,20 +17,20 @@ namespace Library.Controller
             this.voList = voList;
             this.userFunction = userFunction;
         }
-        public void SearchAndChoice(int type)
+        public void SearchAndChoice(int type)//책 정보 조회 및 선택 기능 메소드
         {
-            string userInput = "";
+            string userInput = Constant.EMPTY;
             Console.Clear();
             switch (type)
             {
-                case 1:
-                    RefreshUserBook("");
+                case Constant.BOOK_BORROW:
+                    RefreshUserBook(Constant.EMPTY);
                     break;
-                case 3:
-                    RefreshAdminBook("");
+                case Constant.BOOK_DELETE:
+                    RefreshAdminBook(Constant.EMPTY);
                     break;
-                case 4:
-                    ReviseAdminBook("");
+                case Constant.BOOK_REVISE:
+                    ReviseAdminBook(Constant.EMPTY);
                     break;
             }
             while (userInput!=Constant.ESCAPE)
@@ -40,33 +40,33 @@ namespace Library.Controller
                     return;
                 switch (type)
                 {
-                    case 1:
+                    case Constant.BOOK_BORROW:
                         BorrowBook(userInput);
-                        RefreshUserBook("");
+                        RefreshUserBook(Constant.EMPTY);
                         break;
-                    case 3:
+                    case Constant.BOOK_DELETE:
                         DeleteBook(userInput);
-                        RefreshAdminBook("");
+                        RefreshAdminBook(Constant.EMPTY);
                         break;
-                    case 4:
+                    case Constant.BOOK_REVISE:
                         string temp=ReviseBook(userInput);
-                        ReviseAdminBook("");
+                        ReviseAdminBook(Constant.EMPTY);
                         if (temp == Constant.ESCAPE)
                             return;
                         break;
                 }
             }
         }
-        private void ShowBookList(string bookName)
+        private void ShowBookList(string bookName)//책 조회
         {
             foreach(BookVO book in voList.bookList.FindAll(element =>element.Name.Contains(bookName)))
             {
                 ui.BookInformation(book);
             }
         }
-        private void BorrowBook(string bookCode)
+        private void BorrowBook(string bookCode)//책 대여 메소드
         {
-            if (bookCode == "")
+            if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
             if (book != null)
@@ -92,11 +92,12 @@ namespace Library.Controller
                 exceptionView.NotExisted(bookCode.Length);
             }
         }
-        private void DeleteBook(string bookCode)
+        private void DeleteBook(string bookCode)//책 삭제 메소드
         {
-            if (bookCode == "")
+            if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
+            RefreshAdminBook(bookCode);
             if (book != null)
             {
                 if (exception.IsDelete(book.Name))
@@ -113,11 +114,11 @@ namespace Library.Controller
             else
                 exceptionView.NotExisted(bookCode.Length);
         }
-        private string ReviseBook(string bookCode)
+        private string ReviseBook(string bookCode)//책 수량 설정 메소드
         {
             bool isNumber = false;
             string quantity=Constant.EMPTY;
-            if (bookCode == "")
+            if (bookCode == Constant.EMPTY)
                 return quantity;
             while (!isNumber) {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
@@ -140,26 +141,26 @@ namespace Library.Controller
                 exceptionView.NotExisted(bookCode.Length);
             return quantity;
         }
-        private void ShowMyBook(string userInput)
+        private void ShowMyBook(string userInput)//대여중인 도서 조회 메소드
         {
             foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(userInput)))
             {
                 ui.BorrowInformation(myBook);
             }
         }
-        public void ReturnBook()
+        public void ReturnBook()//반납 메소드
         {
             string userInput=Constant.EMPTY;
             while (userInput != Constant.ESCAPE)
             {
-                RefreshBorrowBook("");
+                RefreshBorrowBook(Constant.EMPTY);
                 userInput = InsertNameAndCode(userInput,2);
                 if (userInput == Constant.ESCAPE)
                     return;
                 UpdateBookCount(userInput);
             }
         }
-        private void UpdateBookCount(string Code)
+        private void UpdateBookCount(string Code)//책 수량 업데이트
         {
             if (Code == "")
                 return;
@@ -167,7 +168,7 @@ namespace Library.Controller
             userFunction.LoginMember.RemoveBook(myBook);
             myBook.book.Borrowed--;
         }
-        private string InsertNameAndCode(string userInput, int type)
+        private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 필요정보를 입력하는메소드
         {
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
             userInput = userFunction.GetData(10, Constant.EMPTY);
@@ -175,16 +176,16 @@ namespace Library.Controller
                 return userInput;
             switch (type)
             {
-                case 1:
+                case Constant.BOOK_BORROW:
                     RefreshUserBook(userInput);
                     break;
-                case 2:
+                case Constant.BOOK_RETURN:
                     RefreshBorrowBook(userInput);
                     break;
-                case 3:
+                case Constant.BOOK_DELETE:
                     RefreshAdminBook(userInput);
                     break;
-                case 4:
+                case Constant.BOOK_REVISE:
                     ReviseAdminBook(userInput);
                     break;
             }
@@ -193,7 +194,7 @@ namespace Library.Controller
             userInput = userFunction.GetData(10, Constant.EMPTY);
             return userInput;
         }
-        private void RefreshUserBook(string input)
+        private void RefreshUserBook(string input)//RESPREAD VIEW
         {
             Console.Clear();
             ui.LibraryLabel();

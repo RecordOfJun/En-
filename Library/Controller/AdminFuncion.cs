@@ -12,7 +12,7 @@ namespace Library.Controller
             this.voList = voList;
             bookFunction = new BookFunction(voList, this);
         }
-        public void AdminLogin()//id="11111111111" ,password="9999999999"
+        public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {
             string id;
             string password;
@@ -37,7 +37,7 @@ namespace Library.Controller
                 if (!isCorrect)
                     exceptionView.AdminError(password.Length);
             }
-            AdminSelectMenu();
+            AdminSelectMenu();//관리자 메뉴 선택
         }
         public void AdminSelectMenu()
         {
@@ -63,7 +63,7 @@ namespace Library.Controller
                 }
             }
         }
-        private void ManageBook()
+        private void ManageBook()//책 관리 메소드
         {
             bool isInsert = false;
             Console.Clear();
@@ -79,13 +79,13 @@ namespace Library.Controller
                 {
                     case ConsoleKey.D1:
                         isInsert = true;
-                        bookFunction.SearchAndChoice(4);
+                        bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
                         break;
                     case ConsoleKey.D2:
                         isInsert = true;
-                        bookFunction.SearchAndChoice(3);
+                        bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
-                    case ConsoleKey.D3:
+                    case ConsoleKey.D3://책 추가
                         AddBook();
                         isInsert = true;
                         break;
@@ -94,7 +94,7 @@ namespace Library.Controller
                 }
             }
         }
-        public void AddBook()
+        public void AddBook()//책 추가 메소드
         {
             isBack = false;
             bool isException = false;
@@ -110,8 +110,8 @@ namespace Library.Controller
             exceptionView.ClearLine(Constant.ID_ADD_INDEX);
             while (!isBack&&!isException)
             {
-                id = GetData(8, Constant.EMPTY);
-                isException = exception.IsBookIdException(id,8,voList.bookList);
+                id = GetData(Constant.BOOK_ID_LENGTH, Constant.EMPTY);
+                isException = exception.IsBookIdException(id, Constant.BOOK_ID_LENGTH, voList.bookList);
             }
             exceptionView.ClearLine(Constant.PASSWORD_ADD_INDEX);
             if (isBack)
@@ -121,35 +121,35 @@ namespace Library.Controller
                 return;
             exceptionView.ClearLine(Constant.PASSWORD_CONFIRM_INDEX);
             
-            publisher = GetData(20, Constant.EMPTY);
+            publisher = GetData(Constant.BOOK_STRING_LENGTH, Constant.EMPTY);
             if (isBack)
                 return;
             exceptionView.ClearLine(Constant.NAME_ADD_INDEX);
-            author = GetData(20, Constant.EMPTY);
+            author = GetData(Constant.BOOK_STRING_LENGTH, Constant.EMPTY);
             if (isBack)
                 return;
             exceptionView.ClearLine(Constant.PERSONAL_ADD_INDEX);
             isException = false;
             while (!isBack && !isException)
             {
-                price = GetData(6, Constant.EMPTY);
+                price = GetData(Constant.BOOK_PRICE_LENGTH, Constant.EMPTY);
                 isException = exception.IsNumber(price);
             }
             isException = false;
             exceptionView.ClearLine(Constant.PHONE_ADD_INDEX);
             while (!isBack && !isException)
             {
-                quantity = GetData(2, Constant.EMPTY);
+                quantity = GetData(Constant.BOOK_QUANTITY_LENGTH, Constant.EMPTY);
                 isException = exception.IsNumber(quantity);
             }
             if (isBack)
                 return;
-            if (IsConfirm(1)) {
+            if (IsConfirm(Constant.CONFRIM_ADD)) {
                 BookVO book = new BookVO(id, name, publisher, author, price, int.Parse(quantity));
                 voList.bookList.Add(book);
             }
         }
-        private void ManageMember()
+        private void ManageMember()//유저 관리 메소드
         {
             bool isInsert = false;
             Console.Clear();
@@ -163,27 +163,27 @@ namespace Library.Controller
                 Console.SetCursorPosition(0, Console.CursorTop);
                 switch (key.Key)
                 {
-                    case ConsoleKey.D1:
+                    case ConsoleKey.D1://유저 정보 수정
                         isInsert = true;
-                        SearchAndChoiceMember(1);//매직넘버
+                        SearchAndChoiceMember(Constant.MEMBER_REVISE);//매직넘버
                         break;
-                    case ConsoleKey.D2:
+                    case ConsoleKey.D2://유저 삭제
                         isInsert = true;
-                        SearchAndChoiceMember(2);//매직넘버
+                        SearchAndChoiceMember(Constant.MEMBER_DELETE);//매직넘버
                         break;
                     case ConsoleKey.Escape:
                         return;
                 }
             }
         }
-        private void ShowMemberList(string name)
+        private void ShowMemberList(string name)//유저정보 조회
         {
             foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)))
             {
                 ui.MemberInformation(member);
             }
         }
-        public void SearchAndChoiceMember(int type)
+        public void SearchAndChoiceMember(int type)//유저 정보 검색 및 선택
         {
             string userInput = Constant.EMPTY;//매직넘버
             Refresh(userInput);
@@ -194,10 +194,10 @@ namespace Library.Controller
                     return;
                 switch (type)
                 {
-                    case 1://매직넘버
+                    case Constant.MEMBER_REVISE:
                         ReviseMember(userInput);
                         break;
-                    case 2:
+                    case Constant.MEMBER_DELETE:
                         DeleteMember(userInput);
                         break;
                 }
@@ -210,19 +210,19 @@ namespace Library.Controller
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
             while (!isException)
             {
-                userInput = GetData(4, Constant.EMPTY);//매직넘버
+                userInput = GetData(Constant.MEMBER_NAME_LENGTH, Constant.EMPTY);//매직넘버
                 if (userInput == Constant.ESCAPE)
                     return userInput;
                 isException = exception.IsNameException(userInput);
             }
             Refresh(userInput);
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
-            userInput = GetData(13, Constant.EMPTY);//매직넘버
+            userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
             return userInput;
         }
-        private void ReviseMember(string code)
+        private void ReviseMember(string code)//개인정보 수정
         {
-            if (code == "")
+            if (code == Constant.EMPTY)
                 return;
             MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
             if (member != null)
@@ -233,11 +233,12 @@ namespace Library.Controller
             else
                 exceptionView.NotExistedMember(code.Length);
         }
-        private void DeleteMember(string code)
+        private void DeleteMember(string code)//회원 삭제
         {
-            if (code == "")
+            if (code == Constant.EMPTY)
                 return;
             MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
+            Refresh(code);
             if (member != null)
             {
                 if (exception.IsDelete(code))
@@ -245,7 +246,6 @@ namespace Library.Controller
                     foreach (MyBook myBook in member.borrowedBook)
                     {
                         myBook.book.Borrowed--;
-                        member.borrowedBook.Remove(myBook);
                     }
                     voList.memberList.Remove(member);
                 }
@@ -253,7 +253,7 @@ namespace Library.Controller
             else
                 exceptionView.NotExistedMember(code.Length);
         }
-        private void Refresh(string userInput)
+        private void Refresh(string userInput)//재조회
         {
             Console.Clear();
             ui.AdminLabel();
