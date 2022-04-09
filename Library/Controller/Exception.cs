@@ -204,5 +204,32 @@ namespace Library.Controller
             }
             return true;
         }
+        public bool IsBookIdException(string userInput, int length, List<BookVO> bookList)
+        {
+            bool isContainNumber;
+            if (userInput == Constant.ESCAPE)
+                return Constant.IS_EXCEPTION;
+            if (length != userInput.Length)//8
+            {
+                exceptionView.PersonalAndPhoneLength(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            foreach (char letter in userInput)
+            {
+                isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
+                if (!isContainNumber)
+                {
+                    exceptionView.NumberContain(userInput.Length);
+                    return Constant.IS_EXCEPTION;
+                }
+
+            }
+            if (bookList.Exists(book => book.Id == userInput))
+            {
+                exceptionView.ExistedBookId(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
     }
 }

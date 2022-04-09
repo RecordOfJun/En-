@@ -46,9 +46,11 @@ namespace Library.Controller
                 if (isBack)
                     return;
             }
-            ConfirmKeep(1);//수정필요
-            LinkData();
-            UserSelectMenu();
+            if (IsConfirm(1))
+            {
+                LinkData();
+                UserSelectMenu();
+            }
         }
         public void LinkData()
         {
@@ -114,8 +116,8 @@ namespace Library.Controller
             address = SetData(Constant.ADDRESS_ADD_INDEX, address);
             if (isBack)
                 return;
-            ConfirmKeep(1);
-            CreateTable();
+            if(IsConfirm(1))
+                CreateTable();
 
         }
         public void ReviseMember()
@@ -139,8 +141,8 @@ namespace Library.Controller
             address = SetData(Constant.ADDRESS_ADD_INDEX, address);
             if (isBack)
                 return;
-            ConfirmKeep(2);
-            ReviseData();
+            if(IsConfirm(2))
+                ReviseData();
 
         }
         public void ReviseData()
@@ -156,7 +158,7 @@ namespace Library.Controller
             Console.SetCursorPosition(Constant.ADD_INDEX, index);
             Console.Write(data);
         }
-        public void ConfirmKeep(int type)
+        public bool IsConfirm(int type)
         {   if (type == 1)
                 ui.ConfirmAddForm();
             else
@@ -164,7 +166,8 @@ namespace Library.Controller
             ConsoleKeyInfo key;
             key = Console.ReadKey();
             if (key.Key == ConsoleKey.Escape)
-                return;
+                return false;
+            return true;
         }
         public string SetData(int index,string userInput)
         {

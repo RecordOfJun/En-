@@ -131,6 +131,29 @@ namespace Library.View
             Console.WriteLine(":");
 
         }
+        public void AddBook()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                             새로운 도서 추가를 원하시면                 ");
+            Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("도서번호[8글자의 숫자를 입력해 주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("도서명[최대 20글자]");
+            Console.WriteLine(":");
+            Console.WriteLine("출판사명[최대 20글자]");
+            Console.WriteLine(":");
+            Console.WriteLine("저자명[최대 20글자]");
+            Console.WriteLine(":");
+            Console.WriteLine("가격[숫자만 입력해주세요]");
+            Console.WriteLine(":");
+            Console.WriteLine("수량[숫자만 입력해 주세요]");
+            Console.WriteLine(":");
+
+        }
         public void ConfirmAddForm()
         {
             Console.WriteLine();

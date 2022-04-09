@@ -27,12 +27,10 @@ namespace Library.Controller
                     RefreshUserBook("");
                     break;
                 case 3:
-                    ui.AdminLabel();
-                    ui.DeleteGuide();
+                    RefreshAdminBook("");
                     break;
                 case 4:
-                    ui.AdminLabel();
-                    ui.ReviseGuide();
+                    ReviseAdminBook("");
                     break;
             }
             ShowBookList(userInput);
@@ -45,17 +43,19 @@ namespace Library.Controller
                 {
                     case 1:
                         BorrowBook(userInput);
+                        RefreshUserBook("");
                         break;
                     case 3:
                         DeleteBook(userInput);
+                        RefreshAdminBook("");
                         break;
                     case 4:
                         string temp=ReviseBook(userInput);
+                        ReviseAdminBook("");
                         if (temp == Constant.ESCAPE)
                             return;
                         break;
                 }
-                RefreshUserBook("");
             }
         }
         private void ShowBookList(string bookName)

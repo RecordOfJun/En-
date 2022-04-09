@@ -86,11 +86,67 @@ namespace Library.Controller
                         bookFunction.SearchAndChoice(3);
                         break;
                     case ConsoleKey.D3:
+                        AddBook();
                         isInsert = true;
                         break;
                     case ConsoleKey.Escape:
                         return;
                 }
+            }
+        }
+        public void AddBook()
+        {
+            isBack = false;
+            bool isException = false;
+            string id="";
+            string name="";
+            string publisher="";
+            string author="";
+            string price="";
+            string quantity="";
+            Console.Clear();
+            ui.AdminLabel();
+            ui.AddBook();
+            exceptionView.ClearLine(Constant.ID_ADD_INDEX);
+            while (!isBack&&!isException)
+            {
+                id = GetData(8, Constant.EMPTY);
+                isException = exception.IsBookIdException(id,8,voList.bookList);
+            }
+            exceptionView.ClearLine(Constant.PASSWORD_ADD_INDEX);
+            if (isBack)
+                return;
+            name = GetData(20, Constant.EMPTY);
+            if (isBack)
+                return;
+            exceptionView.ClearLine(Constant.PASSWORD_CONFIRM_INDEX);
+            
+            publisher = GetData(20, Constant.EMPTY);
+            if (isBack)
+                return;
+            exceptionView.ClearLine(Constant.NAME_ADD_INDEX);
+            author = GetData(20, Constant.EMPTY);
+            if (isBack)
+                return;
+            exceptionView.ClearLine(Constant.PERSONAL_ADD_INDEX);
+            isException = false;
+            while (!isBack && !isException)
+            {
+                price = GetData(6, Constant.EMPTY);
+                isException = exception.IsNumber(price);
+            }
+            isException = false;
+            exceptionView.ClearLine(Constant.PHONE_ADD_INDEX);
+            while (!isBack && !isException)
+            {
+                quantity = GetData(2, Constant.EMPTY);
+                isException = exception.IsNumber(quantity);
+            }
+            if (isBack)
+                return;
+            if (IsConfirm(1)) {
+                BookVO book = new BookVO(id, name, publisher, author, price, int.Parse(quantity));
+                voList.bookList.Add(book);
             }
         }
         //public void ShowUser
