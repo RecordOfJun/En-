@@ -279,6 +279,19 @@ namespace Library.View
             Console.WriteLine("반납 기한:{0}", myBook.returnTime);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
+        public void MemberInformation(MemberVO member)
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.Write("ID:{0}", member.Id);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("Password:{0}", member.Password);
+            Console.Write("이름:{0}", member.Name);
+            Console.SetCursorPosition(40, Console.CursorTop);
+            Console.WriteLine("주민등록번호:{0}", member.PersonalCode);
+            Console.WriteLine("전화번호:{0}", member.PhoneNumber);
+            Console.WriteLine("주소:{0}", member.Address);
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
         public void SearchGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -349,6 +362,23 @@ namespace Library.View
             Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
             Console.WriteLine(":");
         }
+        public void MemberSearchGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                  회원정보 수정");
+            Console.WriteLine("                         1.원하는 회원의 이름을 입력한다.");
+            Console.WriteLine("                          2.엔터를 눌러 회원 검색한다.");
+            Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
+            Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
+            Console.WriteLine();
+            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
+            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("회원명을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+        }
         public void Revised(int length)
         {
             int printLocation = Constant.ADD_INDEX + length;
@@ -399,7 +429,14 @@ namespace Library.View
             Console.WriteLine("                            도서 삭제를 원하시면 2번,");
             Console.WriteLine("                            도서 추가를 원하시면 3번");
             Console.WriteLine("                                 을 눌러주세요!");
-            Thread.Sleep(Constant.TWO_SECOND);
+        }
+        public void MemberManage()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("                            회원정보 수정을 원하시면 1번,");
+            Console.WriteLine("                              회원 삭제를 원하시면 2번,");
+            Console.WriteLine("                                 을 눌러주세요!");
         }
     }
 }

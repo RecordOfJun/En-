@@ -33,7 +33,6 @@ namespace Library.Controller
                     ReviseAdminBook("");
                     break;
             }
-            ShowBookList(userInput);
             while (userInput!=Constant.ESCAPE)
             {
                 userInput = InsertNameAndCode(userInput,type);
@@ -98,7 +97,6 @@ namespace Library.Controller
             if (bookCode == "")
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
-            RefreshAdminBook(bookCode);
             if (book != null)
             {
                 if (exception.IsDelete(book.Name))

@@ -52,7 +52,7 @@ namespace Library.Controller
                         ManageBook();
                         break;
                     case Constant.SECOND_MENU:
-                        
+                        ManageMember();
                         break;
                     case Constant.THIRD_MENU:
                         isExit = exception.IsEscape();
@@ -149,6 +149,116 @@ namespace Library.Controller
                 voList.bookList.Add(book);
             }
         }
-        //public void ShowUser
+        private void ManageMember()
+        {
+            bool isInsert = false;
+            Console.Clear();
+            ui.AdminLabel();
+            ui.MemberManage();
+            while (!isInsert)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop);
+                switch (key.Key)
+                {
+                    case ConsoleKey.D1:
+                        isInsert = true;
+                        SearchAndChoiceMember(1);//매직넘버
+                        break;
+                    case ConsoleKey.D2:
+                        isInsert = true;
+                        SearchAndChoiceMember(2);//매직넘버
+                        break;
+                    case ConsoleKey.Escape:
+                        return;
+                }
+            }
+        }
+        private void ShowMemberList(string name)
+        {
+            foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)))
+            {
+                ui.MemberInformation(member);
+            }
+        }
+        public void SearchAndChoiceMember(int type)
+        {
+            string userInput = Constant.EMPTY;//매직넘버
+            Refresh(userInput);
+            while (userInput != Constant.ESCAPE)
+            {
+                userInput = InsertNameAndPersonal(userInput, type);
+                if (userInput == Constant.ESCAPE)
+                    return;
+                switch (type)
+                {
+                    case 1://매직넘버
+                        ReviseMember(userInput);
+                        break;
+                    case 2:
+                        DeleteMember(userInput);
+                        break;
+                }
+                Refresh(Constant.EMPTY);
+            }
+        }
+        private string InsertNameAndPersonal(string userInput,int type)
+        {
+            bool isException = false;
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
+            while (!isException)
+            {
+                userInput = GetData(4, Constant.EMPTY);//매직넘버
+                if (userInput == Constant.ESCAPE)
+                    return userInput;
+                isException = exception.IsNameException(userInput);
+            }
+            Refresh(userInput);
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
+            userInput = GetData(13, Constant.EMPTY);//매직넘버
+            return userInput;
+        }
+        private void ReviseMember(string code)
+        {
+            if (code == "")
+                return;
+            MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
+            if (member != null)
+            {
+                this.LoginMember = member;
+                ReviseMember();
+            }
+            else
+                exceptionView.NotExistedMember(code.Length);
+        }
+        private void DeleteMember(string code)
+        {
+            if (code == "")
+                return;
+            MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
+            if (member != null)
+            {
+                if (exception.IsDelete(code))
+                {
+                    foreach (MyBook myBook in member.borrowedBook)
+                    {
+                        myBook.book.Borrowed--;
+                        member.borrowedBook.Remove(myBook);
+                    }
+                    voList.memberList.Remove(member);
+                }
+            }
+            else
+                exceptionView.NotExistedMember(code.Length);
+        }
+        private void Refresh(string userInput)
+        {
+            Console.Clear();
+            ui.AdminLabel();
+            ui.MemberSearchGuide();
+            ShowMemberList(userInput);
+        }
     }
 }

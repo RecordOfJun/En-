@@ -159,6 +159,16 @@ namespace Library.View
             Thread.Sleep(Constant.TWO_SECOND);
             ClearLine(Console.CursorTop);
         }
+        public void NotExistedMember(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("  (주민번호가 일치하는 유저가 존재하지 않습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+            Thread.Sleep(Constant.TWO_SECOND);
+            ClearLine(Console.CursorTop);
+        }
         public void NotRemain(int length)
         {
             int printLocation = Constant.ADD_INDEX + length;
