@@ -18,11 +18,14 @@ namespace Library.Controller
         private string id;
         private string password;
         private string temporalpassword;
+        private string confirmPassword;
         private string name;
         private string personalCode;
         private string phoneNumber;
         private string address;
         public bool isBack;
+        public bool isUp;
+        public int inputType;
         public UserFunction()
         {
 
@@ -42,6 +45,8 @@ namespace Library.Controller
             ui.LoginForm();
             while (!isCorrect)
             {
+                exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
+                exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 isCorrect = ChekId();
                 if (isBack)
                     return;
@@ -64,16 +69,16 @@ namespace Library.Controller
         private bool ChekId()//아이디와 비밀번호가 일치하는 계정이 있는지 확인
         {
             bool isException = false;
-            exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
             while (!isException && !isBack) {
-                exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
+                //exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
+                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
                 id = GetData(Constant.ID_LENGTH, Constant.EMPTY);
                 isException = exception.IsExceptionIdPassword(id);
             }
             isException = false;
             while (!isException && !isBack)
             {
-                exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
+                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
                 password = GetData(Constant.PASSWORD_LENGTH, Constant.EMPTY);
                 isException = exception.IsExceptionIdPassword(password);
             }
@@ -97,23 +102,53 @@ namespace Library.Controller
             personalCode = "";
             phoneNumber = "";
             address = "";
+            confirmPassword = "";
         }
         //회원가입 기능
         public void AddMember()//회원가입
         {
             isBack = false;
+            bool isComplete = false;
+            inputType = 0;
             InitString();
             Console.Clear();
             ui.LibraryLabel();
             ui.AddMemberForm();
-            id = SetData(Constant.ID_ADD_INDEX, id);
-            temporalpassword = SetData(Constant.PASSWORD_ADD_INDEX, password);
-            SetData(Constant.PASSWORD_CONFIRM_INDEX, "");
+            while (!isComplete)
+            {
+                if (inputType < 0)
+                    inputType = 0;
+                switch (inputType)
+                {
+                    case 0:
+                        id = SetData(Constant.ID_ADD_INDEX, id);
+                        break;
+                    case 1:
+                        temporalpassword = SetData(Constant.PASSWORD_ADD_INDEX, temporalpassword);
+                        break;
+                    case 2:
+                        confirmPassword=SetData(Constant.PASSWORD_CONFIRM_INDEX, confirmPassword);
+                        break;
+                    case 3:
+                        name = SetData(Constant.NAME_ADD_INDEX, name);
+                        break;
+                    case 4:
+                        personalCode = SetData(Constant.PERSONAL_ADD_INDEX, personalCode);
+                        break;
+                    case 5:
+                        phoneNumber = SetData(Constant.PHONE_ADD_INDEX, phoneNumber);
+                        break;
+                    case 6:
+                        address = SetData(Constant.ADDRESS_ADD_INDEX, address);
+                        break;
+                    case 7:
+                        isComplete = true;
+                        break;
+                }
+                if (isBack)
+                    return;
+            }
             password = temporalpassword;
-            name = SetData(Constant.NAME_ADD_INDEX, name);
-            personalCode = SetData(Constant.PERSONAL_ADD_INDEX, personalCode);
-            phoneNumber = SetData(Constant.PHONE_ADD_INDEX, phoneNumber);
-            address = SetData(Constant.ADDRESS_ADD_INDEX, address);
             if (isBack)
                 return;
             if(IsConfirm(Constant.CONFRIM_ADD))
@@ -175,45 +210,53 @@ namespace Library.Controller
             string nullCheck = userInput;
             while (!isException&&!isBack)
             {
-                userInput = nullCheck;
+                isUp = false;
                 Console.SetCursorPosition(Constant.ADD_INDEX, index);
                 //exceptionView.ClearLine(index);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX:
                         userInput = GetData(Constant.ID_LENGTH,userInput);
-                        isException = exception.IsIdException(userInput, voList.memberList);
+                        if(!isUp)
+                            isException = exception.IsIdException(userInput, voList.memberList);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
                         userInput = GetData(Constant.PASSWORD_LENGTH, userInput);
-                        isException = exception.IsExceptionIdPassword(userInput);
+                        if (!isUp)
+                            isException = exception.IsExceptionIdPassword(userInput);
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX:
                         userInput = GetData(Constant.PASSWORD_LENGTH, userInput);
-                        isException = exception.IsIdentical(userInput,temporalpassword);
+                        if (!isUp)
+                            isException = exception.IsIdentical(userInput,temporalpassword);
                         break;
                     case Constant.NAME_ADD_INDEX:
                         userInput = GetData(Constant.NAME_LENGTH, userInput);
-                        isException = exception.IsNameException(userInput);
+                        if (!isUp)
+                            isException = exception.IsNameException(userInput);
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
                         userInput = GetData(Constant.PERSONAL_LENGTH, userInput);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH, voList.memberList);
+                        if (!isUp)
+                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH, voList.memberList);
                         break;
                     case Constant.PHONE_ADD_INDEX:
                         userInput = GetData(Constant.PHONE_LENGTH, userInput);
-                        isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH, voList.memberList);
+                        if (!isUp)
+                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH, voList.memberList);
                         break;
                     case Constant.ADDRESS_ADD_INDEX:
-                        userInput = GetData(Console.WindowWidth-1, userInput);
+                        if (!isUp)
+                            userInput = GetData(Console.WindowWidth-1, userInput);
                         isException = !Constant.IS_EXCEPTION;
                         break;
                 }
+                if (isUp)
+                    return userInput;
             }
-            if (nullCheck == "")
+            inputType++;
+            if (!isBack)
                 ui.Passed(userInput.Length);
-            else if (index != Constant.PASSWORD_ADD_INDEX && !isBack)
-                ui.Revised(userInput.Length);
             return userInput;
         }
         public string GetData(int maximumLength,string inputString)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
@@ -221,15 +264,15 @@ namespace Library.Controller
             ConsoleKeyInfo key;
             string userinput;
             bool isEnter = false;
-            //if (maximumLength == Constant.PASSWORD_LENGTH)
-              //  ui.WritePassword(inputString);
-           // else
-            //    ui.SetInputCursor(inputString);
+            //if(inputString!="")
+            //    RefreshString(inputString, maximumLength);
+            Console.SetCursorPosition(inputString.Length + Constant.ADD_INDEX, Console.CursorTop);
             while (!isEnter)
             {
                 
                 key = Console.ReadKey();
-                bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.UpArrow) || (key.Key == ConsoleKey.DownArrow));
+                RefreshString(inputString, maximumLength);
+                bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.DownArrow));
                 userinput = key.KeyChar.ToString();
                 if (key.Key == ConsoleKey.Escape)
                 {
@@ -237,7 +280,16 @@ namespace Library.Controller
                     return Constant.ESCAPE;
                 }
                 if (key.Key == ConsoleKey.Enter)
+                {
+                    RefreshString(inputString, maximumLength);
                     break;
+                }
+                if (key.Key == ConsoleKey.UpArrow)
+                {
+                    isUp = true;
+                    inputType--;
+                    break;
+                }
                 if (userinput == "\b")
                 {
                     if (inputString.Length > 0)
@@ -250,12 +302,16 @@ namespace Library.Controller
                     
                     inputString += userinput;
                 }
-                if (maximumLength == Constant.PASSWORD_LENGTH)
-                    ui.WritePassword(inputString);
-                else
-                    ui.SetInputCursor(inputString);
+                RefreshString(inputString, maximumLength);
             }
             return inputString;
+        }
+        private void RefreshString(string inputString,int maximumLength)
+        {
+            if (maximumLength == Constant.PASSWORD_LENGTH)
+                ui.WritePassword(inputString);
+            else
+                ui.SetInputCursor(inputString);
         }
         private void CreateTable()//새 계정 생성
         {

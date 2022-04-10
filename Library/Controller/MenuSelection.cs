@@ -123,6 +123,8 @@ namespace Library.Controller
         {
             Console.SetCursorPosition(Constant.ARROW_INDEX, index);
             Console.Write(new string(insert, 1));
+            Console.Write(new string(Constant.ERASE, 1));
+            Console.SetCursorPosition(Constant.ARROW_INDEX+1, index);
         }
     }
 }

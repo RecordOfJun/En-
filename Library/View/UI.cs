@@ -63,9 +63,9 @@ namespace Library.View
         public void AddMemberForm()
         {
             Console.WriteLine("");
-            Console.WriteLine("");
             Console.WriteLine("                     회원가입 후 도서 대여 및 반납이 가능합니다!                 ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine(" 입력한 정보를 다시 입력하려면 위쪽 방향키를,입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -77,7 +77,7 @@ namespace Library.View
             Console.WriteLine(":");
             Console.WriteLine("이름[한글만 입력해 주세요]");
             Console.WriteLine(":");
-            Console.WriteLine("주민번호[숫자 13자리를 입력해주세요]");
+            Console.WriteLine("주민번호[숫자 13자리를 입력해주세요 ex)9808281111111]");
             Console.WriteLine(":");
             Console.WriteLine("전화번호[숫자만 입력해 주세요 EX)01026763147]");
             Console.WriteLine(":");
@@ -326,20 +326,12 @@ namespace Library.View
             Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
-        public void Revised(int length)
-        {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("  (수정이 완료되었습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-        }
         public void Passed(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
+            int printLocation = Constant.ADD_INDEX + length+2;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("  (조건에 부합합니다!)");
+            Console.Write("     (완료되었습니다!)");
             Console.ForegroundColor = ConsoleColor.White;
         }
         public void AdminMenu()

@@ -45,7 +45,7 @@ namespace Library
         public const int FIFTH_MENU_INDEX = 19;
         public const int DISTANCE_OF_INDEX = 1;
 
-        public const int ARROW_INDEX = 32;
+        public const int ARROW_INDEX = 31;
 
         //Exeption
         public const bool IS_EXCEPTION = false;

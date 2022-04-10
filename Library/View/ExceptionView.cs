@@ -15,96 +15,97 @@ namespace Library.View
             int printLocation = Constant.ADD_INDEX + length;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  "+insert);
+            Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
         public void IdPasswordLength(int length)
         {
-            ShowException(length, "(6~10 글자로 입력해 주세요!)");
+            ShowException(length, "  (6~10 글자로 입력해 주세요!)");
         }
         public void IdPasswordContain(int length)
         {
-            ShowException(length, "(영어와 숫자만 입력해 주세요!)");
+            ShowException(length, "  (영어와 숫자만 입력해 주세요!)");
         }
         public void IdPasswordNotContain(int length)
         {
-            ShowException(length, "(영어와 숫자를 혼합해 입력해 주세요!)");
+            ShowException(length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
         }
         public void NameContain(int length)
         {
-            ShowException(length, "(한글만 입력해 주세요!)");
+            ShowException(length, "  (한글만 입력해 주세요!)");
         }
         public void PersonalAndPhoneLength(int length)
         {
-            ShowException(length, "(양식에 맞는 글자수를 입력해 주세요!)");
+            ShowException(length, "  (양식에 맞는 글자수를 입력해 주세요!)");
         }
         public void NumberContain(int length)
         {
-            ShowException(length, "(숫자만 입력해 주세요!)");
+            ShowException(length, "  (숫자만 입력해 주세요!)");
         }
         public void StartWith010(int length)
         {
-            ShowException(length, "(010으로 시작해 주세요!)");
+            ShowException(length, "  (010으로 시작해 주세요!)");
         }
         public void CheckDate(int length)
         {
-            ShowException(length, "(생년월일을 다시 확인해 주세요!)");
+            ShowException(length, "  (생년월일을 다시 확인해 주세요!)");
         }
         public void CheckGender(int length)
         {
-            ShowException(length, "(7번째 자리를 다시 확인해 주세요!)");
+            ShowException(length, "  (7번째 자리를 다시 확인해 주세요!)");
         }
         public void ExistedId(int length)
         {
-            ShowException(length, "(이미 존재하는 아이디 입니다!)");
+            ShowException(length, "  (이미 존재하는 아이디 입니다!)");
         }
         public void ExistedCode(int length)
         {
-            ShowException(length, "(이미 가입이 완료된 사용자 입니다!)");
+            ShowException(length, "  (이미 가입이 완료된 사용자 입니다!)");
         }
         public void NotIdentical(int length)
         {
-            ShowException(length, "(비밀번호를 동일하게 입력해 주세요!)");
+            ShowException(length, "  (비밀번호를 동일하게 입력해 주세요!)");
         }
         public void CanNotLogin(int length)
         {
-            ShowException(length, "(아이디와 비밀번호를 확인해 주세요!)");
-            ClearLine(Console.CursorTop);
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            ShowException(0, "(아이디와 비밀번호를 확인해 주세요!)");
 
         }
         public void BorrowSuccess(int length)
         {
-            ShowException(length, "(대여가 완료되었습니다!)");
+            ShowException(length, "  (대여가 완료되었습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void DeleteSuccess(int length)
         {
-            ShowException(length, "(삭제 완료되었습니다!))");
+            ShowException(length, "  (삭제 완료되었습니다!))");
             ClearLine(Console.CursorTop);
         }
         public void NotExisted(int length)
         {
-            ShowException(length, "(코드와 일치하는 도서가 존재하지 않습니다!)");
+            ShowException(length, "  (코드와 일치하는 도서가 존재하지 않습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void NotExistedMember(int length)
         {
-            ShowException(length, "(주민번호가 일치하는 유저가 존재하지 않습니다!)");
+            ShowException(length, "  (주민번호가 일치하는 유저가 존재하지 않습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void NotRemain(int length)
         {
-            ShowException(length, "(남은 수량이 없어 대여할 수 없습니다!)");
+            ShowException(length, "  (남은 수량이 없어 대여할 수 없습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void AlreadyHas(int length)
         {
-            ShowException(length, "(이미 이 도서를 대여 하셨습니다!)");
+            ShowException(length, "  (이미 이 도서를 대여 하셨습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void AdminError(int length)
         {
-            ShowException(length, "(틀렸습니다! 다시 입력해 주세요!)");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            ShowException(0, "(틀렸습니다! 다시 입력해 주세요!)");
         }
         public void ClearLine(int index)
         {
