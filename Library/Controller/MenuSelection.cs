@@ -18,12 +18,13 @@ namespace Library.Controller
             bool isEnter = false;
             int index = 0;
             int selectedMenu = index;
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.MenuGuide();
+            ui.MainMenu();
             while (!isEnter)
             {
-                Console.Clear();
-                ui.LibraryLabel();
-                ui.MenuGuide();
-                SwitchMenu(index);
+                SetArrow(index);
                 index = CheckKey(index, Constant.MAIN_MENU_LENGTH);
                 if (index == Constant.QUIT)
                     break;
@@ -31,35 +32,18 @@ namespace Library.Controller
             }
             return selectedMenu;
         }
-        private void SwitchMenu(int index)//가리키는 인덱스별 화면 전환
-        {
-            switch (index)
-            {
-                case Constant.FIRST_MENU:
-                    ui.SelectFirst();
-                    break;
-                case Constant.SECOND_MENU:
-                    ui.SelectSecond();
-                    break;
-                case Constant.THIRD_MENU:
-                    ui.SelectThird();
-                    break;
-                case Constant.FOURTH_MENU:
-                    ui.SelectFourth();
-                    break;
-            }
-        }
         public int SelectUserMenu()//로그인 후 나오는 메뉴 선택
         {
             bool isEnter = false;
             int index = 0;
             int selectedMenu = index;
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.MemberGuide();
+            ui.UserMenu();
             while (!isEnter)
             {
-                Console.Clear();
-                ui.LibraryLabel();
-                ui.MemberGuide();
-                SwitchUserMenu(index);
+                SetArrow(index);
                 index = CheckKey(index, Constant.USER_MENU_LENGTH);
                 if (index == Constant.QUIT)
                     break;
@@ -67,38 +51,18 @@ namespace Library.Controller
             }
             return selectedMenu;
         }
-        private void SwitchUserMenu(int index)//해당 출력물 전환
-        {
-            switch (index)
-            {
-                case Constant.FIRST_MENU:
-                    ui.UserSelectFirst();
-                    break;
-                case Constant.SECOND_MENU:
-                    ui.UserSelectSecond();
-                    break;
-                case Constant.THIRD_MENU:
-                    ui.UserSelectThird();
-                    break;
-                case Constant.FOURTH_MENU:
-                    ui.UserSelectFourth();
-                    break;
-                case Constant.FIFTH_MENU:
-                    ui.UserSelectFifth();
-                    break;
-            }
-        }
         public int SelectAdminMenu()//관리자 메뉴 선택
         {
             bool isEnter = false;
             int index = 0;
             int selectedMenu = index;
+            Console.Clear();
+            ui.AdminLabel();
+            ui.MemberGuide();
+            ui.AdminMenu();
             while (!isEnter)
             {
-                Console.Clear();
-                ui.AdminLabel();
-                ui.MemberGuide();
-                SwitchAdminMenu(index);
+                SetArrow(index);
                 index = CheckKey(index, Constant.ADMIN_MENU_LENGTH);
                 if (index == Constant.QUIT)
                     break;
@@ -106,24 +70,6 @@ namespace Library.Controller
             }
 
             return selectedMenu;
-        }
-        private void SwitchAdminMenu(int index)
-        {
-            switch (index)
-            {
-                case Constant.FIRST_MENU:
-                    ui.AdminSelectFirst();
-                    break;
-                case Constant.SECOND_MENU:
-                    ui.AdminSelectSecond();
-                    break;
-                case Constant.THIRD_MENU:
-                    ui.AdminSelectThird();
-                    break;
-                case Constant.FOURTH_MENU:
-                    ui.AdminSelectFourth();
-                    break;
-            }
         }
         private int CheckKey(int index,int Lenth)//어떤 키가 들어왔는지 감지 (단,위 아래 엔터 ESC만 감지)
         {
@@ -147,6 +93,36 @@ namespace Library.Controller
                 index += Lenth;
             index = index % Lenth;
             return index;
+        }
+        private void SetArrow(int index)
+        {
+            for (int indexOfY = Constant.FIRST_MENU_INDEX; indexOfY <= Constant.FIFTH_MENU_INDEX; indexOfY += Constant.DISTANCE_OF_INDEX)
+            {
+                SetMenuCursor(indexOfY, Constant.ERASE);
+            }
+            switch (index)
+            {
+                case Constant.FIRST_MENU:
+                    SetMenuCursor(Constant.FIRST_MENU_INDEX, Constant.ARROW);
+                    break;
+                case Constant.SECOND_MENU:
+                    SetMenuCursor(Constant.SECOND_MENU_INDEX, Constant.ARROW);
+                    break;
+                case Constant.THIRD_MENU:
+                    SetMenuCursor(Constant.THIRD_MENU_INDEX, Constant.ARROW);
+                    break;
+                case Constant.FOURTH_MENU:
+                    SetMenuCursor(Constant.FOURTH_MENU_INDEX, Constant.ARROW);
+                    break;
+                case Constant.FIFTH_MENU:
+                    SetMenuCursor(Constant.FIFTH_MENU_INDEX, Constant.ARROW);
+                    break;
+            }
+        }
+        private void SetMenuCursor(int index,char insert)
+        {
+            Console.SetCursorPosition(Constant.ARROW_INDEX, index);
+            Console.Write(new string(insert, 1));
         }
     }
 }

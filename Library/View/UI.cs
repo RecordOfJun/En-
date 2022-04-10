@@ -52,33 +52,12 @@ namespace Library.View
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
             Console.WriteLine("");
         }
-        public void SelectFirst() 
-        {
-            Console.WriteLine("                                 >1.로그인                                        ");
-            Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 3.관리자 로그인                                 ");
-            Console.WriteLine("                                 4.프로그램 종료                                 ");
-        }
-        public void SelectSecond()
-        {
-            Console.WriteLine("                                 1.로그인                                        ");
-            Console.WriteLine("                                 >2.회원가입                                      ");
-            Console.WriteLine("                                 3.관리자 로그인                                 ");
-            Console.WriteLine("                                 4.프로그램 종료                                 ");
-        }
-        public void SelectThird()
-        {
-            Console.WriteLine("                                 1.로그인                                        ");
-            Console.WriteLine("                                 2.회원가입                                      ");
-            Console.WriteLine("                                 >3.관리자 로그인                                 ");
-            Console.WriteLine("                                 4.프로그램 종료                                 ");
-        }
-        public void SelectFourth()
+        public void MainMenu()
         {
             Console.WriteLine("                                 1.로그인                                        ");
             Console.WriteLine("                                 2.회원가입                                      ");
             Console.WriteLine("                                 3.관리자 로그인                                 ");
-            Console.WriteLine("                                 >4.프로그램 종료                                 ");
+            Console.WriteLine("                                 4.프로그램 종료                                 ");
         }
 
         public void AddMemberForm()
@@ -206,45 +185,13 @@ namespace Library.View
             Console.WriteLine("PASSWORD[관리자 전용 PASSWORD를 입력해 주세요]");
             Console.WriteLine(":");
         }
-        public void UserSelectFirst()
-        {
-            Console.WriteLine("                                 >1.도서 대여                                        ");
-            Console.WriteLine("                                 2.도서 반납                                      ");
-            Console.WriteLine("                                 3.개인정보 수정                                ");
-            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 5.프로그램 종료                                ");
-        }
-        public void UserSelectSecond()
-        {
-            Console.WriteLine("                                 1.도서 대여                                        ");
-            Console.WriteLine("                                 >2.도서 반납                                      ");
-            Console.WriteLine("                                 3.개인정보 수정                                ");
-            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 5.프로그램 종료                                ");
-        }
-        public void UserSelectThird()
-        {
-            Console.WriteLine("                                 1.도서 대여                                        ");
-            Console.WriteLine("                                 2.도서 반납                                      ");
-            Console.WriteLine("                                >3.개인정보 수정                                ");
-            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 5.프로그램 종료                                ");
-        }
-        public void UserSelectFourth()
-        {
-            Console.WriteLine("                                 1.도서 대여                                        ");
-            Console.WriteLine("                                 2.도서 반납                                      ");
-            Console.WriteLine("                                 3.개인정보 수정                                ");
-            Console.WriteLine("                                 >4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 5.프로그램 종료                                ");
-        }
-        public void UserSelectFifth()
+        public void UserMenu()
         {
             Console.WriteLine("                                 1.도서 대여                                        ");
             Console.WriteLine("                                 2.도서 반납                                      ");
             Console.WriteLine("                                 3.개인정보 수정                                ");
             Console.WriteLine("                                 4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 >5.프로그램 종료                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         
         public void BookInformation(BookVO book)
@@ -387,33 +334,12 @@ namespace Library.View
             Console.Write("  (수정이 완료되었습니다!)");
             Console.ForegroundColor = ConsoleColor.White;
         }
-        public void AdminSelectFirst()
-        {
-            Console.WriteLine("                                 >1.도서 관리                                        ");
-            Console.WriteLine("                                 2.회원 관리                                      ");
-            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 4.프로그램 종료                                ");
-        }
-        public void AdminSelectSecond()
-        {
-            Console.WriteLine("                                 1.도서 관리                                        ");
-            Console.WriteLine("                                 >2.회원 관리                                      ");
-            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 4.프로그램 종료                                ");
-        }
-        public void AdminSelectThird()
-        {
-            Console.WriteLine("                                 1.도서 관리                                        ");
-            Console.WriteLine("                                 2.회원 관리                                      ");
-            Console.WriteLine("                                 >3.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 4.프로그램 종료                                ");
-        }
-        public void AdminSelectFourth()
+        public void AdminMenu()
         {
             Console.WriteLine("                                 1.도서 관리                                        ");
             Console.WriteLine("                                 2.회원 관리                                      ");
             Console.WriteLine("                                 3.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 >4.프로그램 종료                                ");
+            Console.WriteLine("                                 4.프로그램 종료                                ");
         }
         public void DeleteDone()
         {
