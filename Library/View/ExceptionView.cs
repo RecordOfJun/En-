@@ -10,193 +10,102 @@ namespace Library.View
         {
 
         }
-        public void IdPasswordLength(int length)
+        private void ShowException(int length,string insert)
         {
             int printLocation = Constant.ADD_INDEX + length;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (6~10 글자만 입력해 주세요!)");
+            Console.Write("  "+insert);
             Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(Constant.TWO_SECOND);
-
+        }
+        public void IdPasswordLength(int length)
+        {
+            ShowException(length, "(6~10 글자로 입력해 주세요!)");
         }
         public void IdPasswordContain(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop );
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (영어와 숫자만 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(영어와 숫자만 입력해 주세요!)");
         }
         public void IdPasswordNotContain(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (영어와 숫자를 혼합해 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(영어와 숫자를 혼합해 입력해 주세요!)");
         }
         public void NameContain(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (한글만 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(한글만 입력해 주세요!)");
         }
         public void PersonalAndPhoneLength(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (양식에 맞는 글자수를 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(양식에 맞는 글자수를 입력해 주세요!)");
         }
         public void NumberContain(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (숫자만 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(숫자만 입력해 주세요!)");
         }
         public void StartWith010(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (010으로 시작해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(010으로 시작해 주세요!)");
         }
         public void CheckDate(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (생년월일을 다시 확인해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(생년월일을 다시 확인해 주세요!)");
         }
         public void CheckGender(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (7번째 자리를 다시 확인해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(7번째 자리를 다시 확인해 주세요!)");
         }
         public void ExistedId(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (이미 존재하는 아이디 입니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(이미 존재하는 아이디 입니다!)");
         }
         public void ExistedCode(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (이미 가입이 완료된 사용자 입니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(이미 가입이 완료된 사용자 입니다!)");
         }
         public void NotIdentical(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (비밀번호를 동일하게 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(비밀번호를 동일하게 입력해 주세요!)");
         }
         public void CanNotLogin(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (아이디와 비밀번호를 확인해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(아이디와 비밀번호를 확인해 주세요!)");
             ClearLine(Console.CursorTop);
+
         }
         public void BorrowSuccess(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("  (대여가 완료되었습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(대여가 완료되었습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void DeleteSuccess(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("  (삭제 완료되었습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(삭제 완료되었습니다!))");
             ClearLine(Console.CursorTop);
         }
         public void NotExisted(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (코드와 일치하는 도서가 존재하지 않습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(코드와 일치하는 도서가 존재하지 않습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void NotExistedMember(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (주민번호가 일치하는 유저가 존재하지 않습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(주민번호가 일치하는 유저가 존재하지 않습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void NotRemain(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (남은 수량이 없어 대여할 수 없습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(남은 수량이 없어 대여할 수 없습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void AlreadyHas(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (이미 이 도서를 대여 하셨습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(이미 이 도서를 대여 하셨습니다!)");
             ClearLine(Console.CursorTop);
         }
         public void AdminError(int length)
         {
-            int printLocation = Constant.ADD_INDEX + length;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("  (틀렸습니다! 다시 입력해 주세요!)");
-            Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
+            ShowException(length, "(틀렸습니다! 다시 입력해 주세요!)");
         }
         public void ClearLine(int index)
         {

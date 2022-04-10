@@ -99,5 +99,7 @@ namespace Library
         //char
         public const char ERASE = ' ';
         public const char ARROW = '>';
+
+        //Excptionstring
     }
 }
