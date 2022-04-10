@@ -18,7 +18,7 @@ namespace Library
         public const int SIXTH_MENU = 5;
         public const int INDEX_MINIMUM = 0;
         public const int MAIN_MENU_LENGTH = 4;
-        public const int USER_MENU_LENGTH = 5;
+        public const int USER_MENU_LENGTH = 6;
         public const int ADMIN_MENU_LENGTH = 4;
 
         //Cursor

@@ -178,11 +178,12 @@ namespace Library.View
         }
         public void UserMenu()
         {
-            Console.WriteLine("                                 1.도서 대여                                        ");
-            Console.WriteLine("                                 2.도서 반납                                      ");
-            Console.WriteLine("                                 3.개인정보 수정                                ");
-            Console.WriteLine("                                 4.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 5.프로그램 종료                                ");
+            Console.WriteLine("                                 1.도서 조회                                    ");
+            Console.WriteLine("                                 2.도서 대여                                    ");
+            Console.WriteLine("                                 3.도서 반납                                    ");
+            Console.WriteLine("                                 4.개인정보 수정                                ");
+            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
+            Console.WriteLine("                                 6.프로그램 종료                                ");
         }
         
         public void BookInformation(BookVO book)
@@ -238,8 +239,6 @@ namespace Library.View
             Console.WriteLine(":");
             Console.WriteLine("출판사를 입력해주세요!");
             Console.WriteLine(":");
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
         }
         private void KeyGuide()
         {
@@ -250,50 +249,72 @@ namespace Library.View
         public void SearchGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("                                  도서대여 방법");
+            Console.WriteLine();
+            Console.WriteLine("                                  도서조회 방법");
             Console.WriteLine("                         1.원하는 도서의 이름을 입력한다.");
+            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine();
+            Console.WriteLine("                  도서명 검색은 1,저자명 검색은 2, 출판사 검색은 3");
+            Console.WriteLine("                      메뉴로 돌아가고 싶으면ESC를 눌러주세요. ");
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            BookSearchForm();
+        }
+        public void BorrowGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                  도서대여 방법");
+            Console.WriteLine("                         1.원하는 도서의 정보를 입력한다.");
             Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 대여한다.");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
         public void ReturnGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                도서반납 방법");
-            Console.WriteLine("                         1.빌린 도서의 이름을 입력한다.");
+            Console.WriteLine("                         1.빌린 도서의 정보를 입력한다.");
             Console.WriteLine("                        2.엔터를 눌러 빌린 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 반납한다.");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
         public void DeleteGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                도서삭제 방법");
-            Console.WriteLine("                         1.삭제할 도서의 이름을 입력한다.");
+            Console.WriteLine("                         1.삭제할 도서의 정보를 입력한다.");
             Console.WriteLine("                        2.엔터를 눌러 삭제할 도서를 검색한다.");
             Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 삭제한다.");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
         public void ReviseGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                               도서수량 수정 방법");
-            Console.WriteLine("                         1.수정할 도서의 이름을 입력한다.");
+            Console.WriteLine("                         1.수정할 도서의 정보를 입력한다.");
             Console.WriteLine("                        2.엔터를 눌러 수정할 도서를 검색한다.");
             Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
             Console.WriteLine("                           4.수량을 입력 후 엔터를 누른다.");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
             Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
             Console.WriteLine(":");
         }
@@ -301,7 +322,7 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                  회원정보 수정");
-            Console.WriteLine("                         1.원하는 회원의 이름을 입력한다.");
+            Console.WriteLine("                         1.원하는 회원의 정보를 입력한다.");
             Console.WriteLine("                          2.엔터를 눌러 회원 검색한다.");
             Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
             Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
@@ -339,9 +360,10 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("");
-            Console.WriteLine("                            도서 수정을 원하시면 1번,");
-            Console.WriteLine("                            도서 삭제를 원하시면 2번,");
-            Console.WriteLine("                            도서 추가를 원하시면 3번");
+            Console.WriteLine("                            도서 조회를 원하시면 1번,");
+            Console.WriteLine("                            도서 수정을 원하시면 2번,");
+            Console.WriteLine("                            도서 삭제를 원하시면 3번,");
+            Console.WriteLine("                            도서 추가를 원하시면 4번");
             Console.WriteLine("                                 을 눌러주세요!");
         }
         public void MemberManage()

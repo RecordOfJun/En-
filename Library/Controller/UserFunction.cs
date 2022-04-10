@@ -335,18 +335,21 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        bookFunction.SearchAndChoice(Constant.BOOK_BORROW);
+                        bookFunction.SearchAndChoice(5);
                         break;
                     case Constant.SECOND_MENU:
-                        bookFunction.ReturnBook();
+                        bookFunction.SearchAndChoice(Constant.BOOK_BORROW);
                         break;
                     case Constant.THIRD_MENU:
-                        AddOrReviseMember(2);
+                        bookFunction.ReturnBook();
                         break;
                     case Constant.FOURTH_MENU:
-                        isExit = exception.IsEscape();
+                        AddOrReviseMember(2);
                         break;
                     case Constant.FIFTH_MENU:
+                        isExit = exception.IsEscape();
+                        break;
+                    case Constant.SIXTH_MENU:
                         exception.ExitProgramm();
                         break;
                 }

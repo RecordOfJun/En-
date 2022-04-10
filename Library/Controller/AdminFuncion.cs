@@ -79,13 +79,17 @@ namespace Library.Controller
                 {
                     case ConsoleKey.D1:
                         isInsert = true;
-                        bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
+                        bookFunction.SearchAndChoice(5);
                         break;
                     case ConsoleKey.D2:
                         isInsert = true;
+                        bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
+                        break;
+                    case ConsoleKey.D3:
+                        isInsert = true;
                         bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
-                    case ConsoleKey.D3://책 추가
+                    case ConsoleKey.D4://책 추가
                         AddBook();
                         isInsert = true;
                         break;

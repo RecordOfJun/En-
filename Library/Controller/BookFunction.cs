@@ -21,20 +21,7 @@ namespace Library.Controller
         {
             string userInput = Constant.EMPTY;
             Console.Clear();
-            switch (type)
-            {
-                case Constant.BOOK_BORROW:
-                    RefreshUserBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
-                    break;
-                case Constant.BOOK_DELETE:
-                    RefreshAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
-                    break;
-                case Constant.BOOK_REVISE:
-                    ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
-                    break;
-                case 5:
-                    break;
-            }
+            SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput!=Constant.ESCAPE)
             {
                 userInput = InsertNameAndCode(userInput,type);
@@ -53,8 +40,9 @@ namespace Library.Controller
                         if (temp == Constant.ESCAPE)
                             return;
                         break;
+                    case 5:
+                        break;
                 }
-                ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
         private void ShowBookList(string name,string author,string publisher)//책 조회
@@ -185,16 +173,13 @@ namespace Library.Controller
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
-                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
-                        name = userFunction.GetData(10, Constant.EMPTY);
+                        name = GetBookData(type, 0);
                         break;
                     case ConsoleKey.D2:
-                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 2);
-                        author = userFunction.GetData(10, Constant.EMPTY);
+                        author = GetBookData(type, 2);
                         break;
                     case ConsoleKey.D3:
-                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 4);
-                        publisher = userFunction.GetData(10, Constant.EMPTY);
+                        publisher = GetBookData(type, 4);
                         break;
                     case ConsoleKey.Enter:
                         break;
@@ -207,6 +192,23 @@ namespace Library.Controller
             }
             if (name == Constant.ESCAPE|| author == Constant.ESCAPE|| publisher == Constant.ESCAPE)
                 return Constant.ESCAPE;
+            SpreadBook(type,name,author,publisher);
+            if (type != 5)
+            {
+                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 6);
+                userInput = userFunction.GetData(10, Constant.EMPTY);
+            }
+            return userInput;
+        }
+        private string GetBookData(int type,int cursor)
+        {
+            SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX+cursor);
+            string input = userFunction.GetData(10, Constant.EMPTY);
+            return input;
+        }
+        private void SpreadBook(int type,string name, string author, string publisher)
+        {
             switch (type)
             {
                 case Constant.BOOK_BORROW:
@@ -222,25 +224,29 @@ namespace Library.Controller
                     ReviseAdminBook(name, author, publisher);
                     break;
                 case 5:
+                    RefreshSearchBook(name, author, publisher);
                     break;
             }
-       
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX+6);
-            userInput = userFunction.GetData(10, Constant.EMPTY);
-            return userInput;
         }
-        private void RefreshUserBook(string name, string author, string publisher)//RESPREAD VIEW
+        private void RefreshSearchBook(string name, string author, string publisher)//RESPREAD VIEW
         {
             Console.Clear();
             ui.LibraryLabel();
             ui.SearchGuide();
             ShowBookList(name, author, publisher);
         }
+        private void RefreshUserBook(string name, string author, string publisher)//RESPREAD VIEW
+        {
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.BorrowGuide();
+            ShowBookList(name, author, publisher);
+        }
         private void RefreshAdminBook(string name, string author, string publisher)
         {
             Console.Clear();
             ui.AdminLabel();
-            ui.SearchGuide();
+            ui.BorrowGuide();
             ShowBookList(name, author, publisher);
         }
         private void ReviseAdminBook(string name, string author, string publisher)
