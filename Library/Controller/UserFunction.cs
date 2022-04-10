@@ -17,7 +17,7 @@ namespace Library.Controller
         public MemberVO LoginMember;
         private string id;
         private string password;
-        private string temporalpassword;
+        private string temporalPassword;
         private string confirmPassword;
         private string name;
         private string personalCode;
@@ -61,6 +61,7 @@ namespace Library.Controller
         {
             this.id = LoginMember.Id;
             this.password = LoginMember.Password;
+            this.temporalPassword = password;
             this.name = LoginMember.Name;
             this.phoneNumber = LoginMember.PhoneNumber;
             this.personalCode = LoginMember.PersonalCode;
@@ -97,43 +98,64 @@ namespace Library.Controller
         {
             id = "";
             password = "";
-            temporalpassword = "";
+            temporalPassword = "";
             name = "";
             personalCode = "";
             phoneNumber = "";
             address = "";
-            confirmPassword = "";
         }
         //회원가입 기능
-        public void AddMember()//회원가입
+        public void AddOrReviseMember(int type)//회원가입
         {
             isBack = false;
             bool isComplete = false;
+            int minimumIndex = 0 ;
             inputType = 0;
-            InitString();
             Console.Clear();
             ui.LibraryLabel();
-            ui.AddMemberForm();
+            if (type == 1)
+            {//추가일 때
+                InitString();
+                ui.AddMemberForm();
+                minimumIndex = 0;
+            }
+            if (type == 2)
+            {
+                minimumIndex = 1;
+                ui.ReviseForm();
+                WriteData(Constant.ID_ADD_INDEX, id);
+                WriteData(Constant.PASSWORD_ADD_INDEX, new string('*', password.Length));
+                WriteData(Constant.NAME_ADD_INDEX, name);
+                WriteData(Constant.PERSONAL_ADD_INDEX, personalCode);
+                WriteData(Constant.PHONE_ADD_INDEX, phoneNumber);
+                WriteData(Constant.ADDRESS_ADD_INDEX, address);
+                temporalPassword = password;
+            }
             while (!isComplete)
             {
-                if (inputType < 0)
-                    inputType = 0;
+                if (inputType < minimumIndex)
+                    inputType = minimumIndex;
                 switch (inputType)
                 {
                     case 0:
                         id = SetData(Constant.ID_ADD_INDEX, id);
                         break;
                     case 1:
-                        temporalpassword = SetData(Constant.PASSWORD_ADD_INDEX, temporalpassword);
+                        password = SetData(Constant.PASSWORD_ADD_INDEX, password);
                         break;
                     case 2:
-                        confirmPassword=SetData(Constant.PASSWORD_CONFIRM_INDEX, confirmPassword);
+                        temporalPassword=SetData(Constant.PASSWORD_CONFIRM_INDEX, temporalPassword);
                         break;
                     case 3:
                         name = SetData(Constant.NAME_ADD_INDEX, name);
                         break;
                     case 4:
-                        personalCode = SetData(Constant.PERSONAL_ADD_INDEX, personalCode);
+                        if (type == 1)
+                            personalCode = SetData(Constant.PERSONAL_ADD_INDEX, personalCode);
+                        else if (isUp)
+                            inputType--;
+                        else
+                            inputType++;
                         break;
                     case 5:
                         phoneNumber = SetData(Constant.PHONE_ADD_INDEX, phoneNumber);
@@ -148,37 +170,13 @@ namespace Library.Controller
                 if (isBack)
                     return;
             }
-            password = temporalpassword;
+            password = temporalPassword;
             if (isBack)
                 return;
-            if(IsConfirm(Constant.CONFRIM_ADD))
+            if(type==1&&IsConfirm(Constant.CONFRIM_ADD))
                 CreateTable();
-
-        }
-        public void ReviseMember()//개인정보 수정
-        {
-            isBack = false;
-            LinkData();
-            Console.Clear();
-            ui.LibraryLabel();
-            ui.ReviseForm();
-            WriteData(Constant.ID_ADD_INDEX, id);
-            WriteData(Constant.PASSWORD_ADD_INDEX, password);
-            WriteData(Constant.NAME_ADD_INDEX, name);
-            WriteData(Constant.PERSONAL_ADD_INDEX, personalCode);
-            WriteData(Constant.PHONE_ADD_INDEX, phoneNumber);
-            WriteData(Constant.ADDRESS_ADD_INDEX, address);
-            temporalpassword = SetData(Constant.PASSWORD_ADD_INDEX, password);
-            SetData(Constant.PASSWORD_CONFIRM_INDEX, password);
-            password = temporalpassword;
-            name = SetData(Constant.NAME_ADD_INDEX, name);
-            phoneNumber = SetData(Constant.PHONE_ADD_INDEX, phoneNumber);
-            address = SetData(Constant.ADDRESS_ADD_INDEX, address);
-            if (isBack)
-                return;
-            if(IsConfirm(Constant.CONFIRM_REVISE))
+            if (type==2&&IsConfirm(Constant.CONFIRM_REVISE))
                 ReviseData();
-
         }
         public void ReviseData()//수정된 데이터 업데이트
         {
@@ -228,7 +226,7 @@ namespace Library.Controller
                     case Constant.PASSWORD_CONFIRM_INDEX:
                         userInput = GetData(Constant.PASSWORD_LENGTH, userInput);
                         if (!isUp)
-                            isException = exception.IsIdentical(userInput,temporalpassword);
+                            isException = exception.IsIdentical(userInput,password);
                         break;
                     case Constant.NAME_ADD_INDEX:
                         userInput = GetData(Constant.NAME_LENGTH, userInput);
@@ -342,7 +340,7 @@ namespace Library.Controller
                         bookFunction.ReturnBook();
                         break;
                     case Constant.THIRD_MENU:
-                        ReviseMember();
+                        AddOrReviseMember(2);
                         break;
                     case Constant.FOURTH_MENU:
                         isExit = exception.IsEscape();

@@ -195,7 +195,7 @@ namespace Library.Controller
                 switch (type)
                 {
                     case Constant.MEMBER_REVISE:
-                        ReviseMember(userInput);
+                        AdminReviseMember(userInput);
                         break;
                     case Constant.MEMBER_DELETE:
                         DeleteMember(userInput);
@@ -220,7 +220,7 @@ namespace Library.Controller
             userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
             return userInput;
         }
-        private void ReviseMember(string code)//개인정보 수정
+        private void AdminReviseMember(string code)//개인정보 수정
         {
             if (code == Constant.EMPTY)
                 return;
@@ -228,7 +228,7 @@ namespace Library.Controller
             if (member != null)
             {
                 this.LoginMember = member;
-                ReviseMember();
+                AddOrReviseMember(2);
             }
             else
                 exceptionView.NotExistedMember(code.Length);

@@ -29,7 +29,7 @@ namespace Library.Controller
                         userFunction.Login();//로그인
                         break;
                     case Constant.SECOND_MENU:
-                        userFunction.AddMember();//회원가입
+                        userFunction.AddOrReviseMember(1);//회원가입
                         break;
                     case Constant.THIRD_MENU:
                         adminFuncion.AdminLogin();//관리자 로그인
