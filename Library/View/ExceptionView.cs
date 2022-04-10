@@ -17,7 +17,6 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("  "+insert);
             Console.ForegroundColor = ConsoleColor.White;
-            Thread.Sleep(Constant.TWO_SECOND);
         }
         public void IdPasswordLength(int length)
         {

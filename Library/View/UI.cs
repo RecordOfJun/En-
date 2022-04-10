@@ -330,8 +330,16 @@ namespace Library.View
         {
             int printLocation = Constant.ADD_INDEX + length;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("  (수정이 완료되었습니다!)");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void Passed(int length)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("  (조건에 부합합니다!)");
             Console.ForegroundColor = ConsoleColor.White;
         }
         public void AdminMenu()

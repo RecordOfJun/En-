@@ -176,7 +176,8 @@ namespace Library.Controller
             while (!isException&&!isBack)
             {
                 userInput = nullCheck;
-                exceptionView.ClearLine(index);
+                Console.SetCursorPosition(Constant.ADD_INDEX, index);
+                //exceptionView.ClearLine(index);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX:
@@ -208,9 +209,10 @@ namespace Library.Controller
                         isException = !Constant.IS_EXCEPTION;
                         break;
                 }
-                
             }
-            if (nullCheck != "" && index != Constant.PASSWORD_ADD_INDEX&&!isBack)
+            if (nullCheck == "")
+                ui.Passed(userInput.Length);
+            else if (index != Constant.PASSWORD_ADD_INDEX && !isBack)
                 ui.Revised(userInput.Length);
             return userInput;
         }
@@ -219,10 +221,10 @@ namespace Library.Controller
             ConsoleKeyInfo key;
             string userinput;
             bool isEnter = false;
-            if (maximumLength == Constant.PASSWORD_LENGTH)
-                ui.WritePassword(inputString);
-            else
-                ui.SetInputCursor(inputString);
+            //if (maximumLength == Constant.PASSWORD_LENGTH)
+              //  ui.WritePassword(inputString);
+           // else
+            //    ui.SetInputCursor(inputString);
             while (!isEnter)
             {
                 
