@@ -69,6 +69,23 @@ namespace Library.View
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
+            InsetForm();
+
+        }
+        public void ReviseForm()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다!                 ");
+            Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            InsetForm();
+
+        }
+        private void InsetForm()
+        {
             Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
             Console.WriteLine(":");
             Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
@@ -83,32 +100,6 @@ namespace Library.View
             Console.WriteLine(":");
             Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
             Console.WriteLine(":");
-
-        }
-        public void ReviseForm()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다!                 ");
-            Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
-            Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("PASSWORD확인");
-            Console.WriteLine(":");
-            Console.WriteLine("이름[한글만 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("주민번호[숫자 13자리를 입력해주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("전화번호[숫자만 입력해 주세요 EX)01026763147]");
-            Console.WriteLine(":");
-            Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
-            Console.WriteLine(":");
-
         }
         public void AddBook()
         {
@@ -239,6 +230,23 @@ namespace Library.View
             Console.WriteLine("주소:{0}", member.Address);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
+        private void BookSearchForm()
+        {
+            Console.WriteLine("도서명을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("저자명을 입력해주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("출판사를 입력해주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+        }
+        private void KeyGuide()
+        {
+            Console.WriteLine("                  도서명 검색은 1,저자명 검색은 2, 출판사 검색은 3");
+            Console.WriteLine("              도서코드로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine("           처음부터 다시 시작하려면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+        }
         public void SearchGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -247,14 +255,9 @@ namespace Library.View
             Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 대여한다.");
-            Console.WriteLine();
-            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
-            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            BookSearchForm();
         }
         public void ReturnGuide()
         {
@@ -264,14 +267,9 @@ namespace Library.View
             Console.WriteLine("                        2.엔터를 눌러 빌린 도서를 검색한다.");
             Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 반납한다.");
-            Console.WriteLine();
-            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
-            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            BookSearchForm();
         }
         public void DeleteGuide()
         {
@@ -281,14 +279,9 @@ namespace Library.View
             Console.WriteLine("                        2.엔터를 눌러 삭제할 도서를 검색한다.");
             Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
             Console.WriteLine("                          4.엔터를 눌러 도서를 삭제한다.");
-            Console.WriteLine();
-            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
-            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            BookSearchForm();
         }
         public void ReviseGuide()
         {
@@ -297,15 +290,10 @@ namespace Library.View
             Console.WriteLine("                         1.수정할 도서의 이름을 입력한다.");
             Console.WriteLine("                        2.엔터를 눌러 수정할 도서를 검색한다.");
             Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
-            Console.WriteLine("                          4.엔터를 눌러 도서를 선택한다.");
-            Console.WriteLine("                           5.수량을 입력 후 엔터를 누른다.");
-            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
-            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("                           4.수량을 입력 후 엔터를 누른다.");
+            KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("도서명에 포함된 문자열을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            BookSearchForm();
             Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
             Console.WriteLine(":");
         }

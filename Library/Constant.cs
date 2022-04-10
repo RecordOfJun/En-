@@ -35,8 +35,8 @@ namespace Library
         public const int ID_LOGIN_INDEX = 15;
         public const int PASSWORD_LOGIN_INDEX = 17;
         public const int SEARCH_INDEX = 20;
-        public const int CODE_INDEX = 22;
-        public const int QUANTITY_INDEX = 24;
+        public const int CODE_INDEX = 26;
+        public const int QUANTITY_INDEX = 28;
         public const int WIDTH = 40;
         public const int FIRST_MENU_INDEX = 15;
         public const int SECOND_MENU_INDEX = 16;
@@ -70,7 +70,7 @@ namespace Library
         public const int BOOK_STRING_LENGTH = 20;
         public const int BOOK_PRICE_LENGTH = 6;
         public const int BOOK_QUANTITY_LENGTH = 2;
-        public const int MEMBER_NAME_LENGTH = 2;
+        public const int MEMBER_NAME_LENGTH = 4;
         public const int MEMBER_PERSONALCODE_LENGTH = 13;
 
         //if-else,switch

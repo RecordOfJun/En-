@@ -121,6 +121,7 @@ namespace Library.Controller
             }
             if (type == 2)
             {
+                LinkData();
                 minimumIndex = 1;
                 ui.ReviseForm();
                 WriteData(Constant.ID_ADD_INDEX, id);

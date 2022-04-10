@@ -24,13 +24,15 @@ namespace Library.Controller
             switch (type)
             {
                 case Constant.BOOK_BORROW:
-                    RefreshUserBook(Constant.EMPTY);
+                    RefreshUserBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
                     break;
                 case Constant.BOOK_DELETE:
-                    RefreshAdminBook(Constant.EMPTY);
+                    RefreshAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
                     break;
                 case Constant.BOOK_REVISE:
-                    ReviseAdminBook(Constant.EMPTY);
+                    ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
+                    break;
+                case 5:
                     break;
             }
             while (userInput!=Constant.ESCAPE)
@@ -42,24 +44,22 @@ namespace Library.Controller
                 {
                     case Constant.BOOK_BORROW:
                         BorrowBook(userInput);
-                        RefreshUserBook(Constant.EMPTY);
                         break;
                     case Constant.BOOK_DELETE:
                         DeleteBook(userInput);
-                        RefreshAdminBook(Constant.EMPTY);
                         break;
                     case Constant.BOOK_REVISE:
                         string temp=ReviseBook(userInput);
-                        ReviseAdminBook(Constant.EMPTY);
                         if (temp == Constant.ESCAPE)
                             return;
                         break;
                 }
+                ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
-        private void ShowBookList(string bookName)//책 조회
+        private void ShowBookList(string name,string author,string publisher)//책 조회
         {
-            foreach(BookVO book in voList.bookList.FindAll(element =>element.Name.Contains(bookName)))
+            foreach (BookVO book in voList.bookList.FindAll(element => element.Name.Contains(name)&&element.Publisher.Contains(publisher) && element.Author.Contains(author)))
             {
                 ui.BookInformation(book);
             }
@@ -97,7 +97,7 @@ namespace Library.Controller
             if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
-            RefreshAdminBook(bookCode);
+            //RefreshAdminBook(bookCode);
             if (book != null)
             {
                 if (exception.IsDelete(book.Name))
@@ -127,7 +127,7 @@ namespace Library.Controller
                     return quantity;
                 isNumber = exception.IsNumber(quantity);
             }
-            ReviseAdminBook(bookCode);
+            //ReviseAdminBook(bookCode);
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
             if (book != null)
             {
@@ -141,9 +141,9 @@ namespace Library.Controller
                 exceptionView.NotExisted(bookCode.Length);
             return quantity;
         }
-        private void ShowMyBook(string userInput)//대여중인 도서 조회 메소드
+        private void ShowMyBook(string name, string author, string publisher)//대여중인 도서 조회 메소드
         {
-            foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(userInput)))
+            foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(name) || element.book.Name.Contains(publisher) || element.book.Name.Contains(author)))
             {
                 ui.BorrowInformation(myBook);
             }
@@ -153,7 +153,7 @@ namespace Library.Controller
             string userInput=Constant.EMPTY;
             while (userInput != Constant.ESCAPE)
             {
-                RefreshBorrowBook(Constant.EMPTY);
+                //RefreshBorrowBook(Constant.EMPTY);
                 userInput = InsertNameAndCode(userInput,2);
                 if (userInput == Constant.ESCAPE)
                     return;
@@ -170,57 +170,92 @@ namespace Library.Controller
         }
         private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 필요정보를 입력하는메소드
         {
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
-            userInput = userFunction.GetData(10, Constant.EMPTY);
-            if (userInput == Constant.ESCAPE)
-                return userInput;
+            string name = Constant.EMPTY;
+            string author = Constant.EMPTY;
+            string publisher = Constant.EMPTY;
+            ConsoleKeyInfo key;
+            bool isKey = false;
+            //제목,작가명,출판사로 검색을 가능하게 함
+            while (!isKey) {
+                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
+                key = Console.ReadKey();
+                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
+                Console.Write("  ");
+                isKey = true;
+                switch (key.Key)
+                {
+                    case ConsoleKey.D1:
+                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
+                        name = userFunction.GetData(10, Constant.EMPTY);
+                        break;
+                    case ConsoleKey.D2:
+                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 2);
+                        author = userFunction.GetData(10, Constant.EMPTY);
+                        break;
+                    case ConsoleKey.D3:
+                        Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 4);
+                        publisher = userFunction.GetData(10, Constant.EMPTY);
+                        break;
+                    case ConsoleKey.Enter:
+                        break;
+                    case ConsoleKey.Escape:
+                        return Constant.ESCAPE;
+                    default:
+                        isKey = false;
+                        break;
+                }
+            }
+            if (name == Constant.ESCAPE|| author == Constant.ESCAPE|| publisher == Constant.ESCAPE)
+                return Constant.ESCAPE;
             switch (type)
             {
                 case Constant.BOOK_BORROW:
-                    RefreshUserBook(userInput);
+                    RefreshUserBook(name, author, publisher);
                     break;
                 case Constant.BOOK_RETURN:
-                    RefreshBorrowBook(userInput);
+                    RefreshBorrowBook(name, author, publisher);
                     break;
                 case Constant.BOOK_DELETE:
-                    RefreshAdminBook(userInput);
+                    RefreshAdminBook(name, author, publisher);
                     break;
                 case Constant.BOOK_REVISE:
-                    ReviseAdminBook(userInput);
+                    ReviseAdminBook(name, author, publisher);
+                    break;
+                case 5:
                     break;
             }
        
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX+6);
             userInput = userFunction.GetData(10, Constant.EMPTY);
             return userInput;
         }
-        private void RefreshUserBook(string input)//RESPREAD VIEW
+        private void RefreshUserBook(string name, string author, string publisher)//RESPREAD VIEW
         {
             Console.Clear();
             ui.LibraryLabel();
             ui.SearchGuide();
-            ShowBookList(input);
+            ShowBookList(name, author, publisher);
         }
-        private void RefreshAdminBook(string input)
+        private void RefreshAdminBook(string name, string author, string publisher)
         {
             Console.Clear();
             ui.AdminLabel();
             ui.SearchGuide();
-            ShowBookList(input);
+            ShowBookList(name, author, publisher);
         }
-        private void ReviseAdminBook(string input)
+        private void ReviseAdminBook(string name, string author, string publisher)
         {
             Console.Clear();
             ui.AdminLabel();
             ui.ReviseGuide();
-            ShowBookList(input);
+            ShowBookList(name,author,publisher);
         }
-        private void RefreshBorrowBook(string input)
+        private void RefreshBorrowBook(string name, string author, string publisher)
         {
             Console.Clear();
             ui.LibraryLabel();
             ui.ReturnGuide();
-            ShowMyBook(input);
+            ShowMyBook(name, author, publisher);
         }
     }
 }
