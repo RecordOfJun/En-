@@ -7,6 +7,7 @@ namespace Library.Controller
 {
     class AdminFuncion: UserFunction
     {
+        List<MemberVO> memberList;
         public AdminFuncion(VOList voList, ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;
@@ -141,6 +142,11 @@ namespace Library.Controller
             {
                 price = GetData(Constant.BOOK_PRICE_LENGTH, Constant.EMPTY);
                 isException = exception.IsNumber(price);
+                if (price== "0")
+                {
+                    isException = Constant.IS_EXCEPTION;
+                    exceptionView.QuantityException(quantity.Length);
+                }
             }
             isException = false;
             exceptionView.ClearLine(Constant.PHONE_ADD_INDEX);
@@ -148,6 +154,11 @@ namespace Library.Controller
             {
                 quantity = GetData(Constant.BOOK_QUANTITY_LENGTH, Constant.EMPTY);
                 isException = exception.IsNumber(quantity);
+                if (quantity == "0")
+                {
+                    isException = Constant.IS_EXCEPTION;
+                    exceptionView.QuantityException(quantity.Length);
+                }
             }
             if (isBack)
                 return;
@@ -189,10 +200,13 @@ namespace Library.Controller
         }
         private void ShowMemberList(string name,string id,string phonenumber)//유저정보 조회
         {
+            List<MemberVO> findList = new List<MemberVO>();
             foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)&&element.Id.Contains(id)&&element.PhoneNumber.Contains(phonenumber)))
             {
+                findList.Add(member);
                 ui.MemberInformation(member);
             }
+            memberList = findList;
         }
         public void SearchAndChoiceMember(int type)//유저 정보 검색 및 선택
         {
@@ -259,9 +273,22 @@ namespace Library.Controller
             Refresh(name,id,phonenumber,type);
             if (type != 4)
             {
-                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
-                userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
+                bool isExisted = Constant.IS_EXCEPTION;
+                while (!isExisted)
+                {
+                    Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
+                    userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
+                    if (userInput == Constant.EMPTY || userInput == Constant.ESCAPE)
+                        return userInput;
+                    isExisted = true;
+                    if (!memberList.Exists(member => member.PersonalCode == userInput))
+                    {
+                        isExisted = false;
+                        exceptionView.NotExisted(userInput.Length);
+                    }
+                }
             }
+
             return userInput;
         }
         private void AdminReviseMember(string code)//개인정보 수정

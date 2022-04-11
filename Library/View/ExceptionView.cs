@@ -98,7 +98,7 @@ namespace Library.View
         }
         public void NotExisted(int length)
         {
-            ShowException(length, "  (검색항목 중 코드와 일치하는 도서가 존재하지 않습니다!)");
+            ShowException(length, "  (검색항목 중 일치하는 정보가 존재하지 않습니다!)");
         }
         public void NotExistedMember(int length)
         {

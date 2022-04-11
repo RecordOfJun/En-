@@ -269,7 +269,6 @@ namespace Library.View
         public void BorrowGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            BookManual("원하는", "찾은", "대여");
             Console.WriteLine("                                  도서대여 방법");
             BookManual("원하는", "찾은", "대여");
             KeyGuide();

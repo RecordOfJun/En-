@@ -12,6 +12,7 @@ namespace Library.Controller
         ExceptionView exceptionView;
         Exception exception;
         List<BookVO> bookList;
+        List<MyBook> myBookList;
         UI ui;
         public BookFunction(VOList voList, UserFunction userFunction,ExceptionAndView exceptionAndView)
         {
@@ -40,9 +41,7 @@ namespace Library.Controller
                         DeleteBook(userInput);
                         break;
                     case Constant.BOOK_REVISE:
-                        string temp=ReviseBook(userInput);
-                        if (temp == Constant.ESCAPE)
-                            return;
+                        ReviseBook(userInput);
                         break;
                     case 5:
                         break;
@@ -97,17 +96,17 @@ namespace Library.Controller
                 exceptionView.DeleteSuccess(bookCode.Length);
             }
         }
-        private string ReviseBook(string bookCode)//책 수량 설정 메소드
+        private void ReviseBook(string bookCode)//책 수량 설정 메소드
         {
             if (bookCode == Constant.EMPTY)
-                return Constant.EMPTY;
+                return ;
             bool isNumber = false;
             string quantity=Constant.EMPTY;
             while (!isNumber) {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
                 quantity = userFunction.GetData(2, Constant.EMPTY);
                 if (quantity == Constant.ESCAPE)
-                    return quantity;
+                    return;
                 isNumber = exception.IsNumber(quantity);
                 if (quantity == "0")
                 {
@@ -121,14 +120,17 @@ namespace Library.Controller
             {
                 book.Quantity = int.Parse(quantity);
             }
-            return quantity;
+            return;
         }
         private void ShowMyBook(string name, string author, string publisher)//대여중인 도서 조회 메소드
         {
+            List<BookVO> findList = new List<BookVO>();
             foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(name) || element.book.Name.Contains(publisher) || element.book.Name.Contains(author)))
             {
+                findList.Add(myBook.book);
                 ui.BorrowInformation(myBook);
             }
+            bookList = findList;
         }
         public void ReturnBook()//반납 메소드
         {
@@ -201,7 +203,7 @@ namespace Library.Controller
                 {
                     Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 6);
                     userInput = userFunction.GetData(10, Constant.EMPTY);
-                    if (userInput == Constant.EMPTY)
+                    if (userInput == Constant.EMPTY || userInput==Constant.ESCAPE)
                         return userInput;
                     isExisted = true;
                     if (!bookList.Exists(book => book.Id == userInput))
