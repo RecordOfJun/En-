@@ -29,6 +29,7 @@ namespace Library.Controller
             exceptionAndView.ui = this.ui;
             userFunction = new UserFunction(listData,exceptionAndView);
             adminFuncion=new AdminFuncion(listData,exceptionAndView);
+            Console.SetWindowSize(81, 40);
         }
         public void start()//프로그램 시작
         {

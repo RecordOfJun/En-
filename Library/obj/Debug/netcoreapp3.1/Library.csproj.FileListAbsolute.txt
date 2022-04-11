@@ -11,3 +11,17 @@ C:\Users\user\Desktop\개발\Library\obj\Debug\netcoreapp3.1\Library.csproj.Core
 C:\Users\user\Desktop\개발\Library\obj\Debug\netcoreapp3.1\Library.dll
 C:\Users\user\Desktop\개발\Library\obj\Debug\netcoreapp3.1\Library.pdb
 C:\Users\user\Desktop\개발\Library\obj\Debug\netcoreapp3.1\Library.genruntimeconfig.cache
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.exe
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.deps.json
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.runtimeconfig.json
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.runtimeconfig.dev.json
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.dll
+C:\Users\12\OneDrive\개발\Library\bin\Debug\netcoreapp3.1\Library.pdb
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.csproj.AssemblyReference.cache
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.AssemblyInfoInputs.cache
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.AssemblyInfo.cs
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.csproj.CoreCompileInputs.cache
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.dll
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.pdb
+C:\Users\12\OneDrive\개발\Library\obj\Debug\netcoreapp3.1\Library.genruntimeconfig.cache

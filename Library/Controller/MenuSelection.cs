@@ -10,7 +10,6 @@ namespace Library.Controller
         UI ui;
         public MenuSelection()
         {
-            Console.SetWindowSize(81, 40);
             ui = new UI();
         }
         public int SelectMenu()//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
