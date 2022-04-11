@@ -260,14 +260,19 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
         }
+        private void BookManual(string firstLine, string thirdLine, string fourthLine)
+        {
+            Console.WriteLine("                         1.{0} 도서의 정보를 입력한다.",firstLine);
+            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                        3.{0} 도서의 도서코드를 입력한다.",thirdLine);
+            Console.WriteLine("                          4.엔터를 눌러 도서를 {0}한다.",fourthLine);
+        }
         public void BorrowGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
+            BookManual("원하는", "찾은", "대여");
             Console.WriteLine("                                  도서대여 방법");
-            Console.WriteLine("                         1.원하는 도서의 정보를 입력한다.");
-            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
-            Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
-            Console.WriteLine("                          4.엔터를 눌러 도서를 대여한다.");
+            BookManual("원하는", "찾은", "대여");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
@@ -278,10 +283,7 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                도서반납 방법");
-            Console.WriteLine("                         1.빌린 도서의 정보를 입력한다.");
-            Console.WriteLine("                        2.엔터를 눌러 빌린 도서를 검색한다.");
-            Console.WriteLine("                        3.찾은 도서의 도서코드를 입력한다.");
-            Console.WriteLine("                          4.엔터를 눌러 도서를 반납한다.");
+            BookManual("빌린", "반납할", "반납");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
@@ -292,10 +294,7 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                도서삭제 방법");
-            Console.WriteLine("                         1.삭제할 도서의 정보를 입력한다.");
-            Console.WriteLine("                        2.엔터를 눌러 삭제할 도서를 검색한다.");
-            Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
-            Console.WriteLine("                          4.엔터를 눌러 도서를 삭제한다.");
+            BookManual("삭제할", "삭제할", "삭제");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
@@ -306,10 +305,7 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                               도서수량 수정 방법");
-            Console.WriteLine("                         1.수정할 도서의 정보를 입력한다.");
-            Console.WriteLine("                        2.엔터를 눌러 수정할 도서를 검색한다.");
-            Console.WriteLine("                        3.삭제할 도서의 도서코드를 입력한다.");
-            Console.WriteLine("                           4.수량을 입력 후 엔터를 누른다.");
+            BookManual("수정할", "수정할", "수량");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
@@ -318,26 +314,60 @@ namespace Library.View
             Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
             Console.WriteLine(":");
         }
-        public void MemberSearchGuide()
+        private void UserDataForm()
         {
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("                                  회원정보 수정");
-            Console.WriteLine("                         1.원하는 회원의 정보를 입력한다.");
-            Console.WriteLine("                          2.엔터를 눌러 회원 검색한다.");
-            Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
-            Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
-            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
-            Console.WriteLine("              수정으로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
-            Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("ID를 입력해 주세요!");
             Console.WriteLine(":");
             Console.WriteLine("회원명을 입력해 주세요!");
             Console.WriteLine(":");
             Console.WriteLine("전화번호를 입력해주세요!");
             Console.WriteLine(":");
+        }
+        private void UserManual()
+        {
+            Console.WriteLine("                         1.원하는 회원의 정보를 입력한다.");
+            Console.WriteLine("                          2.엔터를 눌러 회원을 검색한다.");
+            Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
+        }
+        public void MemberReviseGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                  회원정보 수정");
+            UserManual();
+            Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
+            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
+            Console.WriteLine("              수정으로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine("           처음부터 다시 시작하려면 주민번호 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            UserDataForm();
             Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
+        }
+        public void MemberDeleteGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                    회원 삭제");
+            UserManual();
+            Console.WriteLine();
+            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
+            Console.WriteLine("              삭제로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine("           처음부터 다시 시작하려면 주민번호 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            UserDataForm();
+            Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
+        }
+        public void MemberSearchGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                    회원 조회");
+            UserManual();
+            Console.WriteLine();
+            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
+            Console.WriteLine("                           메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            UserDataForm();
         }
         public void Passed(int length)
         {
@@ -373,8 +403,9 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("");
-            Console.WriteLine("                            회원정보 수정을 원하시면 1번,");
-            Console.WriteLine("                              회원 삭제를 원하시면 2번,");
+            Console.WriteLine("                            회원정보 조회를 원하시면 1번,");
+            Console.WriteLine("                            회원정보 수정을 원하시면 2번,");
+            Console.WriteLine("                              회원 삭제를 원하시면 3번,");
             Console.WriteLine("                                 을 눌러주세요!");
         }
     }

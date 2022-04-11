@@ -172,9 +172,13 @@ namespace Library.Controller
                 {
                     case ConsoleKey.D1://유저 정보 수정
                         isInsert = true;
+                        SearchAndChoiceMember(4);//매직넘버
+                        break;
+                    case ConsoleKey.D2://유저 정보 수정
+                        isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_REVISE);//매직넘버
                         break;
-                    case ConsoleKey.D2://유저 삭제
+                    case ConsoleKey.D3://유저 삭제
                         isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_DELETE);//매직넘버
                         break;
@@ -196,7 +200,7 @@ namespace Library.Controller
             string id = Constant.EMPTY;
             string name = Constant.EMPTY;
             string phonenumber = Constant.EMPTY;
-            Refresh(name, id, phonenumber);
+            Refresh(name, id, phonenumber,type);
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndPersonal(userInput, type);
@@ -210,8 +214,9 @@ namespace Library.Controller
                     case Constant.MEMBER_DELETE:
                         DeleteMember(userInput);
                         break;
+                    case 4:
+                        break;
                 }
-                Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
         private string InsertNameAndPersonal(string userInput,int type)
@@ -232,13 +237,13 @@ namespace Library.Controller
                 switch (key.Key)
                 {
                     case ConsoleKey.D1:
-                        id = GetUserData(0);
+                        id = GetUserData(0,type);
                         break;
                     case ConsoleKey.D2:
-                        name = GetUserData(2);
+                        name = GetUserData(2,type);
                         break;
                     case ConsoleKey.D3:
-                        phonenumber = GetUserData(4);
+                        phonenumber = GetUserData(4,type);
                         break;
                     case ConsoleKey.Enter:
                         break;
@@ -251,9 +256,12 @@ namespace Library.Controller
             }
             if (name == Constant.ESCAPE || id == Constant.ESCAPE || phonenumber == Constant.ESCAPE)
                 return Constant.ESCAPE;
-            Refresh(name,id,phonenumber);
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
-            userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
+            Refresh(name,id,phonenumber,type);
+            if (type != 4)
+            {
+                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
+                userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
+            }
             return userInput;
         }
         private void AdminReviseMember(string code)//개인정보 수정
@@ -274,10 +282,10 @@ namespace Library.Controller
             if (code == Constant.EMPTY)
                 return;
             MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
-            Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
+            Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);
             if (member != null)
             {
-                if (exception.IsDelete(code))
+                if (exception.IsDelete(member.Name+" 회원"))
                 {
                     foreach (MyBook myBook in member.borrowedBook)
                     {
@@ -289,18 +297,29 @@ namespace Library.Controller
             else
                 exceptionView.NotExistedMember(code.Length);
         }
-        private string GetUserData(int cursor)
+        private string GetUserData(int cursor,int type)
         {
-            Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
+            Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,type);
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + cursor);
             string input = GetData(10, Constant.EMPTY);
             return input;
         }
-        private void Refresh(string name, string id, string phonenumber)//재조회
+        private void Refresh(string name, string id, string phonenumber,int type)//재조회
         {
             Console.Clear();
             ui.AdminLabel();
-            ui.MemberSearchGuide();
+            switch (type)
+            {
+                case Constant.MEMBER_REVISE:
+                    ui.MemberReviseGuide();
+                    break;
+                case Constant.MEMBER_DELETE:
+                    ui.MemberDeleteGuide();
+                    break;
+                case 4:
+                    ui.MemberSearchGuide();
+                    break;
+            }
             ShowMemberList(name, id, phonenumber);
         }
     }
