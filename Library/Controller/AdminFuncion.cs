@@ -273,6 +273,7 @@ namespace Library.Controller
             {
                 this.LoginMember = member;
                 AddOrReviseMember(2);
+                Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_REVISE);
             }
             else
                 exceptionView.NotExistedMember(code.Length);
