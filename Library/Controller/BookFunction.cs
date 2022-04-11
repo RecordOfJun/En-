@@ -11,6 +11,7 @@ namespace Library.Controller
         UserFunction userFunction;
         ExceptionView exceptionView;
         Exception exception;
+        List<BookVO> bookList;
         UI ui;
         public BookFunction(VOList voList, UserFunction userFunction,ExceptionAndView exceptionAndView)
         {
@@ -50,68 +51,58 @@ namespace Library.Controller
         }
         private void ShowBookList(string name,string author,string publisher)//책 조회
         {
+            List<BookVO> findList = new List<BookVO>();
             foreach (BookVO book in voList.bookList.FindAll(element => element.Name.Contains(name)&&element.Publisher.Contains(publisher) && element.Author.Contains(author)))
             {
+                findList.Add(book);
                 ui.BookInformation(book);
             }
+            bookList = findList;
         }
         private void BorrowBook(string bookCode)//책 대여 메소드
         {
             if (bookCode == Constant.EMPTY)
                 return;
-            BookVO book = voList.bookList.Find(book => book.Id == bookCode);
-            if (book != null)
+            BookVO book = bookList.Find(book => book.Id == bookCode);
+            int remain = book.Quantity - book.Borrowed;
+            if (remain > 0)
             {
-                int remain = book.Quantity - book.Borrowed;
-                if (remain > 0)
+                if (userFunction.LoginMember.IsHaveBook(book))
                 {
-                    if (userFunction.LoginMember.IsHaveBook(book))
-                    {
-                        exceptionView.AlreadyHas(bookCode.Length);
-                        return;
-                    }
-                    userFunction.LoginMember.AddBook(book);
-                    book.Borrowed++;
-                    exceptionView.BorrowSuccess(bookCode.Length);
+                    exceptionView.AlreadyHas(bookCode.Length);
                     return;
                 }
-                exceptionView.NotRemain(bookCode.Length);
+                userFunction.LoginMember.AddBook(book);
+                book.Borrowed++;
+                exceptionView.BorrowSuccess(bookCode.Length);
                 return;
             }
-            else
-            {
-                exceptionView.NotExisted(bookCode.Length);
-            }
+            exceptionView.NotRemain(bookCode.Length);
+            return;
         }
         private void DeleteBook(string bookCode)//책 삭제 메소드
         {
             if (bookCode == Constant.EMPTY)
                 return;
-            BookVO book = voList.bookList.Find(book => book.Id == bookCode);
+            BookVO book = bookList.Find(book => book.Id == bookCode);
             RefreshAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
-            if (book != null)
+            if (exception.IsDelete(book.Name))
             {
-                if (exception.IsDelete(book.Name))
+                foreach (MemberVO member in voList.memberList)
                 {
-                    foreach(MemberVO member in voList.memberList)
-                    {
-                        MyBook myBook=member.borrowedBook.Find(element=>element.book==book);
-                        member.RemoveBook(myBook);
-                    }
-                    voList.bookList.Remove(book);
-                    exceptionView.DeleteSuccess(bookCode.Length);
+                    MyBook myBook = member.borrowedBook.Find(element => element.book == book);
+                    member.RemoveBook(myBook);
                 }
-                return;
+                voList.bookList.Remove(book);
+                exceptionView.DeleteSuccess(bookCode.Length);
             }
-            else
-                exceptionView.NotExisted(bookCode.Length);
         }
         private string ReviseBook(string bookCode)//책 수량 설정 메소드
         {
+            if (bookCode == Constant.EMPTY)
+                return Constant.EMPTY;
             bool isNumber = false;
             string quantity=Constant.EMPTY;
-            if (bookCode == Constant.EMPTY)
-                return quantity;
             while (!isNumber) {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
                 quantity = userFunction.GetData(2, Constant.EMPTY);
@@ -125,17 +116,11 @@ namespace Library.Controller
                 }
             }
             ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
-            BookVO book = voList.bookList.Find(book => book.Id == bookCode);
-            if (book != null)
+            BookVO book = bookList.Find(book => book.Id == bookCode);
+            if (exception.IsRevise(book.Name))
             {
-                if (exception.IsRevise(book.Name))
-                {
-                    book.Quantity = int.Parse(quantity);
-                }
-                return quantity;
+                book.Quantity = int.Parse(quantity);
             }
-            else
-                exceptionView.NotExisted(bookCode.Length);
             return quantity;
         }
         private void ShowMyBook(string name, string author, string publisher)//대여중인 도서 조회 메소드
@@ -211,8 +196,20 @@ namespace Library.Controller
             SpreadBook(type,name,author,publisher);
             if (type != 5)
             {
-                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 6);
-                userInput = userFunction.GetData(10, Constant.EMPTY);
+                bool isExisted = Constant.IS_EXCEPTION;
+                while (!isExisted)
+                {
+                    Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + 6);
+                    userInput = userFunction.GetData(10, Constant.EMPTY);
+                    if (userInput == Constant.EMPTY)
+                        return userInput;
+                    isExisted = true;
+                    if (!bookList.Exists(book => book.Id == userInput))
+                    {
+                        isExisted = false;
+                        exceptionView.NotExisted(userInput.Length);
+                    }
+                }
             }
             return userInput;
         }
