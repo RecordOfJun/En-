@@ -326,11 +326,15 @@ namespace Library.View
             Console.WriteLine("                          2.엔터를 눌러 회원 검색한다.");
             Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
             Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
-            Console.WriteLine();
-            Console.WriteLine("                            메뉴로 돌아가고 싶으면ESC, ");
-            Console.WriteLine("            재검색을 하고싶으면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
+            Console.WriteLine("              수정으로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine("           처음부터 다시 시작하려면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
             Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("ID를 입력해 주세요!");
+            Console.WriteLine(":");
             Console.WriteLine("회원명을 입력해 주세요!");
+            Console.WriteLine(":");
+            Console.WriteLine("전화번호를 입력해주세요!");
             Console.WriteLine(":");
             Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
             Console.WriteLine(":");

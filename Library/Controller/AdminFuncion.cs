@@ -183,9 +183,9 @@ namespace Library.Controller
                 }
             }
         }
-        private void ShowMemberList(string name)//유저정보 조회
+        private void ShowMemberList(string name,string id,string phonenumber)//유저정보 조회
         {
-            foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)))
+            foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)&&element.Id.Contains(id)&&element.PhoneNumber.Contains(phonenumber)))
             {
                 ui.MemberInformation(member);
             }
@@ -193,7 +193,10 @@ namespace Library.Controller
         public void SearchAndChoiceMember(int type)//유저 정보 검색 및 선택
         {
             string userInput = Constant.EMPTY;//매직넘버
-            Refresh(userInput);
+            string id = Constant.EMPTY;
+            string name = Constant.EMPTY;
+            string phonenumber = Constant.EMPTY;
+            Refresh(name, id, phonenumber);
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndPersonal(userInput, type);
@@ -208,21 +211,47 @@ namespace Library.Controller
                         DeleteMember(userInput);
                         break;
                 }
-                Refresh(Constant.EMPTY);
+                Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
         private string InsertNameAndPersonal(string userInput,int type)
         {
-            bool isException = false;
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX);
-            while (!isException)
+            string id = Constant.EMPTY;
+            string name = Constant.EMPTY;
+            string phonenumber = Constant.EMPTY;
+            ConsoleKeyInfo key;
+            bool isKey = false;
+            //제목,작가명,출판사로 검색을 가능하게 함
+            while (!isKey)
             {
-                userInput = GetData(Constant.MEMBER_NAME_LENGTH, Constant.EMPTY);//매직넘버
-                if (userInput == Constant.ESCAPE)
-                    return userInput;
-                isException = exception.IsNameException(userInput);
+                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
+                key = Console.ReadKey();
+                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
+                Console.Write("  ");
+                isKey = true;
+                switch (key.Key)
+                {
+                    case ConsoleKey.D1:
+                        id = GetUserData(0);
+                        break;
+                    case ConsoleKey.D2:
+                        name = GetUserData(2);
+                        break;
+                    case ConsoleKey.D3:
+                        phonenumber = GetUserData(4);
+                        break;
+                    case ConsoleKey.Enter:
+                        break;
+                    case ConsoleKey.Escape:
+                        return Constant.ESCAPE;
+                    default:
+                        isKey = false;
+                        break;
+                }
             }
-            Refresh(userInput);
+            if (name == Constant.ESCAPE || id == Constant.ESCAPE || phonenumber == Constant.ESCAPE)
+                return Constant.ESCAPE;
+            Refresh(name,id,phonenumber);
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
             userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
             return userInput;
@@ -245,7 +274,7 @@ namespace Library.Controller
             if (code == Constant.EMPTY)
                 return;
             MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
-            Refresh(code);
+            Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (member != null)
             {
                 if (exception.IsDelete(code))
@@ -260,12 +289,19 @@ namespace Library.Controller
             else
                 exceptionView.NotExistedMember(code.Length);
         }
-        private void Refresh(string userInput)//재조회
+        private string GetUserData(int cursor)
+        {
+            Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
+            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + cursor);
+            string input = GetData(10, Constant.EMPTY);
+            return input;
+        }
+        private void Refresh(string name, string id, string phonenumber)//재조회
         {
             Console.Clear();
             ui.AdminLabel();
             ui.MemberSearchGuide();
-            ShowMemberList(userInput);
+            ShowMemberList(name, id, phonenumber);
         }
     }
 }

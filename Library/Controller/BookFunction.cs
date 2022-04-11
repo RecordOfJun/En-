@@ -88,7 +88,7 @@ namespace Library.Controller
             if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
-            //RefreshAdminBook(bookCode);
+            RefreshAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (book != null)
             {
                 if (exception.IsDelete(book.Name))
@@ -119,7 +119,7 @@ namespace Library.Controller
                     return quantity;
                 isNumber = exception.IsNumber(quantity);
             }
-            //ReviseAdminBook(bookCode);
+            ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);
             if (book != null)
             {
