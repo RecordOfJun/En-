@@ -94,8 +94,8 @@ namespace Library
         public const int MEMBER_DELETE = 2;
 
         //ADMIN
-        public const string ADMIN_ID = "1111111111";
-        public const string ADMIN_PASSWORD = "9999999999";
+        public const string ADMIN_ID = "1";
+        public const string ADMIN_PASSWORD = "9";
 
         //char
         public const char ERASE = ' ';

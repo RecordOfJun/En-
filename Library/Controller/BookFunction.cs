@@ -118,6 +118,11 @@ namespace Library.Controller
                 if (quantity == Constant.ESCAPE)
                     return quantity;
                 isNumber = exception.IsNumber(quantity);
+                if (quantity == "0")
+                {
+                    isNumber = Constant.IS_EXCEPTION;
+                    exceptionView.QuantityException(quantity.Length);
+                }
             }
             ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             BookVO book = voList.bookList.Find(book => book.Id == bookCode);

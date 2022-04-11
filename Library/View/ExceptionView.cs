@@ -26,6 +26,10 @@ namespace Library.View
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
+        public void QuantityException(int length)
+        {
+            ShowException(length, "  (0보다 큰 숫자를 입력해 주세요!)");
+        }
         public void IdPasswordLength(int length)
         {
             ShowException(length, "  (6~10 글자로 입력해 주세요!)");
