@@ -18,6 +18,14 @@ namespace Library.View
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
+        private void ShowComplete(int length, string insert)
+        {
+            int printLocation = Constant.ADD_INDEX + length;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
         public void IdPasswordLength(int length)
         {
             ShowException(length, "  (6~10 글자로 입력해 주세요!)");
@@ -74,33 +82,31 @@ namespace Library.View
         }
         public void BorrowSuccess(int length)
         {
-            ShowException(length, "  (대여가 완료되었습니다!)");
-            ClearLine(Console.CursorTop);
+            ShowComplete(length, "  (대여가 완료되었습니다!)");
         }
         public void DeleteSuccess(int length)
         {
-            ShowException(length, "  (삭제 완료되었습니다!))");
-            ClearLine(Console.CursorTop);
+            ShowComplete(length, "  (삭제가 완료되었습니다!))");
+        }
+        public void ReturnSuccess(int length)
+        {
+            ShowComplete(length, "  (반납이 완료되었습니다!))");
         }
         public void NotExisted(int length)
         {
             ShowException(length, "  (코드와 일치하는 도서가 존재하지 않습니다!)");
-            ClearLine(Console.CursorTop);
         }
         public void NotExistedMember(int length)
         {
             ShowException(length, "  (주민번호가 일치하는 유저가 존재하지 않습니다!)");
-            ClearLine(Console.CursorTop);
         }
         public void NotRemain(int length)
         {
             ShowException(length, "  (남은 수량이 없어 대여할 수 없습니다!)");
-            ClearLine(Console.CursorTop);
         }
         public void AlreadyHas(int length)
         {
             ShowException(length, "  (이미 이 도서를 대여 하셨습니다!)");
-            ClearLine(Console.CursorTop);
         }
         public void AdminError(int length)
         {

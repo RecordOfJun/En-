@@ -96,6 +96,7 @@ namespace Library.Controller
                         member.RemoveBook(myBook);
                     }
                     voList.bookList.Remove(book);
+                    exceptionView.DeleteSuccess(bookCode.Length);
                 }
                 return;
             }
@@ -139,9 +140,9 @@ namespace Library.Controller
         public void ReturnBook()//반납 메소드
         {
             string userInput=Constant.EMPTY;
+            RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput != Constant.ESCAPE)
             {
-                //RefreshBorrowBook(Constant.EMPTY);
                 userInput = InsertNameAndCode(userInput,2);
                 if (userInput == Constant.ESCAPE)
                     return;
@@ -153,8 +154,15 @@ namespace Library.Controller
             if (Code == "")
                 return;
             MyBook myBook = userFunction.LoginMember.borrowedBook.Find(element => element.book.Id == Code);
-            userFunction.LoginMember.RemoveBook(myBook);
-            myBook.book.Borrowed--;
+            if (myBook != null)
+            {
+                userFunction.LoginMember.RemoveBook(myBook);
+                myBook.book.Borrowed--;
+                exceptionView.ReturnSuccess(Code.Length);
+            }
+            else
+                exceptionView.NotExisted(Code.Length);
+
         }
         private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 필요정보를 입력하는메소드
         {
