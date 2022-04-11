@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Library.Model;
-using System.Threading;
+
 namespace Library.View
 {
     class UI
@@ -354,7 +354,6 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                            삭제가 완료되었습니다.");
-            Thread.Sleep(Constant.TWO_SECOND);
         }
         public void BookManage()
         {

@@ -9,11 +9,14 @@ namespace Library.Controller
     {
         VOList voList;
         UserFunction userFunction;
-        ExceptionView exceptionView = new ExceptionView();
-        Exception exception = new Exception();
-        UI ui = new UI();
-        public BookFunction(VOList voList, UserFunction userFunction)
+        ExceptionView exceptionView;
+        Exception exception;
+        UI ui;
+        public BookFunction(VOList voList, UserFunction userFunction,ExceptionAndView exceptionAndView)
         {
+            exception = exceptionAndView.exception;
+            ui = exceptionAndView.ui;
+            exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
             this.userFunction = userFunction;
         }

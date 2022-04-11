@@ -7,10 +7,13 @@ namespace Library.Controller
 {
     class AdminFuncion: UserFunction
     {
-        public AdminFuncion(VOList voList)
+        public AdminFuncion(VOList voList, ExceptionAndView exceptionAndView)
         {
+            exception = exceptionAndView.exception;
+            ui = exceptionAndView.ui;
+            exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
-            bookFunction = new BookFunction(voList, this);
+            bookFunction = new BookFunction(voList, this,exceptionAndView);
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {

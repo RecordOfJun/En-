@@ -8,10 +8,10 @@ namespace Library.Controller
 {
     class UserFunction//사용자 기능 클래스
     {
-        public ExceptionView exceptionView = new ExceptionView();
-        public Exception exception = new Exception();
+        public ExceptionView exceptionView;
+        public Exception exception;
         public VOList voList;
-        public UI ui = new UI();
+        public UI ui;
         public BookFunction bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
@@ -30,10 +30,13 @@ namespace Library.Controller
         {
 
         }
-        public UserFunction(VOList voList)
+        public UserFunction(VOList voList,ExceptionAndView exceptionAndView)
         {
+            exception = exceptionAndView.exception;
+            ui = exceptionAndView.ui;
+            exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
-            bookFunction = new BookFunction(voList, this);
+            bookFunction = new BookFunction(voList, this,exceptionAndView);
         }
         //로그인 기능
         public void Login()//로그인 메소드
