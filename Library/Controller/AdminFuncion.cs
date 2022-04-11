@@ -94,7 +94,7 @@ namespace Library.Controller
                         bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
                     case ConsoleKey.D4://책 추가
-                        AddBook();
+                        AddBook2();
                         isInsert = true;
                         break;
                     case ConsoleKey.Escape:
@@ -115,7 +115,6 @@ namespace Library.Controller
             Console.Clear();
             ui.AdminLabel();
             ui.AddBook();
-            exceptionView.ClearLine(Constant.ID_ADD_INDEX);
             while (!isBack&&!isException)
             {
                 id = GetData(Constant.BOOK_ID_LENGTH, Constant.EMPTY);
@@ -165,6 +164,61 @@ namespace Library.Controller
             if (IsConfirm(Constant.CONFRIM_ADD)) {
                 BookVO book = new BookVO(id, name, publisher, author, price, int.Parse(quantity));
                 voList.bookList.Add(book);
+            }
+        }
+        public void AddBook2()
+        {
+            if (IsConfirm(Constant.CONFRIM_ADD))
+            {
+                isBack = false;
+                bool isComplete = false;
+                int minimumIndex = 0;
+                string id = "";
+                string name = "";
+                string publisher = "";
+                string author = "";
+                string price = "";
+                string quantity = "";
+                Console.Clear();
+                ui.AdminLabel();
+                ui.AddBook();
+                inputType = 0;
+                while (!isComplete)
+                {
+                    if (inputType < minimumIndex)
+                        inputType = minimumIndex;
+                    switch (inputType)
+                    {
+                        case 0:
+                            id = SetData(Constant.ID_ADD_INDEX, id);
+                            break;
+                        case 1:
+                            name = SetData(Constant.PASSWORD_ADD_INDEX, name);
+                            break;
+                        case 2:
+                            publisher = SetData(Constant.PASSWORD_CONFIRM_INDEX, publisher);
+                            break;
+                        case 3:
+                            author = SetData(Constant.NAME_ADD_INDEX, author);
+                            break;
+                        case 4:
+                            price = SetData(Constant.PERSONAL_ADD_INDEX, price);
+                            break;
+                        case 5:
+                            quantity = SetData(Constant.PHONE_ADD_INDEX, quantity);
+                            break;
+                        case 6:
+                            isComplete = true;
+                            break;
+                    }
+                }
+                if (isBack)
+                    return;
+                if (IsConfirm(Constant.CONFRIM_ADD))
+                {
+                    BookVO book = new BookVO(id, name, publisher, author, price, int.Parse(quantity));
+                    voList.bookList.Add(book);
+                }
             }
         }
         private void ManageMember()//유저 관리 메소드
@@ -350,5 +404,76 @@ namespace Library.Controller
             }
             ShowMemberList(name, id, phonenumber);
         }
+        public string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+        {
+            bool isException = Constant.IS_EXCEPTION;
+            while (!isException && !isBack)
+            {
+                isUp = false;
+                Console.SetCursorPosition(Constant.ADD_INDEX, index);
+                //exceptionView.ClearLine(index);
+                switch (index)
+                {
+                    case Constant.ID_ADD_INDEX:
+                        userInput = GetData(Constant.BOOK_ID_LENGTH, Constant.EMPTY);
+                        if (!isUp)
+                            isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH, voList.bookList);
+                        break;
+                    case Constant.PASSWORD_ADD_INDEX:
+                        userInput = GetData(20, Constant.EMPTY);
+                        isException = true;
+                        if (userInput == Constant.EMPTY)
+                        {
+                            exceptionView.EmptyString();
+                            isException=false;
+                        }
+                        break;
+                    case Constant.PASSWORD_CONFIRM_INDEX:
+                        userInput = GetData(Constant.BOOK_STRING_LENGTH, userInput);
+                        isException = true;
+                        if (userInput == Constant.EMPTY)
+                        {
+                            exceptionView.EmptyString();
+                            isException = false;
+                        }
+                        break;
+                    case Constant.NAME_ADD_INDEX:
+                        userInput = GetData(Constant.BOOK_STRING_LENGTH, userInput);
+                        isException = true;
+                        if (userInput == Constant.EMPTY)
+                        {
+                            exceptionView.EmptyString();
+                            isException = false;
+                        }
+                        break;
+                    case Constant.PERSONAL_ADD_INDEX:
+                        userInput = GetData(Constant.BOOK_PRICE_LENGTH, userInput);
+                        if (!isUp)
+                            isException = exception.IsNumber(userInput);
+                        if (userInput == "0")
+                        {
+                            isException = Constant.IS_EXCEPTION;
+                            exceptionView.QuantityException(userInput.Length);
+                        }
+                        break;
+                    case Constant.PHONE_ADD_INDEX:
+                        userInput = GetData(Constant.BOOK_QUANTITY_LENGTH, userInput);
+                        if (!isUp)
+                            isException = exception.IsNumber(userInput);
+                        if (userInput == "0")
+                        {
+                            isException = Constant.IS_EXCEPTION;
+                            exceptionView.QuantityException(userInput.Length);
+                        }
+                        break;
+                }
+                if (isUp)
+                    return userInput;
+            }
+            inputType++;
+            if (!isBack)
+                ui.Passed(userInput.Length);
+            return userInput;
+        }
     }
-}
+} 
