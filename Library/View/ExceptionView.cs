@@ -122,7 +122,7 @@ namespace Library.View
         public void AskEscape()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("     메인 메뉴로 복귀하면 자동으로 로그아웃이 됩니다. 정말 돌아가시겠습니까?");
+            Console.WriteLine("뒤          뒤로 돌아가면 자동으로 로그아웃이 됩니다. 정말 돌아가시겠습니까?");
             Console.WriteLine("  메뉴로 가길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
         }
         public void AskExit()

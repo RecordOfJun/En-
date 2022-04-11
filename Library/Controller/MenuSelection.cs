@@ -24,10 +24,11 @@ namespace Library.Controller
             ui.MainMenu();
             while (!isEnter)
             {
-                SetArrow(index);
-                index = CheckKey(index, Constant.MAIN_MENU_LENGTH);
-                if (index == Constant.QUIT)
+                SetArrow(selectedMenu);
+                index = CheckKey(selectedMenu, Constant.MAIN_MENU_LENGTH);
+                if (index == Constant.RETURN)
                     break;
+                if(index!=Constant.QUIT)
                 selectedMenu = index;
             }
             return selectedMenu;
@@ -43,11 +44,14 @@ namespace Library.Controller
             ui.UserMenu();
             while (!isEnter)
             {
-                SetArrow(index);
-                index = CheckKey(index, Constant.USER_MENU_LENGTH);
-                if (index == Constant.QUIT)
+                SetArrow(selectedMenu);
+                index = CheckKey(selectedMenu, Constant.USER_MENU_LENGTH);
+                if (index == Constant.RETURN)
                     break;
-                selectedMenu = index;
+                if (index == Constant.QUIT)
+                    return Constant.QUIT;
+                else
+                    selectedMenu = index;
             }
             return selectedMenu;
         }
@@ -62,11 +66,14 @@ namespace Library.Controller
             ui.AdminMenu();
             while (!isEnter)
             {
-                SetArrow(index);
-                index = CheckKey(index, Constant.ADMIN_MENU_LENGTH);
-                if (index == Constant.QUIT)
+                SetArrow(selectedMenu);
+                index = CheckKey(selectedMenu, Constant.ADMIN_MENU_LENGTH);
+                if (index == Constant.RETURN)
                     break;
-                selectedMenu = index;
+                if (index == Constant.QUIT)
+                    return Constant.QUIT;
+                else
+                    selectedMenu = index;
             }
 
             return selectedMenu;
@@ -83,9 +90,9 @@ namespace Library.Controller
                     index += Constant.DOWN;
                     break;
                 case ConsoleKey.Enter:
-                    return Constant.QUIT;
+                    return Constant.RETURN;
                 case ConsoleKey.Escape:
-                    break;
+                    return Constant.QUIT;
                 default:
                     break;
             }

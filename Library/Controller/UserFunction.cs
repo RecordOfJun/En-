@@ -349,10 +349,10 @@ namespace Library.Controller
                     case Constant.FOURTH_MENU:
                         AddOrReviseMember(2);
                         break;
-                    case Constant.FIFTH_MENU:
+                    case Constant.QUIT:
                         isExit = exception.IsEscape();
                         break;
-                    case Constant.SIXTH_MENU:
+                    case Constant.FIFTH_MENU:
                         exception.ExitProgramm();
                         break;
                 }

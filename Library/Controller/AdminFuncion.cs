@@ -57,10 +57,10 @@ namespace Library.Controller
                     case Constant.SECOND_MENU:
                         ManageMember();
                         break;
-                    case Constant.THIRD_MENU:
+                    case Constant.QUIT:
                         isExit = exception.IsEscape();
                         break;
-                    case Constant.FOURTH_MENU:
+                    case Constant.THIRD_MENU:
                         exception.ExitProgramm();
                         break;
                 }

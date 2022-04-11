@@ -18,8 +18,8 @@ namespace Library
         public const int SIXTH_MENU = 5;
         public const int INDEX_MINIMUM = 0;
         public const int MAIN_MENU_LENGTH = 4;
-        public const int USER_MENU_LENGTH = 6;
-        public const int ADMIN_MENU_LENGTH = 4;
+        public const int USER_MENU_LENGTH = 5;
+        public const int ADMIN_MENU_LENGTH = 3;
 
         //Cursor
         public const int ADD_INDEX = 1;
@@ -78,6 +78,7 @@ namespace Library
         public const int CONFRIM_ADD = 1;
         public const int CONFIRM_REVISE = 2;
         public const int QUIT = -1;
+        public const int RETURN = -2;
         public const int MONTH_INDEX = 2;
         public const int DAY_INDEX = 4;
         public const int GENDER_INDEX = 6;

@@ -182,8 +182,7 @@ namespace Library.View
             Console.WriteLine("                                 2.도서 대여                                    ");
             Console.WriteLine("                                 3.도서 반납                                    ");
             Console.WriteLine("                                 4.개인정보 수정                                ");
-            Console.WriteLine("                                 5.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 6.프로그램 종료                                ");
+            Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         
         public void BookInformation(BookVO book)
@@ -381,8 +380,7 @@ namespace Library.View
         {
             Console.WriteLine("                                 1.도서 관리                                        ");
             Console.WriteLine("                                 2.회원 관리                                      ");
-            Console.WriteLine("                                 3.메인메뉴 복귀                                ");
-            Console.WriteLine("                                 4.프로그램 종료                                ");
+            Console.WriteLine("                                 3.프로그램 종료                                ");
         }
         public void DeleteDone()
         {
