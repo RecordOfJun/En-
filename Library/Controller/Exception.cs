@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace Library.Controller
 {
-    class Exception
+    class Exception//예외처리 클래스
     {
         ExceptionView exceptionView = new ExceptionView();
         string[] number = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };

@@ -46,7 +46,7 @@ namespace Library.Controller
             IntPtr handle = GetConsoleWindow();
             IntPtr sysMenu = GetSystemMenu(handle, false);
 
-            if (handle != IntPtr.Zero)
+            if (handle != IntPtr.Zero)//콘솔 창 크기 제어 방지
             {
                 DeleteMenu(sysMenu, SC_MINIMIZE, MF_BYCOMMAND);
                 DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);

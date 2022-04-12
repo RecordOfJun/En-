@@ -5,7 +5,7 @@ using Library.Model;
 using Library.View;
 namespace Library.Controller
 {
-    class MenuSelection
+    class MenuSelection//메뉴 선택 관련 메소드 구현 클래스
     {
         UI ui;
         public MenuSelection()
@@ -23,8 +23,8 @@ namespace Library.Controller
             ui.MainMenu();
             while (!isEnter)
             {
-                SetArrow(selectedMenu);
-                index = CheckKey(selectedMenu, Constant.MAIN_MENU_LENGTH);
+                SetArrow(selectedMenu);//방향키 입력에 따라 가리키는 메뉴 다르게 조정
+                index = CheckKey(selectedMenu, Constant.MAIN_MENU_LENGTH);//어떤 방향키 입력했는지 감지
                 if (index == Constant.RETURN)
                     break;
                 if(index!=Constant.QUIT)
@@ -41,7 +41,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.MemberGuide();
             ui.UserMenu();
-            while (!isEnter)
+            while (!isEnter)//엔터 입력 전까지
             {
                 SetArrow(selectedMenu);
                 index = CheckKey(selectedMenu, Constant.USER_MENU_LENGTH);
@@ -52,7 +52,7 @@ namespace Library.Controller
                 else
                     selectedMenu = index;
             }
-            return selectedMenu;
+            return selectedMenu;//선택 메뉴 반환
         }
         public int SelectAdminMenu()//관리자 메뉴 선택
         {
@@ -82,25 +82,25 @@ namespace Library.Controller
             ConsoleKeyInfo upAndDown = Console.ReadKey();
             switch (upAndDown.Key)
             {
-                case ConsoleKey.UpArrow:
+                case ConsoleKey.UpArrow://위쪽 방향키 감지
                     index += Constant.UP;
                     break;
-                case ConsoleKey.DownArrow:
+                case ConsoleKey.DownArrow://아래쪽 방향 키 감지
                     index += Constant.DOWN;
                     break;
-                case ConsoleKey.Enter:
+                case ConsoleKey.Enter://엔터 감지
                     return Constant.RETURN;
-                case ConsoleKey.Escape:
+                case ConsoleKey.Escape://ESC감지
                     return Constant.QUIT;
                 default:
                     break;
             }
-            if (index < Constant.INDEX_MINIMUM)
+            if (index < Constant.INDEX_MINIMUM)//위,아래 방향 키 입력시 커서가 가리키는 메뉴 인덱스 조정
                 index += Lenth;
             index = index % Lenth;
             return index;
         }
-        private void SetArrow(int index)
+        private void SetArrow(int index)//메뉴를 가리키는 커서 인덱스 조정
         {
             for (int indexOfY = Constant.FIRST_MENU_INDEX; indexOfY <= Constant.FIFTH_MENU_INDEX; indexOfY += Constant.DISTANCE_OF_INDEX)
             {
@@ -125,7 +125,7 @@ namespace Library.Controller
                     break;
             }
         }
-        private void SetMenuCursor(int index,char insert)
+        private void SetMenuCursor(int index,char insert)//기존 커서 없애고 새로운 커서 출력 메소드
         {
             Console.SetCursorPosition(Constant.ARROW_INDEX, index);
             Console.Write(new string(insert, 1));
