@@ -18,7 +18,6 @@ namespace Library.Controller
         private string id;
         private string password;
         private string temporalPassword;
-        private string confirmPassword;
         private string name;
         private string personalCode;
         private string phoneNumber;
@@ -323,6 +322,7 @@ namespace Library.Controller
             member.PersonalCode = personalCode;
             member.PhoneNumber = phoneNumber;
             member.Address = address;
+            member.MemberCode = (int.Parse(voList.memberList[voList.memberList.Count - 1].MemberCode) + 1).ToString();
             voList.memberList.Add(member);
         }
 

@@ -335,7 +335,7 @@ namespace Library.Controller
                     if (userInput == Constant.EMPTY || userInput == Constant.ESCAPE)
                         return userInput;
                     isExisted = true;
-                    if (!memberList.Exists(member => member.PersonalCode == userInput))
+                    if (!memberList.Exists(member => member.MemberCode == userInput))
                     {
                         isExisted = false;
                         exceptionView.NotExisted(userInput.Length);
@@ -349,7 +349,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
+            MemberVO member = voList.memberList.Find(member => member.MemberCode == code);
             if (member != null)
             {
                 this.LoginMember = member;
@@ -363,7 +363,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = voList.memberList.Find(member => member.PersonalCode == code);
+            MemberVO member = voList.memberList.Find(member => member.MemberCode == code);
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);
             if (member != null)
             {

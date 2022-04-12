@@ -222,10 +222,12 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.Write("ID:{0}", member.Id);
             Console.SetCursorPosition(40, Console.CursorTop);
-            Console.WriteLine("Password:{0}", member.Password);
-            Console.Write("이름:{0}", member.Name);
+            Console.WriteLine("회원코드:{0}", member.MemberCode);
+            Console.Write("Password:{0}", member.Password);
             Console.SetCursorPosition(40, Console.CursorTop);
-            Console.WriteLine("주민등록번호:{0}", member.PersonalCode);
+            Console.WriteLine("이름:{0}", member.Name);
+            Console.Write("주민등록번호:{0}", member.PersonalCode);
+            Console.SetCursorPosition(40, Console.CursorTop);
             Console.WriteLine("전화번호:{0}", member.PhoneNumber);
             Console.WriteLine("주소:{0}", member.Address);
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -325,7 +327,7 @@ namespace Library.View
         {
             Console.WriteLine("                         1.원하는 회원의 정보를 입력한다.");
             Console.WriteLine("                          2.엔터를 눌러 회원을 검색한다.");
-            Console.WriteLine("                        3.찾은 회원의 주민번호를 입력한다.");
+            Console.WriteLine("                        3.찾은 회원의 회원코드를 입력한다.");
         }
         public void MemberReviseGuide()
         {
@@ -335,10 +337,10 @@ namespace Library.View
             Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
             Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
             Console.WriteLine("              수정으로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 주민번호 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
+            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
         public void MemberDeleteGuide()
@@ -349,10 +351,10 @@ namespace Library.View
             Console.WriteLine();
             Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
             Console.WriteLine("              삭제로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 주민번호 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("주민번호를 정확하게 입력해 주세요!");
+            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
             Console.WriteLine(":");
         }
         public void MemberSearchGuide()

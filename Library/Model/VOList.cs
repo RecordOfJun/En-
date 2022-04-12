@@ -10,12 +10,12 @@ namespace Library.Model
         public List<MemberVO> memberList = new List<MemberVO>();
         public VOList()
         {
-            memberList.Add(new MemberVO("abc123", "qwer123", "조형준", "01026763147", "경기도 군포시 고산로", "9808281111111"));
-            memberList.Add(new MemberVO("abcd123", "qwer123", "조영준", "01011111111", "경기도 군포시 고산로", "9808281111112"));
-            memberList.Add(new MemberVO("abcde123", "qwer123", "조형운", "01022222222", "경기도 군포시 고산로", "9808281111113"));
-            memberList.Add(new MemberVO("abc1234", "qwer123", "조준", "01033333333", "경기도 군포시 고산로", "9808281111114"));
-            memberList.Add(new MemberVO("abc1235", "qwer123", "형준", "01044444444", "경기도 군포시 고산로", "9808281111115"));
-            memberList.Add(new MemberVO("abcd1234", "qwer123", "조형", "01055555555", "경기도 군포시 고산로", "9808281111116"));
+            memberList.Add(new MemberVO("abc123", "qwer123", "조형준", "01026763147", "경기도 군포시 고산로", "9808281111111","1"));
+            memberList.Add(new MemberVO("abcd123", "qwer123", "조영준", "01011111111", "경기도 군포시 고산로", "9808281111112", "2"));
+            memberList.Add(new MemberVO("abcde123", "qwer123", "조형운", "01022222222", "경기도 군포시 고산로", "9808281111113", "3"));
+            memberList.Add(new MemberVO("abc1234", "qwer123", "조준", "01033333333", "경기도 군포시 고산로", "9808281111114", "4"));
+            memberList.Add(new MemberVO("abc1235", "qwer123", "형준", "01044444444", "경기도 군포시 고산로", "9808281111115", "5"));
+            memberList.Add(new MemberVO("abcd1234", "qwer123", "조형", "01055555555", "경기도 군포시 고산로", "9808281111116", "6"));
 
             bookList.Add(new BookVO("12345678", "신호와 시스템", "(주)한티에듀", "Simon Haykin","30000",3));
             bookList.Add(new BookVO("11111111", "컴퓨터 구조", "한티 미디어", "David A. Patterson", "50000", 2));

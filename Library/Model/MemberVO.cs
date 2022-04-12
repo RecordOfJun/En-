@@ -25,11 +25,12 @@ namespace Library.Model
         private string personalCode;
         private string phoneNumber;
         private string address;
+        private string memberCode;
         public List<MyBook> borrowedBook = new List<MyBook>();
         public MemberVO()
         {
         }
-        public MemberVO(string id,string password,string name,string phoneNumber,string address,string personalCode)
+        public MemberVO(string id,string password,string name,string phoneNumber,string address,string personalCode,string memberCode)
         {
             this.id = id;
             this.password = password;
@@ -37,6 +38,7 @@ namespace Library.Model
             this.phoneNumber = phoneNumber;
             this.address = address;
             this.personalCode = personalCode;
+            this.memberCode = memberCode;
     }
         public string Id
         {
@@ -83,6 +85,11 @@ namespace Library.Model
             if (borrowedBook.Exists(element => element.book == book))
                 return Constant.IS_HAVE;
             return !Constant.IS_HAVE;
+        }
+        public string MemberCode
+        {
+            get { return memberCode; }
+            set { memberCode = value; }
         }
     }
 }
