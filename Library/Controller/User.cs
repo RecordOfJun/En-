@@ -6,13 +6,13 @@ using Library.View;
 
 namespace Library.Controller
 {
-    class UserFunction//사용자 기능 클래스
+    class User//사용자 기능 클래스
     {
         public ExceptionView exceptionView;
         public Exception exception;
         public VOList voList;
         public UI ui;
-        public BookFunction bookFunction;
+        public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
         private string id;
@@ -26,17 +26,17 @@ namespace Library.Controller
         public bool isBack;
         public bool isUp;
         public int inputType;
-        public UserFunction()
+        public User()
         {
 
         }
-        public UserFunction(VOList voList,ExceptionAndView exceptionAndView)
+        public User(VOList voList,ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
-            bookFunction = new BookFunction(voList, this,exceptionAndView);
+            bookFunction = new BookService(voList, this,exceptionAndView);
         }
         //로그인 기능
         public void Login()//로그인 메소드
@@ -249,7 +249,7 @@ namespace Library.Controller
                     case Constant.ADDRESS_ADD_INDEX:
                         if (!isUp)
                             userInput = GetData(Console.WindowWidth-1, userInput);
-                        isException = !Constant.IS_EXCEPTION;
+                        isException =exception.IsAdress(userInput);
                         break;
                 }
                 if (isUp)

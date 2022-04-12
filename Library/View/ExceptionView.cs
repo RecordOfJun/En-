@@ -155,5 +155,9 @@ namespace Library.View
         {
             ShowException(length,  "(이미 존재하는 도서번호 입니다!)");
         }
+        public void ValidAdress(int length)
+        {
+            ShowException(length, "(주소 양식을 확인해 주세요!)");
+        }
     }
 }

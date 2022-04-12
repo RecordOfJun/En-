@@ -5,16 +5,16 @@ using Library.Model;
 using Library.View;
 namespace Library.Controller
 {
-    class AdminFuncion: UserFunction
+    class Admin: User
     {
         List<MemberVO> memberList;
-        public AdminFuncion(VOList voList, ExceptionAndView exceptionAndView)
+        public Admin(VOList voList, ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
-            bookFunction = new BookFunction(voList, this,exceptionAndView);
+            bookFunction = new BookService(voList, this,exceptionAndView);
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {

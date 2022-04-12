@@ -231,5 +231,15 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
+        public bool IsAdress(string userInput)
+        {
+            Regex regex = new Regex(@"^[가-힣]+\s?[가-힣]+[시|구]\s?[가-힣]+로[0-9]\s?{1,3}번?길\s?([0-9]+-?[0-9]*)?\s?([가-힣]+동)?\s?[가-힣]호$");
+            if (!regex.IsMatch(userInput))
+            {
+                exceptionView.ValidAdress(userInput.Length);
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
     }
 }

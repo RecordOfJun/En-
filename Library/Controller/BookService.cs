@@ -5,16 +5,16 @@ using Library.Model;
 using Library.View;
 namespace Library.Controller
 {
-    class BookFunction
+    class BookService
     {
         VOList voList;
-        UserFunction userFunction;
+        User userFunction;
         ExceptionView exceptionView;
         Exception exception;
         List<BookVO> bookList;
         List<MyBook> myBookList;
         UI ui;
-        public BookFunction(VOList voList, UserFunction userFunction,ExceptionAndView exceptionAndView)
+        public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
