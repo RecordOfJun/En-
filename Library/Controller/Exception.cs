@@ -72,14 +72,11 @@ namespace Library.Controller
             bool isContainKorean;
             if (userInput == Constant.ESCAPE)
                 return Constant.IS_EXCEPTION;
-            foreach (char letter in userInput)
+            Regex name = new Regex(@"^[가-힣]{1,4}");
+            if (!name.IsMatch(userInput))
             {
-                isContainKorean = (Constant.KOREAN_FIRST <= letter && letter <= Constant.KOREAN_SECOND) || (Constant.KOREAN_THIRD <= letter && letter <= Constant.KOREAN_FOURTH);
-                if (!isContainKorean)
-                {
-                    exceptionView.NameContain(userInput.Length);
-                    return Constant.IS_EXCEPTION;
-                }
+                exceptionView.NameContain(userInput.Length);
+                return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
         }
