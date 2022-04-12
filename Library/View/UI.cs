@@ -98,7 +98,7 @@ namespace Library.View
             Console.WriteLine(":");
             Console.WriteLine("전화번호[숫자만 입력해 주세요 EX)01026763147]");
             Console.WriteLine(":");
-            Console.WriteLine("주소[EX) 경기도 군포시 고산로 539번길]");
+            Console.WriteLine("주소[도로명>경기도 군포시 고산로 539번길 7-12, 지번주소>경기도 군포시 산본동 114]");
             Console.WriteLine(":");
         }
         public void AddBook()

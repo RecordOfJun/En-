@@ -233,8 +233,9 @@ namespace Library.Controller
         }
         public bool IsAdress(string userInput)
         {
-            Regex regex = new Regex(@"^[가-힣]+\s?[가-힣]+[시|구]\s?[가-힣]+로[0-9]\s?{1,3}번?길\s?([0-9]+-?[0-9]*)?\s?([가-힣]+동)?\s?[가-힣]호$");
-            if (!regex.IsMatch(userInput))
+            Regex roadName = new Regex(@"^[가-힣]+[도|시](\s?)[가-힣]+[시|구](\s?)[가-힣a-zA-Z]+로(\s?)[0-9]{1,3}번?길(\s?)([0-9]+-?[0-9]*)?(\s?)(([0-9]+동)?(\s?)[0-9]+호)?$");
+            Regex adress = new Regex(@"^[가-힣]+[도|시](\s?)([가-힣]+[시|구|군])+(\s?)[가-힣]+[읍|면|동](\s?)([가-힣]+리)?(\s?)([0-9]+-?[0-9]*)(\s?)(([0-9]+동)?(\s?)[0-9]+호)?$");
+            if (!roadName.IsMatch(userInput)&& !adress.IsMatch(userInput))
             {
                 exceptionView.ValidAdress(userInput.Length);
                 return Constant.IS_EXCEPTION;
