@@ -116,7 +116,7 @@ namespace Library.Controller
                 }
             }
             ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
-            BookVO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾음
+            BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 book.Quantity = int.Parse(quantity);//수량 수정
@@ -262,8 +262,8 @@ namespace Library.Controller
         private void RefreshAdminBook(string name, string author, string publisher)//삭제시 출력
         {
             Console.Clear();
+            ui.LibraryLabel();
             ui.DeleteGuide();
-            ui.BorrowGuide();
             ShowBookList(name, author, publisher);
         }
         private void ReviseAdminBook(string name, string author, string publisher)//수정시 출력
