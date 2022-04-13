@@ -1,12 +1,13 @@
 ﻿using System;
-
+using LTT.Controller;
 namespace LTT
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Login login = new Login();
+            login.GetInProgram();
         }
     }
 }
