@@ -8,10 +8,10 @@ namespace LTT.Controller
 {
     class Input
     {
-        BasicView ui;
-        public Input(BasicView ui)
+        BasicView basicView;
+        public Input(BasicView basicView)
         {
-            this.ui = ui;
+            this.basicView = basicView;
         }
         public string GetUserString(int maximumLength,int inputType)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
         {
@@ -28,7 +28,9 @@ namespace LTT.Controller
                 userinput = key.KeyChar.ToString();
                 if (key.Key == ConsoleKey.Escape)//ESC눌렀을 시 알림
                 {
-                    //
+                    Console.Write("a");//ESC입력하면 다음 출력문에서 문자 하나 먹어짐
+                    basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 1);
+                    return Constant.ESCAPE_STRING;
                 }
                 if (key.Key == ConsoleKey.Enter)//엔터 입력 시 입력한 문자열 리턴
                 {
@@ -45,7 +47,7 @@ namespace LTT.Controller
                 {
                     inputString += userinput;
                 }
-                ui.DeleteString(startCusorIndex,Console.CursorTop, maximumLength);
+                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength);
                 RefreshString(inputString, inputType);//입력한 문자열 출력
             }
             return inputString;
@@ -53,9 +55,9 @@ namespace LTT.Controller
         private void RefreshString(string inputString, int inputType)//예외필터를 거쳐 입력된 문자열을 출력해주는 함수
         {
             if (inputType == Constant.HIDE_INPUT)
-                ui.WritePassword(inputString);
+                basicView.WritePassword(inputString);
             else
-                ui.SetInputCursor(inputString);
+                basicView.SetInputCursor(inputString);
         }
         public int GetLeftRight(int index,int numberOfMenu)
         {
@@ -70,6 +72,31 @@ namespace LTT.Controller
                     break;
                 case ConsoleKey.Enter://엔터 감지
                     return Constant.RETURN;
+                case ConsoleKey.Escape://엔터 감지
+                    return Constant.ESCAPE_INT;
+                default:
+                    break;
+            }
+            if (index < Constant.INDEX_MINIMUM)//위,아래 방향 키 입력시 커서가 가리키는 메뉴 인덱스 조정
+                index += numberOfMenu;
+            index = index % numberOfMenu;
+            return index;
+        }
+        public int GetUpDown(int index, int numberOfMenu)
+        {
+            ConsoleKeyInfo upAndDown = Console.ReadKey();
+            switch (upAndDown.Key)
+            {
+                case ConsoleKey.UpArrow://위쪽 방향키 감지
+                    index += Constant.UP;
+                    break;
+                case ConsoleKey.DownArrow://아래쪽 방향 키 감지
+                    index += Constant.DOWN;
+                    break;
+                case ConsoleKey.Enter://엔터 감지
+                    return Constant.RETURN;
+                case ConsoleKey.Escape://엔터 감지
+                    return Constant.ESCAPE_INT;
                 default:
                     break;
             }

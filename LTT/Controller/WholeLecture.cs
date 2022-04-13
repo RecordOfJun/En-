@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LTT.Controller
 {
-    class Class1
+    class WholeLecture
     {
     }
 }

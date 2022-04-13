@@ -8,33 +8,45 @@ namespace LTT.Controller
 {
     class Login
     {
-        BasicView ui;
+        BasicView basicView;
         ExceptionView exceptionView;
         Input input;
+        bool isEscape;
         public Login()
         {
-            this.ui = new BasicView();
+            this.basicView = new BasicView();
             this.exceptionView = new ExceptionView();
-            this.input = new Input(ui);
+            this.input = new Input(basicView);
         }
         public void GetInProgram()
         {
+            bool isNotExited = true;
+            while (isNotExited)
+                CheckId();
+        }
+        public void CheckId()
+        {
+            isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
-            ui.LoginView();
+            Console.Clear();
+            basicView.LoginView();
             while (isNotCorrect)
             {
-                ui.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 8);
-                ui.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, 8);
-                ui.DeleteString(0, Constant.LOGIN_ID_INDEX + 2, 25);
-                ui.DeleteString(0, Constant.LOGIN_ID_INDEX + 3, 28);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 8);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, 8);
+                basicView.DeleteString(0, Constant.LOGIN_ID_INDEX + 2, 25);
+                basicView.DeleteString(0, Constant.LOGIN_ID_INDEX + 3, 28);
                 isNotCorrect = IsCorrectUser();
+                if (isEscape == true)
+                    return;
                 if (isNotCorrect == false)
                     break;
                 exceptionView.ShowException("잘못된 로그인 정보입니다!");
                 if(AskAgain()==1)
                     Environment.Exit(0);
             }
-
+            MainMenu mainMenu = new MainMenu(exceptionView, basicView, input);
+            mainMenu.SelectMenu();
         }
         private bool IsCorrectUser()
         {
@@ -42,28 +54,38 @@ namespace LTT.Controller
             string password;
             Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
             id = input.GetUserString(8,Constant.NOMARL_INPUT);
+            if (id == Constant.ESCAPE_STRING)
+            {
+                isEscape = true;
+                return isEscape; ;
+            }
             Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX);
             password = input.GetUserString(8, Constant.HIDE_INPUT);
+            if (password == Constant.ESCAPE_STRING)
+            {
+                isEscape = true;
+                return isEscape; ;
+            }
             if (id == Constant.ID && password == Constant.PASSWORD)
                 return Constant.IS_CORRECT;
             return Constant.IS_NOT_CORRECT;
         }
-        private int AskAgain()
+        private int AskAgain()//함수로 뺄 여지가 있음
         {
             int index = 0;
             int selected = 0;
             bool isNotEnter = true;
-            ui.ShowAgain();
+            basicView.ShowAgain();
             while (isNotEnter)
             {
-                ui.DeleteString(0,Console.CursorTop, 1);
-                ui.DeleteString(0+13, Console.CursorTop, 1);
+                basicView.DeleteString(0,Console.CursorTop, 1);
+                basicView.DeleteString(0+13, Console.CursorTop, 1);
                 switch (index)
                 {
-                    case 0:
+                    case Constant.RETRY:
                         Console.SetCursorPosition(0, Console.CursorTop);
                         break;
-                    case 1:
+                    case Constant.EXIT:
                         Console.SetCursorPosition(0+13, Console.CursorTop);
                         break;
                 }

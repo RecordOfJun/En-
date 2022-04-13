@@ -31,5 +31,13 @@ namespace LTT.View
         {
             Console.Write("  다시 로그인  프로그램 종료");
         }
+        public void MainMenuForm()
+        {
+            Console.WriteLine("  강의 시간표 조회");
+            Console.WriteLine("  관심과목 담기");
+            Console.WriteLine("  수강신청");
+            Console.WriteLine("  수강내역 조회");
+            Console.WriteLine("  프로그램 종료");
+        }
     }
 }
