@@ -13,7 +13,7 @@ namespace LTT.Controller
         {
             this.ui = ui;
         }
-        public string GetUserInput(int maximumLength,int inputType)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
+        public string GetUserString(int maximumLength,int inputType)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
         {
             ConsoleKeyInfo key;
             int startCusorIndex = Console.CursorLeft;
@@ -45,7 +45,7 @@ namespace LTT.Controller
                 {
                     inputString += userinput;
                 }
-                ui.DeleteSting(startCusorIndex, maximumLength);
+                ui.DeleteString(startCusorIndex,Console.CursorTop, maximumLength);
                 RefreshString(inputString, inputType);//입력한 문자열 출력
             }
             return inputString;
@@ -56,6 +56,27 @@ namespace LTT.Controller
                 ui.WritePassword(inputString);
             else
                 ui.SetInputCursor(inputString);
+        }
+        public int GetLeftRight(int index,int numberOfMenu)
+        {
+            ConsoleKeyInfo upAndDown = Console.ReadKey();
+            switch (upAndDown.Key)
+            {
+                case ConsoleKey.LeftArrow://위쪽 방향키 감지
+                    index += Constant.UP;
+                    break;
+                case ConsoleKey.RightArrow://아래쪽 방향 키 감지
+                    index += Constant.DOWN;
+                    break;
+                case ConsoleKey.Enter://엔터 감지
+                    return Constant.RETURN;
+                default:
+                    break;
+            }
+            if (index < Constant.INDEX_MINIMUM)//위,아래 방향 키 입력시 커서가 가리키는 메뉴 인덱스 조정
+                index += numberOfMenu;
+            index = index % numberOfMenu;
+            return index;
         }
     }
 }

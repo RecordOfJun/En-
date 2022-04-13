@@ -12,11 +12,11 @@ namespace LTT.View
             Console.WriteLine("ID:");
             Console.WriteLine("PW:");
         }
-        public void DeleteSting(int startCursorIndex,int maximumLength)
+        public void DeleteString(int startCursorIndexOfX, int startCursorIndexOfY,int maximumLength)
         {
-            Console.SetCursorPosition(startCursorIndex, Console.CursorTop);
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
             Console.Write(new string(' ', maximumLength+1));
-            Console.SetCursorPosition(startCursorIndex, Console.CursorTop);
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
 
         }
         public void SetInputCursor(string inputString)
@@ -26,6 +26,10 @@ namespace LTT.View
         public void WritePassword(string inputString)
         {
             Console.Write(new string('*', inputString.Length));
+        }
+        public void ShowAgain()
+        {
+            Console.Write("  다시 로그인  프로그램 종료");
         }
     }
 }

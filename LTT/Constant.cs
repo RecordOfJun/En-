@@ -20,6 +20,9 @@ namespace LTT
         //입력
         public const int NOMARL_INPUT = 0;
         public const int HIDE_INPUT = 1;
-
+        public const int UP = -1;
+        public const int DOWN = 1;
+        public const int RETURN = -1;
+        public const int INDEX_MINIMUM = 0;
     }
 }
