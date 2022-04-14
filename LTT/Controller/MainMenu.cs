@@ -13,11 +13,18 @@ namespace LTT.Controller
         ExceptionView exceptionView;
         Input input;
         Excel.Application application;
+        Excel.Workbook workbook;
+        Excel.Sheets sheets;
+        WholeLecture wholeLecture;
         public MainMenu(ExceptionView exceptionView,BasicView basicView,Input input)
         {
             this.basicView = basicView;
             this.exceptionView = exceptionView;
             this.input = input;
+            application = new Excel.Application();
+            workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
+            sheets = workbook.Sheets;
+            wholeLecture = new WholeLecture(sheets);
         }
         public void SelectMenu()
         {
@@ -29,7 +36,7 @@ namespace LTT.Controller
                 switch (selected)
                 {
                     case 0:
-
+                        wholeLecture.ShowLectures();
                         break;
                     case 1:
 

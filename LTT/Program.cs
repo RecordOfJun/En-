@@ -11,15 +11,16 @@ namespace LTT
     {
         static void Main(string[] args)
         {
-            //Login login = new Login();
-            //login.GetInProgram();
+            Login login = new Login();
+            login.GetInProgram();
+            /*
             try
             {
                 // Excel Application 객체 생성
                 Excel.Application application = new Excel.Application();
 
                 // Workbook 객체 생성 및 파일 오픈 (바탕화면에 있는 excelStudy.xlsx 가져옴)
-                Excel.Workbook workbook = application.Workbooks.Open(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\excelStudy.xlsx");
+                Excel.Workbook workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\excelStudy.xlsx");
 
                 // sheets에 읽어온 엑셀값을 넣기 (한 workbook 내의 모든 sheet 가져옴)
                 Excel.Sheets sheets = workbook.Sheets;
@@ -54,6 +55,7 @@ namespace LTT
             {
                 Console.WriteLine(e.Message);
             }
+            */
         }
     }
 }

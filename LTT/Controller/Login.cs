@@ -15,6 +15,7 @@ namespace LTT.Controller
         bool isEscape;
         public Login()
         {
+            Console.SetWindowSize(178,30);
             this.basicView = new BasicView();
             this.exceptionView = new ExceptionView();
             this.input = new Input(basicView);
