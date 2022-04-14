@@ -20,27 +20,27 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(0, 0, 1);
-                basicView.DeleteString(0, 1, 1);
-                basicView.DeleteString(0, 2, 1);
-                basicView.DeleteString(0, 3, 1);
-                basicView.DeleteString(0, 4, 1);
+                basicView.DeleteString(70, 0, 1);
+                basicView.DeleteString(70, 1, 1);
+                basicView.DeleteString(70, 2, 1);
+                basicView.DeleteString(70, 3, 1);
+                basicView.DeleteString(70, 4, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(0, 0);
+                        Console.SetCursorPosition(70, 0);
                         break;
                     case 1:
-                        Console.SetCursorPosition(0, 1);
+                        Console.SetCursorPosition(70, 1);
                         break;
                     case 2:
-                        Console.SetCursorPosition(0, 2);
+                        Console.SetCursorPosition(70, 2);
                         break;
                     case 3:
-                        Console.SetCursorPosition(0, 3);
+                        Console.SetCursorPosition(70, 3);
                         break;
                     case 4:
-                        Console.SetCursorPosition(0, 4);
+                        Console.SetCursorPosition(70, 4);
                         break;
                 }
                 Console.Write(">");

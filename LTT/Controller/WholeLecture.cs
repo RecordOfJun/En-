@@ -69,31 +69,31 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(0, 0, 1);
-                basicView.DeleteString(0, 1, 1);
-                basicView.DeleteString(0, 2, 1);
-                basicView.DeleteString(0, 3, 1);
-                basicView.DeleteString(0, 4, 1);
-                basicView.DeleteString(0, 5, 1);
+                basicView.DeleteString(70, 0, 1);
+                basicView.DeleteString(70, 1, 1);
+                basicView.DeleteString(70, 2, 1);
+                basicView.DeleteString(70, 3, 1);
+                basicView.DeleteString(70, 4, 1);
+                basicView.DeleteString(70, 5, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(0, 0);
+                        Console.SetCursorPosition(70, 0);
                         break;
                     case 1:
-                        Console.SetCursorPosition(0, 1);
+                        Console.SetCursorPosition(70, 1);
                         break;
                     case 2:
-                        Console.SetCursorPosition(0, 2);
+                        Console.SetCursorPosition(70, 2);
                         break;
                     case 3:
-                        Console.SetCursorPosition(0, 3);
+                        Console.SetCursorPosition(70, 3);
                         break;
                     case 4:
-                        Console.SetCursorPosition(0, 4);
+                        Console.SetCursorPosition(70, 4);
                         break;
                     case 5:
-                        Console.SetCursorPosition(0, 5);
+                        Console.SetCursorPosition(70, 5);
                         break;
                 }
                 Console.Write(">");
@@ -113,27 +113,27 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(20, Console.CursorTop, 1);
-                basicView.DeleteString(33, Console.CursorTop, 1);
-                basicView.DeleteString(50, Console.CursorTop, 1);
-                basicView.DeleteString(69, Console.CursorTop, 1);
-                basicView.DeleteString(87, Console.CursorTop, 1);
+                basicView.DeleteString(70+20, Console.CursorTop, 1);
+                basicView.DeleteString(70+33, Console.CursorTop, 1);
+                basicView.DeleteString(70+50, Console.CursorTop, 1);
+                basicView.DeleteString(70+69, Console.CursorTop, 1);
+                basicView.DeleteString(70+87, Console.CursorTop, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(20, Console.CursorTop);
+                        Console.SetCursorPosition(70+20, Console.CursorTop);
                         break;
                     case 1:
-                        Console.SetCursorPosition(33, Console.CursorTop);
+                        Console.SetCursorPosition(70 + 33, Console.CursorTop);
                         break;
                     case 2:
-                        Console.SetCursorPosition(50, Console.CursorTop);
+                        Console.SetCursorPosition(70 + 50, Console.CursorTop);
                         break;
                     case 3:
-                        Console.SetCursorPosition(69, Console.CursorTop);
+                        Console.SetCursorPosition(70 + 69, Console.CursorTop);
                         break;
                     case 4:
-                        Console.SetCursorPosition(87, Console.CursorTop);
+                        Console.SetCursorPosition(70 + 87, Console.CursorTop);
                         break;
                 }
                 Console.Write(">");
@@ -148,8 +148,8 @@ namespace LTT.Controller
         }
         protected void SelectMajor()
         {
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectMajorForm();
             int selected=SwitchColumn(5);
             switch (selected)
@@ -171,15 +171,15 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Major = "";
-                    basicView.DeleteString(20, Console.CursorTop, 100);
+                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
                     break;
             }
 
         }
         private void SelectDistribution()
         {
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectDistributionForm();
             int selected = SwitchColumn(4);
             switch (selected)
@@ -198,7 +198,7 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Distribution = "";
-                    basicView.DeleteString(20, Console.CursorTop, 100);
+                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
                     break;
             }
         }
@@ -206,18 +206,18 @@ namespace LTT.Controller
         {
             Console.CursorVisible = true;
             storage.Professor = "";
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectProfessorForm();
             while (storage.Professor.Length < 2)
             {
-                Console.SetCursorPosition(32, Console.CursorTop);
+                Console.SetCursorPosition(70 + 32, Console.CursorTop);
                 storage.Professor = input.GetUserString(20, 2);
             }
             if (storage.Professor == Constant.ESCAPE_STRING)
             {
                 storage.Professor = "";
-                basicView.DeleteString(20, Console.CursorTop, 100);
+                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
             }
             Console.CursorVisible = false;
         }
@@ -225,25 +225,25 @@ namespace LTT.Controller
         {
             Console.CursorVisible = true;
             storage.LectureName = "";
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectClassNameForm();
             while (storage.LectureName.Length < 2)
             {
-                Console.SetCursorPosition(34, Console.CursorTop);
-                storage.LectureName = input.GetUserString(20, 2);
+                Console.SetCursorPosition(70 + 34, Console.CursorTop);
+                storage.LectureName = input.GetUserString(70 + 20, 2);
             }
             if (storage.LectureName == Constant.ESCAPE_STRING)
             {
                 storage.LectureName = "";
-                basicView.DeleteString(20, Console.CursorTop, 100);
+                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
             }
             Console.CursorVisible = false;
         }
         protected void SelectCourse()
         {
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectCourseForm();
             int selected = SwitchColumn(4);
             switch (selected)
@@ -262,7 +262,7 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Course = "";
-                    basicView.DeleteString(20, Console.CursorTop, 100);
+                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
                     break;
             }
         }
@@ -332,9 +332,10 @@ namespace LTT.Controller
                     if(table.Sequence == "NO")
                     {
                         Console.WriteLine();
-                        Console.WriteLine(new string('=',Console.WindowWidth));
+                        Console.Write(new string('=',Console.WindowWidth));
                     }
-                    Console.WriteLine();
+                    else
+                        Console.WriteLine();
                 }
             }
             while (true)

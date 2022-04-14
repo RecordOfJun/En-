@@ -10,11 +10,17 @@ namespace LTT.View
     {
         public void SelectLectureForm()
         {
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  개설학과전공");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  이수구분");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  교과목명");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  교수명");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  학년");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  조회");
         }
         public void SelectMajorForm()
@@ -44,12 +50,22 @@ namespace LTT.View
         }
         public void SelectInterstForm()
         {
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  개설학과전공");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  학수번호");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  교과목명");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  교수명");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  학년");
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  조회");
+        }
+        public void SelectMore()
+        {
+            Console.Write("  계속 입력   재검색");
         }
     }
 }

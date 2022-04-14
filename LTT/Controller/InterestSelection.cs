@@ -9,8 +9,10 @@ namespace LTT.Controller
 {
     class InterestSelection : WholeLecture
     {
+        protected InterestLecture interestLecture;
         public InterestSelection(Instances instances):base (instances)
         {
+            this.interestLecture = instances.InterestLecture;
         }
 
 
@@ -80,6 +82,7 @@ namespace LTT.Controller
                         break;
                     case 5:
                         ShowLectures();
+
                         Console.Clear();
                         lectureView.SelectInterstForm();
                         break;
@@ -89,38 +92,48 @@ namespace LTT.Controller
             }
         }
 
-        private void SelectDivision()
+        protected void SelectDivision()
         {
             Console.CursorVisible = true;
             storage.LectureNumber = "";
             storage.Division = "";
-            Console.SetCursorPosition(20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
             lectureView.SelectDivisionForm();
             while (storage.LectureNumber.Length < 2)
             {
                 Console.SetCursorPosition(34, Console.CursorTop);
-                storage.LectureNumber = input.GetUserString(6, 2);//예외처리
+                storage.LectureNumber = input.GetUserString(6, 2);//예외처리 숫자만 입력 2글자 이상 입력
             }
             if (storage.LectureNumber == Constant.ESCAPE_STRING)
             {
                 storage.LectureNumber = "";
-                basicView.DeleteString(20, Console.CursorTop, 100);
+                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
             }
             while (storage.Division.Length < 2)
             {
-                Console.SetCursorPosition(64, Console.CursorTop);
-                storage.Division = input.GetUserString(3, 2);//예외처리
+                Console.SetCursorPosition(70 + 64, Console.CursorTop);
+                storage.Division = input.GetUserString(3, 2);//예외처리 숫자만 입력 2글자 이상 입력
             }
             if (storage.Division == Constant.ESCAPE_STRING)
             {
                 storage.LectureNumber = "";
                 storage.Division = "";
-                basicView.DeleteString(20, Console.CursorTop, 100);
+                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
             }
             Console.CursorVisible = false;
         }
 
-
+        protected void AddInterest()
+        {
+            Console.SetCursorPosition(0, 6);
+            Console.Write("신청가능 학점:{0}",interestLecture.MaximumGrades-interestLecture.CurrentGrades);
+            //Console.SetCursorPosition(, Console.CursorTop);
+            Console.Write("신청 학점:");
+            Console.SetCursorPosition(70 + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            lectureView.SelectMore();
+            int selected = SwitchColumn(2);
+        }
     }
 }

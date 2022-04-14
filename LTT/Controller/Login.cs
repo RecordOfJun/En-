@@ -16,6 +16,8 @@ namespace LTT.Controller
         public Input input;
         public MainMenu mainMenu;
         public List<LectureVO> lectureTable;
+        public InterestLecture InterestLecture;
+        public MyLecture myLecture;
     }
     class Login
     {
@@ -124,10 +126,11 @@ namespace LTT.Controller
             basicView.LoginView();
             while (isNotCorrect)
             {
+                Console.CursorVisible = true;
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 8);
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, 8);
-                basicView.DeleteString(0, Constant.LOGIN_ID_INDEX + 2, 25);
-                basicView.DeleteString(0, Constant.LOGIN_ID_INDEX + 3, 28);
+                basicView.DeleteString(70, Constant.LOGIN_ID_INDEX + 2, 25);
+                basicView.DeleteString(70, Constant.LOGIN_ID_INDEX + 3, 28);
                 isNotCorrect = IsCorrectUser();
                 if (isEscape == true)
                     return;
@@ -163,21 +166,22 @@ namespace LTT.Controller
         }
         private int AskAgain()//함수로 뺄 여지가 있음
         {
+            Console.CursorVisible = false;
             int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             basicView.ShowAgain();
             while (isNotEnter)
             {
-                basicView.DeleteString(0,Console.CursorTop, 1);
-                basicView.DeleteString(0+13, Console.CursorTop, 1);
+                basicView.DeleteString(70,Console.CursorTop, 1);
+                basicView.DeleteString(70+13, Console.CursorTop, 1);
                 switch (index)
                 {
                     case Constant.RETRY:
-                        Console.SetCursorPosition(0, Console.CursorTop);
+                        Console.SetCursorPosition(70, Console.CursorTop);
                         break;
                     case Constant.EXIT:
-                        Console.SetCursorPosition(0+13, Console.CursorTop);
+                        Console.SetCursorPosition(70+13, Console.CursorTop);
                         break;
                 }
                 Console.Write(">");

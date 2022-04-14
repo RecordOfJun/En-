@@ -18,6 +18,8 @@ namespace LTT.Controller
             this.basicView = instances.basicView;
             this.input = instances.input;
             instances.lectureView = new LectureView();
+            instances.myLecture = new MyLecture();
+            instances.InterestLecture = new InterestLecture();
             wholeLecture = new WholeLecture(instances) ;
             interestSelection = new InterestSelection(instances);
         }

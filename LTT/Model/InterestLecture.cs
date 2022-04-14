@@ -17,7 +17,11 @@ namespace LTT.Model
         }
         public int CurrentGrades{
             get { return currentGrades; }
-            set {  maximumGrades=value; }
+            set {  currentGrades=value; }
+        }
+        public int MaximumGrades
+        {
+            get { return maximumGrades; }
         }
     }
 }

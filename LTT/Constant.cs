@@ -11,7 +11,7 @@ namespace LTT
         //로그인
         public const int LOGIN_ID_INDEX = 0;
         public const int LOGIN_PASSWORD_INDEX = 1;
-        public const int LOGIN_INDEX = 4;
+        public const int LOGIN_INDEX = 74;
         public const bool IS_CORRECT = false;
         public const bool IS_NOT_CORRECT = true;
         public const string ID = "18011514";

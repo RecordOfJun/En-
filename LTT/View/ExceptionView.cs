@@ -12,6 +12,7 @@ namespace LTT.View
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
