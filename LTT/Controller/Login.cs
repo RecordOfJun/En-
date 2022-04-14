@@ -180,7 +180,7 @@ namespace LTT.Controller
                         Console.SetCursorPosition(0+13, Console.CursorTop);
                         break;
                 }
-                Console.Write(" >");
+                Console.Write(">");
                 index = input.GetLeftRight(index,2);
                 if (index == Constant.RETURN)
                     return selected;

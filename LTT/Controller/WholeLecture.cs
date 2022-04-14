@@ -204,6 +204,7 @@ namespace LTT.Controller
         }
         protected void SelectProfessor()
         {
+            Console.CursorVisible = true;
             storage.Professor = "";
             Console.SetCursorPosition(20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
@@ -218,9 +219,11 @@ namespace LTT.Controller
                 storage.Professor = "";
                 basicView.DeleteString(20, Console.CursorTop, 100);
             }
+            Console.CursorVisible = false;
         }
         protected void SelectLectureName()
         {
+            Console.CursorVisible = true;
             storage.LectureName = "";
             Console.SetCursorPosition(20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
@@ -235,6 +238,7 @@ namespace LTT.Controller
                 storage.LectureName = "";
                 basicView.DeleteString(20, Console.CursorTop, 100);
             }
+            Console.CursorVisible = false;
         }
         protected void SelectCourse()
         {

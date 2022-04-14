@@ -45,7 +45,7 @@ namespace LTT.View
         public void SelectInterstForm()
         {
             Console.WriteLine("  개설학과전공");
-            Console.WriteLine("   학수번호");
+            Console.WriteLine("  학수번호");
             Console.WriteLine("  교과목명");
             Console.WriteLine("  교수명");
             Console.WriteLine("  학년");

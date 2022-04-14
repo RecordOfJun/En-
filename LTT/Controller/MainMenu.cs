@@ -12,12 +12,14 @@ namespace LTT.Controller
         BasicView basicView;
         Input input;
         WholeLecture wholeLecture;
+        InterestSelection interestSelection;
         public MainMenu(Instances instances)
         {
             this.basicView = instances.basicView;
             this.input = instances.input;
             instances.lectureView = new LectureView();
             wholeLecture = new WholeLecture(instances) ;
+            interestSelection = new InterestSelection(instances);
         }
         public void SelectMenu()
         {
@@ -31,10 +33,10 @@ namespace LTT.Controller
                 switch (selected)
                 {
                     case 0:
-                        wholeLecture.SearchLecture(1);
+                        wholeLecture.SearchLecture();
                         break;
                     case 1:
-
+                        interestSelection.SelectMenu();
                         break;
                     case 2:
 

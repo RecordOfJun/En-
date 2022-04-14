@@ -11,9 +11,6 @@ namespace LTT.Controller
     {
         public InterestSelection(Instances instances):base (instances)
         {
-            this.lectureTable = instances.lectureTable;
-            this.lectureView = lectureView;
-            this.input = instances.input;
         }
 
 
@@ -25,12 +22,12 @@ namespace LTT.Controller
             while (isNotEscape)
             {
                 Console.Clear();
+                basicView.InterestForm();
                 selected = input.SwicthMenu(5);
-                lectureView.SelectInterstForm();
                 switch (selected)
                 {
                     case 0://관심과목 담기
-                        
+                        SearchLecture();
                         break;
                     case 1://관심과목 조회
 
@@ -94,15 +91,16 @@ namespace LTT.Controller
 
         private void SelectDivision()
         {
+            Console.CursorVisible = true;
             storage.LectureNumber = "";
             storage.Division = "";
             Console.SetCursorPosition(20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
-            lectureView.SelectProfessorForm();
-            while (storage.Professor.Length < 2)
+            lectureView.SelectDivisionForm();
+            while (storage.LectureNumber.Length < 2)
             {
-                Console.SetCursorPosition(32, Console.CursorTop);
-                storage.LectureNumber = input.GetUserString(20, 2);//예외처리
+                Console.SetCursorPosition(34, Console.CursorTop);
+                storage.LectureNumber = input.GetUserString(6, 2);//예외처리
             }
             if (storage.LectureNumber == Constant.ESCAPE_STRING)
             {
@@ -111,14 +109,16 @@ namespace LTT.Controller
             }
             while (storage.Division.Length < 2)
             {
-                Console.SetCursorPosition(52, Console.CursorTop);
-                storage.Division = input.GetUserString(20, 2);//예외처리
+                Console.SetCursorPosition(64, Console.CursorTop);
+                storage.Division = input.GetUserString(3, 2);//예외처리
             }
             if (storage.Division == Constant.ESCAPE_STRING)
             {
+                storage.LectureNumber = "";
                 storage.Division = "";
                 basicView.DeleteString(20, Console.CursorTop, 100);
             }
+            Console.CursorVisible = false;
         }
 
 

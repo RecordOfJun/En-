@@ -39,5 +39,13 @@ namespace LTT.View
             Console.WriteLine("  수강내역 조회");
             Console.WriteLine("  프로그램 종료");
         }
+        public void InterestForm()
+        {
+            Console.WriteLine("  관심과목 담기");
+            Console.WriteLine("  관심과목 조회");
+            Console.WriteLine("  관심과목 시간표");
+            Console.WriteLine("  관심과목 삭제");
+            Console.WriteLine("  프로그램 종료");
+        }
     }
 }
