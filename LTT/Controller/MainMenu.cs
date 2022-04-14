@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTT.View;
+using Excel = Microsoft.Office.Interop.Excel;
 namespace LTT.Controller
 {
     class MainMenu
@@ -11,6 +12,7 @@ namespace LTT.Controller
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
+        Excel.Application application;
         public MainMenu(ExceptionView exceptionView,BasicView basicView,Input input)
         {
             this.basicView = basicView;

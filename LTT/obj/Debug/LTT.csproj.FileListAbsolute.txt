@@ -1,0 +1,7 @@
+C:\Users\user\OneDrive\개발\LTT\bin\Debug\LTT.exe.config
+C:\Users\user\OneDrive\개발\LTT\bin\Debug\LTT.exe
+C:\Users\user\OneDrive\개발\LTT\bin\Debug\LTT.pdb
+C:\Users\user\OneDrive\개발\LTT\obj\Debug\LTT.csprojAssemblyReference.cache
+C:\Users\user\OneDrive\개발\LTT\obj\Debug\LTT.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\개발\LTT\obj\Debug\LTT.exe
+C:\Users\user\OneDrive\개발\LTT\obj\Debug\LTT.pdb

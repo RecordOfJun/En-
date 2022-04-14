@@ -11,12 +11,14 @@ namespace LTT.Controller
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
+        MainMenu mainMenu;
         bool isEscape;
         public Login()
         {
             this.basicView = new BasicView();
             this.exceptionView = new ExceptionView();
             this.input = new Input(basicView);
+            this.mainMenu = new MainMenu(exceptionView, basicView, input);
         }
         public void GetInProgram()
         {
@@ -45,7 +47,6 @@ namespace LTT.Controller
                 if(AskAgain()==1)
                     Environment.Exit(0);
             }
-            MainMenu mainMenu = new MainMenu(exceptionView, basicView, input);
             mainMenu.SelectMenu();
         }
         private bool IsCorrectUser()
