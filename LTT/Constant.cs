@@ -30,5 +30,34 @@ namespace LTT
         public const int ESCAPE_INT = -2;
         public const string ESCAPE_STRING = "@@@@@@@@@@@@@@@@@@@@";
         public const int INDEX_MINIMUM = 0;
+
+        public enum SECTOR
+        {
+            SEQUENCE=1,
+            MAJOR,
+            LECTURE_NUMBER,
+            DIVISION,
+            LECTURE_NAME,
+            DISTRIBUTION,
+            COURSE,
+            GRADE,
+            DAY_AND_TIME,
+            PLACE,
+            PROFESSOR,
+            LANGUAGE,
+
+            MAJOR_INDEX = 4,
+            LECTURE_NUMBER_INDEX = 24,
+            DIVISION_INDEX = 33,
+            LECTURE_NAME_INDEX = 38,
+            DISTRIBUTION_INDEX=71,
+            COURSE_INDEX=84,
+            GRADE_INDEX=89,
+            DAY_AND_TIME_INDEX=94,
+            PLACE_INDEX=125,
+            PROFESSOR_INDEX=139,
+            LANGUAGE_INDEX=166,
+
+        }
     }
 }

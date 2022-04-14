@@ -4,14 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTT.View;
+using LTT.Model;
+using Excel = Microsoft.Office.Interop.Excel;
 namespace LTT.Controller
 {
+    class Instances
+    {
+
+    }
     class Login
     {
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
         MainMenu mainMenu;
+        Excel.Application application;
+        Excel.Workbook workbook;
+        Excel.Sheets sheets;
+        Excel.Worksheet worksheet;
+        Excel.Range cellRange;
+        Array data;
+        List<LectureVO> lectureTabel;
         bool isEscape;
         public Login()
         {
@@ -19,15 +32,80 @@ namespace LTT.Controller
             this.basicView = new BasicView();
             this.exceptionView = new ExceptionView();
             this.input = new Input(basicView);
-            this.mainMenu = new MainMenu(exceptionView, basicView, input);
+            this.lectureTabel = new List<LectureVO>();
+            this.mainMenu = new MainMenu(exceptionView, basicView, input,lectureTabel);
+        }
+        private void LinkExcelData()
+        {
+            application = new Excel.Application();
+            workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
+            sheets = workbook.Sheets;
+            worksheet = sheets["전체강의"] as Excel.Worksheet;
+            cellRange = worksheet.get_Range("A1", "L185") as Excel.Range;
+            data = (Array)cellRange.Cells.Value2;
+            object value;
+            string content;
+            for (int row = 1; row <= 185; row++)
+            {
+                LectureVO lectureVO = new LectureVO();
+                for (int column = 1; column <= 12; column++)
+                {
+                    value = data.GetValue(row, column);
+                    if (value == null)
+                        content = "";
+                    else
+                        content = value.ToString().Trim();
+                    switch (column)
+                    {
+                        case (int)Constant.SECTOR.SEQUENCE:
+                            lectureVO.Sequence = content;
+                            break;
+                        case (int)Constant.SECTOR.MAJOR:
+                            lectureVO.Major = content;
+                            break;
+                        case (int)Constant.SECTOR.LECTURE_NUMBER:
+                            lectureVO.LectureNumber = content;
+                            break;
+                        case (int)Constant.SECTOR.DIVISION:
+                            lectureVO.Division = content;
+                            break;
+                        case (int)Constant.SECTOR.LECTURE_NAME:
+                            lectureVO.LectureNAME = content;
+                            break;
+                        case (int)Constant.SECTOR.DISTRIBUTION:
+                            lectureVO.Distribution = content;
+                            break;
+                        case (int)Constant.SECTOR.COURSE:
+                            lectureVO.Course = content;
+                            break;
+                        case (int)Constant.SECTOR.GRADE:
+                            lectureVO.Grade = content;
+                            break;
+                        case (int)Constant.SECTOR.DAY_AND_TIME:
+                            lectureVO.Time = content;
+                            break;
+                        case (int)Constant.SECTOR.PLACE:
+                            lectureVO.Place = content;
+                            break;
+                        case (int)Constant.SECTOR.PROFESSOR:
+                            lectureVO.Professor = content;
+                            break;
+                        case (int)Constant.SECTOR.LANGUAGE:
+                            lectureVO.Language = content;
+                            break;
+                    }                   
+                }
+                this.lectureTabel.Add(lectureVO);
+            }
         }
         public void GetInProgram()
         {
+            LinkExcelData();
             bool isNotExited = true;
             while (isNotExited)
                 CheckId();
         }
-        public void CheckId()
+        private void CheckId()
         {
             isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
@@ -91,7 +169,7 @@ namespace LTT.Controller
                         Console.SetCursorPosition(0+13, Console.CursorTop);
                         break;
                 }
-                Console.Write(">");
+                Console.Write(" >");
                 index = input.GetLeftRight(index,2);
                 if (index == Constant.RETURN)
                     return selected;

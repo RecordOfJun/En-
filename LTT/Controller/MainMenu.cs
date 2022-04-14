@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTT.View;
-using Excel = Microsoft.Office.Interop.Excel;
+using LTT.Model;
 namespace LTT.Controller
 {
     class MainMenu
@@ -12,22 +12,18 @@ namespace LTT.Controller
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
-        Excel.Application application;
-        Excel.Workbook workbook;
-        Excel.Sheets sheets;
+        List<LectureVO> lectureTable;
         WholeLecture wholeLecture;
-        public MainMenu(ExceptionView exceptionView,BasicView basicView,Input input)
+        public MainMenu(ExceptionView exceptionView,BasicView basicView,Input input,List<LectureVO> lectureTable)
         {
             this.basicView = basicView;
             this.exceptionView = exceptionView;
             this.input = input;
-            application = new Excel.Application();
-            workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
-            sheets = workbook.Sheets;
-            wholeLecture = new WholeLecture(sheets);
+            wholeLecture = new WholeLecture(lectureTable);
         }
         public void SelectMenu()
         {
+            Console.CursorVisible = false;
             int selected;
             bool isNotEscape = true;
             while (isNotEscape) {
@@ -36,7 +32,7 @@ namespace LTT.Controller
                 switch (selected)
                 {
                     case 0:
-                        wholeLecture.ShowLectures();
+                        wholeLecture.SearchLecture();
                         break;
                     case 1:
 

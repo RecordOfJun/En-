@@ -53,6 +53,7 @@
     <Compile Include="Controller\Login.cs" />
     <Compile Include="Controller\MainMenu.cs" />
     <Compile Include="Controller\WholeLecture.cs" />
+    <Compile Include="Model\LectureVO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BasicView.cs" />
@@ -63,8 +64,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
