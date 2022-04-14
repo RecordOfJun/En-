@@ -21,6 +21,17 @@ namespace LTT.Model
         private string place;
         private string language;
 
+        public void Init()
+        {
+            major = "";
+            distribution = "";
+            professor = "";
+            lectureName = "";
+            course = "";
+            lectureNumber = "";
+            division = "";
+        }
+
         public string Major
         {
             get { return major; }
@@ -36,7 +47,7 @@ namespace LTT.Model
             get { return professor; }
             set { professor = value; }
         }
-        public string LectureNAME
+        public string LectureName
         {
             get { return lectureName; }
             set { lectureName = value; }

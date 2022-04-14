@@ -28,15 +28,28 @@ namespace LTT.View
         }
         public void SelectProfessorForm()
         {
-            Console.Write("  교수명 입력:");
+            Console.Write("교수명 입력:");
         }
         public void SelectClassNameForm()
         {
-            Console.Write("  교과목명 입력:");
+            Console.Write("교과목명 입력:");
+        }
+        public void SelectDivisionForm()
+        {
+            Console.Write("학수번호 입력:                    분반 입력:");
         }
         public void SelectCourseForm()
         {
             Console.Write("  전체         1학년            2학년              3학년");
+        }
+        public void SelectInterstForm()
+        {
+            Console.WriteLine("  개설학과전공");
+            Console.WriteLine("   학수번호");
+            Console.WriteLine("  교과목명");
+            Console.WriteLine("  교수명");
+            Console.WriteLine("  학년");
+            Console.WriteLine("  조회");
         }
     }
 }

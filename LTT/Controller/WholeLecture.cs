@@ -10,29 +10,26 @@ namespace LTT.Controller
 {
     class WholeLecture
     {
-        LectureView lectureView = new LectureView();
-        BasicView basicView = new BasicView();
-        Input input;
-        List<LectureVO> lectureTable;
-        string major;
-        string distribution;
-        string professor;
-        string lectureName;
-        string course;
-        public WholeLecture(List<LectureVO> lectureTable)
+        protected LectureView lectureView ;
+        protected BasicView basicView;
+        protected Input input;
+        protected List<LectureVO> lectureTable;
+        protected List<LectureVO> searchTable;
+        protected LectureVO storage;
+        public WholeLecture(Instances instances)
         {
-            this.lectureTable = lectureTable;
+            storage = new LectureVO();
+            searchTable = new List<LectureVO>();
+            this.lectureTable = instances.lectureTable;
+            this.lectureView = instances.lectureView;
+            this.basicView = instances.basicView;
             input = new Input(basicView);
         }
         public void SearchLecture()
         {
             Console.Clear();
             lectureView.SelectLectureForm();
-            major = "";
-            distribution = "";
-            professor = "";
-            lectureName = "";
-            course="";
+            storage.Init();
             int selected;
             bool isNotEscape = true;
             while (isNotEscape)
@@ -47,24 +44,25 @@ namespace LTT.Controller
                         SelectDistribution();
                         break;
                     case 2:
-
+                        SelectLectureName();
                         break;
                     case 3:
-
+                        SelectProfessor();
                         break;
                     case 4:
                         SelectCourse();
                         break;
                     case 5:
                         ShowLectures();
-                        Console.ReadLine();
+                        Console.Clear();
+                        lectureView.SelectLectureForm();
                         break;
                     case Constant.ESCAPE_INT:
                         return;
                 }
             }
         }
-        private int SwicthRow()//함수로 뺄 여지가 있음
+        protected int SwicthRow()//함수로 뺄 여지가 있음
         {
             int index = 0;
             int selected = 0;
@@ -108,7 +106,7 @@ namespace LTT.Controller
             }
             return selected;
         }
-        private int SwitchColumn(int NumberOfChoice)//함수로 뺄 여지가 있음
+        protected int SwitchColumn(int NumberOfChoice)//함수로 뺄 여지가 있음
         {
             int index = 0;
             int selected = 0;
@@ -148,12 +146,7 @@ namespace LTT.Controller
             }
             return selected;
         }
-        private void SelectLectureData()
-        {
-
-
-        }
-        private void SelectMajor()
+        protected void SelectMajor()
         {
             Console.SetCursorPosition(20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
@@ -162,22 +155,22 @@ namespace LTT.Controller
             switch (selected)
             {
                 case 0:
-                    major = "";
+                    storage.Major = "";
                     break;
                 case 1:
-                    major = "컴퓨터공학과";
+                    storage.Major = "컴퓨터공학과";
                     break;
                 case 2:
-                    major = "소프트웨어학과";
+                    storage.Major = "소프트웨어학과";
                     break;
                 case 3:
-                    major = "지능기전공학부";
+                    storage.Major = "지능기전공학부";
                     break;
                 case 4:
-                    major = "기계항공우주공학부";
+                    storage.Major = "기계항공우주공학부";
                     break;
                 case Constant.ESCAPE_INT:
-                    major = "";
+                    storage.Major = "";
                     basicView.DeleteString(20, Console.CursorTop, 100);
                     break;
             }
@@ -192,32 +185,58 @@ namespace LTT.Controller
             switch (selected)
             {
                 case 0:
-                    distribution = "";
+                    storage.Distribution = "";
                     break;
                 case 1:
-                    distribution = "교양필수";
+                    storage.Distribution = "교양필수";
                     break;
                 case 2:
-                    distribution = "전공필수";
+                    storage.Distribution = "전공필수";
                     break;
                 case 3:
-                    distribution = "전공선택";
+                    storage.Distribution = "전공선택";
                     break;
                 case Constant.ESCAPE_INT:
-                    distribution = "";
+                    storage.Distribution = "";
                     basicView.DeleteString(20, Console.CursorTop, 100);
                     break;
             }
         }
-        private void SelectProfessor()
+        protected void SelectProfessor()
         {
-
+            storage.Professor = "";
+            Console.SetCursorPosition(20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            lectureView.SelectProfessorForm();
+            while (storage.Professor.Length < 2)
+            {
+                Console.SetCursorPosition(32, Console.CursorTop);
+                storage.Professor = input.GetUserString(20, 2);
+            }
+            if (storage.Professor == Constant.ESCAPE_STRING)
+            {
+                storage.Professor = "";
+                basicView.DeleteString(20, Console.CursorTop, 100);
+            }
         }
-        private void SelectClassName()
+        protected void SelectLectureName()
         {
-
+            storage.LectureName = "";
+            Console.SetCursorPosition(20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            lectureView.SelectClassNameForm();
+            while (storage.LectureName.Length < 2)
+            {
+                Console.SetCursorPosition(34, Console.CursorTop);
+                storage.LectureName = input.GetUserString(20, 2);
+            }
+            if (storage.LectureName == Constant.ESCAPE_STRING)
+            {
+                storage.LectureName = "";
+                basicView.DeleteString(20, Console.CursorTop, 100);
+            }
         }
-        private void SelectCourse()
+        protected void SelectCourse()
         {
             Console.SetCursorPosition(20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
@@ -226,31 +245,34 @@ namespace LTT.Controller
             switch (selected)
             {
                 case 0:
-                    course = "";
+                    storage.Course = "";
                     break;
                 case 1:
-                    course = "1";
+                    storage.Course = "1";
                     break;
                 case 2:
-                    course = "2";
+                    storage.Course = "2";
                     break;
                 case 3:
-                    course = "3";
+                    storage.Course = "3";
                     break;
                 case Constant.ESCAPE_INT:
-                    course = "";
+                    storage.Course = "";
                     basicView.DeleteString(20, Console.CursorTop, 100);
                     break;
             }
         }
-        public void ShowLectures()
+        protected void ShowLectures()
         {
-            Console.Clear();
+            Console.SetCursorPosition(0, 7);
+            searchTable.RemoveAll(element=>true);
             foreach (LectureVO table in lectureTable)
             {
-                if (table.Major.Contains(major) && table.Distribution.Contains(distribution) && table.Professor.Contains(professor) && table.LectureNAME.Contains(lectureName) && table.Course.Contains(course))
+                if (table.Sequence=="NO"|| table.Distribution.Contains(storage.Distribution) && table.LectureNumber.Contains(storage.LectureNumber) && table.Division.Contains(storage.Division) && (table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
                 {
-                    for (int column = 1; column <= 12; column++)
+                    if (table.Sequence != "NO")
+                        searchTable.Add(table);
+                    for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
                     {
                         switch (column)
                         {
@@ -271,7 +293,7 @@ namespace LTT.Controller
                                 break;
                             case (int)Constant.SECTOR.LECTURE_NAME:
                                 Console.SetCursorPosition((int)Constant.SECTOR.LECTURE_NAME_INDEX, Console.CursorTop);
-                                Console.Write(table.LectureNAME);
+                                Console.Write(table.LectureName);
                                 break;
                             case (int)Constant.SECTOR.DISTRIBUTION:
                                 Console.SetCursorPosition((int)Constant.SECTOR.DISTRIBUTION_INDEX, Console.CursorTop);
@@ -303,8 +325,19 @@ namespace LTT.Controller
                                 break;
                         }
                     }
+                    if(table.Sequence == "NO")
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine(new string('=',Console.WindowWidth));
+                    }
                     Console.WriteLine();
                 }
+            }
+            while (true)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Enter)
+                    return;
             }
         }
     }

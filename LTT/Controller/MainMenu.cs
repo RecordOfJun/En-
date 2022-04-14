@@ -10,16 +10,14 @@ namespace LTT.Controller
     class MainMenu
     {
         BasicView basicView;
-        ExceptionView exceptionView;
         Input input;
-        List<LectureVO> lectureTable;
         WholeLecture wholeLecture;
-        public MainMenu(ExceptionView exceptionView,BasicView basicView,Input input,List<LectureVO> lectureTable)
+        public MainMenu(Instances instances)
         {
-            this.basicView = basicView;
-            this.exceptionView = exceptionView;
-            this.input = input;
-            wholeLecture = new WholeLecture(lectureTable);
+            this.basicView = instances.basicView;
+            this.input = instances.input;
+            instances.lectureView = new LectureView();
+            wholeLecture = new WholeLecture(instances) ;
         }
         public void SelectMenu()
         {
@@ -28,11 +26,12 @@ namespace LTT.Controller
             bool isNotEscape = true;
             while (isNotEscape) {
                 Console.Clear();
-                selected = SwicthMenu();
+                basicView.MainMenuForm();
+                selected = input.SwicthMenu(5);
                 switch (selected)
                 {
                     case 0:
-                        wholeLecture.SearchLecture();
+                        wholeLecture.SearchLecture(1);
                         break;
                     case 1:
 
@@ -53,47 +52,6 @@ namespace LTT.Controller
                         break;
                 }
             }
-        }
-        private int SwicthMenu()//함수로 뺄 여지가 있음
-        {
-            int index = 0;
-            int selected = 0;
-            bool isNotEnter = true;
-            basicView.MainMenuForm();
-            while (isNotEnter)
-            {
-                basicView.DeleteString(0, 0, 1);
-                basicView.DeleteString(0, 1, 1);
-                basicView.DeleteString(0, 2, 1);
-                basicView.DeleteString(0, 3, 1);
-                basicView.DeleteString(0, 4, 1);
-                switch (index)//
-                {
-                    case 0:
-                        Console.SetCursorPosition(0, 0);
-                        break;
-                    case 1:
-                        Console.SetCursorPosition(0, 1);
-                        break;
-                    case 2:
-                        Console.SetCursorPosition(0 , 2);
-                        break;
-                    case 3:
-                        Console.SetCursorPosition(0 , 3);
-                        break;
-                    case 4:
-                        Console.SetCursorPosition(0, 4);
-                        break;
-                }
-                Console.Write(">");
-                index = input.GetUpDown(index, 5);
-                if (index == Constant.RETURN)
-                    return selected;
-                if (index == Constant.ESCAPE_INT)
-                    return Constant.ESCAPE_INT;
-                selected = index;
-            }
-            return selected;
         }
     }
 }

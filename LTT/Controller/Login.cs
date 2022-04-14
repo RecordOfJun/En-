@@ -10,10 +10,16 @@ namespace LTT.Controller
 {
     class Instances
     {
-
+        public BasicView basicView;
+        public ExceptionView exceptionView;
+        public LectureView lectureView;
+        public Input input;
+        public MainMenu mainMenu;
+        public List<LectureVO> lectureTable;
     }
     class Login
     {
+        Instances instances;
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
@@ -24,16 +30,21 @@ namespace LTT.Controller
         Excel.Worksheet worksheet;
         Excel.Range cellRange;
         Array data;
-        List<LectureVO> lectureTabel;
+        List<LectureVO> lectureTable;
         bool isEscape;
         public Login()
         {
             Console.SetWindowSize(178,30);
+            instances = new Instances();
             this.basicView = new BasicView();
             this.exceptionView = new ExceptionView();
             this.input = new Input(basicView);
-            this.lectureTabel = new List<LectureVO>();
-            this.mainMenu = new MainMenu(exceptionView, basicView, input,lectureTabel);
+            this.lectureTable = new List<LectureVO>();
+            instances.basicView = this.basicView;
+            instances.exceptionView = this.exceptionView;
+            instances.input = this.input;
+            instances.lectureTable = this.lectureTable;
+            this.mainMenu = new MainMenu(instances);
         }
         private void LinkExcelData()
         {
@@ -70,7 +81,7 @@ namespace LTT.Controller
                             lectureVO.Division = content;
                             break;
                         case (int)Constant.SECTOR.LECTURE_NAME:
-                            lectureVO.LectureNAME = content;
+                            lectureVO.LectureName = content;
                             break;
                         case (int)Constant.SECTOR.DISTRIBUTION:
                             lectureVO.Distribution = content;
@@ -95,7 +106,7 @@ namespace LTT.Controller
                             break;
                     }                   
                 }
-                this.lectureTabel.Add(lectureVO);
+                this.lectureTable.Add(lectureVO);
             }
         }
         public void GetInProgram()
