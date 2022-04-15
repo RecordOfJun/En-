@@ -12,6 +12,7 @@ namespace LTT.Controller
     {
         protected LectureView lectureView ;
         protected BasicView basicView;
+        protected Exception exception;
         protected Input input;
         protected List<LectureVO> lectureTable;
         protected List<LectureVO> searchTable;
@@ -24,6 +25,7 @@ namespace LTT.Controller
             this.lectureView = instances.lectureView;
             this.basicView = instances.basicView;
             input = new Input(basicView);
+            this.exception = instances.exception;
         }
         public void SearchLecture()
         {
@@ -209,15 +211,18 @@ namespace LTT.Controller
             Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectProfessorForm();
-            while (storage.Professor.Length < 2)
+            bool isException = true;
+            while (isException)
             {
                 Console.SetCursorPosition(Constant.SEARCH_LEFT + 32, Console.CursorTop);
-                storage.Professor = input.GetUserString(20, 2);
-            }
-            if (storage.Professor == Constant.ESCAPE_STRING)
-            {
-                storage.Professor = "";
-                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                storage.Professor = input.GetUserString(10, 2);
+                if (storage.Professor == Constant.ESCAPE_STRING)
+                {
+                    storage.Professor = "";
+                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    break;
+                }
+                isException = exception.IsProfessorAndLectureNameCheck(storage.Professor);
             }
             Console.CursorVisible = false;
         }
@@ -228,15 +233,18 @@ namespace LTT.Controller
             Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectClassNameForm();
-            while (storage.LectureName.Length < 2)
+            bool isException = true;
+            while (isException)
             {
                 Console.SetCursorPosition(Constant.SEARCH_LEFT + 34, Console.CursorTop);
-                storage.LectureName = input.GetUserString(Constant.SEARCH_LEFT + 20, 2);
-            }
-            if (storage.LectureName == Constant.ESCAPE_STRING)
-            {
-                storage.LectureName = "";
-                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                storage.LectureName = input.GetUserString(10, 2);
+                if (storage.LectureName == Constant.ESCAPE_STRING)
+                {
+                    storage.LectureName = "";
+                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    break;
+                }
+                isException = exception.IsProfessorAndLectureNameCheck(storage.LectureName);
             }
             Console.CursorVisible = false;
         }

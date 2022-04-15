@@ -129,9 +129,13 @@ namespace LTT.View
             Console.SetCursorPosition(34, Console.CursorTop);
             Console.Write("강의 NO:");
         }
-        public void CheckLectureNumber()
+        public void CheckLectureNumber(int maximumGrades, int currentGrades)
         {
-            Console.SetCursorPosition(120, Console.CursorTop);
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write("신청가능 학점:{0}", maximumGrades - currentGrades);
+            Console.SetCursorPosition(20, Console.CursorTop);
+            Console.Write("신청 학점:{0}", currentGrades);
+            Console.SetCursorPosition(34, Console.CursorTop);
             Console.Write("강의 NO:");
         }
         public void InterestLabel()

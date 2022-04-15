@@ -14,10 +14,10 @@ namespace LTT.Controller
         public ExceptionView exceptionView;
         public LectureView lectureView;
         public Input input;
-        public MainMenu mainMenu;
         public List<LectureVO> lectureTable;
         public LectureStorage InterestLecture;
         public LectureStorage myLecture;
+        public Exception exception;
     }
     class Login
     {
@@ -25,6 +25,7 @@ namespace LTT.Controller
         BasicView basicView;
         ExceptionView exceptionView;
         Input input;
+        Exception exception;
         MainMenu mainMenu;
         Excel.Application application;
         Excel.Workbook workbook;
@@ -42,6 +43,8 @@ namespace LTT.Controller
             this.exceptionView = new ExceptionView();
             this.input = new Input(basicView);
             this.lectureTable = new List<LectureVO>();
+            this.exception = new Exception(exceptionView,basicView);
+            instances.exception = this.exception;
             instances.basicView = this.basicView;
             instances.exceptionView = this.exceptionView;
             instances.input = this.input;
@@ -136,7 +139,7 @@ namespace LTT.Controller
                     return;
                 if (isNotCorrect == false)
                     break;
-                exceptionView.ShowException("잘못된 로그인 정보입니다!");
+                exceptionView.NotCorrecId("잘못된 로그인 정보입니다!");
                 if(AskAgain()==1)
                     Environment.Exit(0);
                 else
@@ -151,12 +154,18 @@ namespace LTT.Controller
         {
             string id;
             string password;
-            Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
-            id = input.GetUserString(8,Constant.NOMARL_INPUT);
-            if (id == Constant.ESCAPE_STRING)
+            while (true)
             {
-                isEscape = true;
-                return isEscape; ;
+                Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 16);
+                id = input.GetUserString(8, Constant.NOMARL_INPUT);
+                if (id == Constant.ESCAPE_STRING)
+                {
+                    isEscape = true;
+                    return isEscape; ;
+                }
+                if (exception.IsIDForm(id))
+                    break;
             }
             Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX);
             password = input.GetUserString(8, Constant.HIDE_INPUT);

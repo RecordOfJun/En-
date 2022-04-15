@@ -14,10 +14,12 @@ namespace LTT.Controller
         WholeLecture wholeLecture;
         InterestSelection interestSelection;
         LectureSelection lectureSelection;
+        Exception exception;
         public MainMenu(Instances instances)
         {
             this.basicView = instances.basicView;
             this.input = instances.input;
+            this.exception = instances.exception;
             instances.lectureView = new LectureView();
             instances.myLecture = new LectureStorage(21);
             instances.InterestLecture = new LectureStorage(24);
@@ -49,7 +51,7 @@ namespace LTT.Controller
 
                         break;
                     case 4:
-                        Environment.Exit(0);
+                        exception.ExitProgramm();
                         break;
                     case Constant.ESCAPE_INT:
                         Console.Write("a");//ESC입력하면 다음 출력문에서 문자 하나 먹어짐

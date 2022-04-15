@@ -67,7 +67,7 @@ namespace LTT.View
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  관심과목 수강신청");
             Console.SetCursorPosition(70, Console.CursorTop);
-            Console.WriteLine("  신청과목 수강신청");
+            Console.WriteLine("  수강신청 내역조회");
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  시간표 조회");
             Console.SetCursorPosition(70, Console.CursorTop);

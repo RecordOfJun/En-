@@ -30,7 +30,7 @@ namespace LTT.Controller
                         SearchLecture(myLecture);
                         break;
                     case 1://관심과목으로 신청
-                        
+                        AddFromInterest();
                         break;
                     case 2://신청한 내역
                         ShowInsertLectures(myLecture.storeList, 1,"수강신청 내역");
@@ -39,10 +39,10 @@ namespace LTT.Controller
                         
                         break;
                     case 4://수강내역 삭제
-                        DeleteLectures(myLecture.storeList, "신청내역 삭제");
+                        DeleteLectures(myLecture, "신청내역 삭제");
                         break;
                     case 5:
-                        Environment.Exit(0);
+                        exception.ExitProgramm();
                         break;
                     case Constant.ESCAPE_INT:
                         Console.Write("a");//ESC입력하면 다음 출력문에서 문자 하나 먹어짐
@@ -53,18 +53,17 @@ namespace LTT.Controller
             }
         }
 
-        private void AddInterestLectures(List<LectureVO> insertList)
+        private void AddFromInterest()
         {
             string sequence;
             while (true)
             {
-                //ShowInsertLectures(insertList, 2);
-                lectureView.CheckLectureNumber();
-                sequence = GetDeleteSequence(insertList);
+                ShowInsertLectures(interestLecture.storeList, 2,"관심과목으로 수강신청");
+                lectureView.CheckLectureNumber(myLecture.MaximumGrades,myLecture.CurrentGrades);
+                sequence = GetSequence(myLecture,interestLecture.storeList);
                 if (sequence == Constant.ESCAPE_STRING)
                     return;
-                LectureVO toDelete = insertList.Find(element => element.Sequence == sequence);
-                insertList.Remove(toDelete);
+                AddInterest(sequence, myLecture, interestLecture.storeList);
             }
 
         }

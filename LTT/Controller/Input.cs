@@ -91,7 +91,7 @@ namespace LTT.Controller
                 {
                     inputString += userinput;
                 }
-                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength);
+                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength*2+2);
                 RefreshString(inputString, inputType);//입력한 문자열 출력
             }
             return inputString;
