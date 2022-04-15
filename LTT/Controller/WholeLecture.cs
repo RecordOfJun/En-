@@ -53,7 +53,7 @@ namespace LTT.Controller
                         SelectCourse();
                         break;
                     case 5:
-                        ShowLectures();
+                        ShowAllLectures();
                         Console.Clear();
                         lectureView.SelectLectureForm();
                         break;
@@ -69,31 +69,31 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(70, 0, 1);
-                basicView.DeleteString(70, 1, 1);
-                basicView.DeleteString(70, 2, 1);
-                basicView.DeleteString(70, 3, 1);
-                basicView.DeleteString(70, 4, 1);
-                basicView.DeleteString(70, 5, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 0, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 1, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 2, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 3, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 4, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, 5, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(70, 0);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 0);
                         break;
                     case 1:
-                        Console.SetCursorPosition(70, 1);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 1);
                         break;
                     case 2:
-                        Console.SetCursorPosition(70, 2);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 2);
                         break;
                     case 3:
-                        Console.SetCursorPosition(70, 3);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 3);
                         break;
                     case 4:
-                        Console.SetCursorPosition(70, 4);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 4);
                         break;
                     case 5:
-                        Console.SetCursorPosition(70, 5);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 5);
                         break;
                 }
                 Console.Write(">");
@@ -113,27 +113,27 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(70+20, Console.CursorTop, 1);
-                basicView.DeleteString(70+33, Console.CursorTop, 1);
-                basicView.DeleteString(70+50, Console.CursorTop, 1);
-                basicView.DeleteString(70+69, Console.CursorTop, 1);
-                basicView.DeleteString(70+87, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 33, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 50, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 69, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 87, Console.CursorTop, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(70+20, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT+20, Console.CursorTop);
                         break;
                     case 1:
-                        Console.SetCursorPosition(70 + 33, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 33, Console.CursorTop);
                         break;
                     case 2:
-                        Console.SetCursorPosition(70 + 50, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 50, Console.CursorTop);
                         break;
                     case 3:
-                        Console.SetCursorPosition(70 + 69, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 69, Console.CursorTop);
                         break;
                     case 4:
-                        Console.SetCursorPosition(70 + 87, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 87, Console.CursorTop);
                         break;
                 }
                 Console.Write(">");
@@ -148,8 +148,8 @@ namespace LTT.Controller
         }
         protected void SelectMajor()
         {
-            Console.SetCursorPosition(70 + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectMajorForm();
             int selected=SwitchColumn(5);
             switch (selected)
@@ -171,15 +171,15 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Major = "";
-                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
+                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
                     break;
             }
 
         }
         private void SelectDistribution()
         {
-            Console.SetCursorPosition(70 + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectDistributionForm();
             int selected = SwitchColumn(4);
             switch (selected)
@@ -198,7 +198,7 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Distribution = "";
-                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
+                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
                     break;
             }
         }
@@ -206,18 +206,18 @@ namespace LTT.Controller
         {
             Console.CursorVisible = true;
             storage.Professor = "";
-            Console.SetCursorPosition(70 + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectProfessorForm();
             while (storage.Professor.Length < 2)
             {
-                Console.SetCursorPosition(70 + 32, Console.CursorTop);
+                Console.SetCursorPosition(Constant.SEARCH_LEFT + 32, Console.CursorTop);
                 storage.Professor = input.GetUserString(20, 2);
             }
             if (storage.Professor == Constant.ESCAPE_STRING)
             {
                 storage.Professor = "";
-                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
             }
             Console.CursorVisible = false;
         }
@@ -225,25 +225,25 @@ namespace LTT.Controller
         {
             Console.CursorVisible = true;
             storage.LectureName = "";
-            Console.SetCursorPosition(70 + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectClassNameForm();
             while (storage.LectureName.Length < 2)
             {
-                Console.SetCursorPosition(70 + 34, Console.CursorTop);
-                storage.LectureName = input.GetUserString(70 + 20, 2);
+                Console.SetCursorPosition(Constant.SEARCH_LEFT + 34, Console.CursorTop);
+                storage.LectureName = input.GetUserString(Constant.SEARCH_LEFT + 20, 2);
             }
             if (storage.LectureName == Constant.ESCAPE_STRING)
             {
                 storage.LectureName = "";
-                basicView.DeleteString(70 + 20, Console.CursorTop, 50);
+                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
             }
             Console.CursorVisible = false;
         }
         protected void SelectCourse()
         {
-            Console.SetCursorPosition(70 + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 50);
+            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
             lectureView.SelectCourseForm();
             int selected = SwitchColumn(4);
             switch (selected)
@@ -262,72 +262,20 @@ namespace LTT.Controller
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Course = "";
-                    basicView.DeleteString(70 + 20, Console.CursorTop, 50);
+                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
                     break;
             }
         }
-        protected void ShowLectures()
+        private void ShowAllLectures()
         {
             Console.SetCursorPosition(0, 7);
-            searchTable.RemoveAll(element=>true);
             foreach (LectureVO table in lectureTable)
             {
-                if (table.Sequence=="NO"|| table.Distribution.Contains(storage.Distribution) && table.LectureNumber.Contains(storage.LectureNumber) && table.Division.Contains(storage.Division) && (table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
+                if (table.Sequence=="NO"|| (table.Distribution.Contains(storage.Distribution) && table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
                 {
-                    if (table.Sequence != "NO")
-                        searchTable.Add(table);
                     for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
                     {
-                        switch (column)
-                        {
-                            case (int)Constant.SECTOR.SEQUENCE:
-                                Console.Write(table.Sequence);
-                                break;
-                            case (int)Constant.SECTOR.MAJOR:
-                                Console.SetCursorPosition((int)Constant.SECTOR.MAJOR_INDEX, Console.CursorTop);
-                                Console.Write(table.Major);
-                                break;
-                            case (int)Constant.SECTOR.LECTURE_NUMBER:
-                                Console.SetCursorPosition((int)Constant.SECTOR.LECTURE_NUMBER_INDEX, Console.CursorTop);
-                                Console.Write(table.LectureNumber);
-                                break;
-                            case (int)Constant.SECTOR.DIVISION:
-                                Console.SetCursorPosition((int)Constant.SECTOR.DIVISION_INDEX, Console.CursorTop);
-                                Console.Write(table.Division);
-                                break;
-                            case (int)Constant.SECTOR.LECTURE_NAME:
-                                Console.SetCursorPosition((int)Constant.SECTOR.LECTURE_NAME_INDEX, Console.CursorTop);
-                                Console.Write(table.LectureName);
-                                break;
-                            case (int)Constant.SECTOR.DISTRIBUTION:
-                                Console.SetCursorPosition((int)Constant.SECTOR.DISTRIBUTION_INDEX, Console.CursorTop);
-                                Console.Write(table.Distribution);
-                                break;
-                            case (int)Constant.SECTOR.COURSE:
-                                Console.SetCursorPosition((int)Constant.SECTOR.COURSE_INDEX, Console.CursorTop);
-                                Console.Write(table.Course);
-                                break;
-                            case (int)Constant.SECTOR.GRADE:
-                                Console.SetCursorPosition((int)Constant.SECTOR.GRADE_INDEX, Console.CursorTop);
-                                Console.Write(table.Grade);
-                                break;
-                            case (int)Constant.SECTOR.DAY_AND_TIME:
-                                Console.SetCursorPosition((int)Constant.SECTOR.DAY_AND_TIME_INDEX, Console.CursorTop);
-                                Console.Write(table.Time);
-                                break;
-                            case (int)Constant.SECTOR.PLACE:
-                                Console.SetCursorPosition((int)Constant.SECTOR.PLACE_INDEX, Console.CursorTop);
-                                Console.Write(table.Place);
-                                break;
-                            case (int)Constant.SECTOR.PROFESSOR:
-                                Console.SetCursorPosition((int)Constant.SECTOR.PROFESSOR_INDEX, Console.CursorTop);
-                                Console.Write(table.Professor);
-                                break;
-                            case (int)Constant.SECTOR.LANGUAGE:
-                                Console.SetCursorPosition((int)Constant.SECTOR.LANGUAGE_INDEX, Console.CursorTop);
-                                Console.Write(table.Language);
-                                break;
-                        }
+                        lectureView.ShowLecture(column, table);
                     }
                     if(table.Sequence == "NO")
                     {

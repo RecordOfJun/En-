@@ -49,6 +49,7 @@ namespace LTT.View
         }
         public void InterestForm()
         {
+            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  관심과목 담기");
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  관심과목 조회");

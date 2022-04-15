@@ -8,7 +8,7 @@ namespace LTT.Model
 {
     class InterestLecture
     {
-        List<LectureVO> interestList;
+        public List<LectureVO> interestList;
         private int currentGrades = 0;
         private int maximumGrades = 24;
         public InterestLecture()

@@ -8,6 +8,7 @@ namespace LTT
 {
     class Constant
     {
+        public const int SEARCH_LEFT = 30;
         //로그인
         public const int LOGIN_ID_INDEX = 0;
         public const int LOGIN_PASSWORD_INDEX = 1;
