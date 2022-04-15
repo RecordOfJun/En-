@@ -152,9 +152,10 @@ namespace LTT.Controller
         }
         private bool IsCorrectUser()
         {
-            string id;
+            string id="";
             string password;
-            while (true)
+            bool isNotId = true;
+            while (isNotId)
             {
                 Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 16);
@@ -165,7 +166,7 @@ namespace LTT.Controller
                     return isEscape; ;
                 }
                 if (exception.IsIDForm(id))
-                    break;
+                    isNotId = false;
             }
             Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX);
             password = input.GetUserString(8, Constant.HIDE_INPUT);

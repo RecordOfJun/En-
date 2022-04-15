@@ -294,11 +294,13 @@ namespace LTT.Controller
                         Console.WriteLine();
                 }
             }
-            while (true)
+            bool isNotESC = true;
+            while (isNotESC)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Enter)
-                    return;
+                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
+                if (key.Key == ConsoleKey.Escape)
+                    isNotESC = false;
             }
         }
     }

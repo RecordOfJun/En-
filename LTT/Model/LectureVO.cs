@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
 namespace LTT.Model
 {
+    class TimeTable
+    {
+        public string day;
+        public DateTime startTime;
+        public DateTime finishTime;
+    }
     class LectureVO
     {
         private string sequence;
@@ -20,7 +26,10 @@ namespace LTT.Model
         private string time;
         private string place;
         private string language;
-
+        public List<TimeTable> timeTables;
+        public LectureVO() {
+            timeTables = new List<TimeTable>();
+        }
         public void Init()
         {
             major = "";
@@ -85,7 +94,49 @@ namespace LTT.Model
         public string Time
         {
             get { return time; }
-            set {  time= value; }
+            set {  
+                time= value;
+                Regex days = new Regex(@"[월|화|수|목|금]");
+                Regex times = new Regex(@"[0-9]{2}:[0-9]{2}");
+                MatchCollection dayResult = days.Matches(time);
+                MatchCollection timeResult = times.Matches(time);
+                if (dayResult.Count == 1)
+                {
+                    TimeTable timeTable = new TimeTable();
+                    timeTable.day = dayResult[0].Value.ToString();
+                    timeTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
+                    timeTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
+                    timeTables.Add(timeTable);
+                }
+                else if (dayResult.Count == 2&&timeResult.Count==2)
+                {
+                    TimeTable firstTable = new TimeTable();
+                    firstTable.day = dayResult[0].Value.ToString();
+                    firstTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
+                    firstTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
+                    timeTables.Add(firstTable);
+                    TimeTable secondTable = new TimeTable();
+                    secondTable.day = dayResult[1].Value.ToString();
+                    secondTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
+                    secondTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
+                    timeTables.Add(secondTable);
+
+                }
+                else if (dayResult.Count == 2 && timeResult.Count == 4)
+                {
+                    TimeTable firstTable = new TimeTable();
+                    firstTable.day = dayResult[0].Value.ToString();
+                    firstTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
+                    firstTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
+                    timeTables.Add(firstTable);
+                    TimeTable secondTable = new TimeTable();
+                    secondTable.day = dayResult[1].Value.ToString();
+                    secondTable.startTime = DateTime.Parse(timeResult[2].Value.ToString());
+                    secondTable.finishTime = DateTime.Parse(timeResult[3].Value.ToString());
+                    timeTables.Add(secondTable);
+
+                }
+            }
         }
         public string Language 
         {

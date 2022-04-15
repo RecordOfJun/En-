@@ -43,8 +43,6 @@ namespace LTT.View
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  수강신청");
             Console.SetCursorPosition(70, Console.CursorTop);
-            Console.WriteLine("  수강내역 조회");
-            Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  프로그램 종료");
         }
         public void InterestForm()
@@ -74,6 +72,14 @@ namespace LTT.View
             Console.WriteLine("  수강내역 삭제");
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  프로그램 종료");
+        }
+        public void ShowLabelAndLine(string insert)
+        {
+            Console.SetCursorPosition(70, 0);
+            Console.Write(insert);
+            Console.SetCursorPosition(140, 0);
+            Console.WriteLine("뒤로가기:ESC");
+            Console.Write(new string(' ', Console.WindowWidth));
         }
     }
 }

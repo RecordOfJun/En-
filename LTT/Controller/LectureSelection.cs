@@ -36,7 +36,7 @@ namespace LTT.Controller
                         ShowInsertLectures(myLecture.storeList, 1,"수강신청 내역");
                         break;
                     case 3://시간표 조회
-                        
+                        ShowTimeTable(myLecture,"신청내역 시간표");
                         break;
                     case 4://수강내역 삭제
                         DeleteLectures(myLecture, "신청내역 삭제");

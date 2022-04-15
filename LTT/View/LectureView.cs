@@ -61,6 +61,37 @@ namespace LTT.View
                     break;
             }
         }
+        public void ShowTable(int column, string time)
+        {
+            switch (column)
+            {
+                case 0:
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    break;
+                case 1:
+                    Console.SetCursorPosition(6, Console.CursorTop);
+                    break;
+                case 2:
+                    Console.SetCursorPosition(8, Console.CursorTop);
+                    break;
+                case 3:
+                    Console.SetCursorPosition(14, Console.CursorTop);
+                    break;
+                case 4:
+                    Console.SetCursorPosition(45, Console.CursorTop);
+                    break;
+                case 5:
+                    Console.SetCursorPosition(76, Console.CursorTop);
+                    break;
+                case 6:
+                    Console.SetCursorPosition(107, Console.CursorTop);
+                    break;
+                case 7:
+                    Console.SetCursorPosition(138, Console.CursorTop);
+                    break;
+            }
+            Console.Write(time);
+        }
         public void SelectLectureForm()
         {
             Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);

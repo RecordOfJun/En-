@@ -35,7 +35,7 @@ namespace LTT.Controller
             while (isNotEscape) {
                 Console.Clear();
                 basicView.MainMenuForm();
-                selected = input.SwicthMenu(5);
+                selected = input.SwicthMenu(4);
                 switch (selected)
                 {
                     case 0:
@@ -48,9 +48,6 @@ namespace LTT.Controller
                         lectureSelection.SelectMenu();
                         break;
                     case 3:
-
-                        break;
-                    case 4:
                         exception.ExitProgramm();
                         break;
                     case Constant.ESCAPE_INT:

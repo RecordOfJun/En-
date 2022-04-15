@@ -64,6 +64,18 @@ namespace LTT.Controller
             exceptionView.OverlapException();
             ReadAndErase(48, 20);
         }
+        public void TimeOverlapException()
+        {
+            Console.SetCursorPosition(48, Console.CursorTop);
+            exceptionView.TimeOverlapException();
+            ReadAndErase(48, 35);
+        }
+        public void OverGrades()
+        {
+            Console.SetCursorPosition(48, Console.CursorTop);
+            exceptionView.OverGradesException();
+            ReadAndErase(48, 35);
+        }
         public bool IsLectureNumberForm(string lectureNumber)
         {
             Regex lectureNumberForm = new Regex(@"^[0-9]{6}$");
@@ -81,7 +93,7 @@ namespace LTT.Controller
                 return false;
             Console.SetCursorPosition(100, Console.CursorTop);
             exceptionView.LectureNumberException();
-            ReadAndErase(100, 25);
+            ReadAndErase(100, 26);
             return true;
         }
         public bool IsProfessorAndLectureNameCheck(string userInput)

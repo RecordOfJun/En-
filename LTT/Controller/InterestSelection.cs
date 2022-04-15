@@ -36,7 +36,7 @@ namespace LTT.Controller
                         ShowInsertLectures(interestLecture.storeList, 1,"관심과목 조회");
                         break;
                     case 2://관심과목 시간표
-
+                        ShowTimeTable(interestLecture,"관심과목 시간표");
                         break;
                     case 3://관심과목 삭제
                         DeleteLectures(interestLecture, "관심과목 삭제");
@@ -159,7 +159,7 @@ namespace LTT.Controller
             string sequence="";
             while (isException)
             {
-
+                isException = false;
                 Console.SetCursorPosition(42, Console.CursorTop);
                 basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
                 sequence = input.GetUserString(3, 2);
@@ -172,17 +172,44 @@ namespace LTT.Controller
                     exception.NotExistException();
                     isException = true;
                 }
-                //시간표 겹치는거 예외처리
+                
                 else
                 {
-                    string compare = lectures.Find(element => element.Sequence == sequence).LectureNumber;
+                    LectureVO lecture=lectures.Find(element => element.Sequence == sequence);
+                    string compare = lecture.LectureNumber;
                     if (extant.storeList.Exists(element => element.LectureNumber == compare))//과목명 즉 학수번호 일치하는 과목 안받기
                     {
                         exception.OverlapException();
                         isException = true;
                     }
-                    else
-                        return sequence;
+                    else if (int.Parse(lecture.Grade) + extant.CurrentGrades > extant.MaximumGrades)//학점 초과시
+                    {
+                        exception.OverGrades();
+                        isException = true;
+                    }
+                    //시간표 겹침 예외처리
+                    else//깊이가 깊다고 들을 것 같다
+                    {
+                        foreach (TimeTable timeTable in lecture.timeTables)
+                        {
+                            foreach (LectureVO extantLecture in extant.storeList)
+                            {
+                                foreach (TimeTable extantTable in extantLecture.timeTables)
+                                {
+                                    if (timeTable.day == extantTable.day && timeTable.startTime < extantTable.finishTime && extantTable.startTime < timeTable.finishTime)
+                                    {
+                                        isException = true;
+                                        exception.TimeOverlapException();
+                                        break;
+                                    }
+                                }
+                            }
+                            if (isException == true)
+                                break;
+                        }
+                    }
+
+
                 }
             }
             return sequence;
@@ -190,16 +217,6 @@ namespace LTT.Controller
         protected void AddInterest(string sequence, LectureStorage extant,List<LectureVO> lectures)
         {
             LectureVO lecture = lectures.Find(element => element.Sequence == sequence);
-            if (extant.storeList.Exists(element => element.Sequence == sequence))//관심과목에 같은 시퀀스가 존재할때
-            {
-                //예외처리
-                return;
-            }
-            if (int.Parse(lecture.Grade) + extant.CurrentGrades > extant.MaximumGrades)//학점 초과시
-            {
-                //예외처리
-                return;
-            }
             extant.storeList.Add(lecture);
             extant.CurrentGrades += int.Parse(lecture.Grade);
         }
@@ -230,14 +247,13 @@ namespace LTT.Controller
         protected void ShowInsertLectures(List<LectureVO> insertList,int type,string insert)
         {
             Console.Clear();
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine(insert);
+            basicView.ShowLabelAndLine(insert);
             for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
             {
                 lectureView.ShowLecture(column, lectureTable[0]);
             }
-            Console.Write(new string('=', Console.WindowWidth));
             Console.WriteLine();
+            Console.Write(new string('=', Console.WindowWidth));
             foreach (LectureVO table in insertList)
             {
                 for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
@@ -249,11 +265,13 @@ namespace LTT.Controller
             Console.Write(new string('=', Console.WindowWidth));
             if (type == 1)//단순조회
             {
-                while (true)
+                bool isNotESC = true;
+                while (isNotESC)
                 {
                     ConsoleKeyInfo key = Console.ReadKey();
+                    basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
                     if (key.Key == ConsoleKey.Escape)
-                        return;
+                        isNotESC = false;
                 }
             }
         }
@@ -295,6 +313,40 @@ namespace LTT.Controller
                     break;
             }
             return sequence;
+        }
+
+        protected void ShowTimeTable(LectureStorage extant,string insert)
+        {
+            extant.Init();
+            extant.InsetTime();
+            Console.Clear();
+            Console.SetCursorPosition(70, 0);
+            Console.Write(insert);
+            Console.SetCursorPosition(140, 0);
+            Console.WriteLine("뒤로가기:ESC");
+            Console.Write(new string(' ', Console.WindowWidth));
+            string[] days = { "", "", "", "월", "화", "수", "목", "금" };
+            for (int column = 0; column < 8; column++)
+            {
+                lectureView.ShowTable(column, days[column]);
+            }
+            Console.WriteLine();
+            for (int row = 0; row < 48; row++)
+            {
+                for(int column = 0; column < 8; column++)
+                {
+                    lectureView.ShowTable(column, extant.timeTable[column,row]);
+                }
+                Console.WriteLine();
+            }
+            bool isNotESC = true;
+            while (isNotESC)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
+                if (key.Key == ConsoleKey.Escape)
+                    isNotESC = false;
+            }
         }
     }
 }

@@ -34,6 +34,14 @@ namespace LTT.View
         {
             ShowException("이미 신청한 과목입니다");
         }
+        public void TimeOverlapException()
+        {
+            ShowException("기존의 신청과목과 시간이 겹침니다");
+        }
+        public void OverGradesException()
+        {
+            ShowException("신청 가능학점을 초과했습니다");
+        }
         public void NumberException()
         {
             ShowException("숫자를 입력해주세요");
