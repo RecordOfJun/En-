@@ -8,5 +8,9 @@ namespace LTT.Controller
 {
     class Exception
     {
+        public void AskExit()
+        {
+
+        }
     }
 }

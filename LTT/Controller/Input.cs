@@ -25,6 +25,7 @@ namespace LTT.Controller
                 basicView.DeleteString(70, 2, 1);
                 basicView.DeleteString(70, 3, 1);
                 basicView.DeleteString(70, 4, 1);
+                basicView.DeleteString(70, 5, 1);
                 switch (index)//
                 {
                     case 0:
@@ -41,6 +42,9 @@ namespace LTT.Controller
                         break;
                     case 4:
                         Console.SetCursorPosition(70, 4);
+                        break;
+                    case 5:
+                        Console.SetCursorPosition(70, 5);
                         break;
                 }
                 Console.Write(">");

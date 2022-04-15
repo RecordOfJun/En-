@@ -16,8 +16,8 @@ namespace LTT.Controller
         public Input input;
         public MainMenu mainMenu;
         public List<LectureVO> lectureTable;
-        public InterestLecture InterestLecture;
-        public MyLecture myLecture;
+        public LectureStorage InterestLecture;
+        public LectureStorage myLecture;
     }
     class Login
     {
@@ -139,6 +139,11 @@ namespace LTT.Controller
                 exceptionView.ShowException("잘못된 로그인 정보입니다!");
                 if(AskAgain()==1)
                     Environment.Exit(0);
+                else
+                {
+                    Console.Clear();
+                    basicView.LoginView();
+                }
             }
             mainMenu.SelectMenu();
         }

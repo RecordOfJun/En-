@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace LTT.Model
 {
-    class InterestLecture
+    class LectureStorage
     {
-        public List<LectureVO> interestList;
+        public List<LectureVO> storeList;
         private int currentGrades = 0;
-        private int maximumGrades = 24;
-        public InterestLecture()
+        private int maximumGrades;
+        public LectureStorage(int maximumGrades)
         {
-            interestList = new List<LectureVO>();
+            storeList = new List<LectureVO>();
+            this.maximumGrades = maximumGrades;
         }
         public int CurrentGrades{
             get { return currentGrades; }

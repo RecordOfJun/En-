@@ -9,7 +9,7 @@ namespace LTT.Controller
 {
     class InterestSelection : WholeLecture
     {
-        protected InterestLecture interestLecture;
+        protected LectureStorage interestLecture;
         public InterestSelection(Instances instances):base (instances)
         {
             this.interestLecture = instances.InterestLecture;
@@ -29,16 +29,17 @@ namespace LTT.Controller
                 switch (selected)
                 {
                     case 0://관심과목 담기
-                        SearchLecture(interestLecture.interestList);
+                        SearchLecture(interestLecture);
                         break;
                     case 1://관심과목 조회
-                        ShowInsertLectures(interestLecture.interestList,1);
+                        lectureView.InterestLabel();
+                        ShowInsertLectures(interestLecture.storeList, 1,"관심과목 조회");
                         break;
                     case 2://관심과목 시간표
 
                         break;
                     case 3://관심과목 삭제
-                        DeleteLectures(interestLecture.interestList);
+                        DeleteLectures(interestLecture.storeList, "관심과목 삭제");
                         break;
                     case 4:
                         Environment.Exit(0);
@@ -53,7 +54,7 @@ namespace LTT.Controller
         }
 
 
-        public void SearchLecture(List<LectureVO> insertList)
+        public void SearchLecture(LectureStorage extant)
         {
             Console.Clear();
             lectureView.SelectInterstForm();
@@ -81,8 +82,8 @@ namespace LTT.Controller
                         SelectCourse();
                         break;
                     case 5:
-                        ShowRemainLectures();
-                        InsertInterest(insertList);
+                        ShowRemainLectures(extant);
+                        InsertInterest(extant);
                         Console.Clear();
                         lectureView.SelectInterstForm();
                         break;
@@ -125,20 +126,20 @@ namespace LTT.Controller
             Console.CursorVisible = false;
         }
 
-        protected void InsertInterest(List<LectureVO> insertList)
+        protected void InsertInterest(LectureStorage extant)
         {
             string sequence;
             while (true)
             {
                 basicView.DeleteString(0, Console.CursorTop, 150);
                 Console.CursorVisible = true;
-                lectureView.CheckGrades(interestLecture.MaximumGrades, interestLecture.CurrentGrades);
+                lectureView.CheckGrades(extant.MaximumGrades, extant.CurrentGrades);
                 Console.SetCursorPosition(42, Console.CursorTop);
                 basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
-                sequence =GetSequence(insertList);//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+                sequence =GetSequence(extant);//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
                 if (sequence == Constant.ESCAPE_STRING)
                     return;
-                AddInterest(sequence);
+                AddInterest(sequence, extant);
                 Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
                 lectureView.SelectMore();
                 int selected = SwitchColumn(2);
@@ -146,7 +147,7 @@ namespace LTT.Controller
                     break;
             }
         }
-        protected string GetSequence(List<LectureVO> insertList)//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+        protected string GetSequence(LectureStorage extant)//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
         {
             string sequence;
             while (true)
@@ -157,14 +158,15 @@ namespace LTT.Controller
                 if (sequence == Constant.ESCAPE_STRING)
                     return Constant.ESCAPE_STRING;
                 //숫자만 입력 예외처리
-                if (!searchTable.Exists(element => element.Sequence == sequence))//동일 과목
+                if (!searchTable.Exists(element => element.Sequence == sequence))//검색목록 에 없으면
                 {
                     //예외처리
                 }
+                //시간표 겹치는거 예외처리
                 else
                 {
                     string compare = searchTable.Find(element => element.Sequence == sequence).LectureNumber;
-                    if(insertList.Exists(element => element.LectureNumber == compare))
+                    if(extant.storeList.Exists(element => element.LectureNumber == compare))//과목명 즉 학수번호 일치하는 과목 안받기
                     {
                         //예외처리
                     }
@@ -173,29 +175,29 @@ namespace LTT.Controller
                 }
             }
         }
-        protected void AddInterest(string sequence)
+        protected void AddInterest(string sequence, LectureStorage extant)
         {
             LectureVO lecture = searchTable.Find(element => element.Sequence == sequence);
-            if (interestLecture.interestList.Exists(element => element.Sequence == sequence))//관심과목에 같은 시퀀스가 존재할때
+            if (extant.storeList.Exists(element => element.Sequence == sequence))//관심과목에 같은 시퀀스가 존재할때
             {
                 //예외처리
                 return;
             }
-            if (int.Parse(lecture.Grade) + interestLecture.CurrentGrades > interestLecture.MaximumGrades)//학점 초과시
+            if (int.Parse(lecture.Grade) + extant.CurrentGrades > extant.MaximumGrades)//학점 초과시
             {
                 //예외처리
                 return;
             }
-            interestLecture.interestList.Add(lecture);
-            interestLecture.CurrentGrades += int.Parse(lecture.Grade);
+            extant.storeList.Add(lecture);
+            extant.CurrentGrades += int.Parse(lecture.Grade);
         }
-        private void ShowRemainLectures()
+        private void ShowRemainLectures(LectureStorage extant)
         {
             Console.SetCursorPosition(0, 7);
             searchTable.RemoveAll(element => true);
             foreach (LectureVO table in lectureTable)
             {
-                if (table.Sequence == "NO" || !interestLecture.interestList.Exists(element=>element.Sequence==table.Sequence)&&(table.Division.Contains(storage.Division) && table.LectureNumber.Contains(storage.LectureNumber) && table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
+                if (table.Sequence == "NO" || !extant.storeList.Exists(element=>element.Sequence==table.Sequence)&&(table.Division.Contains(storage.Division) && table.LectureNumber.Contains(storage.LectureNumber) && table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
                 {
                     if (table.Sequence != "NO")
                         searchTable.Add(table);
@@ -213,11 +215,11 @@ namespace LTT.Controller
                 }
             }
         }
-        protected void ShowInsertLectures(List<LectureVO> insertList,int type)
+        protected void ShowInsertLectures(List<LectureVO> insertList,int type,string insert)
         {
             Console.Clear();
             Console.SetCursorPosition(70, 0);
-            Console.WriteLine("관심과목 조회");
+            Console.WriteLine(insert);
             Console.Write(new string('=', Console.WindowWidth));
             foreach (LectureVO table in insertList)
             {
@@ -238,12 +240,12 @@ namespace LTT.Controller
                 }
             }
         }
-        protected void DeleteLectures(List<LectureVO> insertList)
+        protected void DeleteLectures(List<LectureVO> insertList,string insert)
         {
             string sequence;
             while (true)
             {
-                ShowInsertLectures(insertList, 2);
+                ShowInsertLectures(insertList, 2,insert);
                 lectureView.CheckLectureNumber();
                 sequence = GetDeleteSequence(insertList);
                 if (sequence == Constant.ESCAPE_STRING)

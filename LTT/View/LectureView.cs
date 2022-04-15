@@ -134,5 +134,11 @@ namespace LTT.View
             Console.SetCursorPosition(120, Console.CursorTop);
             Console.Write("강의 NO:");
         }
+        public void InterestLabel()
+        {
+            Console.Clear();
+            Console.SetCursorPosition(70, 0);
+            Console.WriteLine("관심과목 조회");
+        }
     }
 }

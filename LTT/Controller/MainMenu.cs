@@ -13,15 +13,17 @@ namespace LTT.Controller
         Input input;
         WholeLecture wholeLecture;
         InterestSelection interestSelection;
+        LectureSelection lectureSelection;
         public MainMenu(Instances instances)
         {
             this.basicView = instances.basicView;
             this.input = instances.input;
             instances.lectureView = new LectureView();
-            instances.myLecture = new MyLecture();
-            instances.InterestLecture = new InterestLecture();
+            instances.myLecture = new LectureStorage(21);
+            instances.InterestLecture = new LectureStorage(24);
             wholeLecture = new WholeLecture(instances) ;
             interestSelection = new InterestSelection(instances);
+            lectureSelection = new LectureSelection(instances);
         }
         public void SelectMenu()
         {
@@ -41,7 +43,7 @@ namespace LTT.Controller
                         interestSelection.SelectMenu();
                         break;
                     case 2:
-
+                        lectureSelection.SelectMenu();
                         break;
                     case 3:
 

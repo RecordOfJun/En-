@@ -60,5 +60,20 @@ namespace LTT.View
             Console.SetCursorPosition(70, Console.CursorTop);
             Console.WriteLine("  프로그램 종료");
         }
+        public void MyLectureForm()
+        {
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  검색으로 수강신청");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  관심과목 수강신청");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  신청과목 수강신청");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  시간표 조회");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  수강내역 삭제");
+            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.WriteLine("  프로그램 종료");
+        }
     }
 }
