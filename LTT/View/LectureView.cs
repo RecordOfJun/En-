@@ -129,5 +129,10 @@ namespace LTT.View
             Console.SetCursorPosition(34, Console.CursorTop);
             Console.Write("강의 NO:");
         }
+        public void CheckLectureNumber()
+        {
+            Console.SetCursorPosition(120, Console.CursorTop);
+            Console.Write("강의 NO:");
+        }
     }
 }

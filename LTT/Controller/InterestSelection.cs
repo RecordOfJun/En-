@@ -29,16 +29,16 @@ namespace LTT.Controller
                 switch (selected)
                 {
                     case 0://관심과목 담기
-                        SearchLecture();
+                        SearchLecture(interestLecture.interestList);
                         break;
                     case 1://관심과목 조회
-
+                        ShowInsertLectures(interestLecture.interestList,1);
                         break;
                     case 2://관심과목 시간표
 
                         break;
                     case 3://관심과목 삭제
-
+                        DeleteLectures(interestLecture.interestList);
                         break;
                     case 4:
                         Environment.Exit(0);
@@ -53,7 +53,7 @@ namespace LTT.Controller
         }
 
 
-        public void SearchLecture()
+        public void SearchLecture(List<LectureVO> insertList)
         {
             Console.Clear();
             lectureView.SelectInterstForm();
@@ -82,7 +82,7 @@ namespace LTT.Controller
                         break;
                     case 5:
                         ShowRemainLectures();
-                        InsertInterest();
+                        InsertInterest(insertList);
                         Console.Clear();
                         lectureView.SelectInterstForm();
                         break;
@@ -125,22 +125,52 @@ namespace LTT.Controller
             Console.CursorVisible = false;
         }
 
-        protected void InsertInterest()
+        protected void InsertInterest(List<LectureVO> insertList)
         {
             string sequence;
             while (true)
             {
+                basicView.DeleteString(0, Console.CursorTop, 150);
                 Console.CursorVisible = true;
                 lectureView.CheckGrades(interestLecture.MaximumGrades, interestLecture.CurrentGrades);
                 Console.SetCursorPosition(42, Console.CursorTop);
                 basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
-                sequence = input.GetUserString(3,2);//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+                sequence =GetSequence(insertList);//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+                if (sequence == Constant.ESCAPE_STRING)
+                    return;
                 AddInterest(sequence);
                 Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
                 lectureView.SelectMore();
                 int selected = SwitchColumn(2);
                 if (selected == 1 || selected == Constant.ESCAPE_INT)
                     break;
+            }
+        }
+        protected string GetSequence(List<LectureVO> insertList)//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+        {
+            string sequence;
+            while (true)
+            {
+                Console.SetCursorPosition(42, Console.CursorTop);
+                basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+                sequence = input.GetUserString(3, 2);
+                if (sequence == Constant.ESCAPE_STRING)
+                    return Constant.ESCAPE_STRING;
+                //숫자만 입력 예외처리
+                if (!searchTable.Exists(element => element.Sequence == sequence))//동일 과목
+                {
+                    //예외처리
+                }
+                else
+                {
+                    string compare = searchTable.Find(element => element.Sequence == sequence).LectureNumber;
+                    if(insertList.Exists(element => element.LectureNumber == compare))
+                    {
+                        //예외처리
+                    }
+                   else
+                        return sequence;
+                }
             }
         }
         protected void AddInterest(string sequence)
@@ -159,7 +189,7 @@ namespace LTT.Controller
             interestLecture.interestList.Add(lecture);
             interestLecture.CurrentGrades += int.Parse(lecture.Grade);
         }
-        protected void ShowRemainLectures()
+        private void ShowRemainLectures()
         {
             Console.SetCursorPosition(0, 7);
             searchTable.RemoveAll(element => true);
@@ -182,11 +212,67 @@ namespace LTT.Controller
                         Console.WriteLine();
                 }
             }
+        }
+        protected void ShowInsertLectures(List<LectureVO> insertList,int type)
+        {
+            Console.Clear();
+            Console.SetCursorPosition(70, 0);
+            Console.WriteLine("관심과목 조회");
+            Console.Write(new string('=', Console.WindowWidth));
+            foreach (LectureVO table in insertList)
+            {
+                for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
+                {
+                    lectureView.ShowLecture(column, table);
+                }
+                Console.WriteLine();
+            }
+            Console.Write(new string('=', Console.WindowWidth));
+            if (type == 1)//단순조회
+            {
+                while (true)
+                {
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                        return;
+                }
+            }
+        }
+        protected void DeleteLectures(List<LectureVO> insertList)
+        {
+            string sequence;
             while (true)
             {
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Enter)
+                ShowInsertLectures(insertList, 2);
+                lectureView.CheckLectureNumber();
+                sequence = GetDeleteSequence(insertList);
+                if (sequence == Constant.ESCAPE_STRING)
                     return;
+                LectureVO toDelete = insertList.Find(element => element.Sequence == sequence);
+                insertList.Remove(toDelete);
+            }
+            
+        }
+        protected string GetDeleteSequence(List<LectureVO> insertList)//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
+        {
+            string sequence;
+            while (true)
+            {
+                Console.SetCursorPosition(128, Console.CursorTop);
+                basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 10);
+                sequence = input.GetUserString(3, 2);
+                if (sequence == Constant.ESCAPE_STRING)
+                    return Constant.ESCAPE_STRING;
+                //숫자만 입력 예외처리
+                else
+                {
+                    if (insertList.Exists(element => element.Sequence == sequence))
+                        return sequence;
+                    else
+                    {
+                        //없는 시퀀스 예외처리
+                    }
+                }
             }
         }
     }
