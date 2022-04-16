@@ -16,26 +16,26 @@ namespace LTT.Model
         {
             storeList = new List<LectureVO>();
             this.maximumGrades = maximumGrades;
-            timeTable = new string[8,48];
+            timeTable = new string[Constant.MAXIMUM_COLUMN,Constant.MAXIMUM_ROW];
         }
         public void Init()
         {
             DateTime dateTime = DateTime.Parse("08:30");
-            for (int i = 0; i< 48; i++)
+            for (int row = Constant.MINIMUM_ROW; row< Constant.MAXIMUM_ROW; row++)
             {
-                if (i % 2 == 0)
+                if (row % 2 == 0)
                 {
-                    timeTable[0, i] = dateTime.ToString("HH:mm");
-                    timeTable[1, i] = "~";
+                    timeTable[0, row] = dateTime.ToString("HH:mm");
+                    timeTable[1, row] = "~";
                     dateTime=dateTime.AddMinutes(30);
-                    timeTable[2, i] = dateTime.ToString("HH:mm");
-                    for (int j = 3; j < 8; j++)
-                        timeTable[j, i] = "";
+                    timeTable[2, row] = dateTime.ToString("HH:mm");
+                    for (int column = Constant.MONDAY_COLUMN; column < Constant.MAXIMUM_COLUMN; column++)
+                        timeTable[column, row] = "";
                 }
                 else
                 {
                     for (int j = 0; j < 8; j++)
-                        timeTable[j, i] = "";
+                        timeTable[j, row] = "";
                 }
             }
         }

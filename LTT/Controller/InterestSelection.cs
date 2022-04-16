@@ -24,13 +24,14 @@ namespace LTT.Controller
             while (isNotEscape)
             {
                 Console.Clear();
-                basicView.Label("관심과목 메뉴");
+                basicView.Label();
                 basicView.InterestForm();
+                Console.CursorVisible = false;
                 selected = input.SwicthMenu(Constant.INTEREST_MENU_COUNT);
                 switch (selected)
                 {
                     case (int)Constant.Menu.FIRST_MENU://관심과목 담기
-                        SearchLecture(interestLecture,"관심과목 담기");
+                        SearchLecture(interestLecture);
                         break;
                     case (int)Constant.Menu.SECOND_MENU://관심과목 조회
                         ShowInsertLectures(interestLecture.storeList, Constant.JUST_SEARCH_TYPE,"관심과목 조회");
@@ -39,7 +40,7 @@ namespace LTT.Controller
                         ShowTimeTable(interestLecture,"관심과목 시간표");
                         break;
                     case (int)Constant.Menu.FOURTH_MENU://관심과목 삭제
-                        DeleteLectures(interestLecture, "관심과목 삭제");
+                        DeleteLectures(interestLecture, "삭제할 과목의 번호를 입력하세요");
                         break;
                     case (int)Constant.Menu.FIFTH_MENU:
                         exception.ExitProgramm();
@@ -52,17 +53,19 @@ namespace LTT.Controller
                 }
             }
         }
-        private void SearchInit(string insert)
+        private void SearchInit()
         {
             Console.Clear();
-            basicView.Label(insert);
+            basicView.Label();
             lectureView.SelectInterstForm();
+            lectureView.SearchGuide();
+            lectureView.SelectGuide();
             storage.Init();
         }
 
-        public void SearchLecture(LectureStorage extant,string insert)
+        public void SearchLecture(LectureStorage extant)
         {
-            SearchInit(insert);
+            SearchInit();
             int selected;
             bool isNotEscape = true;
             while (isNotEscape)
@@ -89,7 +92,7 @@ namespace LTT.Controller
                     case (int)Constant.Menu.SIXTH_MENU:
                         ShowRemainLectures(extant);
                         InsertInterest(extant);
-                        SearchInit(insert);
+                        SearchInit();
                         break;
                     case Constant.ESCAPE_INT:
                         return;
@@ -140,11 +143,11 @@ namespace LTT.Controller
             string sequence;
             while (true)
             {
-                basicView.DeleteString(0, Console.CursorTop, 150);
+                basicView.DeleteString(0, Console.CursorTop, Constant.DELETE_LONG);
                 Console.CursorVisible = true;
                 lectureView.CheckGrades(extant.MaximumGrades, extant.CurrentGrades,Constant.GRADES_CUSOR);
-                Console.SetCursorPosition(42, Console.CursorTop);
-                basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+                Console.SetCursorPosition(Constant.LECTURENUMBER_INSERT_CUSOR, Console.CursorTop);
+                basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
                 sequence =GetSequence(extant,searchTable);//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
                 if (sequence == Constant.ESCAPE_STRING)
                     return;
@@ -152,7 +155,7 @@ namespace LTT.Controller
                 Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
                 lectureView.SelectMore();
                 int selected = SwitchColumn(2);
-                if (selected == 1 || selected == Constant.ESCAPE_INT)
+                if (selected == (int)Constant.Menu.SECOND_MENU || selected == Constant.ESCAPE_INT)
                     break;
             }
             storage.Init();
@@ -280,6 +283,7 @@ namespace LTT.Controller
         }
         protected void DeleteLectures(LectureStorage extant,string insert)
         {
+            Console.CursorVisible = true;
             string sequence;
             while (true)
             {
@@ -297,12 +301,12 @@ namespace LTT.Controller
         protected string GetDeleteSequence(List<LectureVO> insertList)//계속받게 getsequence 만들기(예외처리로 검색목록중에 있는거 선택하게 하기,숫자만 입력받기)
         {
             bool isException = true;
-            string sequence = "";
+            string sequence = Constant.EMPTY;
             while (isException)
             {
-                Console.SetCursorPosition(42, Console.CursorTop);
+                Console.SetCursorPosition(Constant.LECTURENUMBER_INSERT_CUSOR, Console.CursorTop);
                 basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 10);
-                sequence = input.GetUserString(3, 2);
+                sequence = input.GetUserString(3, Constant.NOT_PASSWORD_TYPE);
                 if (sequence == Constant.ESCAPE_STRING)
                     return Constant.ESCAPE_STRING;
                 if (exception.IsNotNumberForm(sequence))
@@ -330,9 +334,9 @@ namespace LTT.Controller
                 lectureView.ShowTable(column, days[column]);
             }
             Console.WriteLine();
-            for (int row = 0; row < 48; row++)
+            for (int row = Constant.MINIMUM_ROW; row < Constant.MAXIMUM_ROW; row++)
             {
-                for(int column = 0; column < 8; column++)
+                for(int column = Constant.MINIMUM_COLUMN; column < Constant.MAXIMUM_COLUMN; column++)
                 {
                     lectureView.ShowTable(column, extant.timeTable[column,row]);
                 }

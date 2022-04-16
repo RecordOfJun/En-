@@ -24,10 +24,9 @@ namespace LTT.View
             Console.SetCursorPosition(Left, Console.CursorTop);
             Console.WriteLine(insert);
         }
-        public void Label(string insert) 
+        public void Label() 
         {
-            ShowLabelAndLine(insert);
-            //SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR,"==============================================================================================================");
+            SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR,"==============================================================================================================");
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR,"                                                                                                             ");
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR,"              ####                       ####################                #################### ");
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "              ####                       ####################                ####################");
@@ -38,9 +37,8 @@ namespace LTT.View
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "              ############                     ########                            ########            ");
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "              ############                     ########                            ########             ");
             Console.WriteLine();
-            Console.Write(new string('=', Console.WindowWidth));
-            //SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "==============================================================================================================");
-
+            SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "==============================================================================================================");
+            Console.WriteLine();
         }
         public void LoginView(){
             PrintMiddle("ID:");

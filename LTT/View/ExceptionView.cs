@@ -50,6 +50,10 @@ namespace LTT.View
         {
             ShowException("6자리 숫자를 입력해 주세요");
         }
+        public void DivisionException()
+        {
+            ShowException("3자리 숫자를 입력해 주세요");
+        }
         public void StringException()
         {
             ShowException("2자리 이상의 영어나 한글을 입력해 주세요");

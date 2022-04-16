@@ -16,7 +16,7 @@ namespace LTT.Controller
             this.exceptionView = exceptionView;
             this.basicView = basicView;
         }
-        private void ReadAndErase(int leftCusor,int eraseLength)
+        private void ReadAndErase(int leftCusor,int eraseLength)//예외 안내문 제거 함수
         {
             Console.ReadKey();
             basicView.DeleteString(leftCusor, Console.CursorTop, eraseLength);
@@ -32,14 +32,14 @@ namespace LTT.Controller
             }
             return;
         }
-        public bool IsNotNumberForm(string number)
+        public bool IsNotNumberForm(string number)//강의 추가 시 숫자 예외
         {
-            Regex numberForm = new Regex(@"^[0-9]+$");//강의 넘버체크
+            Regex numberForm = new Regex(@"^[0-9]+$");
             if (numberForm.IsMatch(number))
                 return false;
             Console.SetCursorPosition(48, Console.CursorTop);
             exceptionView.NumberException();
-            ReadAndErase(48, 20);
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.NUMBER_EXCEPTION_LENGTH);
             return true;
         }
         public bool IsIDForm(string id)
@@ -47,34 +47,34 @@ namespace LTT.Controller
             Regex idForm = new Regex(@"^[0-9]{8}$");//아이디 체크
             if (idForm.IsMatch(id))
                 return true;
-            Console.SetCursorPosition(Constant.LOGIN_INDEX+16, Constant.LOGIN_ID_INDEX);
+            Console.SetCursorPosition(Constant.ID_EXCEPTION, Constant.LOGIN_ID_INDEX);
             exceptionView.IdException();
-            ReadAndErase(Constant.LOGIN_INDEX + 16, 25);
+            ReadAndErase(Constant.ID_EXCEPTION, Constant.ID_EXCEPTION_LENGTH);
             return false;
         }
         public void NotExistException()
         {
-            Console.SetCursorPosition(48, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
             exceptionView.SearchException();
-            ReadAndErase(48, 32);
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.EXIST_EXCEPTION_LENGTH);
         }
         public void OverlapException()
         {
-            Console.SetCursorPosition(48, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
             exceptionView.OverlapException();
-            ReadAndErase(48, 20);
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.NUMBER_EXCEPTION_LENGTH);
         }
         public void TimeOverlapException()
         {
-            Console.SetCursorPosition(48, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
             exceptionView.TimeOverlapException();
-            ReadAndErase(48, 35);
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.TIME_EXCEPTION_LENGTH);
         }
         public void OverGrades()
         {
-            Console.SetCursorPosition(48, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
             exceptionView.OverGradesException();
-            ReadAndErase(48, 35);
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.TIME_EXCEPTION_LENGTH);
         }
         public bool IsLectureNumberForm(string lectureNumber)
         {
@@ -83,7 +83,7 @@ namespace LTT.Controller
                 return false;
             Console.SetCursorPosition(100, Console.CursorTop);
             exceptionView.LectureNumberException();
-            ReadAndErase(100, 25);
+            ReadAndErase(Constant.LECTRUENUMBER_EXCEPTION, Constant.ID_EXCEPTION_LENGTH);
             return true;
         }
         public bool IsDivision(string division)
@@ -91,9 +91,9 @@ namespace LTT.Controller
             Regex divisionForm = new Regex(@"^[0-9]{3}$");
             if (divisionForm.IsMatch(division))
                 return false;
-            Console.SetCursorPosition(100, Console.CursorTop);
-            exceptionView.LectureNumberException();
-            ReadAndErase(100, 26);
+            Console.SetCursorPosition(Constant.LECTRUENUMBER_EXCEPTION, Console.CursorTop);
+            exceptionView.DivisionException();
+            ReadAndErase(Constant.LECTRUENUMBER_EXCEPTION, Constant.DIVISION_EXCEPTION_LENGTH);
             return true;
         }
         public bool IsProfessorAndLectureNameCheck(string userInput)
@@ -101,9 +101,9 @@ namespace LTT.Controller
             Regex check = new Regex(@"^[가-힣|a-zA-Z]{2,}$");
             if (check.IsMatch(userInput))
                 return false;
-            Console.SetCursorPosition(82, Console.CursorTop);
+            Console.SetCursorPosition(Constant.PROFESSOR_EXCEPTION, Console.CursorTop);
             exceptionView.StringException();
-            ReadAndErase(82, 40);
+            ReadAndErase(Constant.PROFESSOR_EXCEPTION, Constant.PROFESSOR_EXCEPTION_LENGTH);
             return true;
         }
     }

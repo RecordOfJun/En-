@@ -27,16 +27,17 @@ namespace LTT.Controller
             input = new Input(basicView);
             this.exception = instances.exception;
         }
-        private void SearchInit(string insert)
+        private void SearchInit()
         {
             Console.Clear();
-            basicView.Label(insert);
+            basicView.Label();
             lectureView.SelectLectureForm();
+            lectureView.SearchGuide();
             storage.Init();
         }
-        public void SearchLecture(string insert)
+        public void SearchLecture()
         {
-            SearchInit(insert);
+            SearchInit();
             int selected;
             bool isNotEscape = true;
             while (isNotEscape)
@@ -61,7 +62,7 @@ namespace LTT.Controller
                         break;
                     case 5:
                         ShowAllLectures();
-                        SearchInit(insert);
+                        SearchInit();
                         break;
                     case Constant.ESCAPE_INT:
                         return;

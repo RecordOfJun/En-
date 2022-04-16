@@ -126,7 +126,7 @@ namespace LTT.Controller
             isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
             Console.Clear();
-            basicView.Label("로그인");
+            basicView.Label();
             basicView.LoginGuide();
             Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX);
             basicView.LoginView();

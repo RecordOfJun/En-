@@ -22,13 +22,14 @@ namespace LTT.Controller
             while (isNotEscape)
             {
                 Console.Clear();
-                basicView.Label("수강신청 메뉴");
+                basicView.Label();
                 basicView.MyLectureForm();
+                Console.CursorVisible = false;
                 selected = input.SwicthMenu(6);
                 switch (selected)
                 {
                     case (int)Constant.Menu.FIRST_MENU://수강신청
-                        SearchLecture(myLecture,"수강신청");
+                        SearchLecture(myLecture);
                         break;
                     case (int)Constant.Menu.SECOND_MENU://관심과목으로 신청
                         AddFromInterest();
@@ -40,7 +41,7 @@ namespace LTT.Controller
                         ShowTimeTable(myLecture,"신청내역 시간표");
                         break;
                     case (int)Constant.Menu.FIFTH_MENU://수강내역 삭제
-                        DeleteLectures(myLecture, "신청내역 삭제");
+                        DeleteLectures(myLecture, "삭제할 강의의 번호를 입력하세요");
                         break;
                     case (int)Constant.Menu.SIXTH_MENU:
                         exception.ExitProgramm();
@@ -56,10 +57,11 @@ namespace LTT.Controller
 
         private void AddFromInterest()
         {
+            Console.CursorVisible = true;
             string sequence;
             while (true)
             {
-                ShowInsertLectures(interestLecture.storeList, Constant.CONTROLL_SEARCH_TYPE,"관심과목으로 수강신청");
+                ShowInsertLectures(interestLecture.storeList, Constant.CONTROLL_SEARCH_TYPE,"신청할 과목의 번호를 입력하세요");
                 lectureView.CheckLectureNumber(myLecture.MaximumGrades,myLecture.CurrentGrades);
                 sequence = GetSequence(myLecture,interestLecture.storeList);
                 if (sequence == Constant.ESCAPE_STRING)

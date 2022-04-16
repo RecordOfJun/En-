@@ -34,13 +34,13 @@ namespace LTT.Controller
             bool isNotEscape = true;
             while (isNotEscape) {
                 Console.Clear();
-                basicView.Label("메인 메뉴");
+                basicView.Label();
                 basicView.MainMenuForm();
                 selected = input.SwicthMenu(Constant.MAIN_MENU_COUNT);
                 switch (selected)
                 {
                     case (int)Constant.Menu.FIRST_MENU:
-                        wholeLecture.SearchLecture("전체 조회");
+                        wholeLecture.SearchLecture();
                         break;
                     case (int)Constant.Menu.SECOND_MENU:
                         interestSelection.SelectMenu();

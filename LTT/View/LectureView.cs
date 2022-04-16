@@ -163,5 +163,33 @@ namespace LTT.View
             Console.SetCursorPosition(Constant.NUMBER_INSERT_CUSOR, Console.CursorTop);
             Console.Write("강의 NO:");
         }
+        public void SearchGuide()
+        {
+            Console.SetCursorPosition(0, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
+            Console.Write("          조회방법");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("방향키로 검색분야 및 내용이동");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("엔터키로 정보선택 OR 입력완료");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("원하는 정보 전부 선택 시 조회");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("       (뒤로가기 ESC)");
+        }
+        public void SelectGuide()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("          신청방법");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("조회 결과 중 원하는 번호 입력");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("  계속입력 혹은 재검색 선택");
+            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.Write("(중복과목,중복시간 선택불가)");
+        }
+        public void DeleteGuide()
+        {
+
+        }
     }
 }

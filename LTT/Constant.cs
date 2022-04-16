@@ -58,6 +58,7 @@ namespace LTT
         public const int DIVISION_SECOND_CUSOR = 94;
         public const int PROFESSOR_CUSOR = 62;
         public const int LECTURENAME_CUSOR = 64;
+        public const int LECTURENUMBER_INSERT_CUSOR = 42;
 
 
         //인덱스
@@ -122,5 +123,25 @@ namespace LTT
         public const int CUSOR_DELETE = 1;
         public const int RETRY_DELETE = 28;
         public const int COLUMN_DELETE = 100;
+        public const int DELETE_LONG = 150;
+
+        //exception cursor
+        public const int NUMBER_EXCEPTION = 48;
+        public const int NUMBER_EXCEPTION_LENGTH = 20;
+        public const int ID_EXCEPTION = 90;
+        public const int ID_EXCEPTION_LENGTH = 25;
+        public const int EXIST_EXCEPTION_LENGTH = 32;
+        public const int TIME_EXCEPTION_LENGTH = 35;
+        public const int LECTRUENUMBER_EXCEPTION = 100;
+        public const int DIVISION_EXCEPTION_LENGTH = 26;
+        public const int PROFESSOR_EXCEPTION = 82;
+        public const int PROFESSOR_EXCEPTION_LENGTH = 40;
+
+        //TIME TABLE
+        public const int MINIMUM_ROW = 0;
+        public const int MAXIMUM_ROW = 48;
+        public const int MINIMUM_COLUMN = 0;
+        public const int MAXIMUM_COLUMN = 8;
+        public const int MONDAY_COLUMN = 3;
     }
 }
