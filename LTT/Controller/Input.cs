@@ -13,7 +13,7 @@ namespace LTT.Controller
         {
             this.basicView = basicView;
         }
-        public int SwicthMenu(int numberOfMenu)//함수로 뺄 여지가 있음
+        public int SwicthMenu(int numberOfMenu)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
         {
             int index = 0;
             int selected = 0;

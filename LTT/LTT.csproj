@@ -57,7 +57,7 @@
     <Compile Include="Controller\WholeLecture.cs" />
     <Compile Include="Model\LectureStorage.cs" />
     <Compile Include="Model\LectureVO.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="LectureAddApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\BasicView.cs" />
     <Compile Include="View\ExceptionView.cs" />

@@ -51,7 +51,9 @@ namespace LTT.Controller
             instances.lectureTable = this.lectureTable;
             this.mainMenu = new MainMenu(instances);
         }
-        private void LinkExcelData()
+
+
+        private void LinkExcelData()//엑셀 데이터 연동 메소드
         {
             application = new Excel.Application();
             workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
@@ -114,17 +116,20 @@ namespace LTT.Controller
                 this.lectureTable.Add(lectureVO);
             }
         }
-        public void GetInProgram()
+        public void GetInProgram()//프로그램 시작
         {
-            LinkExcelData();
+            LinkExcelData();//엑셀 데이터 불러오기
             bool isNotExited = true;
             while (isNotExited)
-                CheckId();
+                CheckId();//아이디 비번 체크
         }
+
+
         private void CheckId()
         {
             isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
+            //ui출력
             Console.Clear();
             basicView.Label();
             basicView.LoginGuide();
@@ -137,25 +142,19 @@ namespace LTT.Controller
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, Constant.ID_DELETE);
                 basicView.DeleteString(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX + 2, Constant.RETRY_DELETE);
                 basicView.DeleteString(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX + 3, Constant.RETRY_DELETE);
-                isNotCorrect = IsCorrectUser();
+                isNotCorrect = IsCorrectUser();//아이디 비번 입력 메소드
                 if (isEscape == true)
                     return;
                 if (isNotCorrect == false)
                     break;
                 exceptionView.NotCorrecId("잘못된 로그인 정보입니다!");
-                if (AskAgain() == Constant.EXIT_PROGRAM)//프로그램 종료 선택 시
-                    exception.ExitProgramm();
-                /*else
-                {
-                    Console.Clear();
-                    basicView.Label();
-                    basicView.LoginGuide();
-                    basicView.LoginView();
-                }
-                */
+                if (AskAgain() == Constant.EXIT_PROGRAM)//다시로그인 or 프로그램 종료
+                    exception.ExitProgramm();//종료확인
             }
-            mainMenu.SelectMenu();
+            mainMenu.SelectMenu();//로그인 성공 시 메인 메뉴 이동
         }
+
+
         private bool IsCorrectUser()
         {
             string id=Constant.EMPTY;
@@ -165,34 +164,36 @@ namespace LTT.Controller
             {
                 Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, Constant.ID_DELETE);
-                id = input.GetUserString(8, Constant.NOMARL_INPUT);
+                id = input.GetUserString(8, Constant.NOMARL_INPUT);//정해진 수 미만으로 입력받는 메소드 호출
                 if (id == Constant.ESCAPE_STRING)
-                {
+                {//esc예외처리
                     isEscape = true;
                     return isEscape; ;
                 }
-                if (exception.IsIDForm(id))
+                if (exception.IsIDForm(id))//아이디 양식 예외처리
                     isNotId = false;
             }
             Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX);
             password = input.GetUserString(8, Constant.HIDE_INPUT);
             if (password == Constant.ESCAPE_STRING)
-            {
+            {//esc예외처리
                 isEscape = true;
                 return isEscape; ;
             }
-            if (id == Constant.ID && password == Constant.PASSWORD)
+            if (id == Constant.ID && password == Constant.PASSWORD)//아이디 비번 일치 확인
                 return Constant.IS_CORRECT;
             return Constant.IS_NOT_CORRECT;
         }
-        private int AskAgain()//함수로 뺄 여지가 있음
+
+
+        private int AskAgain()//다시 로그인, 종료 질문
         {
             Console.CursorVisible = false;
             int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             basicView.ShowAgain();
-            while (isNotEnter)
+            while (isNotEnter)//커서 이동
             {
                 basicView.DeleteString(Constant.MIDDLE_CUSOR,Console.CursorTop, Constant.CUSOR_DELETE);
                 basicView.DeleteString(Constant.EXIT_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);

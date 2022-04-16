@@ -17,7 +17,7 @@ namespace LTT.Controller
         protected List<LectureVO> lectureTable;
         protected List<LectureVO> searchTable;
         protected LectureVO storage;
-        public WholeLecture(Instances instances)
+        public WholeLecture(Instances instances)//전체 조회 클래스
         {
             storage = new LectureVO();
             searchTable = new List<LectureVO>();
@@ -27,7 +27,7 @@ namespace LTT.Controller
             input = new Input(basicView);
             this.exception = instances.exception;
         }
-        private void SearchInit()
+        private void SearchInit()//ui,검색정보 초기화 메소드
         {
             Console.Clear();
             basicView.Label();
@@ -35,33 +35,33 @@ namespace LTT.Controller
             lectureView.SearchGuide();
             storage.Init();
         }
-        public void SearchLecture()
+        public void SearchLecture()//정보 검색 메소드
         {
             SearchInit();
             int selected;
             bool isNotEscape = true;
             while (isNotEscape)
             {
-                selected = SwicthRow();
+                selected = SwicthRow();//검색 정보 행 이동 메소드
                 switch (selected)
                 {
-                    case 0:
-                        SelectMajor();
+                    case (int)Constant.Menu.FIRST_MENU:
+                        SelectMajor();//전공 선택
                         break;
-                    case 1:
-                        SelectDistribution();
+                    case (int)Constant.Menu.SECOND_MENU:
+                        SelectDistribution();//이수구분 선택
                         break;
-                    case 2:
-                        SelectLectureName();
+                    case (int)Constant.Menu.THIRD_MENU:
+                        SelectLectureName();//과목명 선택
                         break;
-                    case 3:
-                        SelectProfessor();
+                    case (int)Constant.Menu.FOURTH_MENU:
+                        SelectProfessor();//교수명 선택
                         break;
-                    case 4:
-                        SelectCourse();
+                    case (int)Constant.Menu.FIFTH_MENU:
+                        SelectCourse();//학년 선택
                         break;
-                    case 5:
-                        ShowAllLectures();
+                    case (int)Constant.Menu.SIXTH_MENU:
+                        ShowAllLectures();//조회
                         SearchInit();
                         break;
                     case Constant.ESCAPE_INT:
@@ -69,13 +69,14 @@ namespace LTT.Controller
                 }
             }
         }
-        protected int SwicthRow()//함수로 뺄 여지가 있음
+        protected int SwicthRow()//검생 정보 행(세로) 이동 함수
         {
             int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             while (isNotEnter)
             {
+                //기존 커서 삭제
                 basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
                 basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
                 basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
@@ -83,7 +84,7 @@ namespace LTT.Controller
                 basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
                 basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//
-                {
+                {//커서 위치 최신화
                     case (int)Constant.Menu.FIRST_MENU:
                         Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
                         break;
@@ -104,7 +105,7 @@ namespace LTT.Controller
                         break;
                 }
                 Console.Write(">");
-                index = input.GetUpDown(index, 6);
+                index = input.GetUpDown(index, 6);//위 아래 입력 감지
                 if (index == Constant.RETURN)
                     return selected;
                 if (index == Constant.ESCAPE_INT)
@@ -113,7 +114,7 @@ namespace LTT.Controller
             }
             return selected;
         }
-        protected int SwitchColumn(int NumberOfChoice)//함수로 뺄 여지가 있음
+        protected int SwitchColumn(int NumberOfChoice)//검색 정보 열(가로) 이동
         {
             int index = 0;
             int selected = 0;
@@ -155,12 +156,13 @@ namespace LTT.Controller
         }
         protected void SelectMajor()
         {
+            //ui
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectMajorForm();
-            int selected=SwitchColumn(5);
+            int selected=SwitchColumn(5);//열 이동
             switch (selected)
-            {
+            {//전공 선택 정보 저장
                 case (int)Constant.Menu.FIRST_MENU:
                     storage.Major = "";
                     break;
@@ -185,12 +187,13 @@ namespace LTT.Controller
         }
         private void SelectDistribution()
         {
+            //ui
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectDistributionForm();
-            int selected = SwitchColumn(4);
+            int selected = SwitchColumn(4);//열 이동
             switch (selected)
-            {
+            {//선택 정보 저장
                 case (int)Constant.Menu.FIRST_MENU:
                     storage.Distribution = "";
                     break;
@@ -209,8 +212,9 @@ namespace LTT.Controller
                     break;
             }
         }
-        protected void SelectProfessor()
+        protected void SelectProfessor()//교수명 입력
         {
+            //ui
             Console.CursorVisible = true;
             storage.Professor = Constant.EMPTY;
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
@@ -220,19 +224,21 @@ namespace LTT.Controller
             while (isException)
             {
                 Console.SetCursorPosition(Constant.PROFESSOR_CUSOR, Console.CursorTop);
+                //교수명 입력
                 storage.Professor = input.GetUserString(Constant.STRING_INPUT_LENGTH, Constant.NOT_PASSWORD_TYPE);
-                if (storage.Professor == Constant.ESCAPE_STRING)
+                if (storage.Professor == Constant.ESCAPE_STRING)//esc감지
                 {
                     storage.Professor = Constant.EMPTY;
                     basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
-                isException = exception.IsProfessorAndLectureNameCheck(storage.Professor);
+                isException = exception.IsProfessorAndLectureNameCheck(storage.Professor);//교수명 예외처리
             }
             Console.CursorVisible = false;
         }
-        protected void SelectLectureName()
+        protected void SelectLectureName()//과목명 입력
         {
+            //ui
             Console.CursorVisible = true;
             storage.LectureName = Constant.EMPTY;
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
@@ -242,6 +248,7 @@ namespace LTT.Controller
             while (isException)
             {
                 Console.SetCursorPosition(Constant.LECTURENAME_CUSOR, Console.CursorTop);
+                //과목명 입력
                 storage.LectureName = input.GetUserString(Constant.STRING_INPUT_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (storage.LectureName == Constant.ESCAPE_STRING)
                 {
@@ -249,18 +256,19 @@ namespace LTT.Controller
                     basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
-                isException = exception.IsProfessorAndLectureNameCheck(storage.LectureName);
+                isException = exception.IsProfessorAndLectureNameCheck(storage.LectureName);//과목명 예외처리
             }
             Console.CursorVisible = false;
         }
-        protected void SelectCourse()
+        protected void SelectCourse()//학년 선택
         {
+            //ui
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectCourseForm();
-            int selected = SwitchColumn(4);
+            int selected = SwitchColumn(4);//열 이동
             switch (selected)
-            {
+            {//선택정보 저장
                 case (int)Constant.Menu.FIRST_MENU:
                     storage.Course = "";
                     break;
@@ -273,15 +281,15 @@ namespace LTT.Controller
                 case (int)Constant.Menu.FOURTH_MENU:
                     storage.Course = "3";
                     break;
-                case Constant.ESCAPE_INT:
+                case Constant.ESCAPE_INT://esc감지
                     storage.Course = "";
                     basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
             }
         }
-        private void ShowAllLectures()
+        private void ShowAllLectures()//선택정보 기반 데이터 출력
         {
-            Console.SetCursorPosition(Constant.INDEX_MINIMUM, Constant.SHOW_LECTURE_CUSOR);
+            Console.SetCursorPosition(Constant.INDEX_MINIMUM, Constant.SHOW_LECTURE_CUSOR); //출력 위치 조정
             foreach (LectureVO table in lectureTable)
             {
                 if (table.Sequence=="NO"|| (table.Distribution.Contains(storage.Distribution) && table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))
@@ -300,12 +308,13 @@ namespace LTT.Controller
                 }
             }
             bool isNotESC = true;
-            while (isNotESC)
+            while (isNotESC)//esc입력으로 빠져나오기
             {
+                Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
                 ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape || key.Key == ConsoleKey.Enter)
+                    break;
                 basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
-                if (key.Key == ConsoleKey.Escape)
-                    isNotESC = false;
             }
         }
     }

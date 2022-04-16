@@ -43,7 +43,7 @@ namespace LTT.Controller
                     case (int)Constant.Menu.FIFTH_MENU://수강내역 삭제
                         DeleteLectures(myLecture, "삭제할 강의의 번호를 입력하세요");
                         break;
-                    case (int)Constant.Menu.SIXTH_MENU:
+                    case (int)Constant.Menu.SIXTH_MENU://종료
                         exception.ExitProgramm();
                         break;
                     case Constant.ESCAPE_INT:
@@ -55,7 +55,7 @@ namespace LTT.Controller
             }
         }
 
-        private void AddFromInterest()
+        private void AddFromInterest()//관심과목으로부터 수강신청하기
         {
             Console.CursorVisible = true;
             string sequence;
@@ -63,10 +63,10 @@ namespace LTT.Controller
             {
                 ShowInsertLectures(interestLecture.storeList, Constant.CONTROLL_SEARCH_TYPE,"신청할 과목의 번호를 입력하세요");
                 lectureView.CheckLectureNumber(myLecture.MaximumGrades,myLecture.CurrentGrades);
-                sequence = GetSequence(myLecture,interestLecture.storeList);
+                sequence = GetSequence(myLecture,interestLecture.storeList);//관심과목 내의 번호 입력
                 if (sequence == Constant.ESCAPE_STRING)
                     return;
-                AddInterest(sequence, myLecture, interestLecture.storeList);
+                AddInterest(sequence, myLecture, interestLecture.storeList);//추가
             }
 
         }

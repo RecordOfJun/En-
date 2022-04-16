@@ -28,7 +28,7 @@ namespace LTT.Model
         private string language;
         public List<TimeTable> timeTables;
         public LectureVO() {
-            timeTables = new List<TimeTable>();
+            timeTables = new List<TimeTable>();//시간 관리해주는 리스트 추가
         }
         public void Init()
         {
@@ -95,12 +95,13 @@ namespace LTT.Model
         {
             get { return time; }
             set {  
-                time= value;
+                time= value;//시간 입력받을 때 날짜와 시간 추출
                 Regex days = new Regex(@"[월|화|수|목|금]");
                 Regex times = new Regex(@"[0-9]{2}:[0-9]{2}");
                 MatchCollection dayResult = days.Matches(time);
                 MatchCollection timeResult = times.Matches(time);
-                if (dayResult.Count == 1)
+                //수업 날짜, 수업시작 시간, 종료시간을 시간 관리 클래스에 넣어줌
+                if (dayResult.Count == 1)//날짜가 하루뿐일 때
                 {
                     TimeTable timeTable = new TimeTable();
                     timeTable.day = dayResult[0].Value.ToString();
@@ -108,7 +109,7 @@ namespace LTT.Model
                     timeTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
                     timeTables.Add(timeTable);
                 }
-                else if (dayResult.Count == 2&&timeResult.Count==2)
+                else if (dayResult.Count == 2&&timeResult.Count==2)//날짜 두개의 시간이 같을 때
                 {
                     TimeTable firstTable = new TimeTable();
                     firstTable.day = dayResult[0].Value.ToString();
@@ -122,7 +123,7 @@ namespace LTT.Model
                     timeTables.Add(secondTable);
 
                 }
-                else if (dayResult.Count == 2 && timeResult.Count == 4)
+                else if (dayResult.Count == 2 && timeResult.Count == 4)//날짜 두개의 시간이 서로 다를 때
                 {
                     TimeTable firstTable = new TimeTable();
                     firstTable.day = dayResult[0].Value.ToString();
