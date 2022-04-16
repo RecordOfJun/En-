@@ -20,31 +20,31 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(70, 0, 1);
-                basicView.DeleteString(70, 1, 1);
-                basicView.DeleteString(70, 2, 1);
-                basicView.DeleteString(70, 3, 1);
-                basicView.DeleteString(70, 4, 1);
-                basicView.DeleteString(70, 5, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//
                 {
                     case 0:
-                        Console.SetCursorPosition(70, 0);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
                         break;
                     case 1:
-                        Console.SetCursorPosition(70, 1);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR);
                         break;
                     case 2:
-                        Console.SetCursorPosition(70, 2);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR);
                         break;
                     case 3:
-                        Console.SetCursorPosition(70, 3);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR);
                         break;
                     case 4:
-                        Console.SetCursorPosition(70, 4);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR);
                         break;
                     case 5:
-                        Console.SetCursorPosition(70, 5);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR);
                         break;
                 }
                 Console.Write(">");

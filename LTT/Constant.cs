@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Text.RegularExpressions;
 namespace LTT
 {
     class Constant
     {
         public const int SEARCH_LEFT = 30;
         //로그인
-        public const int LOGIN_ID_INDEX = 0;
-        public const int LOGIN_PASSWORD_INDEX = 1;
+        public const int LOGIN_ID_INDEX = 13;
+        public const int LOGIN_PASSWORD_INDEX = 14;
         public const int LOGIN_INDEX = 74;
         public const bool IS_CORRECT = false;
         public const bool IS_NOT_CORRECT = true;
@@ -31,7 +31,45 @@ namespace LTT
         public const int ESCAPE_INT = -2;
         public const string ESCAPE_STRING = "@@@@@@@@@@@@@@@@@@@@";
         public const int INDEX_MINIMUM = 0;
+        public const string EMPTY = "";
+        public const int EXIT_PROGRAM = 1;
+        public const int PASSWORD_TYPE = 1;
+        public const int NOT_PASSWORD_TYPE = 2;
+        public const int STRING_INPUT_LENGTH = 10;
+        public const int JUST_SEARCH_TYPE = 1;
+        public const int CONTROLL_SEARCH_TYPE = 2;
 
+        //커서
+        public const int MIDDLE_CUSOR = 70;
+        public const int EXIT_CUSOR = 83;
+        public const int ESC_CUSOR = 140;
+        public const int LOGIN_GUIDE_CUSOR = 30;
+        public const int CAN_INSERT_CUSOR = 0;
+        public const int INSERT_CUSOR = 20;
+        public const int NUMBER_INSERT_CUSOR = 34;
+        public const int GRADES_CUSOR = 25;
+        public const int SHOW_LECTURE_CUSOR = 26;
+        public const int COLUMN_PRINT_CUSOR = 50;
+        public const int COLUMN_SECOND_CUSOR = 63;
+        public const int COLUMN_THIRD_CUSOR = 80;
+        public const int COLUMN_FOURTH_CUSOR = 99;
+        public const int COLUMN_FIFTH_CUSOR = 117;
+        public const int DIVISION_FIRST_CUSOR = 64;
+        public const int DIVISION_SECOND_CUSOR = 94;
+        public const int PROFESSOR_CUSOR = 62;
+        public const int LECTURENAME_CUSOR = 64;
+
+
+        //인덱스
+        public const int EXCEL_MINIMUM_ROW = 1;
+        public const int EXCEL_MAXIMUM_ROW = 185;
+        public const int EXCEL_MINIMUM_COLUMN = 1;
+        public const int EXCEL_MAXIMUM_COLUMN = 12;
+        public const int MAIN_MENU_COUNT = 4;
+        public const int INTEREST_MENU_COUNT = 5;
+        public const int SEARCH_MENU_COUNT = 6;
+        public const int INTEREST_MAX = 24;
+        public const int MY_MAX = 21;
         public enum SECTOR
         {
             SEQUENCE=1,
@@ -60,5 +98,29 @@ namespace LTT
             LANGUAGE_INDEX=166,
 
         }
+        public enum MenuCursor
+        {
+            FIRST_MENU_CUSOR=13,
+            SECOND_MENU_CUSOR=15,
+            THIRD_MENU_CUSOR=17,
+            FOURTH_MENU_CUSOR=19,
+            FIFTH_MENU_CUSOR=21,
+            SIXTH_MENU_CUSOR=23
+        }
+        public enum Menu
+        {
+            FIRST_MENU = 0,
+            SECOND_MENU,
+            THIRD_MENU,
+            FOURTH_MENU,
+            FIFTH_MENU,
+            SIXTH_MENU
+        }
+
+        //delete length
+        public const int ID_DELETE = 16;
+        public const int CUSOR_DELETE = 1;
+        public const int RETRY_DELETE = 28;
+        public const int COLUMN_DELETE = 100;
     }
 }

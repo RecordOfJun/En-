@@ -61,14 +61,14 @@ namespace LTT.Controller
             data = (Array)cellRange.Cells.Value2;
             object value;
             string content;
-            for (int row = 1; row <= 185; row++)
+            for (int row = Constant.EXCEL_MINIMUM_ROW; row <= Constant.EXCEL_MAXIMUM_ROW; row++)
             {
                 LectureVO lectureVO = new LectureVO();
-                for (int column = 1; column <= 12; column++)
+                for (int column = Constant.EXCEL_MINIMUM_COLUMN; column <= Constant.EXCEL_MAXIMUM_COLUMN; column++)
                 {
                     value = data.GetValue(row, column);
                     if (value == null)
-                        content = "";
+                        content = Constant.EMPTY ;
                     else
                         content = value.ToString().Trim();
                     switch (column)
@@ -126,39 +126,45 @@ namespace LTT.Controller
             isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
             Console.Clear();
+            basicView.Label("로그인");
+            basicView.LoginGuide();
+            Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX);
             basicView.LoginView();
             while (isNotCorrect)
             {
                 Console.CursorVisible = true;
-                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 8);
-                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, 8);
-                basicView.DeleteString(70, Constant.LOGIN_ID_INDEX + 2, 25);
-                basicView.DeleteString(70, Constant.LOGIN_ID_INDEX + 3, 28);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, Constant.ID_DELETE);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, Constant.ID_DELETE);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX + 2, Constant.RETRY_DELETE);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX + 3, Constant.RETRY_DELETE);
                 isNotCorrect = IsCorrectUser();
                 if (isEscape == true)
                     return;
                 if (isNotCorrect == false)
                     break;
                 exceptionView.NotCorrecId("잘못된 로그인 정보입니다!");
-                if(AskAgain()==1)
-                    Environment.Exit(0);
-                else
+                if (AskAgain() == Constant.EXIT_PROGRAM)//프로그램 종료 선택 시
+                    exception.ExitProgramm();
+                /*else
                 {
                     Console.Clear();
+                    basicView.Label();
+                    basicView.LoginGuide();
                     basicView.LoginView();
                 }
+                */
             }
             mainMenu.SelectMenu();
         }
         private bool IsCorrectUser()
         {
-            string id="";
+            string id=Constant.EMPTY;
             string password;
             bool isNotId = true;
             while (isNotId)
             {
                 Console.SetCursorPosition(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX);
-                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, 16);
+                basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, Constant.ID_DELETE);
                 id = input.GetUserString(8, Constant.NOMARL_INPUT);
                 if (id == Constant.ESCAPE_STRING)
                 {
@@ -188,15 +194,15 @@ namespace LTT.Controller
             basicView.ShowAgain();
             while (isNotEnter)
             {
-                basicView.DeleteString(70,Console.CursorTop, 1);
-                basicView.DeleteString(70+13, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.MIDDLE_CUSOR,Console.CursorTop, Constant.CUSOR_DELETE);
+                basicView.DeleteString(Constant.EXIT_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
                 switch (index)
                 {
                     case Constant.RETRY:
-                        Console.SetCursorPosition(70, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
                         break;
                     case Constant.EXIT:
-                        Console.SetCursorPosition(70+13, Console.CursorTop);
+                        Console.SetCursorPosition(Constant.EXIT_CUSOR, Console.CursorTop);
                         break;
                 }
                 Console.Write(">");

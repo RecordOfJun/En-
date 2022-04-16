@@ -27,11 +27,16 @@ namespace LTT.Controller
             input = new Input(basicView);
             this.exception = instances.exception;
         }
-        public void SearchLecture()
+        private void SearchInit(string insert)
         {
             Console.Clear();
+            basicView.Label(insert);
             lectureView.SelectLectureForm();
             storage.Init();
+        }
+        public void SearchLecture(string insert)
+        {
+            SearchInit(insert);
             int selected;
             bool isNotEscape = true;
             while (isNotEscape)
@@ -56,8 +61,7 @@ namespace LTT.Controller
                         break;
                     case 5:
                         ShowAllLectures();
-                        Console.Clear();
-                        lectureView.SelectLectureForm();
+                        SearchInit(insert);
                         break;
                     case Constant.ESCAPE_INT:
                         return;
@@ -71,31 +75,31 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(Constant.SEARCH_LEFT, 0, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, 1, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, 2, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, 3, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, 4, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, 5, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//
                 {
-                    case 0:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 0);
+                    case (int)Constant.Menu.FIRST_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
                         break;
-                    case 1:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 1);
+                    case (int)Constant.Menu.SECOND_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SECOND_MENU_CUSOR);
                         break;
-                    case 2:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 2);
+                    case (int)Constant.Menu.THIRD_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.THIRD_MENU_CUSOR);
                         break;
-                    case 3:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 3);
+                    case (int)Constant.Menu.FOURTH_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR);
                         break;
-                    case 4:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 4);
+                    case (int)Constant.Menu.FIFTH_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR);
                         break;
-                    case 5:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, 5);
+                    case (int)Constant.Menu.SIXTH_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR);
                         break;
                 }
                 Console.Write(">");
@@ -115,27 +119,27 @@ namespace LTT.Controller
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT + 33, Console.CursorTop, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT + 50, Console.CursorTop, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT + 69, Console.CursorTop, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT + 87, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
+                basicView.DeleteString(Constant.COLUMN_SECOND_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
+                basicView.DeleteString(Constant.COLUMN_THIRD_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
+                basicView.DeleteString(Constant.COLUMN_FOURTH_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
+                basicView.DeleteString(Constant.COLUMN_FIFTH_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
                 switch (index)//
                 {
-                    case 0:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT+20, Console.CursorTop);
+                    case (int)Constant.Menu.FIRST_MENU:
+                        Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
                         break;
-                    case 1:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 33, Console.CursorTop);
+                    case (int)Constant.Menu.SECOND_MENU:
+                        Console.SetCursorPosition(Constant.COLUMN_SECOND_CUSOR, Console.CursorTop);
                         break;
-                    case 2:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 50, Console.CursorTop);
+                    case (int)Constant.Menu.THIRD_MENU:
+                        Console.SetCursorPosition(Constant.COLUMN_THIRD_CUSOR, Console.CursorTop);
                         break;
-                    case 3:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 69, Console.CursorTop);
+                    case (int)Constant.Menu.FOURTH_MENU:
+                        Console.SetCursorPosition(Constant.COLUMN_FOURTH_CUSOR, Console.CursorTop);
                         break;
-                    case 4:
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT + 87, Console.CursorTop);
+                    case (int)Constant.Menu.FIFTH_MENU:
+                        Console.SetCursorPosition(Constant.COLUMN_FIFTH_CUSOR, Console.CursorTop);
                         break;
                 }
                 Console.Write(">");
@@ -150,76 +154,76 @@ namespace LTT.Controller
         }
         protected void SelectMajor()
         {
-            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectMajorForm();
             int selected=SwitchColumn(5);
             switch (selected)
             {
-                case 0:
+                case (int)Constant.Menu.FIRST_MENU:
                     storage.Major = "";
                     break;
-                case 1:
+                case (int)Constant.Menu.SECOND_MENU:
                     storage.Major = "컴퓨터공학과";
                     break;
-                case 2:
+                case (int)Constant.Menu.THIRD_MENU:
                     storage.Major = "소프트웨어학과";
                     break;
-                case 3:
+                case (int)Constant.Menu.FOURTH_MENU:
                     storage.Major = "지능기전공학부";
                     break;
-                case 4:
+                case (int)Constant.Menu.FIFTH_MENU:
                     storage.Major = "기계항공우주공학부";
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Major = "";
-                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
             }
 
         }
         private void SelectDistribution()
         {
-            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectDistributionForm();
             int selected = SwitchColumn(4);
             switch (selected)
             {
-                case 0:
+                case (int)Constant.Menu.FIRST_MENU:
                     storage.Distribution = "";
                     break;
-                case 1:
+                case (int)Constant.Menu.SECOND_MENU:
                     storage.Distribution = "교양필수";
                     break;
-                case 2:
+                case (int)Constant.Menu.THIRD_MENU:
                     storage.Distribution = "전공필수";
                     break;
-                case 3:
+                case (int)Constant.Menu.FOURTH_MENU:
                     storage.Distribution = "전공선택";
                     break;
                 case Constant.ESCAPE_INT:
-                    storage.Distribution = "";
-                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    storage.Distribution = Constant.EMPTY;
+                    basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
             }
         }
         protected void SelectProfessor()
         {
             Console.CursorVisible = true;
-            storage.Professor = "";
-            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            storage.Professor = Constant.EMPTY;
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectProfessorForm();
             bool isException = true;
             while (isException)
             {
-                Console.SetCursorPosition(Constant.SEARCH_LEFT + 32, Console.CursorTop);
-                storage.Professor = input.GetUserString(10, 2);
+                Console.SetCursorPosition(Constant.PROFESSOR_CUSOR, Console.CursorTop);
+                storage.Professor = input.GetUserString(Constant.STRING_INPUT_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (storage.Professor == Constant.ESCAPE_STRING)
                 {
-                    storage.Professor = "";
-                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    storage.Professor = Constant.EMPTY;
+                    basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
                 isException = exception.IsProfessorAndLectureNameCheck(storage.Professor);
@@ -229,19 +233,19 @@ namespace LTT.Controller
         protected void SelectLectureName()
         {
             Console.CursorVisible = true;
-            storage.LectureName = "";
-            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            storage.LectureName = Constant.EMPTY;
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectClassNameForm();
             bool isException = true;
             while (isException)
             {
-                Console.SetCursorPosition(Constant.SEARCH_LEFT + 34, Console.CursorTop);
-                storage.LectureName = input.GetUserString(10, 2);
+                Console.SetCursorPosition(Constant.LECTURENAME_CUSOR, Console.CursorTop);
+                storage.LectureName = input.GetUserString(Constant.STRING_INPUT_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (storage.LectureName == Constant.ESCAPE_STRING)
                 {
-                    storage.LectureName = "";
-                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    storage.LectureName = Constant.EMPTY;
+                    basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
                 isException = exception.IsProfessorAndLectureNameCheck(storage.LectureName);
@@ -250,33 +254,33 @@ namespace LTT.Controller
         }
         protected void SelectCourse()
         {
-            Console.SetCursorPosition(Constant.SEARCH_LEFT + 20, Console.CursorTop);
-            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectCourseForm();
             int selected = SwitchColumn(4);
             switch (selected)
             {
-                case 0:
+                case (int)Constant.Menu.FIRST_MENU:
                     storage.Course = "";
                     break;
-                case 1:
+                case (int)Constant.Menu.SECOND_MENU:
                     storage.Course = "1";
                     break;
-                case 2:
+                case (int)Constant.Menu.THIRD_MENU:
                     storage.Course = "2";
                     break;
-                case 3:
+                case (int)Constant.Menu.FOURTH_MENU:
                     storage.Course = "3";
                     break;
                 case Constant.ESCAPE_INT:
                     storage.Course = "";
-                    basicView.DeleteString(Constant.SEARCH_LEFT + 20, Console.CursorTop, 100);
+                    basicView.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
             }
         }
         private void ShowAllLectures()
         {
-            Console.SetCursorPosition(0, 7);
+            Console.SetCursorPosition(Constant.INDEX_MINIMUM, Constant.SHOW_LECTURE_CUSOR);
             foreach (LectureVO table in lectureTable)
             {
                 if (table.Sequence=="NO"|| (table.Distribution.Contains(storage.Distribution) && table.Major.Contains(storage.Major) && table.Professor.ToUpper().Contains(storage.Professor.ToUpper()) && table.LectureName.ToUpper().Contains(storage.LectureName.ToUpper()) && table.Course.Contains(storage.Course)))

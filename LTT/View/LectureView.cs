@@ -92,20 +92,20 @@ namespace LTT.View
             }
             Console.Write(time);
         }
-        public void SelectLectureForm()
+        private void ShowSelection(string insert)
         {
             Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  개설학과전공");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  이수구분");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  교과목명");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  교수명");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  학년");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  조회");
+            Console.WriteLine(insert);
+            Console.WriteLine();
+        }
+        public void SelectLectureForm()
+        {
+            ShowSelection("  개설학과전공");
+            ShowSelection("  이수구분");
+            ShowSelection("  교과목명");
+            ShowSelection("  교수명");
+            ShowSelection("  학년");
+            ShowSelection("  조회");
         }
         public void SelectMajorForm()
         {
@@ -134,46 +134,34 @@ namespace LTT.View
         }
         public void SelectInterstForm()
         {
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  개설학과전공");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  학수번호");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  교과목명");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  교수명");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  학년");
-            Console.SetCursorPosition(Constant.SEARCH_LEFT, Console.CursorTop);
-            Console.WriteLine("  조회");
+            ShowSelection("  개설학과전공");
+            ShowSelection("  학수번호");
+            ShowSelection("  교과목명");
+            ShowSelection("  교수명");
+            ShowSelection("  학년");
+            ShowSelection("  조회");
         }
         public void SelectMore()
         {
             Console.Write("  계속 입력    재검색");
         }
-        public void CheckGrades(int maximumGrades,int currentGrades)
+        public void CheckGrades(int maximumGrades,int currentGrades,int cursor)
         {
-            Console.SetCursorPosition(0, 6);
+            Console.SetCursorPosition(Constant.CAN_INSERT_CUSOR, cursor);
             Console.Write("신청가능 학점:{0}", maximumGrades - currentGrades);
-            Console.SetCursorPosition(20, Console.CursorTop);
+            Console.SetCursorPosition(Constant.INSERT_CUSOR, Console.CursorTop);
             Console.Write("신청 학점:{0}", currentGrades);
-            Console.SetCursorPosition(34, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_INSERT_CUSOR, Console.CursorTop);
             Console.Write("강의 NO:");
         }
         public void CheckLectureNumber(int maximumGrades, int currentGrades)
         {
-            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.SetCursorPosition(Constant.CAN_INSERT_CUSOR, Console.CursorTop);
             Console.Write("신청가능 학점:{0}", maximumGrades - currentGrades);
-            Console.SetCursorPosition(20, Console.CursorTop);
+            Console.SetCursorPosition(Constant.INSERT_CUSOR, Console.CursorTop);
             Console.Write("신청 학점:{0}", currentGrades);
-            Console.SetCursorPosition(34, Console.CursorTop);
+            Console.SetCursorPosition(Constant.NUMBER_INSERT_CUSOR, Console.CursorTop);
             Console.Write("강의 NO:");
-        }
-        public void InterestLabel()
-        {
-            Console.Clear();
-            Console.SetCursorPosition(70, 0);
-            Console.WriteLine("관심과목 조회");
         }
     }
 }
