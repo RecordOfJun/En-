@@ -66,7 +66,7 @@ namespace LTT
         public const int EXCEL_MAXIMUM_ROW = 185;
         public const int EXCEL_MINIMUM_COLUMN = 1;
         public const int EXCEL_MAXIMUM_COLUMN = 12;
-        public const int MAIN_MENU_COUNT = 4;
+        public const int MAIN_MENU_COUNT = 5;
         public const int INTEREST_MENU_COUNT = 5;
         public const int SEARCH_MENU_COUNT = 6;
         public const int INTEREST_MAX = 24;

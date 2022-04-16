@@ -34,8 +34,8 @@ namespace LTT.Model
                 }
                 else
                 {
-                    for (int j = 0; j < 8; j++)
-                        timeTable[j, row] = "";
+                    for (int column = 0; column < 8; column++)
+                        timeTable[column, row] = "";
                 }
             }
         }

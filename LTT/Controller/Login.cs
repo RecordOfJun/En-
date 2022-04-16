@@ -18,6 +18,7 @@ namespace LTT.Controller
         public LectureStorage InterestLecture;
         public LectureStorage myLecture;
         public Exception exception;
+        public Excel.Sheets sheets;
     }
     class Login
     {
@@ -44,20 +45,21 @@ namespace LTT.Controller
             this.input = new Input(basicView);
             this.lectureTable = new List<LectureVO>();
             this.exception = new Exception(exceptionView,basicView);
+            application = new Excel.Application();
+            workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
+            sheets = workbook.Sheets;
             instances.exception = this.exception;
             instances.basicView = this.basicView;
             instances.exceptionView = this.exceptionView;
             instances.input = this.input;
             instances.lectureTable = this.lectureTable;
+            instances.sheets = sheets;
             this.mainMenu = new MainMenu(instances);
         }
 
 
         private void LinkExcelData()//엑셀 데이터 연동 메소드
         {
-            application = new Excel.Application();
-            workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2022년도 1학기 강의시간표.xlsx");
-            sheets = workbook.Sheets;
             worksheet = sheets["전체강의"] as Excel.Worksheet;
             cellRange = worksheet.get_Range("A1", "L185") as Excel.Range;
             data = (Array)cellRange.Cells.Value2;
@@ -116,6 +118,7 @@ namespace LTT.Controller
                 this.lectureTable.Add(lectureVO);
             }
         }
+
         public void GetInProgram()//프로그램 시작
         {
             LinkExcelData();//엑셀 데이터 불러오기

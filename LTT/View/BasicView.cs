@@ -76,6 +76,7 @@ namespace LTT.View
             PrintMiddleLine("  전체 강의 조회");
             PrintMiddleLine("  관심과목 담기");
             PrintMiddleLine("  수강 신청");
+            PrintMiddleLine("  수강 내역 엑셀 저장");
             PrintMiddleLine("  프로그램 종료");
         }
         public void InterestForm()

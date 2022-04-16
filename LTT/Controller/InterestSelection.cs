@@ -329,7 +329,7 @@ namespace LTT.Controller
             return sequence;
         }
 
-        protected void ShowTimeTable(LectureStorage extant,string insert)//시간표 출력 메소드
+        public void ShowTimeTable(LectureStorage extant,string insert)//시간표 출력 메소드
         {
             extant.Init();
             extant.InsertTime();
