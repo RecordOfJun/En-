@@ -79,55 +79,63 @@ namespace LTT.Controller
             cellRanges.Cells.Value2 = "";
             InsertLecture(worksheet);
             InsertTime(worksheet);
+            input.IsEscAndEnter();
         }
         private void InsertLecture(Excel.Worksheet worksheet) {
+            Object value;
             int row = Constant.EXCEL_MINIMUM_ROW+1;
-            Excel.Range range;
+            string content;
             foreach (LectureVO lecture in myLecture.storeList)
             {
                 for (int column = Constant.EXCEL_MINIMUM_COLUMN; column <= Constant.EXCEL_MAXIMUM_COLUMN; column++)
                 {
-                    range = worksheet.Cells[row, column];
                     switch (column)
                     {
                         case (int)Constant.SECTOR.SEQUENCE:
-                            range.Value2 = lecture.Sequence;
+                            worksheet.Cells[row, column] = lecture.Sequence;
                             break;
                         case (int)Constant.SECTOR.MAJOR:
-                            range.Value2 = lecture.Major;
+                            worksheet.Cells[row, column] = lecture.Major;
                             break;
                         case (int)Constant.SECTOR.LECTURE_NUMBER:
-                            range.Value2 = lecture.LectureNumber;
+                            worksheet.Cells[row, column] = lecture.LectureNumber;
                             break;
                         case (int)Constant.SECTOR.DIVISION:
-                            range.Value2 = lecture.Division;
+                            worksheet.Cells[row, column] = lecture.Division;
                             break;
                         case (int)Constant.SECTOR.LECTURE_NAME:
-                            range.Value2 = lecture.LectureName;
+                            worksheet.Cells[row, column] = lecture.LectureName;
                             break;
                         case (int)Constant.SECTOR.DISTRIBUTION:
-                            range.Value2 = lecture.Distribution;
+                            worksheet.Cells[row, column] = lecture.Distribution;
                             break;
                         case (int)Constant.SECTOR.COURSE:
-                            range.Value2 = lecture.Course;
+                            worksheet.Cells[row, column] = lecture.Course;
                             break;
                         case (int)Constant.SECTOR.GRADE:
-                            range.Value2 = lecture.Grade;
+                            worksheet.Cells[row, column] = lecture.Grade;
                             break;
                         case (int)Constant.SECTOR.DAY_AND_TIME:
-                            range.Value2 = lecture.Time;
+                            worksheet.Cells[row, column] = lecture.Time;
                             break;
                         case (int)Constant.SECTOR.PLACE:
-                            range.Value2 = lecture.Place;
+                            worksheet.Cells[row, column] = lecture.Place;
                             break;
                         case (int)Constant.SECTOR.PROFESSOR:
-                            range.Value2 = lecture.Professor;
+                            worksheet.Cells[row, column] = lecture.Professor;
                             break;
                         case (int)Constant.SECTOR.LANGUAGE:
-                            range.Value2 = lecture.Language;
+                            worksheet.Cells[row, column] = lecture.Language;
                             break;
                     }
+                    value = worksheet.Cells[row, column];
+                    if (value == null)
+                        content = Constant.EMPTY;
+                    else
+                        content = value.ToString().Trim();
+                    Console.Write(content);
                 }
+                Console.WriteLine();
                 row++;
             }
         }
@@ -135,7 +143,9 @@ namespace LTT.Controller
         private void InsertTime(Excel.Worksheet worksheet)
         {
             string time;
-            Excel.Range range;
+            string insert;
+            object value;
+            string content;
             for (int row = Constant.MINIMUM_ROW; row < Constant.MAXIMUM_ROW; row++)
             {
                 time = Constant.EMPTY;
@@ -143,20 +153,31 @@ namespace LTT.Controller
                 {
                     if (column < 3)
                     {
-
                         time+= myLecture.timeTable[column, row];
                         if (column == 2)
                         {
-                            range = worksheet.Cells[row + 14, 1];
-                            range.Value2 = time;
+                            worksheet.Cells[row + 14, column - 1] = time;
+                            value = worksheet.Cells[row + 14, column];
+                            if (value == null)
+                                content = Constant.EMPTY;
+                            else
+                                content = value.ToString().Trim();
+                            Console.Write(content);
                         }
                     }
                     else
                     {
-                        range = worksheet.Cells[row + 14, column - 1];
-                        range.Value2= myLecture.timeTable[column, row];
+                        insert = myLecture.timeTable[column, row];
+                        worksheet.Cells[row+14, column-1]=insert;
+                        value = worksheet.Cells[row + 14, column];
+                        if (value == null)
+                            content = Constant.EMPTY;
+                        else
+                            content = value.ToString().Trim();
+                        Console.Write(content);
                     }
                 }
+                Console.WriteLine();
             }
         }
     }
