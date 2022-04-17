@@ -50,19 +50,19 @@ namespace LTT.Model
                     int dayIndex=0;
                     switch (lectureTime.day)
                     {
-                        case "월":
+                        case Constant.MONDAY:
                             dayIndex = 3;
                             break;
-                        case "화":
+                        case Constant.TUESDAY:
                             dayIndex = 4;
                             break;
-                        case "수":
+                        case Constant.WEDNESDAY:
                             dayIndex = 5;
                             break;
-                        case "목":
+                        case Constant.THURSDAY:
                             dayIndex = 6;
                             break;
-                        case "금":
+                        case Constant.FRIDAY:
                             dayIndex = 7;
                             break;
                     }

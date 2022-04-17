@@ -22,6 +22,20 @@ namespace LTT.View
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
+        public void ShowSucess(string insert)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowInsertSucess()
+        {
+            ShowSucess("신청을 성공했습니다.");
+        }
+        public void ShowDeleteSucess()
+        {
+            ShowSucess("삭제를 성공했습니다.");
+        }
         public void IdException()
         {
             ShowException("8자리 숫자를 입력해주세요");
@@ -36,7 +50,7 @@ namespace LTT.View
         }
         public void TimeOverlapException()
         {
-            ShowException("기존의 신청과목과 시간이 겹침니다");
+            ShowException("기존의 신청과목과 시간이 겹칩니다");
         }
         public void OverGradesException()
         {

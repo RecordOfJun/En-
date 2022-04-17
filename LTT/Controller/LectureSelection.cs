@@ -35,7 +35,7 @@ namespace LTT.Controller
                         AddFromInterest();
                         break;
                     case (int)Constant.Menu.THIRD_MENU://신청한 내역
-                        ShowInsertLectures(myLecture.storeList, Constant.JUST_SEARCH_TYPE,"수강신청 내역");
+                        ShowInsertLectures(myLecture,Constant.JUST_SEARCH_TYPE,"수강신청 내역");
                         break;
                     case (int)Constant.Menu.FOURTH_MENU://시간표 조회
                         ShowTimeTable(myLecture,"신청내역 시간표");
@@ -61,7 +61,7 @@ namespace LTT.Controller
             string sequence;
             while (true)
             {
-                ShowInsertLectures(interestLecture.storeList, Constant.CONTROLL_SEARCH_TYPE,"신청할 과목의 번호를 입력하세요");
+                ShowInsertLectures(interestLecture,Constant.CONTROLL_SEARCH_TYPE,"신청할 과목의 번호를 입력하세요");
                 lectureView.CheckLectureNumber(myLecture.MaximumGrades,myLecture.CurrentGrades);
                 sequence = GetSequence(myLecture,interestLecture.storeList);//관심과목 내의 번호 입력
                 if (sequence == Constant.ESCAPE_STRING)

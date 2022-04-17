@@ -54,8 +54,8 @@ namespace LTT.Controller
                         lectureSelection.SelectMenu();
                         break;
                     case (int)Constant.Menu.FOURTH_MENU://
-                        interestSelection.ShowTimeTable(myLecture, "엑셀 저장");
-                        UpdateExcel();
+                        if(interestSelection.ShowTimeTable(myLecture, "엔터 입력 시 엑셀을 저장합니다."))
+                            UpdateExcel();
                         break;
                     case (int)Constant.Menu.FIFTH_MENU://프로그램 종료
                         exception.ExitProgramm();
@@ -71,6 +71,7 @@ namespace LTT.Controller
 
         private void UpdateExcel()
         {
+            basicView.ExcelLoading();
             Excel.Worksheet worksheet = sheets["시간표"] as Excel.Worksheet;
             Excel.Range cellRanges = worksheet.get_Range("A2", "L12") as Excel.Range;
             cellRanges.Cells.Value2 = "";
@@ -80,48 +81,50 @@ namespace LTT.Controller
             InsertTime(worksheet);
         }
         private void InsertLecture(Excel.Worksheet worksheet) {
-            int row = Constant.EXCEL_MINIMUM_ROW + 1;
+            int row = Constant.EXCEL_MINIMUM_ROW+1;
+            Excel.Range range;
             foreach (LectureVO lecture in myLecture.storeList)
             {
                 for (int column = Constant.EXCEL_MINIMUM_COLUMN; column <= Constant.EXCEL_MAXIMUM_COLUMN; column++)
                 {
+                    range = worksheet.Cells[row, column];
                     switch (column)
                     {
                         case (int)Constant.SECTOR.SEQUENCE:
-                            worksheet.Cells[row, column] = lecture.Sequence;
+                            range.Value2 = lecture.Sequence;
                             break;
                         case (int)Constant.SECTOR.MAJOR:
-                            worksheet.Cells[row, column] = lecture.Major;
+                            range.Value2 = lecture.Major;
                             break;
                         case (int)Constant.SECTOR.LECTURE_NUMBER:
-                            worksheet.Cells[row, column] = lecture.LectureNumber;
+                            range.Value2 = lecture.LectureNumber;
                             break;
                         case (int)Constant.SECTOR.DIVISION:
-                            worksheet.Cells[row, column] = lecture.Division;
+                            range.Value2 = lecture.Division;
                             break;
                         case (int)Constant.SECTOR.LECTURE_NAME:
-                            worksheet.Cells[row, column] = lecture.LectureName;
+                            range.Value2 = lecture.LectureName;
                             break;
                         case (int)Constant.SECTOR.DISTRIBUTION:
-                            worksheet.Cells[row, column] = lecture.Distribution;
+                            range.Value2 = lecture.Distribution;
                             break;
                         case (int)Constant.SECTOR.COURSE:
-                            worksheet.Cells[row, column] = lecture.Course;
+                            range.Value2 = lecture.Course;
                             break;
                         case (int)Constant.SECTOR.GRADE:
-                            worksheet.Cells[row, column] = lecture.Grade;
+                            range.Value2 = lecture.Grade;
                             break;
                         case (int)Constant.SECTOR.DAY_AND_TIME:
-                            worksheet.Cells[row, column] = lecture.Time;
+                            range.Value2 = lecture.Time;
                             break;
                         case (int)Constant.SECTOR.PLACE:
-                            worksheet.Cells[row, column] = lecture.Place;
+                            range.Value2 = lecture.Place;
                             break;
                         case (int)Constant.SECTOR.PROFESSOR:
-                            worksheet.Cells[row, column] = lecture.Professor;
+                            range.Value2 = lecture.Professor;
                             break;
                         case (int)Constant.SECTOR.LANGUAGE:
-                            worksheet.Cells[row, column] = lecture.Language;
+                            range.Value2 = lecture.Language;
                             break;
                     }
                 }
@@ -131,9 +134,8 @@ namespace LTT.Controller
 
         private void InsertTime(Excel.Worksheet worksheet)
         {
-            myLecture.Init();
-            myLecture.InsertTime();
             string time;
+            Excel.Range range;
             for (int row = Constant.MINIMUM_ROW; row < Constant.MAXIMUM_ROW; row++)
             {
                 time = Constant.EMPTY;
@@ -141,15 +143,18 @@ namespace LTT.Controller
                 {
                     if (column < 3)
                     {
+
                         time+= myLecture.timeTable[column, row];
                         if (column == 2)
                         {
-                            worksheet.Cells[row + 14, column - 1] = time;
+                            range = worksheet.Cells[row + 14, 1];
+                            range.Value2 = time;
                         }
                     }
                     else
                     {
-                        worksheet.Cells[row+14, column-1] = myLecture.timeTable[column, row];
+                        range = worksheet.Cells[row + 14, column - 1];
+                        range.Value2= myLecture.timeTable[column, row];
                     }
                 }
             }

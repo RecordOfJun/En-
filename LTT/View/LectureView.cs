@@ -118,19 +118,19 @@ namespace LTT.View
         }
         public void SelectProfessorForm()
         {
-            Console.Write("교수명 입력:");
+            Console.Write("교수명 입력:(문자 2개이상)");
         }
         public void SelectClassNameForm()
         {
-            Console.Write("교과목명 입력:");
+            Console.Write("교과목명 입력:(문자 2개이상)");
         }
         public void SelectDivisionForm()
         {
-            Console.Write("학수번호 입력:                    분반 입력:");
+            Console.Write("학수번호 입력:(6자리 숫자)       분반 입력: (3자리 숫자)");
         }
         public void SelectCourseForm()
         {
-            Console.Write("  전체         1학년            2학년              3학년");
+            Console.Write("  전체         1학년            2학년              3학년             4학년");
         }
         public void SelectInterstForm()
         {
@@ -156,12 +156,15 @@ namespace LTT.View
         }
         public void CheckLectureNumber(int maximumGrades, int currentGrades)
         {
+            Console.SetCursorPosition(Constant.NUMBER_INSERT_CUSOR, Console.CursorTop);
+            Console.Write("강의 NO:");
+        }
+        public void ShowReaminNumber(int maximumGrades, int currentGrades)
+        {
             Console.SetCursorPosition(Constant.CAN_INSERT_CUSOR, Console.CursorTop);
             Console.Write("신청가능 학점:{0}", maximumGrades - currentGrades);
             Console.SetCursorPosition(Constant.INSERT_CUSOR, Console.CursorTop);
             Console.Write("신청 학점:{0}", currentGrades);
-            Console.SetCursorPosition(Constant.NUMBER_INSERT_CUSOR, Console.CursorTop);
-            Console.Write("강의 NO:");
         }
         public void SearchGuide()
         {

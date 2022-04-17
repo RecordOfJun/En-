@@ -38,7 +38,8 @@ namespace LTT.View
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "              ############                     ########                            ########             ");
             Console.WriteLine();
             SetCusorLeft(Constant.LOGIN_GUIDE_CUSOR, "==============================================================================================================");
-            Console.WriteLine();
+            Console.SetCursorPosition(Constant.ESC_CUSOR, Console.CursorTop);
+            Console.WriteLine("뒤로가기:ESC");
         }
         public void LoginView(){
             PrintMiddle("ID:");
@@ -96,12 +97,18 @@ namespace LTT.View
             PrintMiddleLine("  수강내역 삭제");
             PrintMiddleLine("  프로그램 종료");
         }
+        public void ExcelLoading()
+        {
+            Console.Clear();
+            Label();
+            Console.WriteLine();
+            Console.WriteLine();
+            PrintMiddleLine("  엑셀로 저장중입니다...");
+        }
         public void ShowLabelAndLine(string insert)
         {
-            Console.SetCursorPosition(Constant.MIDDLE_CUSOR, 0);
-            Console.Write(insert);
-            Console.SetCursorPosition(Constant.ESC_CUSOR, 0);
-            Console.WriteLine("뒤로가기:ESC");
+            Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
+            Console.WriteLine(insert);
             Console.Write(new string('=', Console.WindowWidth));
         }
     }

@@ -79,70 +79,60 @@ namespace LTT.Model
         public string Division
         {
             get { return division; }
-            set {  division= value; }
+            set { division = value; }
         }
-        public string Grade 
+        public string Grade
         {
             get { return grade; }
-            set {  grade= value; }
+            set { grade = value; }
         }
         public string Place
         {
             get { return place; }
-            set {  place= value; }
+            set { place = value; }
         }
         public string Time
         {
             get { return time; }
-            set {  
-                time= value;//시간 입력받을 때 날짜와 시간 추출
-                Regex days = new Regex(@"[월|화|수|목|금]");
-                Regex times = new Regex(@"[0-9]{2}:[0-9]{2}");
-                MatchCollection dayResult = days.Matches(time);
-                MatchCollection timeResult = times.Matches(time);
-                //수업 날짜, 수업시작 시간, 종료시간을 시간 관리 클래스에 넣어줌
-                if (dayResult.Count == 1)//날짜가 하루뿐일 때
-                {
-                    TimeTable timeTable = new TimeTable();
-                    timeTable.day = dayResult[0].Value.ToString();
-                    timeTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
-                    timeTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
-                    timeTables.Add(timeTable);
-                }
-                else if (dayResult.Count == 2&&timeResult.Count==2)//날짜 두개의 시간이 같을 때
-                {
-                    TimeTable firstTable = new TimeTable();
-                    firstTable.day = dayResult[0].Value.ToString();
-                    firstTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
-                    firstTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
-                    timeTables.Add(firstTable);
-                    TimeTable secondTable = new TimeTable();
-                    secondTable.day = dayResult[1].Value.ToString();
-                    secondTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
-                    secondTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
-                    timeTables.Add(secondTable);
-
-                }
-                else if (dayResult.Count == 2 && timeResult.Count == 4)//날짜 두개의 시간이 서로 다를 때
-                {
-                    TimeTable firstTable = new TimeTable();
-                    firstTable.day = dayResult[0].Value.ToString();
-                    firstTable.startTime = DateTime.Parse(timeResult[0].Value.ToString());
-                    firstTable.finishTime = DateTime.Parse(timeResult[1].Value.ToString());
-                    timeTables.Add(firstTable);
-                    TimeTable secondTable = new TimeTable();
-                    secondTable.day = dayResult[1].Value.ToString();
-                    secondTable.startTime = DateTime.Parse(timeResult[2].Value.ToString());
-                    secondTable.finishTime = DateTime.Parse(timeResult[3].Value.ToString());
-                    timeTables.Add(secondTable);
-
-                }
+            set { time = value;
+                SetTimeTable();//시간 입력받을 때 날짜와 시간 추출
             }
         }
-        public string Language 
+        public string Language
         {
             get { return language; }
-            set {  language= value; }
+            set { language = value; }
+        }
+        private void SetTimeTable()
+        {
+            Regex days = new Regex(@"[월|화|수|목|금]");
+            Regex times = new Regex(@"[0-9]{2}:[0-9]{2}");
+            MatchCollection dayResult = days.Matches(time);
+            MatchCollection timeResult = times.Matches(time);
+            //수업 날짜, 수업시작 시간, 종료시간을 시간 관리 클래스에 넣어줌
+            if (dayResult.Count == 1)//날짜가 하루뿐일 때
+            {
+                AddTimeTable(dayResult, timeResult, 0, 0);
+            }
+            else if (dayResult.Count == 2 && timeResult.Count == 2)//날짜 두개의 시간이 같을 때
+            {
+                AddTimeTable(dayResult, timeResult, 0, 0);
+                AddTimeTable(dayResult, timeResult, 1, 0);
+
+            }
+            else if (dayResult.Count == 2 && timeResult.Count == 4)//날짜 두개의 시간이 서로 다를 때
+            {
+                AddTimeTable(dayResult, timeResult, 0, 0);
+                AddTimeTable(dayResult, timeResult, 1, 2);
+            }
+        }
+        private void AddTimeTable(MatchCollection dayResult, MatchCollection timeResult,int dayIndex,int timeIndex)
+        {
+            TimeTable timeTable = new TimeTable();
+            timeTable.day = dayResult[dayIndex].Value.ToString();
+            timeTable.startTime = DateTime.Parse(timeResult[timeIndex].Value.ToString());
+            timeTable.finishTime = DateTime.Parse(timeResult[timeIndex+1].Value.ToString());
+            timeTables.Add(timeTable);
         }
     }
 }

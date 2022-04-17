@@ -28,22 +28,22 @@ namespace LTT.Controller
                 basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//
                 {
-                    case 0:
+                    case (int)Constant.Menu.FIRST_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
                         break;
-                    case 1:
+                    case (int)Constant.Menu.SECOND_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR);
                         break;
-                    case 2:
+                    case (int)Constant.Menu.THIRD_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR);
                         break;
-                    case 3:
+                    case (int)Constant.Menu.FOURTH_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR);
                         break;
-                    case 4:
+                    case (int)Constant.Menu.FIFTH_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR);
                         break;
-                    case 5:
+                    case (int)Constant.Menu.SIXTH_MENU:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR);
                         break;
                 }
@@ -91,7 +91,7 @@ namespace LTT.Controller
                 {
                     inputString += userinput;
                 }
-                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength*2+2);
+                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength*2+5);
                 RefreshString(inputString, inputType);//입력한 문자열 출력
             }
             return inputString;
@@ -148,6 +148,21 @@ namespace LTT.Controller
                 index += numberOfMenu;
             index = index % numberOfMenu;
             return index;
+        }
+        public bool IsEscAndEnter()
+        {
+            bool isNotESC = true;
+            while (isNotESC)//esc입력으로 빠져나오기
+            {
+                Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape)
+                    return false;
+                if (key.Key == ConsoleKey.Enter)
+                    return true;
+                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
+            }
+            return true;
         }
     }
 }

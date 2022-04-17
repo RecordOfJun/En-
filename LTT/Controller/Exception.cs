@@ -81,7 +81,7 @@ namespace LTT.Controller
             Regex lectureNumberForm = new Regex(@"^[0-9]{6}$");
             if (lectureNumberForm.IsMatch(lectureNumber))
                 return false;
-            Console.SetCursorPosition(100, Console.CursorTop);
+            Console.SetCursorPosition(Constant.LECTRUENUMBER_EXCEPTION, Console.CursorTop);
             exceptionView.LectureNumberException();
             ReadAndErase(Constant.LECTRUENUMBER_EXCEPTION, Constant.ID_EXCEPTION_LENGTH);
             return true;
@@ -105,6 +105,18 @@ namespace LTT.Controller
             exceptionView.StringException();
             ReadAndErase(Constant.PROFESSOR_EXCEPTION, Constant.PROFESSOR_EXCEPTION_LENGTH);
             return true;
+        }
+        public void InsertSucess()
+        {
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
+            exceptionView.ShowInsertSucess();
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.NUMBER_EXCEPTION_LENGTH);
+        }
+        public void DeleteSucess()
+        {
+            Console.SetCursorPosition(Constant.NUMBER_EXCEPTION, Console.CursorTop);
+            exceptionView.ShowDeleteSucess();
+            ReadAndErase(Constant.NUMBER_EXCEPTION, Constant.NUMBER_EXCEPTION_LENGTH);
         }
     }
 }

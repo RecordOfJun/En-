@@ -266,7 +266,7 @@ namespace LTT.Controller
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
             basicView.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             lectureView.SelectCourseForm();
-            int selected = SwitchColumn(4);//열 이동
+            int selected = SwitchColumn(5);//열 이동
             switch (selected)
             {//선택정보 저장
                 case (int)Constant.Menu.FIRST_MENU:
@@ -280,6 +280,9 @@ namespace LTT.Controller
                     break;
                 case (int)Constant.Menu.FOURTH_MENU:
                     storage.Course = "3";
+                    break;
+                case (int)Constant.Menu.FIFTH_MENU:
+                    storage.Course = "4";
                     break;
                 case Constant.ESCAPE_INT://esc감지
                     storage.Course = "";

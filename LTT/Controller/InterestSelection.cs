@@ -34,7 +34,7 @@ namespace LTT.Controller
                         SearchLecture(interestLecture);
                         break;
                     case (int)Constant.Menu.SECOND_MENU://관심과목 조회
-                        ShowInsertLectures(interestLecture.storeList, Constant.JUST_SEARCH_TYPE,"관심과목 조회");
+                        ShowInsertLectures(interestLecture,Constant.JUST_SEARCH_TYPE,"관심과목 조회");
                         break;
                     case (int)Constant.Menu.THIRD_MENU://관심과목 시간표
                         ShowTimeTable(interestLecture,"관심과목 시간표");
@@ -220,10 +220,13 @@ namespace LTT.Controller
                                 break;
                         }
                     }
-
+                    
 
                 }
+
             }
+            exception.InsertSucess();
+
             return sequence;
         }
         protected void AddInterest(string sequence, LectureStorage extant,List<LectureVO> lectures)//강의 추가
@@ -257,16 +260,17 @@ namespace LTT.Controller
                 }
             }
         }
-        protected void ShowInsertLectures(List<LectureVO> insertList,int type,string insert)//신청한 강의내역 확인
+        protected void ShowInsertLectures(LectureStorage extant,int type,string insert)//신청한 강의내역 확인
         {
             Console.Clear();
+            basicView.Label();
             basicView.ShowLabelAndLine(insert);
             for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
             {
                 lectureView.ShowLecture(column, lectureTable[0]);//데이터 유형 출력
             }
             Console.WriteLine();
-            foreach (LectureVO table in insertList)
+            foreach (LectureVO table in extant.storeList)
             {
                 for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
                 {
@@ -275,18 +279,9 @@ namespace LTT.Controller
                 Console.WriteLine();
             }
             Console.Write(new string('=', Console.WindowWidth));
-            if (type == Constant.JUST_SEARCH_TYPE)//단순조회
-            {
-                bool isNotESC = true;
-                while (isNotESC)//esc입력으로 빠져나오기
-                {
-                    Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
-                    ConsoleKeyInfo key = Console.ReadKey();
-                    if (key.Key == ConsoleKey.Escape || key.Key == ConsoleKey.Enter)
-                        break;
-                    basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
-                }
-            }
+            lectureView.ShowReaminNumber(extant.MaximumGrades, extant.CurrentGrades);
+            if(type==Constant.JUST_SEARCH_TYPE)
+                input.IsEscAndEnter();
         }
         protected void DeleteLectures(LectureStorage extant,string insert)//강의 삭제 메소드
         {
@@ -294,7 +289,7 @@ namespace LTT.Controller
             string sequence;
             while (true)
             {
-                ShowInsertLectures(extant.storeList, Constant.CONTROLL_SEARCH_TYPE,insert);
+                ShowInsertLectures(extant,Constant.CONTROLL_SEARCH_TYPE,insert);
                 lectureView.CheckLectureNumber(extant.MaximumGrades,extant.CurrentGrades);
                 sequence = GetDeleteSequence(extant.storeList);//삭제할 강의 번호 입력
                 if (sequence == Constant.ESCAPE_STRING)
@@ -326,14 +321,16 @@ namespace LTT.Controller
                 else if (insertList.Exists(element => element.Sequence == sequence))
                     break;
             }
+            exception.DeleteSucess();
             return sequence;
         }
 
-        public void ShowTimeTable(LectureStorage extant,string insert)//시간표 출력 메소드
+        public bool ShowTimeTable(LectureStorage extant,string insert)//시간표 출력 메소드
         {
             extant.Init();
             extant.InsertTime();
             Console.Clear();
+            basicView.Label();
             basicView.ShowLabelAndLine(insert);
             string[] days = { "", "", "", "월", "화", "수", "목", "금" };
             for (int column = 0; column < 8; column++)
@@ -349,15 +346,7 @@ namespace LTT.Controller
                 }
                 Console.WriteLine();
             }
-            bool isNotESC = true;
-            while (isNotESC)//esc입력으로 빠져나오기
-            {
-                Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Escape || key.Key == ConsoleKey.Enter)
-                    break;
-                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
-            }
+            return input.IsEscAndEnter();
         }
     }
 }

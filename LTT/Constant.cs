@@ -42,7 +42,7 @@ namespace LTT
         //커서
         public const int MIDDLE_CUSOR = 70;
         public const int EXIT_CUSOR = 83;
-        public const int ESC_CUSOR = 140;
+        public const int ESC_CUSOR = 120;
         public const int LOGIN_GUIDE_CUSOR = 30;
         public const int CAN_INSERT_CUSOR = 0;
         public const int INSERT_CUSOR = 20;
@@ -132,7 +132,7 @@ namespace LTT
         public const int ID_EXCEPTION_LENGTH = 25;
         public const int EXIST_EXCEPTION_LENGTH = 32;
         public const int TIME_EXCEPTION_LENGTH = 35;
-        public const int LECTRUENUMBER_EXCEPTION = 100;
+        public const int LECTRUENUMBER_EXCEPTION = 110;
         public const int DIVISION_EXCEPTION_LENGTH = 26;
         public const int PROFESSOR_EXCEPTION = 82;
         public const int PROFESSOR_EXCEPTION_LENGTH = 40;
@@ -143,5 +143,10 @@ namespace LTT
         public const int MINIMUM_COLUMN = 0;
         public const int MAXIMUM_COLUMN = 8;
         public const int MONDAY_COLUMN = 3;
+        public const string MONDAY = "월";
+        public const string TUESDAY = "화";
+        public const string WEDNESDAY = "수";
+        public const string THURSDAY = "목";
+        public const string FRIDAY = "금";
     }
 }
