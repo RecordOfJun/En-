@@ -8,13 +8,18 @@ namespace Library
 {
     class DBConnection
     {
+        private static DBConnection dBConnection = new DBConnection();
         MySqlConnection connection;
         MySqlCommand command;
         BasicView basicView = new BasicView();
         string query;
-        public DBConnection()
+        private DBConnection()
         {
             connection = new MySqlConnection("Server=localhost;Port=3306;Database=ensharpstudy;Uid=root;Pwd=6212");
+        }
+        public static DBConnection GetDBConnection()
+        {
+            return dBConnection;
         }
         public void InsertMember(MemberVO member)
         {
@@ -164,6 +169,18 @@ namespace Library
                 member=new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
             connection.Close();
             return member;
+        }
+        public bool FindId(string id)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from member ";
+            query += "where id='"+id+"'; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
         }
     }
 }

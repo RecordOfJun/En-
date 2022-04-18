@@ -17,18 +17,18 @@ namespace Library.Controller
         public MemberVO LoginMember;
         public Input input;
         public MemberVO storage;
-        public DBConnection dBConnection;
+        public static DBConnection dBConnection;
         public bool isBack;
         public bool isUp;
         public int inputType;
         public User() { }
         public User(VOList voList,ExceptionAndView exceptionAndView)
         {
+            dBConnection = DBConnection.GetDBConnection();
             storage = new MemberVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
-            dBConnection = new DBConnection();
             this.voList = voList;
             bookFunction = new BookService(voList, this,exceptionAndView); 
             input = new Input(ui);
@@ -66,6 +66,7 @@ namespace Library.Controller
             storage.PhoneNumber = LoginMember.PhoneNumber;
             storage.PersonalCode = LoginMember.PersonalCode;
             storage.Address = LoginMember.Address;
+            storage.MemberCode = LoginMember.MemberCode;
         }
         private bool ChekId()//아이디와 비밀번호가 일치하는 계정이 있는지 확인
         {
@@ -210,7 +211,7 @@ namespace Library.Controller
                     case Constant.ID_ADD_INDEX://아이디
                         userInput = input.GetUserString(Constant.ID_LENGTH,Constant.NOT_PASSWORD_TYPE);
                         if(userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsIdException(userInput, voList.memberList);
+                            isException = exception.IsIdException(userInput);
                         break;
                     case Constant.PASSWORD_ADD_INDEX://패스워드
                         userInput = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
@@ -264,8 +265,7 @@ namespace Library.Controller
             member.PersonalCode = storage.PersonalCode;
             member.PhoneNumber = storage.PhoneNumber;
             member.Address = storage.Address;
-            member.MemberCode = (int.Parse(voList.memberList[voList.memberList.Count - 1].MemberCode) + 1).ToString();
-            voList.memberList.Add(member);//리스트에 새로운 멤버 추가 
+            dBConnection.InsertMember(member);
         }
 
         //로그인 후 메뉴 선택기능
