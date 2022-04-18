@@ -14,45 +14,45 @@ namespace Library.Controller
             ui = new BasicView();
             input = new Input(ui);
         }
-        public int SelectMenu()//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
+        public int SelectMenu(int index)//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
         {
             Console.Clear();
             ui.LibraryLabel();
             ui.MenuGuide();
             ui.MainMenu();
-            return input.SwicthMenu(4);
+            return input.SwicthMenu(4,index);
         }
-        public int SelectUserMenu()//로그인 후 나오는 메뉴 선택
+        public int SelectUserMenu(int index)//로그인 후 나오는 메뉴 선택
         {
             Console.Clear();
             ui.LibraryLabel();
             ui.MemberGuide();
             ui.UserMenu();
-            return input.SwicthMenu(5);
+            return input.SwicthMenu(5,index);
         }
-        public int SelectAdminMenu()//관리자 메뉴 선택
+        public int SelectAdminMenu(int index)//관리자 메뉴 선택
         {
             Console.Clear();
             ui.AdminLabel();
             ui.AdminGuide();
             ui.AdminMenu();
-            return input.SwicthMenu(3);
+            return input.SwicthMenu(3,index);
         }
-        public int SelectBookMenu()//도서관리 메뉴 선택
+        public int SelectBookMenu(int index)//도서관리 메뉴 선택
         {
             Console.Clear();
             ui.AdminLabel();
             ui.AdminGuide();
             ui.BookManage();
-            return input.SwicthMenu(4);
+            return input.SwicthMenu(4,index);
         }
-        public int SelectMemberMenu()//회원관리 메뉴 선택
+        public int SelectMemberMenu(int index)//회원관리 메뉴 선택
         {
             Console.Clear();
             ui.AdminLabel();
             ui.AdminGuide();
             ui.MemberManage();
-            return input.SwicthMenu(3);
+            return input.SwicthMenu(3,index);
         }
 
     }

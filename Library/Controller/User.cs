@@ -83,7 +83,7 @@ namespace Library.Controller
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
                 storage.Password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
-                if (storage.Id == Constant.ESCAPE_STRING)
+                if (storage.Password == Constant.ESCAPE_STRING)
                 {
                     isBack = true;
                     return false;
@@ -104,7 +104,7 @@ namespace Library.Controller
         {
             isBack = false;
             int minimumIndex = 0 ;
-            int selectedSector;
+            int selectedSector=0;
             bool isNotComplete = true;
             inputType = 0;
             Console.Clear();
@@ -131,33 +131,36 @@ namespace Library.Controller
             }
             while (isNotComplete)
             {
-                selectedSector = input.SwicthSector(7);
+                selectedSector = input.SwicthSector(8,selectedSector);
                 switch (selectedSector)
                 {
-                    case 0://아이디 입력
+                    case (int)Constant.Menu.FIRST_MENU://아이디 입력
                         storage.Id = SetData(Constant.ID_ADD_INDEX, storage.Id);
                         break;
-                    case 1://비밀번호 입력
+                    case (int)Constant.Menu.SECOND_MENU://비밀번호 입력
                         storage.Password = SetData(Constant.PASSWORD_ADD_INDEX, storage.Password);
                         break;
-                    case 2://비밀번호 확인
+                    case (int)Constant.Menu.THIRD_MENU://비밀번호 확인
                         storage.TemporalPassword = SetData(Constant.PASSWORD_CONFIRM_INDEX, storage.TemporalPassword);
                         break;
-                    case 3://이름 입력
+                    case (int)Constant.Menu.FOURTH_MENU://이름 입력
                         storage.Name = SetData(Constant.NAME_ADD_INDEX, storage.Name);
                         break;
-                    case 4://주민번호 입력
+                    case (int)Constant.Menu.FIFTH_MENU://주민번호 입력
                         if (type == 1)//회원가입 시만 입력 가능하게
                             storage.PersonalCode = SetData(Constant.PERSONAL_ADD_INDEX, storage.PersonalCode);
                         break;
-                    case 5://전화번호 입력
+                    case (int)Constant.Menu.SIXTH_MENU://전화번호 입력
                         storage.PhoneNumber = SetData(Constant.PHONE_ADD_INDEX, storage.PhoneNumber);
                         break;
-                    case 6://주소 입력
+                    case (int)Constant.Menu.SEVENTH_MENU://주소 입력
                         storage.Address = SetData(Constant.ADDRESS_ADD_INDEX, storage.Address);
                         break;
-                    case 7://입력 완료 체크
-                        isNotComplete = false;
+                    case (int)Constant.Menu.EIGHTH_MENU://입력 완료 체크
+                        if (storage.IsNotNull())
+                            isNotComplete = false;
+                        else
+                            exceptionView.SignUpException();
                         break;
                     case Constant.ESCAPE_INT://입력 완료 체크
                         return;
@@ -273,11 +276,11 @@ namespace Library.Controller
         //로그인 후 메뉴 선택기능
         public void UserSelectMenu()
         {
-            int selectedMenu;
+            int selectedMenu=0;
             bool isExit = false;
             while (!isExit)
             {
-                selectedMenu = menuSelection.SelectUserMenu();//선택한 메뉴를 전달받음
+                selectedMenu = menuSelection.SelectUserMenu(selectedMenu);//선택한 메뉴를 전달받음
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:

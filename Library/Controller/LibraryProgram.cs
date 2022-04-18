@@ -56,10 +56,10 @@ namespace Library.Controller
         }
         public void start()//프로그램 시작
         {
-            int selectedMenu;
+            int selectedMenu=0;
             bool isExit = false;
             while (!isExit) {
-                selectedMenu = menuSelection.SelectMenu();//선택한 메뉴값을 전달해주는 메소드
+                selectedMenu = menuSelection.SelectMenu(selectedMenu);//선택한 메뉴값을 전달해주는 메소드
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:

@@ -11,21 +11,14 @@ namespace Library
         {
             this.basicView = basicView;
         }
-        public int SwicthMenu(int numberOfMenu)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
+        public int SwicthMenu(int numberOfMenu,int index)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
         {
             Console.CursorVisible = false;
-            int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             while (isNotEnter)
             {
                 //기존 커서 삭제
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//상하 방향키 감지로 인데스 조정, 메뉴 커서 조정
                 {
                     case (int)Constant.Menu.FIRST_MENU:
@@ -49,6 +42,7 @@ namespace Library
                 }
                 Console.Write(">");//커서 출력
                 index = GetUpDown(index, numberOfMenu);//상하 방향키 입력 및 감지
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, Console.CursorTop, 1);
                 if (index == Constant.RETURN)
                     return selected;//엔터 누르면 선택값 리턴
                 if (index == Constant.ESCAPE_INT)
@@ -150,70 +144,46 @@ namespace Library
             index = index % numberOfMenu;
             return index;
         }
-        public int SwicthSector(int numberOfMenu)//검색 정보 행(세로) 이동 함수
+        public int SwicthSector(int numberOfMenu,int index)//검색 정보 행(세로) 이동 함수
         {
-            int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             Console.CursorVisible = false;
             while (isNotEnter)
             {
                 //기존 커서 삭제
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIFTH_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SIXTH_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SEVENTH_SECTOR_CUSOR, 1);
-                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.EIGHTH_SECTOR_CUSOR, 1);
 
                 switch (index)
                 {//위아래 방향키를 감지해 커서 위치 최신화
                     case (int)Constant.Menu.FIRST_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.EIGHTH_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.SECOND_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.THIRD_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.FOURTH_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIFTH_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.FIFTH_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SIXTH_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIFTH_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIFTH_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.SIXTH_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIFTH_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SEVENTH_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SIXTH_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SIXTH_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.SEVENTH_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SIXTH_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.EIGHTH_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SEVENTH_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SEVENTH_SECTOR_CURSOR);
                         break;
                     case (int)Constant.Menu.EIGHTH_MENU:
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SEVENTH_SECTOR_CUSOR, 1);
-                        basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR, 1);
-                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.EIGHTH_SECTOR_CUSOR);
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.EIGHTH_SECTOR_CURSOR);
                         break;
 
                 }
                 Console.Write(">");
                 index = GetUpDown(index, numberOfMenu);//위 아래 입력 감지해 현재 커서 위치가 어디인지 파악해줌
+                basicView.DeleteString(Constant.SEARCH_LEFT, Console.CursorTop, 1);
                 if (index == Constant.RETURN)
                     return selected;//엔터 입력 시 선택 정보 리턴
                 if (index == Constant.ESCAPE_INT)

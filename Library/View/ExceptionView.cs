@@ -18,12 +18,12 @@ namespace Library.View
         }
         private void SearchException(int inputLength,string insert)
         {
-            int printLocation = inputLength + Constant.DATA_INSERT_CUSOR;
+            int printLocation = inputLength + Constant.DATA_INSERT_CURSOR;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
-            ReadAndErase(Constant.DATA_INSERT_CUSOR, 50);
+            ReadAndErase(Constant.DATA_INSERT_CURSOR, 50);
         }
         private void InsertException(int inputLength, string insert)
         {
@@ -36,7 +36,7 @@ namespace Library.View
         }
         private void SearchComplete(int inputLength, string insert)
         {
-            int printLocation = inputLength + Constant.DATA_INSERT_CUSOR;
+            int printLocation = inputLength + Constant.DATA_INSERT_CURSOR;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(insert);
@@ -50,6 +50,10 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void SignUpException()
+        {
+            InsertException(20, "  (정보를 다 입력해주세요!)");
         }
         public void QuantityAddException(int length)
         {

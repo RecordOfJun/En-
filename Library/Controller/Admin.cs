@@ -47,11 +47,11 @@ namespace Library.Controller
         }
         public void AdminSelectMenu()//관리자 메뉴 선택
         {
-            int selectedMenu;
+            int selectedMenu=0;
             bool isExit = false;
             while (!isExit)
             {
-                selectedMenu = menuSelection.SelectAdminMenu();
+                selectedMenu = menuSelection.SelectAdminMenu(selectedMenu);
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
@@ -72,10 +72,10 @@ namespace Library.Controller
         private void ManageBook()//책 관리 메소드
         {
             bool isInsert = false;
-            int selectedMenu;
+            int selectedMenu=0;
             while (!isInsert)//1,2,3,4,ESC만을 감지하여 키 입력 받기
             {
-                selectedMenu = menuSelection.SelectBookMenu();
+                selectedMenu = menuSelection.SelectBookMenu(selectedMenu);
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://1 입력 시 단순 조회
@@ -154,10 +154,10 @@ namespace Library.Controller
         private void ManageMember()//유저 관리 메소드
         {
             bool isInsert = false;
-            int selectedMenu;
+            int selectedMenu=0;
             while (!isInsert)
             {
-                selectedMenu = menuSelection.SelectMemberMenu();
+                selectedMenu = menuSelection.SelectMemberMenu(selectedMenu);
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://유저 단순 조회

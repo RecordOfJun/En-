@@ -110,7 +110,8 @@ namespace Library
             FIFTH_MENU,
             SIXTH_MENU,
             SEVENTH_MENU,
-            EIGHTH_MENU
+            EIGHTH_MENU,
+            NINETH_MENU
         }
         public enum MenuCursor
         {
@@ -123,27 +124,28 @@ namespace Library
         }
         public enum SectorCursor
         {
-            FIRST_SECTOR_CUSOR = 19,
-            SECOND_SECTOR_CUSOR=21,
-            THIRD_SECTOR_CUSOR=23,
-            FOURTH_SECTOR_CUSOR=25,
-            FIFTH_SECTOR_CUSOR = 27,
-            SIXTH_SECTOR_CUSOR = 29,
-            SEVENTH_SECTOR_CUSOR = 31,
-            EIGHTH_SECTOR_CUSOR = 33,
-            BOOK_CODE_CUSOR = 27,
-            BOOK_QUANTITY_CUSOR = 29,
+            FIRST_SECTOR_CURSOR = 19,
+            SECOND_SECTOR_CURSOR=21,
+            THIRD_SECTOR_CURSOR=23,
+            FOURTH_SECTOR_CURSOR=25,
+            FIFTH_SECTOR_CURSOR = 27,
+            SIXTH_SECTOR_CURSOR = 29,
+            SEVENTH_SECTOR_CURSOR = 31,
+            EIGHTH_SECTOR_CURSOR = 33,
+            NINETH_SECTOR_CURSOR = 35,
+            BOOK_CODE_CURSOR = 27,
+            BOOK_QUANTITY_CURSOR = 29,
         }
         public const int MIDDLE_CURSOR = 31;
         public const int ESCAPE_INT = -2;
         public const string ESCAPE_STRING = "@@@@@@@@@@@@@@@@@@@@";
         public const int HIDE_INPUT = 1;
         public const int SEARCH_LEFT = 0;
-        public const int COLUMN_PRINT_CUSOR = 20;
+        public const int COLUMN_PRINT_CURSOR = 20;
         public const int COLUMN_DELETE = 40;
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
-        public const int DATA_INSERT_CUSOR = 27;
+        public const int DATA_INSERT_CURSOR = 27;
         public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     }
 }

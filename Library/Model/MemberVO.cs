@@ -45,12 +45,19 @@ namespace Library.Model
         {
             id = Constant.EMPTY;
             password = Constant.EMPTY;
+            temporalPassword = Constant.EMPTY;
             name = Constant.EMPTY;
             personalCode = Constant.EMPTY;
             phoneNumber = Constant.EMPTY;
             address = Constant.EMPTY;
-            memberCode = Constant.EMPTY;
-    }
+        }
+        public bool IsNotNull()
+        {
+            if (id != Constant.EMPTY && password != Constant.EMPTY && temporalPassword != Constant.EMPTY && name != Constant.EMPTY && personalCode != Constant.EMPTY && phoneNumber != Constant.EMPTY && address != Constant.EMPTY)
+                return true;
+            return false;
+        }
+
         public string Id
         {
             get { return id; }

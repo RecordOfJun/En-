@@ -30,7 +30,6 @@ namespace Library.Controller
         {
             string userInput = Constant.EMPTY;
             Console.Clear();
-            
             SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput!=Constant.ESCAPE)
             {
@@ -109,7 +108,7 @@ namespace Library.Controller
             bool isNumber = false;
             string quantity=Constant.EMPTY;
             while (!isNumber) {//0보다 큰 숫자가 들어올 때까지 입력
-                Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
+                Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
                 quantity = input.GetUserString(2, Constant.NOT_PASSWORD_TYPE);
                 if (quantity == Constant.ESCAPE)
                     return;
@@ -120,8 +119,8 @@ namespace Library.Controller
                     exceptionView.QuantityReviseException(quantity.Length);
                 }
             }
-            ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
+            ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 book.Quantity = int.Parse(quantity);//수량 수정
@@ -168,12 +167,12 @@ namespace Library.Controller
         }
         private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 도서코드를 입력하는메소드
         {
-            int selectedSector;
+            int selectedSector=0;
             bool isNotSearch = true;
             //제목,작가명,출판사로 검색을 가능하게 함
             storage.Init();
             while (isNotSearch) {
-                selectedSector = input.SwicthSector(4);
+                selectedSector = input.SwicthSector(4,selectedSector);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:
@@ -198,9 +197,9 @@ namespace Library.Controller
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)
                 {
-                    Console.SetCursorPosition(Constant.DATA_INSERT_CUSOR, (int)Constant.SectorCursor.BOOK_CODE_CUSOR);
+                    Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
                     userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
-                    if (userInput == Constant.EMPTY || userInput==Constant.ESCAPE)
+                    if (userInput == Constant.EMPTY || userInput==Constant.ESCAPE_STRING)
                         return userInput;
                     isExisted = true;
                     if (!bookList.Exists(book => book.Id == userInput))//검색정보중에 코드와 일치하는 도서 있는지 확인
@@ -219,17 +218,17 @@ namespace Library.Controller
             Console.CursorVisible = true;
             //기존에 쓰여 있던 정보 없애주기
             userInput = Constant.EMPTY;
-            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
             ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             ui.BookNameForm();
-            Console.SetCursorPosition(Constant.DATA_INSERT_CUSOR, Console.CursorTop);
+            Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
             //교수명 입력
             userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {
                 userInput = Constant.EMPTY;
-                ui.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                ui.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
             }
             Console.CursorVisible = false;
             return userInput;
