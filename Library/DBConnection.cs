@@ -56,7 +56,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectMember(string id,string name, string phone)
+        public void SelectMember(string id,string name, string phone,List<MemberVO> memberList)
         {
             connection.Open();
             query = "";
@@ -68,7 +68,9 @@ namespace Library
             MySqlDataReader reader=command.ExecuteReader();
             while (reader.Read())
             {
-                basicView.MemberInformation(new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString()));
+                MemberVO member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+                basicView.MemberInformation(member);
+                memberList.Add(member);
             }
             connection.Close();
         }
@@ -188,6 +190,18 @@ namespace Library
             query = "";
             query += "SELECT * from member ";
             query += "where personalcode='" + personal + "'; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
+        }
+        public bool FindCode(string code)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from member ";
+            query += "where membercode='" + code + "'; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();

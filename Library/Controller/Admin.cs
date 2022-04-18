@@ -170,12 +170,8 @@ namespace Library.Controller
         private void ShowMemberList(string name,string id,string phonenumber)//유저정보 조회
         {
             List<MemberVO> findList = new List<MemberVO>();//찾은 멤버 리스트 저장
+            dBConnection.SelectMember(id, name, phonenumber,findList);
             //검색 정보와 일치하는 유저 정보들 찾은 후 전역 멤버 리스트로 넘겨주기
-            foreach (MemberVO member in voList.memberList.FindAll(element => element.Name.Contains(name)&&element.Id.Contains(id)&&element.PhoneNumber.Contains(phonenumber)))
-            {
-                findList.Add(member);
-                ui.MemberInformation(member);//찾은 유저 정보 차례대로 출력
-            }
             memberList = findList;
         }
         public void SearchAndChoiceMember(int type)//유저 정보 검색 및 선택
@@ -190,16 +186,19 @@ namespace Library.Controller
                 userInput = InsertNameAndPersonal(userInput, type);//검색 정보 입력과 회원 코드 입력 메소드 호출
                 if (userInput == Constant.ESCAPE)
                     return;
-                switch (type)
+                if (userInput != Constant.ESCAPE_STRING)
                 {
-                    case Constant.MEMBER_REVISE:
-                        AdminReviseMember(userInput);///검색한 정보와 입력한 회원코드를 토대로 회원정보 수정
-                        break;
-                    case Constant.MEMBER_DELETE:
-                        DeleteMember(userInput);//검색한 정보와 입력한 회원코드를 토대로 회원 삭제
-                        break;
-                    case 4://단순 조회 시 회원코드 조회 안함(매직넘버)
-                        break;
+                    switch (type)
+                    {
+                        case Constant.MEMBER_REVISE:
+                            AdminReviseMember(userInput);///검색한 정보와 입력한 회원코드를 토대로 회원정보 수정
+                            break;
+                        case Constant.MEMBER_DELETE:
+                            DeleteMember(userInput);//검색한 정보와 입력한 회원코드를 토대로 회원 삭제
+                            break;
+                        case 4://단순 조회 시 회원코드 조회 안함(매직넘버)
+                            break;
+                    }
                 }
             }
         }
@@ -238,10 +237,10 @@ namespace Library.Controller
                 {
                     Console.SetCursorPosition(Constant.ADD_INDEX+2, Constant.CODE_INDEX+2);
                     userInput = input.GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
-                    if (userInput == Constant.EMPTY || userInput == Constant.ESCAPE)//ESC나 엔터 입력 시에는 빠져나오기
+                    if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
-                    if (!memberList.Exists(member => member.MemberCode == userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
+                    if (!dBConnection.FindCode(userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
                     {
                         isExisted = false;
                         exceptionView.NotExisted(userInput.Length);//검색정보 중에 해당 회원코드가 없으면 예외출력

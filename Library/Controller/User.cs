@@ -182,6 +182,7 @@ namespace Library.Controller
             LoginMember.PhoneNumber = storage.PhoneNumber;
             LoginMember.PersonalCode = storage.PersonalCode;
             LoginMember.Address = storage.Address;
+            dBConnection.UpdateMember(LoginMember, LoginMember.MemberCode);
         }
         public void WriteData(int index, string data){//화면에 계정정보 출력
             Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
