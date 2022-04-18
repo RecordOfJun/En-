@@ -12,7 +12,6 @@ namespace Library.Controller
         ExceptionView exceptionView;
         Exception exception;
         List<BookVO> bookList;
-        List<MyBook> myBookList;
         BasicView ui;
         Input input;
         BookVO storage;
@@ -228,9 +227,8 @@ namespace Library.Controller
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
             ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
-            ui.BookNameForm();
+            ui.SearchForm();
             Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
-            //교수명 입력
             userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {

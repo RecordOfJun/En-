@@ -136,6 +136,7 @@ namespace Library.View
             Console.WriteLine("  :");
             Console.WriteLine("  수량[숫자만 입력해 주세요]");
             Console.WriteLine("  :");
+            Console.WriteLine("  완료하기");
 
         }
         public void ConfirmAddForm()
@@ -331,12 +332,14 @@ namespace Library.View
         }
         private void UserDataForm()
         {
-            Console.WriteLine("ID를 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("회원명을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("전화번호를 입력해주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  ID 입력");
+            Console.WriteLine();
+            Console.WriteLine("  회원명 입력");
+            Console.WriteLine("");
+            Console.WriteLine("  전화번호 입력");
+            Console.WriteLine("");
+            Console.WriteLine("  조회");
+            Console.WriteLine("");
         }
         private void UserManual()
         {
@@ -355,8 +358,8 @@ namespace Library.View
             Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
+            Console.WriteLine("  :");
         }
         public void MemberDeleteGuide()
         {
@@ -369,8 +372,8 @@ namespace Library.View
             Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
+            Console.WriteLine("  :");
         }
         public void MemberSearchGuide()
         {
@@ -408,7 +411,7 @@ namespace Library.View
             Console.WriteLine("                                 2.회원 정보 수정                                      ");
             Console.WriteLine("                                 3.회원 삭제                                ");
         }
-        public void BookNameForm()
+        public void SearchForm()
         {
             Console.Write("검색어:");
         }

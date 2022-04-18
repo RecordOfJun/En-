@@ -130,6 +130,8 @@ namespace Library.Controller
                         case (int)Constant.Menu.SEVENTH_MENU:
                             if (bookStorage.IsNotNull())
                                 isNotComplete = false;
+                            else
+                                exceptionView.SignUpException();
                             break;
                         case Constant.ESCAPE_INT:
                             return;
@@ -203,48 +205,38 @@ namespace Library.Controller
         }
         private string InsertNameAndPersonal(string userInput,int type)//검색 정보 입력과 회원 코드 입력 메소드
         {
-            string id = Constant.EMPTY;
-            string name = Constant.EMPTY;
-            string phonenumber = Constant.EMPTY;
-            ConsoleKeyInfo key;
-            bool isKey = false;
+            storage.Init();
+            int selectedSector = 0;
+            bool isNotSearch = true;
             //제목,작가명,출판사로 검색을 가능하게 함
-            while (!isKey)
+            while (isNotSearch)
             {
-                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
-                key = Console.ReadKey();//아이디,이름,휴대폰 번호 중 어떤 것으로 검색할 것인지 입력받음
-                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
-                Console.Write("  ");
-                isKey = true;
-                switch (key.Key)
+                selectedSector = input.SwicthSector(4, selectedSector);
+                switch (selectedSector)
                 {
-                    case ConsoleKey.D1:
-                        id = GetUserData(0,type);//1 입력시 아이디 입력
+                    case Constant.FIRST_MENU:
+                        storage.Id = SelectUserData((int)Constant.MemberSearch.ID);//아이디
                         break;
-                    case ConsoleKey.D2:
-                        name = GetUserData(2,type);//2 입력시 이름 입력
+                    case Constant.SECOND_MENU:
+                        storage.Name = SelectUserData((int)Constant.MemberSearch.NAME);//이름
                         break;
-                    case ConsoleKey.D3:
-                        phonenumber = GetUserData(4,type);//3 입력시 전화번호 입력
+                    case Constant.THIRD_MENU:
+                        storage.PhoneNumber = SelectUserData((int)Constant.MemberSearch.PHONE);//전화번호
                         break;
-                    case ConsoleKey.Enter://엔터 입력시 전체 정보 출력
+                    case Constant.FOURTH_MENU:
+                        isNotSearch = false;
                         break;
-                    case ConsoleKey.Escape:
+                    case Constant.ESCAPE_INT:
                         return Constant.ESCAPE;
-                    default:
-                        isKey = false;
-                        break;
                 }
             }
-            if (name == Constant.ESCAPE || id == Constant.ESCAPE || phonenumber == Constant.ESCAPE)
-                return Constant.ESCAPE;
-            Refresh(name,id,phonenumber,type);//검색한 정보 토대로 회원 검색 해 출력
+            Refresh(storage.Name, storage.Id, storage.PhoneNumber,type);//검색한 정보 토대로 회원 검색 해 출력
             if (type != 4)//단순 조회 아닐 시(매직넘버)
             {
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)
                 {
-                    Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
+                    Console.SetCursorPosition(Constant.ADD_INDEX+2, Constant.CODE_INDEX+2);
                     userInput = input.GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.EMPTY || userInput == Constant.ESCAPE)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
@@ -257,6 +249,38 @@ namespace Library.Controller
                 }
             }
 
+            return userInput;
+        }
+        private string SelectUserData(int type)//교수명 입력
+        {
+            string userInput=Constant.EMPTY;
+            bool isNotException=true;
+            //ui
+            Console.CursorVisible = true;
+            //기존에 쓰여 있던 정보 없애주기
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
+            //기존에 쓰여있던 문자열 지워주기
+            ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            ui.SearchForm();
+            while (isNotException)
+            {
+                Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
+                //교수명 입력
+                userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+                if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
+                {
+                    userInput = Constant.EMPTY;
+                    ui.DeleteString(Constant.DATA_INSERT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                    break;
+                }
+                if (type == (int)Constant.MemberSearch.ID)
+                    isNotException=!exception.IsExceptionIdPassword(userInput);
+                if (type == (int)Constant.MemberSearch.NAME)
+                    isNotException = !exception.IsNameException(userInput);
+                if (type == (int)Constant.MemberSearch.PHONE)
+                    isNotException=!exception.IsNumber(userInput);
+            }
+            Console.CursorVisible = false;
             return userInput;
         }
         private void AdminReviseMember(string code)//개인정보 수정
@@ -292,13 +316,6 @@ namespace Library.Controller
             }
             else
                 exceptionView.NotExistedMember(code.Length);//일치하는 회원 없으면 예외처리
-        }
-        private string GetUserData(int cursor,int type)//검색할 유저 정보 입력 받기
-        {
-            Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,type);
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + cursor);
-            string userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
-            return userInput;
         }
         private void Refresh(string name, string id, string phonenumber,int type)//재조회
         {

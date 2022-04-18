@@ -136,6 +136,12 @@ namespace Library
             BOOK_CODE_CURSOR = 27,
             BOOK_QUANTITY_CURSOR = 29,
         }
+        public enum MemberSearch
+        {
+            ID=1,
+            NAME,
+            PHONE
+        }
         public const int MIDDLE_CURSOR = 31;
         public const int ESCAPE_INT = -2;
         public const string ESCAPE_STRING = "@@@@@@@@@@@@@@@@@@@@";

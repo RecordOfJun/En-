@@ -250,13 +250,6 @@ namespace Library.Controller
                 exceptionView.InsertSuccess(userInput.Length);//예외 없이 입력 되었을 때 완료되었다고 알려줌
             return userInput;
         }
-        private void RefreshString(string inputString, int inputType)//예외필터를 거쳐 입력된 문자열을 출력해주는 함수
-        {
-            if (inputType == Constant.HIDE_INPUT)
-                ui.WritePassword(inputString);
-            else
-                ui.SetInputCursor(inputString);
-        }
         private void CreateTable()//새 계정 생성
         {
             MemberVO member = new MemberVO();//맴버 객체 생성
