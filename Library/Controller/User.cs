@@ -17,6 +17,7 @@ namespace Library.Controller
         public MemberVO LoginMember;
         public Input input;
         public MemberVO storage;
+        public DBConnection dBConnection;
         public bool isBack;
         public bool isUp;
         public int inputType;
@@ -27,6 +28,7 @@ namespace Library.Controller
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
+            dBConnection = new DBConnection();
             this.voList = voList;
             bookFunction = new BookService(voList, this,exceptionAndView); 
             input = new Input(ui);
@@ -90,9 +92,10 @@ namespace Library.Controller
                 }
                 isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);
             }
-            if (voList.memberList.Exists(element => element.Id == storage.Id) && voList.memberList.Find(element => element.Id == storage.Id).Password == storage.Password)
+            MemberVO member = dBConnection.FindUser(storage.Id, storage.Password);
+            if (member!=null)
             {
-                LoginMember = voList.memberList.Find(element => element.Id == storage.Id);
+                LoginMember = member;
                 return !Constant.IS_EXCEPTION;
             }
 

@@ -98,7 +98,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBookr(string name, string author, string publisher)
+        public void SelectBook(string name, string author, string publisher)
         {
             connection.Open();
             query = "";
@@ -110,9 +110,60 @@ namespace Library
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                basicView.MemberInformation(new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString())));
+                basicView.BookInformation(new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString())));
             }
             connection.Close();
+        }
+        public void InsertBorrow(BookVO book)
+        {
+            connection.Open();
+            query = "";
+            query += "Insert into book values ('";
+            query += book.Id + "','" + book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity + ");";
+            command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public void DeleteBorrow(string id)
+        {
+            connection.Open();
+            query = "";
+            query += "delete from member ";
+            query += "where id='" + id + "';";
+            command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        public void SelectBorrow(string name, string author, string publisher)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from book ";
+            query += "where name like '%" + name + "%' and ";
+            query += "author like '%" + author + "%' and ";
+            query += "publisher like '%" + publisher + "%'; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                basicView.BookInformation(new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString())));
+            }
+            connection.Close();
+        }
+        public MemberVO FindUser(string id,string password)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from member ";
+            query += "where id='" + id + "' and ";
+            query += "password= '" + password + "';";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            MemberVO member=null;
+            while (reader.Read())
+                member=new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+            connection.Close();
+            return member;
         }
     }
 }
