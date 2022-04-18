@@ -18,7 +18,7 @@ namespace LTT.Controller
         public LectureStorage InterestLecture;
         public LectureStorage myLecture;
         public Exception exception;
-        public Excel.Sheets sheets;
+        public Excel.Application application;
     }
     class Login
     {
@@ -53,7 +53,7 @@ namespace LTT.Controller
             instances.exceptionView = this.exceptionView;
             instances.input = this.input;
             instances.lectureTable = this.lectureTable;
-            instances.sheets = sheets;
+            instances.application = application;
             this.mainMenu = new MainMenu(instances);
         }
 

@@ -16,14 +16,16 @@ namespace LTT.Controller
         InterestSelection interestSelection;
         LectureSelection lectureSelection;
         Exception exception;
-        Excel.Sheets sheets;
+        Excel.Application application;
         LectureStorage myLecture;
+        List<LectureVO> lectureTable;
         public MainMenu(Instances instances)//메인메뉴를 보여주고 선택을 받아주는 클래스
         {
             this.basicView = instances.basicView;
             this.input = instances.input;
             this.exception = instances.exception;
-            this.sheets = instances.sheets;
+            this.application = instances.application;
+            this.lectureTable = instances.lectureTable;
             instances.lectureView = new LectureView();
             instances.myLecture = new LectureStorage(Constant.MY_MAX);
             this.myLecture = instances.myLecture;
@@ -72,25 +74,36 @@ namespace LTT.Controller
         private void UpdateExcel()//엑셀 저장 함수
         {
             basicView.ExcelLoading();//로딩중이라는 표시 보여줌=> 엑셀에 데이터가 다 들어가면 자동으로 화면 내려감
-            Excel.Worksheet worksheet = sheets["시간표"] as Excel.Worksheet;
+            Excel.Workbook workbook = application.Workbooks.Add();
+            Excel.Worksheet worksheet = workbook.Worksheets.Add();
+            worksheet.Name = "시간표";
             //신청과목 인덱스 범위 가져와 초기화
-            Excel.Range cellRanges = worksheet.get_Range("A2", "L12") as Excel.Range;
+            Excel.Range cellRanges = worksheet.get_Range("A1", "L12") as Excel.Range;
+            cellRanges = worksheet.get_Range("A2", "L12") as Excel.Range;
             cellRanges.Cells.Value2 = "";
             //시간표 인덱스 범위 가져와 초기화
             cellRanges = worksheet.get_Range("B14", "F61") as Excel.Range;
             cellRanges.Cells.Value2 = "";
             InsertLecture(worksheet);//신청과목 엑셀에 넣어주는 메소드
             InsertTime(worksheet);//시간표 엑셀에 넣어주는 메소드
+            workbook.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\강의시간표.xlsx", Excel.XlFileFormat.xlWorkbookDefault);
+            workbook.Close();
+        }
+        private void InitExcel(Excel.Worksheet worksheet)
+        {
+            Excel.Range cellRanges = worksheet.get_Range("A1", "L12") as Excel.Range;
+            Array data = cellRanges.Cells.Value2;
         }
         private void InsertLecture(Excel.Worksheet worksheet) {
             
-            int row = Constant.EXCEL_MINIMUM_ROW+1;
+            int row = Constant.EXCEL_MINIMUM_ROW;
             Excel.Range range;
+            myLecture.storeList.Insert(0, lectureTable[0]);
             foreach (LectureVO lecture in myLecture.storeList)//신청한 리스트들을 가져온다
             {
                 for (int column = Constant.EXCEL_MINIMUM_COLUMN; column <= Constant.EXCEL_MAXIMUM_COLUMN; column++)
                 {
-                    range = worksheet.Cells[row, column];//몇번째 열인지에 따라서 엑셀의 인덱스를 지정해준다
+                        range = worksheet.Cells[row, column];//몇번째 열인지에 따라서 엑셀의 인덱스를 지정해준다
                     switch (column)//인덱스별로 정보 다르게 저장
                     {
                         case (int)Constant.SECTOR.SEQUENCE://순서
@@ -134,12 +147,18 @@ namespace LTT.Controller
                 }
                 row++;//다음 행으로 이동
             }
+            myLecture.storeList.RemoveAt(0);
         }
 
         private void InsertTime(Excel.Worksheet worksheet)//시간표 저장 메소드
         {
             string time;
             Excel.Range range;
+            worksheet.Cells[13, 2] = "월";
+            worksheet.Cells[13, 3] = "화";
+            worksheet.Cells[13, 4] = "수";
+            worksheet.Cells[13, 5] = "목";
+            worksheet.Cells[13, 6] = "금";
             for (int row = Constant.MINIMUM_ROW; row < Constant.MAXIMUM_ROW; row++)
             {
                 time = Constant.EMPTY;

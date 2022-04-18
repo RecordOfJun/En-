@@ -27,7 +27,7 @@ namespace Library.View
         }
         private void InsertException(int inputLength, string insert)
         {
-            int printLocation = inputLength + Constant.ADD_INDEX;
+            int printLocation = inputLength + Constant.ADD_INDEX+2;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(insert);
@@ -45,12 +45,11 @@ namespace Library.View
         }
         private void InsertComplete(int inputLength, string insert)
         {
-            int printLocation = inputLength + Constant.ADD_INDEX;
+            int printLocation = inputLength + Constant.ADD_INDEX+2;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
-            ReadAndErase(printLocation, 50);
         }
         public void QuantityAddException(int length)
         {
@@ -125,6 +124,10 @@ namespace Library.View
         public void ReturnSuccess(int length)
         {
             SearchComplete(length, "  (반납이 완료되었습니다!))");
+        }
+        public void InsertSuccess(int length)
+        {
+            InsertComplete(length, "  (완료되었습니다!))");
         }
         public void NotExisted(int length)
         {

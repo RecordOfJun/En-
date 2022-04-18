@@ -110,7 +110,7 @@ namespace Library.Controller
             string quantity=Constant.EMPTY;
             while (!isNumber) {//0보다 큰 숫자가 들어올 때까지 입력
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.QUANTITY_INDEX);
-                quantity = userFunction.GetData(2, Constant.EMPTY);
+                quantity = input.GetUserString(2, Constant.NOT_PASSWORD_TYPE);
                 if (quantity == Constant.ESCAPE)
                     return;
                 isNumber = exception.IsNumber(quantity);
@@ -173,7 +173,7 @@ namespace Library.Controller
             //제목,작가명,출판사로 검색을 가능하게 함
             storage.Init();
             while (isNotSearch) {
-                selectedSector = input.SwicthSector();
+                selectedSector = input.SwicthSector(4);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:

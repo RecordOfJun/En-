@@ -21,6 +21,7 @@ namespace Library.Model
 
         private string id;
         private string password;
+        private string temporalPassword;
         private string name;
         private string personalCode;
         private string phoneNumber;
@@ -39,6 +40,16 @@ namespace Library.Model
             this.address = address;
             this.personalCode = personalCode;
             this.memberCode = memberCode;
+        }
+        public void Init()
+        {
+            id = Constant.EMPTY;
+            password = Constant.EMPTY;
+            name = Constant.EMPTY;
+            personalCode = Constant.EMPTY;
+            phoneNumber = Constant.EMPTY;
+            address = Constant.EMPTY;
+            memberCode = Constant.EMPTY;
     }
         public string Id
         {
@@ -49,6 +60,11 @@ namespace Library.Model
         {
             get { return password; }
             set { password = value; }
+        }
+        public string TemporalPassword
+        {
+            get { return temporalPassword; }
+            set { temporalPassword = value; }
         }
         public string Name
         {

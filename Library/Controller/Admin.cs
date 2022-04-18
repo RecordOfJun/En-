@@ -33,13 +33,13 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
                 id= input.GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
-                if (isBack)//ESC뒤로가기
+                if (id == Constant.ESCAPE_STRING)
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
                 password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
-                isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
-                if (isBack)
+                if (password == Constant.ESCAPE_STRING)
                     return;
+                isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
             }
@@ -254,7 +254,7 @@ namespace Library.Controller
                 while (!isExisted)
                 {
                     Console.SetCursorPosition(Constant.ADD_INDEX, Constant.CODE_INDEX);
-                    userInput = GetData(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.EMPTY);//매직넘버
+                    userInput = input.GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.EMPTY || userInput == Constant.ESCAPE)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
@@ -306,8 +306,8 @@ namespace Library.Controller
         {
             Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,type);
             Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX + cursor);
-            string input = GetData(10, Constant.EMPTY);
-            return input;
+            string userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+            return userInput;
         }
         private void Refresh(string name, string id, string phonenumber,int type)//재조회
         {
@@ -338,12 +338,12 @@ namespace Library.Controller
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
-                        userInput = GetData(Constant.BOOK_ID_LENGTH, Constant.EMPTY);
+                        userInput = input.GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (!isUp)
                             isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH, voList.bookList);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
-                        userInput = GetData(20, Constant.EMPTY);//도서명 입력
+                        userInput = input.GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -352,7 +352,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX:
-                        userInput = GetData(Constant.BOOK_STRING_LENGTH, userInput);//출판사 입력
+                        userInput = input.GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -361,7 +361,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.NAME_ADD_INDEX:
-                        userInput = GetData(Constant.BOOK_STRING_LENGTH, userInput);//저자명 입력
+                        userInput = input.GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -370,7 +370,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
-                        userInput = GetData(Constant.BOOK_PRICE_LENGTH, userInput);//가격 입력
+                        userInput = input.GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
                         if (!isUp)
                             isException = exception.IsNumber(userInput);
                         if (userInput == "0")
@@ -380,7 +380,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PHONE_ADD_INDEX:
-                        userInput = GetData(Constant.BOOK_QUANTITY_LENGTH, userInput);//수량 입력
+                        userInput = input.GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
                         if (!isUp)
                             isException = exception.IsNumber(userInput);
                         if (userInput == "0")
@@ -395,7 +395,7 @@ namespace Library.Controller
             }
             inputType++;//입력할 정보 타입 인덱스 조정
             if (!isBack)
-                ui.Passed(userInput.Length);//완료 출력
+                exceptionView.InsertSuccess(userInput.Length);//완료 출력
             return userInput;
         }
     }

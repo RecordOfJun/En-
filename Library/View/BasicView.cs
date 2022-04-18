@@ -93,20 +93,23 @@ namespace Library.View
         }
         private void InsetForm()
         {
-            Console.WriteLine("ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("PASSWORD확인");
-            Console.WriteLine(":");
-            Console.WriteLine("이름[한글만 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("주민번호[숫자 13자리를 입력해주세요 ex)9808281111111]");
-            Console.WriteLine(":");
-            Console.WriteLine("전화번호[숫자만 입력해 주세요 EX)01026763147]");
-            Console.WriteLine(":");
-            Console.WriteLine("주소[도로명>경기도 군포시 고산로 539번길 7-12, 지번주소>경기도 군포시 산본동 114]");
-            Console.WriteLine(":");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("  ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  PASSWORD[영문과 숫자를 혼합하여 6~12자 입력해 주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  PASSWORD확인");
+            Console.WriteLine("  :");
+            Console.WriteLine("  이름[한글만 입력해 주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  주민번호[숫자 13자리를 입력해주세요 ex)9808281111111]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  전화번호[숫자만 입력해 주세요 EX)01026763147]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  주소[도로명>경기도 군포시 고산로 539번길 7-12, 지번주소>경기도 군포시 산본동 114]");
+            Console.WriteLine("  :");
         }
         public void AddBook()
         {
@@ -376,14 +379,6 @@ namespace Library.View
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-        }
-        public void Passed(int length)
-        {
-            int printLocation = Constant.ADD_INDEX + length+2;
-            Console.SetCursorPosition(printLocation, Console.CursorTop);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("     (완료되었습니다!)");
-            Console.ForegroundColor = ConsoleColor.White;
         }
         public void AdminMenu()
         {

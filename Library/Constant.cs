@@ -23,14 +23,14 @@ namespace Library
 
         //Cursor
         public const int ADD_INDEX = 1;
-        public const int ID_ADD_INDEX = 17;
+        public const int ID_ADD_INDEX = 20;
         public const int NEXT_INDEX = 2;
-        public const int PASSWORD_ADD_INDEX = 19;
-        public const int PASSWORD_CONFIRM_INDEX = 21;
-        public const int NAME_ADD_INDEX = 23;
-        public const int PERSONAL_ADD_INDEX = 25;
-        public const int PHONE_ADD_INDEX = 27;
-        public const int ADDRESS_ADD_INDEX = 29;
+        public const int PASSWORD_ADD_INDEX = 22;
+        public const int PASSWORD_CONFIRM_INDEX = 24;
+        public const int NAME_ADD_INDEX = 26;
+        public const int PERSONAL_ADD_INDEX = 28;
+        public const int PHONE_ADD_INDEX = 30;
+        public const int ADDRESS_ADD_INDEX = 32;
         public const int LEFT = -1;
         public const int ID_LOGIN_INDEX = 15;
         public const int PASSWORD_LOGIN_INDEX = 17;
@@ -108,7 +108,9 @@ namespace Library
             THIRD_MENU,
             FOURTH_MENU,
             FIFTH_MENU,
-            SIXTH_MENU
+            SIXTH_MENU,
+            SEVENTH_MENU,
+            EIGHTH_MENU
         }
         public enum MenuCursor
         {
@@ -125,6 +127,10 @@ namespace Library
             SECOND_SECTOR_CUSOR=21,
             THIRD_SECTOR_CUSOR=23,
             FOURTH_SECTOR_CUSOR=25,
+            FIFTH_SECTOR_CUSOR = 27,
+            SIXTH_SECTOR_CUSOR = 29,
+            SEVENTH_SECTOR_CUSOR = 31,
+            EIGHTH_SECTOR_CUSOR = 33,
             BOOK_CODE_CUSOR = 27,
             BOOK_QUANTITY_CUSOR = 29,
         }
@@ -138,5 +144,6 @@ namespace Library
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
         public const int DATA_INSERT_CUSOR = 27;
+        public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     }
 }

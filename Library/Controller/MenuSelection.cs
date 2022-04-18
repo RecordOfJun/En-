@@ -38,7 +38,7 @@ namespace Library.Controller
             ui.AdminMenu();
             return input.SwicthMenu(3);
         }
-        public int SelectBookMenu()//관리자 메뉴 선택
+        public int SelectBookMenu()//도서관리 메뉴 선택
         {
             Console.Clear();
             ui.AdminLabel();
@@ -46,7 +46,7 @@ namespace Library.Controller
             ui.BookManage();
             return input.SwicthMenu(4);
         }
-        public int SelectMemberMenu()//관리자 메뉴 선택
+        public int SelectMemberMenu()//회원관리 메뉴 선택
         {
             Console.Clear();
             ui.AdminLabel();
