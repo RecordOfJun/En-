@@ -182,5 +182,17 @@ namespace Library
             connection.Close();
             return result;
         }
+        public bool FindPersonal(string personal)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from member ";
+            query += "where personalcode='" + personal + "'; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
+        }
     }
 }

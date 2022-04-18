@@ -19,7 +19,7 @@ namespace Library.Controller
         }
         public bool IsIdException(string userInput)
         {
-            if (!dBConnection.FindId(userInput))
+            if (dBConnection.FindId(userInput))
             {
                 exceptionView.ExistedId(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -132,7 +132,7 @@ namespace Library.Controller
                 exceptionView.CheckGender(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
-            if (memberList.Exists(member => member.PersonalCode == userInput))
+            if (dBConnection.FindPersonal(userInput))
             {
                 exceptionView.ExistedCode(userInput.Length);
                 return Constant.IS_EXCEPTION;
