@@ -23,7 +23,7 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
-            ReadAndErase(Constant.DATA_INSERT_CURSOR, 50);
+            ReadAndErase(Constant.DATA_INSERT_CURSOR, 60);
         }
         private void InsertException(int inputLength, string insert)
         {
@@ -71,13 +71,25 @@ namespace Library.View
         {
             InsertException(length, "  (영어와 숫자만 입력해 주세요!)");
         }
+        public void IdPasswordContainSearch(int length)
+        {
+            SearchException(length, "  (영어와 숫자만 입력해 주세요!)");
+        }
         public void IdPasswordNotContain(int length)
         {
             InsertException(length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
         }
+        public void IdPasswordNotContainSearch(int length)
+        {
+            SearchException(length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
+        }
         public void NameContain(int length)
         {
             InsertException(length, "  (한글만 입력해 주세요!)");
+        }
+        public void NameContainSearch(int length)
+        {
+            SearchException(length, "  (한글만 입력해 주세요!)");
         }
         public void PersonalAndPhoneLength(int length)
         {
@@ -86,6 +98,10 @@ namespace Library.View
         public void NumberContain(int length)
         {
             InsertException(length, "  (숫자만 입력해 주세요!)");
+        }
+        public void NumberContainSearch(int length)
+        {
+            SearchException(length, "  (숫자만 입력해 주세요!)");
         }
         public void StartWith010(int length)
         {

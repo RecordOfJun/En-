@@ -148,10 +148,12 @@ namespace Library
         public const int HIDE_INPUT = 1;
         public const int SEARCH_LEFT = 0;
         public const int COLUMN_PRINT_CURSOR = 20;
-        public const int COLUMN_DELETE = 40;
+        public const int COLUMN_DELETE = 50;
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
         public const int DATA_INSERT_CURSOR = 27;
         public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+        public const int SEARCH_TYPE = 1;
+        public const int INSERT_TYPE = 2;
     }
 }

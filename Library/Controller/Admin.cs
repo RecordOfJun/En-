@@ -270,15 +270,15 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
                 {
                     userInput = Constant.EMPTY;
-                    ui.DeleteString(Constant.DATA_INSERT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                    ui.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
                 if (type == (int)Constant.MemberSearch.ID)
-                    isNotException=!exception.IsExceptionIdPassword(userInput);
+                    isNotException=!exception.IsExceptionIdPassword(userInput,Constant.SEARCH_TYPE);
                 if (type == (int)Constant.MemberSearch.NAME)
-                    isNotException = !exception.IsNameException(userInput);
+                    isNotException = !exception.IsNameException(userInput,Constant.SEARCH_TYPE);
                 if (type == (int)Constant.MemberSearch.PHONE)
-                    isNotException=!exception.IsNumber(userInput);
+                    isNotException=!exception.IsNumber(userInput,Constant.SEARCH_TYPE);
             }
             Console.CursorVisible = false;
             return userInput;
@@ -342,7 +342,7 @@ namespace Library.Controller
             {
                 isUp = false;
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
-                //exceptionView.ClearLine(index);
+                ui.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
@@ -380,7 +380,7 @@ namespace Library.Controller
                     case Constant.PERSONAL_ADD_INDEX:
                         userInput = input.GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsNumber(userInput);
+                            isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
                         if (userInput == "0")
                         {
                             isException = Constant.IS_EXCEPTION;
@@ -390,7 +390,7 @@ namespace Library.Controller
                     case Constant.PHONE_ADD_INDEX:
                         userInput = input.GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsNumber(userInput);
+                            isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
                         if (userInput == "0")
                         {
                             isException = Constant.IS_EXCEPTION;

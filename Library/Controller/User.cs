@@ -76,7 +76,7 @@ namespace Library.Controller
                     isBack = true;
                     return false;
                 }
-                isException = exception.IsExceptionIdPassword(storage.Id);
+                isException = exception.IsExceptionIdPassword(storage.Id,Constant.INSERT_TYPE);
             }
             isException = false;
             while (!isException && !isBack)//비밀번호 예외 없을 때 까지 입력받기
@@ -88,7 +88,7 @@ namespace Library.Controller
                     isBack = true;
                     return false;
                 }
-                isException = exception.IsExceptionIdPassword(storage.Password);
+                isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);
             }
             if (voList.memberList.Exists(element => element.Id == storage.Id) && voList.memberList.Find(element => element.Id == storage.Id).Password == storage.Password)
             {
@@ -211,7 +211,7 @@ namespace Library.Controller
                     case Constant.PASSWORD_ADD_INDEX://패스워드
                         userInput = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                         if ( userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsExceptionIdPassword(userInput);
+                            isException = exception.IsExceptionIdPassword(userInput,Constant.INSERT_TYPE);
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX://패스워드 확인
                         userInput = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
@@ -221,7 +221,7 @@ namespace Library.Controller
                     case Constant.NAME_ADD_INDEX://이름
                         userInput = input.GetUserString(Constant.NAME_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsNameException(userInput);
+                            isException = exception.IsNameException(userInput, Constant.INSERT_TYPE);
                         break;
                     case Constant.PERSONAL_ADD_INDEX://주민번호
                         userInput = input.GetUserString(Constant.PERSONAL_LENGTH, Constant.NOT_PASSWORD_TYPE);
@@ -234,7 +234,7 @@ namespace Library.Controller
                             isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH, voList.memberList);
                         break;
                     case Constant.ADDRESS_ADD_INDEX://주소
-                        userInput = input.GetUserString(Console.WindowWidth - 1, Constant.NOT_PASSWORD_TYPE);
+                        userInput = input.GetUserString(Console.WindowWidth - 30, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)     
                             isException =exception.IsAdress(userInput);
                         break;

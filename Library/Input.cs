@@ -14,7 +14,7 @@ namespace Library
         public int SwicthMenu(int numberOfMenu,int index)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
         {
             Console.CursorVisible = false;
-            int selected = 0;
+            int selected = index;
             bool isNotEnter = true;
             while (isNotEnter)
             {
@@ -146,7 +146,7 @@ namespace Library
         }
         public int SwicthSector(int numberOfMenu,int index)//검색 정보 행(세로) 이동 함수
         {
-            int selected = 0;
+            int selected = index;
             bool isNotEnter = true;
             Console.CursorVisible = false;
             while (isNotEnter)

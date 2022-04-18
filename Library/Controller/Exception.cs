@@ -22,9 +22,9 @@ namespace Library.Controller
                 exceptionView.ExistedId(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
-            return IsExceptionIdPassword(userInput);
+            return IsExceptionIdPassword(userInput,Constant.INSERT_TYPE);
         }
-        public bool IsExceptionIdPassword(string userInput)
+        public bool IsExceptionIdPassword(string userInput,int type)
         {
             int length = userInput.Length;
             int deletedLength;
@@ -48,12 +48,18 @@ namespace Library.Controller
             bool isDeletechar = userInput.Length < deletedLength;
             if (userInput != Constant.EMPTY)
             {
-                exceptionView.IdPasswordContain(length);
+                if(type==Constant.INSERT_TYPE)
+                    exceptionView.IdPasswordContain(length);
+                else
+                    exceptionView.IdPasswordContainSearch(length);
                 return Constant.IS_EXCEPTION;
             }
             if (!isDeleteInt || !isDeletechar)
             {
-                exceptionView.IdPasswordNotContain(length);
+                if (type == Constant.INSERT_TYPE)
+                    exceptionView.IdPasswordNotContain(length);
+                else
+                    exceptionView.IdPasswordNotContainSearch(length);
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -67,15 +73,17 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
-        public bool IsNameException(string userInput)
+        public bool IsNameException(string userInput,int type)
         {
-            bool isContainKorean;
             if (userInput == Constant.ESCAPE)
                 return Constant.IS_EXCEPTION;
             Regex name = new Regex(@"^[가-힣]{1,4}");
             if (!name.IsMatch(userInput))
             {
-                exceptionView.NameContain(userInput.Length);
+                if(type==Constant.INSERT_TYPE)
+                    exceptionView.NameContain(userInput.Length);
+                else
+                    exceptionView.NameContainSearch(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -183,7 +191,7 @@ namespace Library.Controller
             }
             return false;
         }
-        public bool IsNumber(string input)
+        public bool IsNumber(string input,int type)
         {
             if (input == Constant.EMPTY)
             {
@@ -196,7 +204,10 @@ namespace Library.Controller
             }
             if (input != Constant.EMPTY)
             {
-                exceptionView.NumberContain(input.Length);
+                if (type == Constant.INSERT_TYPE)
+                    exceptionView.NumberContain(input.Length);
+                else
+                    exceptionView.NumberContainSearch(input.Length);
                 return false;
             }
             return true;

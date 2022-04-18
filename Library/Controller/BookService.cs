@@ -32,7 +32,6 @@ namespace Library.Controller
             SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput!=Constant.ESCAPE)
             {
-                SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
                 userInput = InsertNameAndCode(userInput,type);//책 정보 입력 및 도서코드 입력
                 if (userInput == Constant.ESCAPE)
                     return;
@@ -103,6 +102,7 @@ namespace Library.Controller
                 voList.bookList.Remove(book);//삭제
                 exceptionView.DeleteSuccess(bookCode.Length);//삭제 완료
             }
+            RefreshAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
         }
         private void ReviseBook(string bookCode)//책 수량 설정 메소드
         {
@@ -115,7 +115,7 @@ namespace Library.Controller
                 quantity = input.GetUserString(2, Constant.NOT_PASSWORD_TYPE);
                 if (quantity == Constant.ESCAPE)
                     return;
-                isNumber = exception.IsNumber(quantity);
+                isNumber = exception.IsNumber(quantity, Constant.INSERT_TYPE);
                 if (quantity == "0")
                 {
                     isNumber = Constant.IS_EXCEPTION;
