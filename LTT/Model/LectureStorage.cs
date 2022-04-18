@@ -20,22 +20,22 @@ namespace LTT.Model
         }
         public void Init()//2차원 배열 초기화
         {
-            DateTime dateTime = DateTime.Parse("08:30");
+            DateTime dateTime = DateTime.Parse(Constant.FIRST_LECTURE_TIME);//08:30분 부터 시작
             for (int row = Constant.MINIMUM_ROW; row< Constant.MAXIMUM_ROW; row++)
             {
-                if (row % 2 == 0)
+                if (row % 2 == 0)//짝수번째 열에
                 {
-                    timeTable[0, row] = dateTime.ToString("HH:mm");
+                    timeTable[0, row] = dateTime.ToString("HH:mm");//시작시간
                     timeTable[1, row] = "~";
-                    dateTime=dateTime.AddMinutes(30);
+                    dateTime=dateTime.AddMinutes(Constant.HALF_HOUR);//30분 더해서 종료시간 넣어주기
                     timeTable[2, row] = dateTime.ToString("HH:mm");
                     for (int column = Constant.MONDAY_COLUMN; column < Constant.MAXIMUM_COLUMN; column++)
-                        timeTable[column, row] = "";
+                        timeTable[column, row] = Constant.EMPTY;//과목명 값 다 비우기
                 }
                 else
                 {
                     for (int column = 0; column < 8; column++)
-                        timeTable[column, row] = "";
+                        timeTable[column, row] = Constant.EMPTY;//강의실 값 다 비우기
                 }
             }
         }
@@ -51,19 +51,19 @@ namespace LTT.Model
                     switch (lectureTime.day)
                     {
                         case Constant.MONDAY:
-                            dayIndex = 3;
+                            dayIndex = (int)Constant.TimeTableIndex.MONDAY;
                             break;
                         case Constant.TUESDAY:
-                            dayIndex = 4;
+                            dayIndex = (int)Constant.TimeTableIndex.TUESDAY;
                             break;
                         case Constant.WEDNESDAY:
-                            dayIndex = 5;
+                            dayIndex = (int)Constant.TimeTableIndex.WEDNESDAY;
                             break;
                         case Constant.THURSDAY:
-                            dayIndex = 6;
+                            dayIndex = (int)Constant.TimeTableIndex.THURSDAY;
                             break;
                         case Constant.FRIDAY:
-                            dayIndex = 7;
+                            dayIndex = (int)Constant.TimeTableIndex.FRIDAY;
                             break;
                     }
                     for(int index = startIndex; index <= finishIndex; index+=2)

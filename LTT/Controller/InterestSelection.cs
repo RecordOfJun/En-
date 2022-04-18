@@ -7,7 +7,7 @@ using LTT.View;
 using LTT.Model;
 namespace LTT.Controller
 {
-    class InterestSelection : WholeLecture
+    class InterestSelection : WholeLecture//관심과목 관련 메뉴 관리 클래스
     {
         protected LectureStorage interestLecture;
         public InterestSelection(Instances instances):base (instances)
@@ -16,7 +16,7 @@ namespace LTT.Controller
         }
 
 
-        public void SelectMenu()
+        public void SelectMenu()//관심과목 메뉴에서 메뉴 선택을 위한 메소드
         {
             Console.CursorVisible = false;
             int selected;
@@ -165,21 +165,22 @@ namespace LTT.Controller
             }
             storage.Init();
         }
-        protected string GetSequence(LectureStorage extant,List<LectureVO> lectures)//강의 번호 입력받기
+        protected string GetSequence(LectureStorage extant,List<LectureVO> lectures)//강의 번호 입력 메소드
         {
             bool isException=true;
             string sequence="";
-            while (isException)
+            while (isException)//예외 없을 때까지 반복
             {
                 isException = false;
-                Console.SetCursorPosition(42, Console.CursorTop);
+                //커서 위치 조정 및 기존 문자열 삭제
+                Console.SetCursorPosition(Constant.LECTURENUMBER_INSERT_CUSOR, Console.CursorTop);
                 basicView.DeleteString(Console.CursorLeft, Console.CursorTop, 100);
-                sequence = input.GetUserString(3, 2);
+                sequence = input.GetUserString(3, 2);//강의번호 입력
                 if (sequence == Constant.ESCAPE_STRING)//esc감지
                     return Constant.ESCAPE_STRING;
                 if (exception.IsNotNumberForm(sequence))//숫자인지 확인
                     isException = true;
-                else if (!lectures.Exists(element => element.Sequence == sequence))//검색목록 혹은 관심과목에 있는지
+                else if (!lectures.Exists(element => element.Sequence == sequence))//검색목록 혹은 관심과목에 있는지 확인
                 {
                     exception.NotExistException();
                     isException = true;
@@ -202,14 +203,14 @@ namespace LTT.Controller
                     //시간표 겹침 예외처리
                     else//깊이가 깊다고 들을 것 같다
                     {
-                        foreach (TimeTable timeTable in lecture.timeTables)
+                        foreach (TimeTable timeTable in lecture.timeTables)//입력한 강의의 시간을 가져온다
                         {
-                            foreach (LectureVO extantLecture in extant.storeList)
+                            foreach (LectureVO extantLecture in extant.storeList)//관심과목이나 수강신청한 강의 목록을 불러온다
                             {
-                                foreach (TimeTable extantTable in extantLecture.timeTables)
+                                foreach (TimeTable extantTable in extantLecture.timeTables)//불러온 강의 목록의 강의시간을 불러온다
                                 {
                                     if (timeTable.day == extantTable.day && timeTable.startTime < extantTable.finishTime && extantTable.startTime < timeTable.finishTime)
-                                    {
+                                    {//시간표가 겹치는지 알아보기
                                         isException = true;
                                         exception.TimeOverlapException();
                                         break;
@@ -262,26 +263,27 @@ namespace LTT.Controller
         }
         protected void ShowInsertLectures(LectureStorage extant,int type,string insert)//신청한 강의내역 확인
         {
+            //ui
             Console.Clear();
             basicView.Label();
             basicView.ShowLabelAndLine(insert);
             for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
             {
-                lectureView.ShowLecture(column, lectureTable[0]);//데이터 유형 출력
+                lectureView.ShowLecture(column, lectureTable[0]);//데이터 유형이 무엇인지 출력
             }
             Console.WriteLine();
             foreach (LectureVO table in extant.storeList)
             {
                 for (int column = (int)Constant.SECTOR.SEQUENCE; column <= (int)Constant.SECTOR.LANGUAGE; column++)
                 {
-                    lectureView.ShowLecture(column, table);
+                    lectureView.ShowLecture(column, table);//데이터 유형별로 출력 위치 다르게 하여 출력
                 }
                 Console.WriteLine();
             }
             Console.Write(new string('=', Console.WindowWidth));
             lectureView.ShowReaminNumber(extant.MaximumGrades, extant.CurrentGrades);
             if(type==Constant.JUST_SEARCH_TYPE)
-                input.IsEscAndEnter();
+                input.IsEscAndEnter();//단순 조회 시 esc나 엔터 감지하여 빠져나오기
         }
         protected void DeleteLectures(LectureStorage extant,string insert)//강의 삭제 메소드
         {
@@ -300,7 +302,7 @@ namespace LTT.Controller
             }
             
         }
-        protected string GetDeleteSequence(List<LectureVO> insertList)//삭제할 강의 번호 입력
+        private string GetDeleteSequence(List<LectureVO> insertList)//삭제할 강의 번호 입력
         {
             bool isException = true;
             string sequence = Constant.EMPTY;
@@ -328,7 +330,7 @@ namespace LTT.Controller
         public bool ShowTimeTable(LectureStorage extant,string insert)//시간표 출력 메소드
         {
             extant.Init();
-            extant.InsertTime();
+            extant.InsertTime();//시간표 저장 배열 다시 최신화
             Console.Clear();
             basicView.Label();
             basicView.ShowLabelAndLine(insert);
@@ -342,11 +344,11 @@ namespace LTT.Controller
             {
                 for(int column = Constant.MINIMUM_COLUMN; column < Constant.MAXIMUM_COLUMN; column++)
                 {
-                    lectureView.ShowTable(column, extant.timeTable[column,row]);//이후 데이터 출력
+                    lectureView.ShowTable(column, extant.timeTable[column,row]);//이후 데이터(과목명,강의실) 출력
                 }
                 Console.WriteLine();
             }
-            return input.IsEscAndEnter();
+            return input.IsEscAndEnter();//조회 후 엔터 esc로 빠져나오기
         }
     }
 }

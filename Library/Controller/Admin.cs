@@ -41,7 +41,7 @@ namespace Library.Controller
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
             }
-            AdminSelectMenu();//로그인 성송 시 관리자 메뉴 선택
+            AdminSelectMenu();//로그인 성공 시 관리자 메뉴 선택
         }
         public void AdminSelectMenu()//관리자 메뉴 선택
         {
@@ -58,7 +58,7 @@ namespace Library.Controller
                     case Constant.SECOND_MENU:
                         ManageMember();//멤버 관리
                         break;
-                    case Constant.QUIT://ESC감지
+                    case Constant.ESCAPE_INT://ESC감지
                         isExit = exception.IsEscape();
                         break;
                     case Constant.THIRD_MENU://프로그램 종료
@@ -70,34 +70,29 @@ namespace Library.Controller
         private void ManageBook()//책 관리 메소드
         {
             bool isInsert = false;
-            Console.Clear();
-            ui.AdminLabel();
-            ui.BookManage();
+            int selectedMenu;
             while (!isInsert)//1,2,3,4,ESC만을 감지하여 키 입력 받기
             {
-                ConsoleKeyInfo key = Console.ReadKey();
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, Console.CursorTop);
-                switch (key.Key)
+                selectedMenu = menuSelection.SelectBookMenu();
+                switch (selectedMenu)
                 {
-                    case ConsoleKey.D1://1 입력 시 단순 조회
+                    case Constant.FIRST_MENU://1 입력 시 단순 조회
                         isInsert = true;
                         bookFunction.SearchAndChoice(5);
                         break;
-                    case ConsoleKey.D2://2 입력 시
+                    case Constant.SECOND_MENU://2 입력 시
                         isInsert = true;
                         bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
                         break;
-                    case ConsoleKey.D3://3 입력 시
+                    case Constant.THIRD_MENU://3 입력 시
                         isInsert = true;
                         bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
-                    case ConsoleKey.D4://4 입력 시 책 추가
+                    case Constant.FOURTH_MENU://4 입력 시 책 추가
                         AddBook();
                         isInsert = true;
                         break;
-                    case ConsoleKey.Escape://ESC감지
+                    case Constant.ESCAPE_INT://ESC감지
                         return;
                 }
             }
@@ -161,30 +156,25 @@ namespace Library.Controller
         private void ManageMember()//유저 관리 메소드
         {
             bool isInsert = false;
-            Console.Clear();
-            ui.AdminLabel();
-            ui.MemberManage();
+            int selectedMenu;
             while (!isInsert)
             {
-                ConsoleKeyInfo key = Console.ReadKey();//1,2,3,ESC입력
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, Console.CursorTop);
-                switch (key.Key)
+                selectedMenu = menuSelection.SelectMemberMenu();
+                switch (selectedMenu)
                 {
-                    case ConsoleKey.D1://유저 단순 조회
+                    case Constant.FIRST_MENU://유저 단순 조회
                         isInsert = true;
                         SearchAndChoiceMember(4);
                         break;
-                    case ConsoleKey.D2://유저 정보 수정
+                    case Constant.SECOND_MENU://유저 정보 수정
                         isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_REVISE);
                         break;
-                    case ConsoleKey.D3://유저 삭제
+                    case Constant.THIRD_MENU://유저 삭제
                         isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_DELETE);
                         break;
-                    case ConsoleKey.Escape:
+                    case Constant.ESCAPE_INT:
                         return;
                 }
             }

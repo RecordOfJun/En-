@@ -5,10 +5,17 @@ using Library.Model;
 
 namespace Library.View
 {
-    class UI
+    class BasicView
     {
-        public UI()
+        public BasicView()
         {
+        }
+        public void DeleteString(int startCursorIndexOfX, int startCursorIndexOfY, int maximumLength)
+        {
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
+            Console.Write(new string(' ', maximumLength + 1));
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
+
         }
         public void LibraryLabel()
         {
@@ -175,6 +182,15 @@ namespace Library.View
             Console.WriteLine(":");
             Console.WriteLine("PASSWORD[관리자 전용 PASSWORD를 입력해 주세요]");
             Console.WriteLine(":");
+        }
+        public void AdminGuide()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                              관리자 전용 메뉴입니다!                 ");
+            Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
+            Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
+            Console.WriteLine("");
         }
         public void UserMenu()
         {
@@ -390,22 +406,16 @@ namespace Library.View
         }
         public void BookManage()
         {
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("");
-            Console.WriteLine("                            도서 조회를 원하시면 1번,");
-            Console.WriteLine("                            도서 수정을 원하시면 2번,");
-            Console.WriteLine("                            도서 삭제를 원하시면 3번,");
-            Console.WriteLine("                            도서 추가를 원하시면 4번");
-            Console.WriteLine("                                 을 눌러주세요!");
+            Console.WriteLine("                                 1.도서 관리                                        ");
+            Console.WriteLine("                                 2.도서 수정                                      ");
+            Console.WriteLine("                                 3.도서 삭제                                ");
+            Console.WriteLine("                                 4.도서 추가");
         }
         public void MemberManage()
         {
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("");
-            Console.WriteLine("                            회원정보 조회를 원하시면 1번,");
-            Console.WriteLine("                            회원정보 수정을 원하시면 2번,");
-            Console.WriteLine("                              회원 삭제를 원하시면 3번,");
-            Console.WriteLine("                                 을 눌러주세요!");
+            Console.WriteLine("                                 1.회원 조회                                        ");
+            Console.WriteLine("                                 2.회원 정보 수정                                      ");
+            Console.WriteLine("                                 3.회원 삭제                                ");
         }
     }
 }

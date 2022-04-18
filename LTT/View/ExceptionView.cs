@@ -12,7 +12,7 @@ namespace LTT.View
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
             Console.WriteLine(insert);
             Console.ForegroundColor = ConsoleColor.White;
         }
@@ -74,9 +74,9 @@ namespace LTT.View
         }
         public void AskExit()
         {
-            Console.SetCursorPosition(0, Console.CursorTop + 1);
+            Console.SetCursorPosition(Constant.MINIMUM_COLUMN, Console.CursorTop + 1);
             Console.Write(new string('=',Console.WindowWidth));
-            Console.SetCursorPosition(70, Console.CursorTop);
+            Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
             Console.WriteLine("정말 종료하시겠습니까?");
             Console.SetCursorPosition(45, Console.CursorTop);
             Console.WriteLine("종료하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");

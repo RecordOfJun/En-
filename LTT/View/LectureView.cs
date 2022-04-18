@@ -65,29 +65,29 @@ namespace LTT.View
         {
             switch (column)
             {
-                case 0:
-                    Console.SetCursorPosition(0, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.START_TIME:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.START_TIME_CURSOR, Console.CursorTop);
                     break;
-                case 1:
-                    Console.SetCursorPosition(6, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.SPECIAL_CHAR:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.SPECIAL_CHAR_CURSOR, Console.CursorTop);
                     break;
-                case 2:
-                    Console.SetCursorPosition(8, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.FINISH_TIME:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.FINISH_TIME_CURSOR, Console.CursorTop);
                     break;
-                case 3:
-                    Console.SetCursorPosition(14, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.MONDAY:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.MONDAY_CURSOR, Console.CursorTop);
                     break;
-                case 4:
-                    Console.SetCursorPosition(45, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.TUESDAY:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.TUESDAY_CURSOR, Console.CursorTop);
                     break;
-                case 5:
-                    Console.SetCursorPosition(76, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.WEDNESDAY:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.WEDNESDAY_CURSOR, Console.CursorTop);
                     break;
-                case 6:
-                    Console.SetCursorPosition(107, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.THURSDAY:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.THURSDAY_CURSOR, Console.CursorTop);
                     break;
-                case 7:
-                    Console.SetCursorPosition(138, Console.CursorTop);
+                case (int)Constant.TimeTableIndex.FRIDAY:
+                    Console.SetCursorPosition((int)Constant.TimeTableIndex.FRIDAY_CURSOR, Console.CursorTop);
                     break;
             }
             Console.Write(time);

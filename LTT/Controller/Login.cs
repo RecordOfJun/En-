@@ -36,7 +36,7 @@ namespace LTT.Controller
         Array data;
         List<LectureVO> lectureTable;
         bool isEscape;
-        public Login()
+        public Login()//로그인과 엑셀데이터를 리스트에 연동해주는 클래스
         {
             Console.SetWindowSize(178,30);
             instances = new Instances();
@@ -60,6 +60,7 @@ namespace LTT.Controller
 
         private void LinkExcelData()//엑셀 데이터 연동 메소드
         {
+            //엑셀 데이터 불러오기
             worksheet = sheets["전체강의"] as Excel.Worksheet;
             cellRange = worksheet.get_Range("A1", "L185") as Excel.Range;
             data = (Array)cellRange.Cells.Value2;
@@ -76,46 +77,46 @@ namespace LTT.Controller
                     else
                         content = value.ToString().Trim();
                     switch (column)
-                    {
-                        case (int)Constant.SECTOR.SEQUENCE:
+                    {//엑섹의 컬럼별로 강의 객체 속 각기 다른 변수에 값을 넣어줌
+                        case (int)Constant.SECTOR.SEQUENCE://순서
                             lectureVO.Sequence = content;
                             break;
-                        case (int)Constant.SECTOR.MAJOR:
+                        case (int)Constant.SECTOR.MAJOR://전공
                             lectureVO.Major = content;
                             break;
-                        case (int)Constant.SECTOR.LECTURE_NUMBER:
+                        case (int)Constant.SECTOR.LECTURE_NUMBER://학수번호
                             lectureVO.LectureNumber = content;
                             break;
-                        case (int)Constant.SECTOR.DIVISION:
+                        case (int)Constant.SECTOR.DIVISION://분반
                             lectureVO.Division = content;
                             break;
-                        case (int)Constant.SECTOR.LECTURE_NAME:
+                        case (int)Constant.SECTOR.LECTURE_NAME://강의명
                             lectureVO.LectureName = content;
                             break;
-                        case (int)Constant.SECTOR.DISTRIBUTION:
+                        case (int)Constant.SECTOR.DISTRIBUTION://이수구분
                             lectureVO.Distribution = content;
                             break;
-                        case (int)Constant.SECTOR.COURSE:
+                        case (int)Constant.SECTOR.COURSE://학년
                             lectureVO.Course = content;
                             break;
-                        case (int)Constant.SECTOR.GRADE:
+                        case (int)Constant.SECTOR.GRADE://학점
                             lectureVO.Grade = content;
                             break;
-                        case (int)Constant.SECTOR.DAY_AND_TIME:
+                        case (int)Constant.SECTOR.DAY_AND_TIME://시간
                             lectureVO.Time = content;
                             break;
-                        case (int)Constant.SECTOR.PLACE:
+                        case (int)Constant.SECTOR.PLACE://장소
                             lectureVO.Place = content;
                             break;
-                        case (int)Constant.SECTOR.PROFESSOR:
+                        case (int)Constant.SECTOR.PROFESSOR://교수명
                             lectureVO.Professor = content;
                             break;
-                        case (int)Constant.SECTOR.LANGUAGE:
+                        case (int)Constant.SECTOR.LANGUAGE://언어
                             lectureVO.Language = content;
                             break;
                     }                   
                 }
-                this.lectureTable.Add(lectureVO);
+                this.lectureTable.Add(lectureVO);//정보가 다 들어간 객체 리스트에 추가
             }
         }
 
@@ -128,7 +129,7 @@ namespace LTT.Controller
         }
 
 
-        private void CheckId()
+        private void CheckId()//아이디와 비밀번호를 체크해주는 메소드
         {
             isEscape = false;
             bool isNotCorrect= Constant.IS_NOT_CORRECT;
@@ -141,6 +142,7 @@ namespace LTT.Controller
             while (isNotCorrect)
             {
                 Console.CursorVisible = true;
+                //기존에 입력한 아이디 비밀번호와 예외 구문 지워주기
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_ID_INDEX, Constant.ID_DELETE);
                 basicView.DeleteString(Constant.LOGIN_INDEX, Constant.LOGIN_PASSWORD_INDEX, Constant.ID_DELETE);
                 basicView.DeleteString(Constant.MIDDLE_CUSOR, Constant.LOGIN_ID_INDEX + 2, Constant.RETRY_DELETE);
@@ -148,7 +150,7 @@ namespace LTT.Controller
                 isNotCorrect = IsCorrectUser();//아이디 비번 입력 메소드
                 if (isEscape == true)
                     return;
-                if (isNotCorrect == false)
+                if (isNotCorrect == false)//로그인 성공 시 반복문 빠져나오기
                     break;
                 exceptionView.NotCorrecId("잘못된 로그인 정보입니다!");
                 if (AskAgain() == Constant.EXIT_PROGRAM)//다시로그인 or 프로그램 종료
@@ -196,11 +198,12 @@ namespace LTT.Controller
             int selected = 0;
             bool isNotEnter = true;
             basicView.ShowAgain();
-            while (isNotEnter)//커서 이동
+            while (isNotEnter)
             {
+                //이전 커서 위치 지워주기
                 basicView.DeleteString(Constant.MIDDLE_CUSOR,Console.CursorTop, Constant.CUSOR_DELETE);
                 basicView.DeleteString(Constant.EXIT_CUSOR, Console.CursorTop, Constant.CUSOR_DELETE);
-                switch (index)
+                switch (index)//좌우 방향키에 따라 인덱스 변화 &커서위치 최신화
                 {
                     case Constant.RETRY:
                         Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
@@ -210,9 +213,9 @@ namespace LTT.Controller
                         break;
                 }
                 Console.Write(">");
-                index = input.GetLeftRight(index,2);
+                index = input.GetLeftRight(index,2);//좌우 입력받기
                 if (index == Constant.RETURN)
-                    return selected;
+                    return selected;//엔터 입력 시 선택한 항목 리턴
                 selected = index;
             }
             return selected;

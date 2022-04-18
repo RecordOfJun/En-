@@ -77,8 +77,8 @@ namespace Library
         public const int CONFRIM_LOGIN = 1;
         public const int CONFRIM_ADD = 1;
         public const int CONFIRM_REVISE = 2;
-        public const int QUIT = -1;
-        public const int RETURN = -2;
+        public const int QUIT = -2;
+        public const int RETURN = -1;
         public const int MONTH_INDEX = 2;
         public const int DAY_INDEX = 4;
         public const int GENDER_INDEX = 6;
@@ -101,6 +101,27 @@ namespace Library
         public const char ERASE = ' ';
         public const char ARROW = '>';
 
-        //Excptionstring
+        public enum Menu
+        {
+            FIRST_MENU = 0,
+            SECOND_MENU,
+            THIRD_MENU,
+            FOURTH_MENU,
+            FIFTH_MENU,
+            SIXTH_MENU
+        }
+        public enum MenuCursor
+        {
+            FIRST_MENU_CUSOR = 15,
+            SECOND_MENU_CUSOR ,
+            THIRD_MENU_CUSOR ,
+            FOURTH_MENU_CUSOR ,
+            FIFTH_MENU_CUSOR ,
+            SIXTH_MENU_CUSOR 
+        }
+        public const int MIDDLE_CURSOR = 31;
+        public const int ESCAPE_INT = -2;
+        public const string ESCAPE_STRING = "@@@@@@@@@@@@@@@@@@@@";
+        public const int HIDE_INPUT = 1;
     }
 }

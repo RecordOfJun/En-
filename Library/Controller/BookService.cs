@@ -13,7 +13,7 @@ namespace Library.Controller
         Exception exception;
         List<BookVO> bookList;
         List<MyBook> myBookList;
-        UI ui;
+        BasicView ui;
         public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;

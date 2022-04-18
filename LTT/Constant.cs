@@ -148,5 +148,35 @@ namespace LTT
         public const string WEDNESDAY = "수";
         public const string THURSDAY = "목";
         public const string FRIDAY = "금";
+        public const int FIRST_DAY = 0;
+        public const int SECOND_DAY = 1;
+        public const int FIRST_START_TIME = 0;
+        public const int SECOND_START_TIME = 2;
+        public const string FIRST_LECTURE_TIME = "08:30";
+        public const int HALF_HOUR = 30;
+        public const int EXCEL_TIME_INDEX = 14;
+        //lecture cursor
+        public enum TimeTableIndex
+        {
+            START_TIME=0,
+            SPECIAL_CHAR,
+            FINISH_TIME,
+            MONDAY,
+            TUESDAY,
+            WEDNESDAY,
+            THURSDAY,
+            FRIDAY,
+
+            START_TIME_CURSOR = 0,
+            SPECIAL_CHAR_CURSOR=6,
+            FINISH_TIME_CURSOR=8,
+            MONDAY_CURSOR=14,
+            TUESDAY_CURSOR=45,
+            WEDNESDAY_CURSOR=76,
+            THURSDAY_CURSOR=107,
+            FRIDAY_CURSOR=138,
+
+
+        }
     }
 }

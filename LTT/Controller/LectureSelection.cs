@@ -59,7 +59,8 @@ namespace LTT.Controller
         {
             Console.CursorVisible = true;
             string sequence;
-            while (true)
+            bool isNotEscape = true;
+            while (isNotEscape)
             {
                 ShowInsertLectures(interestLecture,Constant.CONTROLL_SEARCH_TYPE,"신청할 과목의 번호를 입력하세요");
                 lectureView.CheckLectureNumber(myLecture.MaximumGrades,myLecture.CurrentGrades);

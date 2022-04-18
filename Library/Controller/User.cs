@@ -11,7 +11,7 @@ namespace Library.Controller
         public ExceptionView exceptionView;
         public Exception exception;
         public VOList voList;
-        public UI ui;
+        public BasicView ui;
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
@@ -351,7 +351,7 @@ namespace Library.Controller
                     case Constant.FOURTH_MENU:
                         AddOrReviseMember(2);//개인정보 수정
                         break;
-                    case Constant.QUIT:
+                    case Constant.ESCAPE_INT:
                         isExit = exception.IsEscape();//ESC입력 감지
                         break;
                     case Constant.FIFTH_MENU:

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using LTT.View;
-namespace LTT.Controller
+using Library.View;
+namespace Library
 {
     class Input
     {
@@ -15,37 +13,38 @@ namespace LTT.Controller
         }
         public int SwicthMenu(int numberOfMenu)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
         {
+            Console.CursorVisible = false;
             int index = 0;
             int selected = 0;
             bool isNotEnter = true;
             while (isNotEnter)
             {
                 //기존 커서 삭제
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
-                basicView.DeleteString(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR, 1);
                 switch (index)//상하 방향키 감지로 인데스 조정, 메뉴 커서 조정
                 {
                     case (int)Constant.Menu.FIRST_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIRST_MENU_CUSOR);
                         break;
                     case (int)Constant.Menu.SECOND_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SECOND_MENU_CUSOR);
                         break;
                     case (int)Constant.Menu.THIRD_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.THIRD_MENU_CUSOR);
                         break;
                     case (int)Constant.Menu.FOURTH_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FOURTH_MENU_CUSOR);
                         break;
                     case (int)Constant.Menu.FIFTH_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.FIFTH_MENU_CUSOR);
                         break;
                     case (int)Constant.Menu.SIXTH_MENU:
-                        Console.SetCursorPosition(Constant.MIDDLE_CUSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR);
+                        Console.SetCursorPosition(Constant.MIDDLE_CURSOR, (int)Constant.MenuCursor.SIXTH_MENU_CUSOR);
                         break;
                 }
                 Console.Write(">");//커서 출력
@@ -58,7 +57,7 @@ namespace LTT.Controller
             }
             return selected;
         }
-        public string GetUserString(int maximumLength,int inputType)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
+        public string GetUserString(int maximumLength, int inputType)//원하는 길이 이하로 입력을 받아주는 메소드 & 화면에 SPREAD
         {
             ConsoleKeyInfo key;
             int startCusorIndex = Console.CursorLeft;
@@ -69,7 +68,7 @@ namespace LTT.Controller
             {
 
                 key = Console.ReadKey();
-                bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.DownArrow)|| (key.Key == ConsoleKey.UpArrow));
+                bool isArrow = ((key.Key == ConsoleKey.LeftArrow) || (key.Key == ConsoleKey.RightArrow) || (key.Key == ConsoleKey.DownArrow) || (key.Key == ConsoleKey.UpArrow));
                 userinput = key.KeyChar.ToString();
                 if (key.Key == ConsoleKey.Escape)//ESC눌렀을 시 알림
                 {
@@ -92,7 +91,7 @@ namespace LTT.Controller
                 {
                     inputString += userinput;
                 }
-                basicView.DeleteString(startCusorIndex,Console.CursorTop, maximumLength*2+5);
+                basicView.DeleteString(startCusorIndex, Console.CursorTop, maximumLength * 2 + 5);
                 RefreshString(inputString, inputType);//입력한 문자열 출력
             }
             return inputString;
@@ -104,7 +103,7 @@ namespace LTT.Controller
             else
                 basicView.SetInputCursor(inputString);
         }
-        public int GetLeftRight(int index,int numberOfMenu)
+        public int GetLeftRight(int index, int numberOfMenu)
         {
             ConsoleKeyInfo upAndDown = Console.ReadKey();
             switch (upAndDown.Key)
@@ -155,7 +154,7 @@ namespace LTT.Controller
             bool isNotESC = true;
             while (isNotESC)//esc입력으로 빠져나오기
             {
-                Console.SetCursorPosition(Constant.MIDDLE_CUSOR, Console.CursorTop);
+                Console.SetCursorPosition(Constant.MIDDLE_CURSOR, Console.CursorTop);
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.Key == ConsoleKey.Escape)
                     return false;

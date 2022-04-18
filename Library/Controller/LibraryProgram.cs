@@ -10,7 +10,7 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public UI ui;
+        public BasicView ui;
     }
     class LibraryProgram
     {
@@ -19,7 +19,7 @@ namespace Library.Controller
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
-        UI ui = new UI();
+        BasicView ui = new BasicView();
         User userFunction;
         Admin adminFuncion;
 
