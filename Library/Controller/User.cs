@@ -132,7 +132,8 @@ namespace Library.Controller
                 switch (selectedSector)
                 {
                     case (int)Constant.Menu.FIRST_MENU://아이디 입력
-                        storage.Id = SetData(Constant.ID_ADD_INDEX, storage.Id);
+                        if (type == 1)
+                            storage.Id = SetData(Constant.ID_ADD_INDEX, storage.Id);
                         break;
                     case (int)Constant.Menu.SECOND_MENU://비밀번호 입력
                         storage.Password = SetData(Constant.PASSWORD_ADD_INDEX, storage.Password);
