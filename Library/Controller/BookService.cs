@@ -14,13 +14,17 @@ namespace Library.Controller
         List<BookVO> bookList;
         List<MyBook> myBookList;
         BasicView ui;
+        Input input;
+        BookVO storage;
         public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
         {
+            storage = new BookVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
             this.userFunction = userFunction;
+            input = new Input(ui);
         }
         public void SearchAndChoice(int type)//책 정보 조회,수정,삭제 기능 메소드
         {
@@ -163,41 +167,29 @@ namespace Library.Controller
         }
         private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 도서코드를 입력하는메소드
         {
-            string name = Constant.EMPTY;
-            string author = Constant.EMPTY;
-            string publisher = Constant.EMPTY;
-            ConsoleKeyInfo key;
+            int selectedSector;
             bool isKey = false;
             //제목,작가명,출판사로 검색을 가능하게 함
             while (!isKey) {
-                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
-                key = Console.ReadKey();//1,2,3,엔터,ESC감지
-                Console.SetCursorPosition(Constant.ADD_INDEX, 10);
-                Console.Write("  ");
-                isKey = true;
-                switch (key.Key)
+                selectedSector = input.SwicthSector();
+                switch (selectedSector)
                 {
-                    case ConsoleKey.D1:
-                        name = GetBookData(type, 0);//도서명 입력
+                    case Constant.FIRST_MENU:
+                        storage.Name=SelectBookData();//도서명 입력
                         break;
-                    case ConsoleKey.D2:
-                        author = GetBookData(type, 2);//저자명 입력
+                    case Constant.SECOND_MENU:
+                        storage.Author = SelectBookData();//저자명 입력
                         break;
-                    case ConsoleKey.D3:
-                        publisher = GetBookData(type, 4);//출판사명 입력
+                    case Constant.THIRD_MENU:
+                        storage.Publisher = SelectBookData();//출판사명 입력
                         break;
-                    case ConsoleKey.Enter:
+                    case Constant.FOURTH_MENU:
                         break;
-                    case ConsoleKey.Escape:
+                    case Constant.ESCAPE_INT:
                         return Constant.ESCAPE;
-                    default:
-                        isKey = false;
-                        break;
                 }
             }
-            if (name == Constant.ESCAPE|| author == Constant.ESCAPE|| publisher == Constant.ESCAPE)
-                return Constant.ESCAPE;
-            SpreadBook(type,name,author,publisher);//검색한 정보 출력
+            SpreadBook(type, storage.Name, storage.Author, storage.Publisher);//검색한 정보 출력
             if (type != 5)//단순 조회가 아닐 경우 (매직넘버)
             {
                 bool isExisted = Constant.IS_EXCEPTION;
@@ -217,12 +209,27 @@ namespace Library.Controller
             }
             return userInput;
         }
-        private string GetBookData(int type,int cursor)//책 정보 입력받기
+        private string SelectBookData()//교수명 입력
         {
-            SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
-            Console.SetCursorPosition(Constant.ADD_INDEX, Constant.SEARCH_INDEX+cursor);
-            string input = userFunction.GetData(10, Constant.EMPTY);
-            return input;
+            string userInput;
+            //ui
+            Console.CursorVisible = true;
+            //기존에 쓰여 있던 정보 없애주기
+            userInput = Constant.EMPTY;
+            Console.SetCursorPosition(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop);
+            //기존에 쓰여있던 문자열 지워주기
+            ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            ui.BookNameForm();
+            Console.SetCursorPosition(27, Console.CursorTop);
+            //교수명 입력
+            userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+            if (userInput == Constant.ESCAPE_STRING)//esc감지
+            {
+                userInput = Constant.EMPTY;
+                ui.DeleteString(Constant.COLUMN_PRINT_CUSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+            }
+            Console.CursorVisible = false;
+            return userInput;
         }
         private void SpreadBook(int type,string name, string author, string publisher)
         {

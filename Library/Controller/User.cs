@@ -15,6 +15,7 @@ namespace Library.Controller
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
+        Input input;
         private string id;
         private string password;
         private string temporalPassword;
@@ -25,17 +26,15 @@ namespace Library.Controller
         public bool isBack;
         public bool isUp;
         public int inputType;
-        public User()
-        {
-
-        }
+        public User() { }
         public User(VOList voList,ExceptionAndView exceptionAndView)
         {
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
-            bookFunction = new BookService(voList, this,exceptionAndView);
+            bookFunction = new BookService(voList, this,exceptionAndView); 
+            input = new Input(ui);
         }
         //로그인 기능
         public void Login()//로그인 메소드
@@ -76,14 +75,14 @@ namespace Library.Controller
             while (!isException && !isBack) {//아이디 예외 없을 때 까지 입력받기
                 //exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id = GetData(Constant.ID_LENGTH, Constant.EMPTY);
+                id = input.GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 isException = exception.IsExceptionIdPassword(id);
             }
             isException = false;
             while (!isException && !isBack)//비밀번호 예외 없을 때 까지 입력받기
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                password = GetData(Constant.PASSWORD_LENGTH, Constant.EMPTY);
+                password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 isException = exception.IsExceptionIdPassword(password);
             }
             if (isBack)//ESC입력시 뒤로

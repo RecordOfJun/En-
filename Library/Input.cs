@@ -149,6 +149,46 @@ namespace Library
             index = index % numberOfMenu;
             return index;
         }
+        public int SwicthSector()//검색 정보 행(세로) 이동 함수
+        {
+            int index = 0;
+            int selected = 0;
+            bool isNotEnter = true;
+            Console.CursorVisible = false;
+            while (isNotEnter)
+            {
+                //기존 커서 삭제
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR, 1);
+                basicView.DeleteString(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR, 1);
+           
+                switch (index)
+                {//위아래 방향키를 감지해 커서 위치 최신화
+                    case (int)Constant.Menu.FIRST_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FIRST_SECTOR_CUSOR);
+                        break;
+                    case (int)Constant.Menu.SECOND_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.SECOND_SECTOR_CUSOR);
+                        break;
+                    case (int)Constant.Menu.THIRD_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.THIRD_SECTOR_CUSOR);
+                        break;
+                    case (int)Constant.Menu.FOURTH_MENU:
+                        Console.SetCursorPosition(Constant.SEARCH_LEFT, (int)Constant.SectorCursor.FOURTH_SECTOR_CUSOR);
+                        break;
+     
+                }
+                Console.Write(">");
+                index = GetUpDown(index, 4);//위 아래 입력 감지해 현재 커서 위치가 어디인지 파악해줌
+                if (index == Constant.RETURN)
+                    return selected;//엔터 입력 시 선택 정보 리턴
+                if (index == Constant.ESCAPE_INT)
+                    return Constant.ESCAPE_INT;
+                selected = index;
+            }
+            return selected;
+        }
         public bool IsEscAndEnter()
         {
             bool isNotESC = true;

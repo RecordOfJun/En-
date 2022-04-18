@@ -25,6 +25,16 @@ namespace Library.Model
             this.price = price;
             this.quantity = quantity;
         }
+        public void Init()
+        {
+            id = Constant.EMPTY;
+            name = Constant.EMPTY;
+            publisher = Constant.EMPTY;
+            author = Constant.EMPTY;
+            price = Constant.EMPTY;
+            quantity = 0;
+            borrowed = 0;
+        }
         public string Id
         {
             get { return id; }

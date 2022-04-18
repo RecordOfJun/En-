@@ -147,16 +147,10 @@ namespace Library.View
         }
         public void SetInputCursor(string inputString)
         {
-            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
             Console.Write(inputString);
         }
         public void WritePassword(string inputString)
         {
-            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(Constant.ADD_INDEX, Console.CursorTop);
             Console.Write(new string('*', inputString.Length));
         }
         public void LoginForm()
@@ -250,12 +244,13 @@ namespace Library.View
         }
         private void BookSearchForm()
         {
-            Console.WriteLine("도서명을 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("저자명을 입력해주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("출판사를 입력해주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  도서명 입력");
+            Console.WriteLine();
+            Console.WriteLine("  저자명 입력");
+            Console.WriteLine();
+            Console.WriteLine("  출판사 입력");
+            Console.WriteLine();
+            Console.WriteLine("  조회");
         }
         private void KeyGuide()
         {
@@ -416,6 +411,10 @@ namespace Library.View
             Console.WriteLine("                                 1.회원 조회                                        ");
             Console.WriteLine("                                 2.회원 정보 수정                                      ");
             Console.WriteLine("                                 3.회원 삭제                                ");
+        }
+        public void BookNameForm()
+        {
+            Console.Write("도서명:");
         }
     }
 }

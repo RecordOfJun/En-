@@ -77,20 +77,16 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://1 입력 시 단순 조회
-                        isInsert = true;
                         bookFunction.SearchAndChoice(5);
                         break;
                     case Constant.SECOND_MENU://2 입력 시
-                        isInsert = true;
                         bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
                         break;
                     case Constant.THIRD_MENU://3 입력 시
-                        isInsert = true;
                         bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
                     case Constant.FOURTH_MENU://4 입력 시 책 추가
                         AddBook();
-                        isInsert = true;
                         break;
                     case Constant.ESCAPE_INT://ESC감지
                         return;
@@ -163,15 +159,12 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://유저 단순 조회
-                        isInsert = true;
                         SearchAndChoiceMember(4);
                         break;
                     case Constant.SECOND_MENU://유저 정보 수정
-                        isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_REVISE);
                         break;
                     case Constant.THIRD_MENU://유저 삭제
-                        isInsert = true;
                         SearchAndChoiceMember(Constant.MEMBER_DELETE);
                         break;
                     case Constant.ESCAPE_INT:
