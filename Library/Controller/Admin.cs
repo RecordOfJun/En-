@@ -7,6 +7,7 @@ namespace Library.Controller
 {
     class Admin: User//관리자 관련 메소드 구현 클래스
     {
+        Input input;
         List<MemberVO> memberList;
         public Admin(VOList voList, ExceptionAndView exceptionAndView)
         {
@@ -15,6 +16,7 @@ namespace Library.Controller
             exceptionView = exceptionAndView.exceptionView;
             this.voList = voList;
             bookFunction = new BookService(voList, this,exceptionAndView);
+            input = new Input(ui);
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {
@@ -30,11 +32,11 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id= GetData(Constant.ID_LENGTH, Constant.EMPTY);
+                id= input.GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (isBack)//ESC뒤로가기
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                password = GetData(Constant.PASSWORD_LENGTH, Constant.EMPTY);
+                password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
                 if (isBack)
                     return;
@@ -374,7 +376,7 @@ namespace Library.Controller
                         if (userInput == "0")
                         {
                             isException = Constant.IS_EXCEPTION;
-                            exceptionView.QuantityException(userInput.Length);
+                            exceptionView.QuantityAddException(userInput.Length);
                         }
                         break;
                     case Constant.PHONE_ADD_INDEX:
@@ -384,7 +386,7 @@ namespace Library.Controller
                         if (userInput == "0")
                         {
                             isException = Constant.IS_EXCEPTION;
-                            exceptionView.QuantityException(userInput.Length);
+                            exceptionView.QuantityAddException(userInput.Length);
                         }
                         break;
                 }

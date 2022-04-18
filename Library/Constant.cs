@@ -125,6 +125,8 @@ namespace Library
             SECOND_SECTOR_CUSOR=21,
             THIRD_SECTOR_CUSOR=23,
             FOURTH_SECTOR_CUSOR=25,
+            BOOK_CODE_CUSOR = 27,
+            BOOK_QUANTITY_CUSOR = 29,
         }
         public const int MIDDLE_CURSOR = 31;
         public const int ESCAPE_INT = -2;
@@ -135,5 +137,6 @@ namespace Library
         public const int COLUMN_DELETE = 40;
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
+        public const int DATA_INSERT_CUSOR = 27;
     }
 }

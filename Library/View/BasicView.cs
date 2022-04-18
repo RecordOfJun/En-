@@ -251,6 +251,7 @@ namespace Library.View
             Console.WriteLine("  출판사 입력");
             Console.WriteLine();
             Console.WriteLine("  조회");
+            Console.WriteLine();
         }
         private void KeyGuide()
         {
@@ -287,8 +288,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  도서코드를 입력해 주세요:");
         }
         public void ReturnGuide()
         {
@@ -298,8 +298,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  도서코드를 입력해 주세요:");
         }
         public void DeleteGuide()
         {
@@ -309,8 +308,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  도서코드를 입력해 주세요:");
         }
         public void ReviseGuide()
         {
@@ -320,10 +318,9 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("도서코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
-            Console.WriteLine("변경된 도서의 수량을 입력해 주세요!");
-            Console.WriteLine(":");
+            Console.WriteLine("  도서코드를 입력해 주세요:");
+            Console.WriteLine();
+            Console.WriteLine("  변경수량을 입력해 주세요:");
         }
         private void UserDataForm()
         {
@@ -414,7 +411,7 @@ namespace Library.View
         }
         public void BookNameForm()
         {
-            Console.Write("도서명:");
+            Console.Write("검색어:");
         }
     }
 }

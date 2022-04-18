@@ -6,116 +6,146 @@ namespace Library.View
 {
     class ExceptionView
     {
+        BasicView basicView = new BasicView();
         public ExceptionView()
         {
 
         }
-        private void ShowException(int length,string insert)
+        private void ReadAndErase(int leftCusor, int eraseLength)//예외 안내문 제거 함수
         {
-            int printLocation = Constant.ADD_INDEX + length;
+            Console.ReadKey();
+            basicView.DeleteString(leftCusor, Console.CursorTop, eraseLength);
+        }
+        private void SearchException(int inputLength,string insert)
+        {
+            int printLocation = inputLength + Constant.DATA_INSERT_CUSOR;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(Constant.DATA_INSERT_CUSOR, 50);
         }
-        private void ShowComplete(int length, string insert)
+        private void InsertException(int inputLength, string insert)
         {
-            int printLocation = Constant.ADD_INDEX + length;
+            int printLocation = inputLength + Constant.ADD_INDEX;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(printLocation, 50);
+        }
+        private void SearchComplete(int inputLength, string insert)
+        {
+            int printLocation = inputLength + Constant.DATA_INSERT_CUSOR;
             Console.SetCursorPosition(printLocation, Console.CursorTop);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(printLocation, 50);
         }
-        public void QuantityException(int length)
+        private void InsertComplete(int inputLength, string insert)
         {
-            ShowException(length, "  (0보다 큰 숫자를 입력해 주세요!)");
+            int printLocation = inputLength + Constant.ADD_INDEX;
+            Console.SetCursorPosition(printLocation, Console.CursorTop);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(printLocation, 50);
+        }
+        public void QuantityAddException(int length)
+        {
+            InsertException(length, "  (0보다 큰 숫자를 입력해 주세요!)");
+        }
+        public void QuantityReviseException(int length)
+        {
+            SearchException(length, "  (0보다 큰 숫자를 입력해 주세요!)");
         }
         public void IdPasswordLength(int length)
         {
-            ShowException(length, "  (6~10 글자로 입력해 주세요!)");
+            InsertException(length, "  (6~10 글자로 입력해 주세요!)");
         }
         public void IdPasswordContain(int length)
         {
-            ShowException(length, "  (영어와 숫자만 입력해 주세요!)");
+            InsertException(length, "  (영어와 숫자만 입력해 주세요!)");
         }
         public void IdPasswordNotContain(int length)
         {
-            ShowException(length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
+            InsertException(length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
         }
         public void NameContain(int length)
         {
-            ShowException(length, "  (한글만 입력해 주세요!)");
+            InsertException(length, "  (한글만 입력해 주세요!)");
         }
         public void PersonalAndPhoneLength(int length)
         {
-            ShowException(length, "  (양식에 맞는 글자수를 입력해 주세요!)");
+            InsertException(length, "  (양식에 맞는 글자수를 입력해 주세요!)");
         }
         public void NumberContain(int length)
         {
-            ShowException(length, "  (숫자만 입력해 주세요!)");
+            InsertException(length, "  (숫자만 입력해 주세요!)");
         }
         public void StartWith010(int length)
         {
-            ShowException(length, "  (010으로 시작해 주세요!)");
+            InsertException(length, "  (010으로 시작해 주세요!)");
         }
         public void CheckDate(int length)
         {
-            ShowException(length, "  (생년월일을 다시 확인해 주세요!)");
+            InsertException(length, "  (생년월일을 다시 확인해 주세요!)");
         }
         public void CheckGender(int length)
         {
-            ShowException(length, "  (7번째 자리를 다시 확인해 주세요!)");
+            InsertException(length, "  (7번째 자리를 다시 확인해 주세요!)");
         }
         public void ExistedId(int length)
         {
-            ShowException(length, "  (이미 존재하는 아이디 입니다!)");
+            InsertException(length, "  (이미 존재하는 아이디 입니다!)");
         }
         public void ExistedCode(int length)
         {
-            ShowException(length, "  (이미 가입이 완료된 사용자 입니다!)");
+            InsertException(length, "  (이미 가입이 완료된 사용자 입니다!)");
         }
         public void NotIdentical(int length)
         {
-            ShowException(length, "  (비밀번호를 동일하게 입력해 주세요!)");
+            InsertException(length, "  (비밀번호를 동일하게 입력해 주세요!)");
         }
         public void CanNotLogin(int length)
         {
             Console.SetCursorPosition(0, Console.CursorTop + 1);
-            ShowException(0, "(아이디와 비밀번호를 확인해 주세요!)");
+            InsertException(0, "(아이디와 비밀번호를 확인해 주세요!)");
 
         }
         public void BorrowSuccess(int length)
         {
-            ShowComplete(length, "  (대여가 완료되었습니다!)");
+            SearchComplete(length, "  (대여가 완료되었습니다!)");
         }
         public void DeleteSuccess(int length)
         {
-            ShowComplete(length, "  (삭제가 완료되었습니다!))");
+            SearchComplete(length, "  (삭제가 완료되었습니다!))");
         }
         public void ReturnSuccess(int length)
         {
-            ShowComplete(length, "  (반납이 완료되었습니다!))");
+            SearchComplete(length, "  (반납이 완료되었습니다!))");
         }
         public void NotExisted(int length)
         {
-            ShowException(length, "  (검색항목 중 일치하는 정보가 존재하지 않습니다!)");
+            SearchException(length, "  (일치하는 정보가 존재하지 않습니다!)");
         }
         public void NotExistedMember(int length)
         {
-            ShowException(length, "  (주민번호가 일치하는 유저가 존재하지 않습니다!)");
+            SearchException(length, "  (일치하는 유저가 존재하지 않습니다!)");
         }
         public void NotRemain(int length)
         {
-            ShowException(length, "  (남은 수량이 없어 대여할 수 없습니다!)");
+            SearchException(length, "  (남은 수량이 없어 대여할 수 없습니다!)");
         }
         public void AlreadyHas(int length)
         {
-            ShowException(length, "  (이미 이 도서를 대여 하셨습니다!)");
+            SearchException(length, "  (이미 이 도서를 대여 하셨습니다!)");
         }
         public void AdminError(int length)
         {
             Console.SetCursorPosition(0, Console.CursorTop + 1);
-            ShowException(0, "(틀렸습니다! 다시 입력해 주세요!)");
+            InsertException(0, "(틀렸습니다! 다시 입력해 주세요!)");
         }
         public void ClearLine(int index)
         {
@@ -149,15 +179,15 @@ namespace Library.View
         }
         public void EmptyString()
         {
-            ShowException(0, "(아무것도 입력하지 않았습니다!)");
+            InsertException(0, "(아무것도 입력하지 않았습니다!)");
         }
         public void ExistedBookId(int length)
         {
-            ShowException(length,  "(이미 존재하는 도서번호 입니다!)");
+            InsertException(length,  "(이미 존재하는 도서번호 입니다!)");
         }
         public void ValidAdress(int length)
         {
-            ShowException(length, "(주소 양식을 확인해 주세요!)");
+            InsertException(length, "(주소 양식을 확인해 주세요!)");
         }
     }
 }
