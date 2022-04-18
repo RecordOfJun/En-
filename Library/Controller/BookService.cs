@@ -36,19 +36,22 @@ namespace Library.Controller
                 userInput = InsertNameAndCode(userInput,type);//책 정보 입력 및 도서코드 입력
                 if (userInput == Constant.ESCAPE)
                     return;
-                switch (type)
+                if (userInput != Constant.ESCAPE_STRING)
                 {
-                    case Constant.BOOK_BORROW:
-                        BorrowBook(userInput);//책 대여
-                        break;
-                    case Constant.BOOK_DELETE:
-                        DeleteBook(userInput);//책 삭제
-                        break;
-                    case Constant.BOOK_REVISE:
-                        ReviseBook(userInput);//책 수정
-                        break;
-                    case 5://단순 조회
-                        break;
+                    switch (type)
+                    {
+                        case Constant.BOOK_BORROW:
+                            BorrowBook(userInput);//책 대여
+                            break;
+                        case Constant.BOOK_DELETE:
+                            DeleteBook(userInput);//책 삭제
+                            break;
+                        case Constant.BOOK_REVISE:
+                            ReviseBook(userInput);//책 수정
+                            break;
+                        case 5://단순 조회
+                            break;
+                    }
                 }
             }
         }
@@ -145,9 +148,9 @@ namespace Library.Controller
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndCode(userInput,2);//반납할 책 정보 입력
-                if (userInput == Constant.ESCAPE)
-                    return;
-                UpdateBookCount(userInput);//해당 책 수량 조정
+                if (userInput != Constant.ESCAPE_STRING)
+                    UpdateBookCount(userInput);//해당 책 수량 조정
+                RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
         private void UpdateBookCount(string Code)//책 수량 업데이트
@@ -199,7 +202,7 @@ namespace Library.Controller
                 {
                     Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
                     userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
-                    if (userInput == Constant.EMPTY || userInput==Constant.ESCAPE_STRING)
+                    if (userInput==Constant.ESCAPE_STRING)
                         return userInput;
                     isExisted = true;
                     if (!bookList.Exists(book => book.Id == userInput))//검색정보중에 코드와 일치하는 도서 있는지 확인
