@@ -7,16 +7,11 @@ namespace Library.Controller
 {
     class Admin: User//관리자 관련 메소드 구현 클래스
     {
-        Input input;
         List<MemberVO> memberList;
-        public Admin(VOList voList, ExceptionAndView exceptionAndView)
+        BookVO bookStorage;
+        public Admin(VOList voList,ExceptionAndView exceptionAndView):base(voList,exceptionAndView)
         {
-            exception = exceptionAndView.exception;
-            ui = exceptionAndView.ui;
-            exceptionView = exceptionAndView.exceptionView;
-            this.voList = voList;
-            bookFunction = new BookService(voList, this,exceptionAndView);
-            input = new Input(ui);
+            bookStorage = new BookVO();
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {
@@ -100,53 +95,49 @@ namespace Library.Controller
             if (IsConfirm(Constant.CONFRIM_ADD))
             {
                 isBack = false;
-                bool isComplete = false;
+                int selectedSector = 0;
+                bool isNotComplete = true;
                 //책 정보 초기화
-                int minimumIndex = 0;
-                string id = "";
-                string name = "";
-                string publisher = "";
-                string author = "";
-                string price = "";
-                string quantity = "";
+                bookStorage.Init();
                 Console.Clear();
                 ui.AdminLabel();
                 ui.AddBook();
                 inputType = 0;
-                while (!isComplete)//마지막 정보 입력 전 까지 계속 입력
+                while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
                 {
-                    if (inputType < minimumIndex)
-                        inputType = minimumIndex;
-                    switch (inputType)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
+                    selectedSector = input.SwicthSector(7,selectedSector);
+                    switch (selectedSector)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
                     {
-                        case 0:
-                            id = SetData(Constant.ID_ADD_INDEX, id);//책 코드
+                        
+                        case (int)Constant.Menu.FIRST_MENU:
+                            bookStorage.Id = SetData(Constant.ID_ADD_INDEX, bookStorage.Id);//책 코드
                             break;
-                        case 1:
-                            name = SetData(Constant.PASSWORD_ADD_INDEX, name);//도서명
+                        case (int)Constant.Menu.SECOND_MENU:
+                            bookStorage.Name = SetData(Constant.PASSWORD_ADD_INDEX, bookStorage.Name);//도서명
                             break;
-                        case 2:
-                            publisher = SetData(Constant.PASSWORD_CONFIRM_INDEX, publisher);//출판사
+                        case (int)Constant.Menu.THIRD_MENU:
+                            bookStorage.Publisher = SetData(Constant.PASSWORD_CONFIRM_INDEX, bookStorage.Publisher);//출판사
                             break;
-                        case 3:
-                            author = SetData(Constant.NAME_ADD_INDEX, author);//저자
+                        case (int)Constant.Menu.FOURTH_MENU:
+                            bookStorage.Author = SetData(Constant.NAME_ADD_INDEX, bookStorage.Author);//저자
                             break;
-                        case 4:
-                            price = SetData(Constant.PERSONAL_ADD_INDEX, price);//가격
+                        case (int)Constant.Menu.FIFTH_MENU:
+                            bookStorage.Price = SetData(Constant.PERSONAL_ADD_INDEX, bookStorage.Price);//가격
                             break;
-                        case 5:
-                            quantity = SetData(Constant.PHONE_ADD_INDEX, quantity);//수량
+                        case (int)Constant.Menu.SIXTH_MENU:
+                            bookStorage.Quantity = int.Parse(SetData(Constant.PHONE_ADD_INDEX, Constant.EMPTY));//수량
                             break;
-                        case 6:
-                            isComplete = true;
+                        case (int)Constant.Menu.SEVENTH_MENU:
+                            if (bookStorage.IsNotNull())
+                                isNotComplete = false;
                             break;
+                        case Constant.ESCAPE_INT:
+                            return;
                     }
                 }
-                if (isBack)
-                    return;
                 if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
                 {
-                    BookVO book = new BookVO(id, name, publisher, author, price, int.Parse(quantity));
+                    BookVO book = new BookVO(bookStorage.Id, bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity);
                     voList.bookList.Add(book);
                 }
             }
@@ -333,13 +324,13 @@ namespace Library.Controller
             while (!isException && !isBack)
             {
                 isUp = false;
-                Console.SetCursorPosition(Constant.ADD_INDEX, index);
+                Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
                 //exceptionView.ClearLine(index);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
                         userInput = input.GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
-                        if (!isUp)
+                        if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH, voList.bookList);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
@@ -371,7 +362,7 @@ namespace Library.Controller
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
                         userInput = input.GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
-                        if (!isUp)
+                        if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput);
                         if (userInput == "0")
                         {
@@ -381,7 +372,7 @@ namespace Library.Controller
                         break;
                     case Constant.PHONE_ADD_INDEX:
                         userInput = input.GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
-                        if (!isUp)
+                        if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput);
                         if (userInput == "0")
                         {
@@ -390,10 +381,13 @@ namespace Library.Controller
                         }
                         break;
                 }
-                if (isUp)//위 방향 키 입력 감지
+                if (userInput == Constant.ESCAPE_STRING)
+                {
+                    userInput = Constant.EMPTY;
+                    ui.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
                     return userInput;
+                }
             }
-            inputType++;//입력할 정보 타입 인덱스 조정
             if (!isBack)
                 exceptionView.InsertSuccess(userInput.Length);//완료 출력
             return userInput;

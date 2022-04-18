@@ -25,6 +25,12 @@ namespace Library.Model
             this.price = price;
             this.quantity = quantity;
         }
+        public bool IsNotNull()
+        {
+            if (id != Constant.EMPTY && name != Constant.EMPTY && publisher != Constant.EMPTY && author != Constant.EMPTY && price != Constant.EMPTY && quantity>0)
+                return true;
+            return false;
+        }
         public void Init()
         {
             id = Constant.EMPTY;

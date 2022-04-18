@@ -110,7 +110,7 @@ namespace Library.View
             Console.WriteLine("  :");
             Console.WriteLine("  주소[경기도 군포시 고산로 539번길 7-12]");
             Console.WriteLine("  :");
-            Console.WriteLine("  가입하기");
+            Console.WriteLine("  완료하기");
         }
         public void AddBook()
         {
@@ -121,18 +121,21 @@ namespace Library.View
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("도서번호[8글자의 숫자를 입력해 주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("도서명[최대 20글자]");
-            Console.WriteLine(":");
-            Console.WriteLine("출판사명[최대 20글자]");
-            Console.WriteLine(":");
-            Console.WriteLine("저자명[최대 20글자]");
-            Console.WriteLine(":");
-            Console.WriteLine("가격[숫자만 입력해주세요]");
-            Console.WriteLine(":");
-            Console.WriteLine("수량[숫자만 입력해 주세요]");
-            Console.WriteLine(":");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("  도서번호[8글자의 숫자를 입력해 주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  도서명[최대 20글자]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  출판사명[최대 20글자]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  저자명[최대 20글자]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  가격[숫자만 입력해주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  수량[숫자만 입력해 주세요]");
+            Console.WriteLine("  :");
 
         }
         public void ConfirmAddForm()

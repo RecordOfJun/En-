@@ -15,7 +15,7 @@ namespace Library.Controller
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
-        Input input;
+        public Input input;
         public MemberVO storage;
         public bool isBack;
         public bool isUp;
@@ -103,7 +103,6 @@ namespace Library.Controller
         public void AddOrReviseMember(int type)//회원가입 or 회원정보 수정 메소드
         {
             isBack = false;
-            int minimumIndex = 0 ;
             int selectedSector=0;
             bool isNotComplete = true;
             inputType = 0;
@@ -113,12 +112,10 @@ namespace Library.Controller
             {//회원가입 일 때
                 storage.Init();
                 ui.AddMemberForm();
-                minimumIndex = 0;
             }
             if (type == 2)
             {//수정일 때
                 LinkData();
-                minimumIndex = 1;
                 ui.ReviseForm();
                 //로그인 한 유저 정보 불러오기 OR 관리자가 선택한 유저 정보 불러오기
                 WriteData(Constant.ID_ADD_INDEX, storage.Id);
@@ -139,6 +136,7 @@ namespace Library.Controller
                         break;
                     case (int)Constant.Menu.SECOND_MENU://비밀번호 입력
                         storage.Password = SetData(Constant.PASSWORD_ADD_INDEX, storage.Password);
+                        storage.TemporalPassword = Constant.EMPTY;
                         break;
                     case (int)Constant.Menu.THIRD_MENU://비밀번호 확인
                         storage.TemporalPassword = SetData(Constant.PASSWORD_CONFIRM_INDEX, storage.TemporalPassword);
@@ -162,7 +160,7 @@ namespace Library.Controller
                         else
                             exceptionView.SignUpException();
                         break;
-                    case Constant.ESCAPE_INT://입력 완료 체크
+                    case Constant.ESCAPE_INT:
                         return;
                 }
             }
@@ -181,7 +179,7 @@ namespace Library.Controller
             LoginMember.Address = storage.Address;
         }
         public void WriteData(int index, string data){//화면에 계정정보 출력
-            Console.SetCursorPosition(Constant.ADD_INDEX, index);
+            Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
             Console.Write(data);
         }
         public bool IsConfirm(int type)//기능 수행 후 재확인 

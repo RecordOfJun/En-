@@ -33,6 +33,7 @@ namespace Library.Controller
             SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput!=Constant.ESCAPE)
             {
+                SpreadBook(type, Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
                 userInput = InsertNameAndCode(userInput,type);//책 정보 입력 및 도서코드 입력
                 if (userInput == Constant.ESCAPE)
                     return;
@@ -128,6 +129,7 @@ namespace Library.Controller
             {
                 book.Quantity = int.Parse(quantity);//수량 수정
             }
+            ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             return;
         }
         private void ShowMyBook(string name, string author, string publisher)//대여중인 도서 조회 메소드
@@ -148,6 +150,8 @@ namespace Library.Controller
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndCode(userInput,2);//반납할 책 정보 입력
+                if (userInput == Constant.ESCAPE)
+                    return;
                 if (userInput != Constant.ESCAPE_STRING)
                     UpdateBookCount(userInput);//해당 책 수량 조정
                 RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
