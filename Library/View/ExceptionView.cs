@@ -25,6 +25,7 @@ namespace Library.View
             Console.Write(insert);
             Console.ForegroundColor = ConsoleColor.White;
             ReadAndErase(Constant.DATA_INSERT_CURSOR, 60);
+            basicView.DeleteString(printLocation, Console.CursorTop, 30);
         }
         private void InsertException(int inputLength, string insert)
         {
@@ -148,7 +149,7 @@ namespace Library.View
         }
         public void InsertSuccess(int length)
         {
-            InsertComplete(length, "  (완료되었습니다!))");
+            InsertComplete(length*2, "  (완료되었습니다!))");
         }
         public void NotExisted(int length)
         {
@@ -211,7 +212,7 @@ namespace Library.View
         }
         public void ValidAdress(int length)
         {
-            InsertException(length, "(주소 양식을 확인해 주세요!)");
+            InsertException(length*2, "(주소 양식을 확인해 주세요!)");
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Library.Controller
         }
         public bool IsIdException(string userInput)
         {
-            if (dBConnection.FindId(userInput))
+            if (dBConnection.IsExistedId(userInput))
             {
                 exceptionView.ExistedId(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -132,7 +132,7 @@ namespace Library.Controller
                 exceptionView.CheckGender(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
-            if (dBConnection.FindPersonal(userInput))
+            if (dBConnection.IsExistedPersonal(userInput))
             {
                 exceptionView.ExistedCode(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -214,7 +214,7 @@ namespace Library.Controller
             }
             return true;
         }
-        public bool IsBookIdException(string userInput, int length, List<BookVO> bookList)
+        public bool IsBookIdException(string userInput, int length)
         {
             bool isContainNumber;
             if (userInput == Constant.ESCAPE)
@@ -234,7 +234,7 @@ namespace Library.Controller
                 }
 
             }
-            if (bookList.Exists(book => book.Id == userInput))
+            if (dBConnection.IsExistedBookId(userInput))
             {
                 exceptionView.ExistedBookId(userInput.Length);
                 return Constant.IS_EXCEPTION;

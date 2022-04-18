@@ -15,8 +15,10 @@ namespace Library.Controller
         BasicView ui;
         Input input;
         BookVO storage;
+        DBConnection dBConnection;
         public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
         {
+            this.dBConnection = DBConnection.GetDBConnection();
             storage = new BookVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
@@ -58,11 +60,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //입력한 정보와 일치하는 책 찾아 전역 리스트에 대입 AND 찾은 책 출력
-            foreach (BookVO book in voList.bookList.FindAll(element => element.Name.ToUpper().Contains(name.ToUpper()) &&element.Publisher.ToUpper().Contains(publisher.ToUpper()) && element.Author.ToUpper().Contains(author.ToUpper())))
-            {
-                findList.Add(book);
-                ui.BookInformation(book);
-            }
+            dBConnection.SelectBook(name, author, publisher, findList);
             bookList = findList;
         }
         private void BorrowBook(string bookCode)//책 대여 메소드

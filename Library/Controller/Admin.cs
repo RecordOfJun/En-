@@ -140,7 +140,7 @@ namespace Library.Controller
                 if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
                 {
                     BookVO book = new BookVO(bookStorage.Id, bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity);
-                    voList.bookList.Add(book);
+                    dBConnection.InsertBook(book);
                 }
             }
         }
@@ -344,7 +344,7 @@ namespace Library.Controller
                     case Constant.ID_ADD_INDEX://도서코드 입력
                         userInput = input.GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH, voList.bookList);
+                            isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
                         userInput = input.GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력

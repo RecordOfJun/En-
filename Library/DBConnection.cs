@@ -105,7 +105,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBook(string name, string author, string publisher)
+        public void SelectBook(string name, string author, string publisher,List<BookVO> bookList)
         {
             connection.Open();
             query = "";
@@ -117,31 +117,34 @@ namespace Library
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                basicView.BookInformation(new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString())));
+                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString()));
+                basicView.BookInformation(book);
+                bookList.Add(book);
             }
             connection.Close();
         }
-        public void InsertBorrow(BookVO book)
+        public void InsertBorrow(string bookId,string code)
         {
             connection.Open();
             query = "";
-            query += "Insert into book values ('";
-            query += book.Id + "','" + book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity + ");";
+            query += "Insert into borrowed values ('";
+            query += bookId+"','"+code+ "',"+DateTime.Now+");";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void DeleteBorrow(string id)
+        public void DeleteBorrow(string bookId,string code)
         {
             connection.Open();
             query = "";
-            query += "delete from member ";
-            query += "where id='" + id + "';";
+            query += "delete from borrowed ";
+            query += "where bookid='" + bookId + "' ";
+            query += "and membercode='" + code + "';";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBorrow(string name, string author, string publisher)
+        public void SelectBorrow(string name, string author, string publisher,string code)
         {
             connection.Open();
             query = "";
@@ -172,7 +175,7 @@ namespace Library
             connection.Close();
             return member;
         }
-        public bool FindId(string id)
+        public bool IsExistedId(string id)
         {
             connection.Open();
             query = "";
@@ -184,24 +187,12 @@ namespace Library
             connection.Close();
             return result;
         }
-        public bool FindPersonal(string personal)
+        public bool IsExistedPersonal(string personal)
         {
             connection.Open();
             query = "";
             query += "SELECT * from member ";
             query += "where personalcode='" + personal + "'; ";
-            command = new MySqlCommand(query, connection);
-            MySqlDataReader reader = command.ExecuteReader();
-            bool result = reader.Read();
-            connection.Close();
-            return result;
-        }
-        public bool IsExistedCode(string code)
-        {
-            connection.Open();
-            query = "";
-            query += "SELECT * from member ";
-            query += "where membercode='" + code + "'; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();
@@ -221,6 +212,18 @@ namespace Library
                 member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
             connection.Close();
             return member;
+        }
+        public bool IsExistedBookId(string id)
+        {
+            connection.Open();
+            query = "";
+            query += "select * from book ";
+            query += "where id='" + id + "';";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
         }
     }
 }
