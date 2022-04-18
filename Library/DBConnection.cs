@@ -196,7 +196,7 @@ namespace Library
             connection.Close();
             return result;
         }
-        public bool FindCode(string code)
+        public bool IsExistedCode(string code)
         {
             connection.Open();
             query = "";
@@ -207,6 +207,20 @@ namespace Library
             bool result = reader.Read();
             connection.Close();
             return result;
+        }
+        public MemberVO GetMember(string code)
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT * from member ";
+            query += "where membercode='" + code + "'; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            MemberVO member = null;
+            while (reader.Read())
+                member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+            connection.Close();
+            return member;
         }
     }
 }

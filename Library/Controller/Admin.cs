@@ -240,7 +240,7 @@ namespace Library.Controller
                     if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
-                    if (!dBConnection.FindCode(userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
+                    if (!memberList.Exists(member=>member.MemberCode==userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
                     {
                         isExisted = false;
                         exceptionView.NotExisted(userInput.Length);//검색정보 중에 해당 회원코드가 없으면 예외출력
@@ -286,7 +286,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = voList.memberList.Find(member => member.MemberCode == code);//회원코드와 일치하는 멤버 찾기
+            MemberVO member = dBConnection.GetMember(code);//회원코드와 일치하는 멤버 찾기
             if (member != null)
             {
                 this.LoginMember = member;
@@ -300,21 +300,18 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = voList.memberList.Find(member => member.MemberCode == code);//회원정보 일치하는 멤버 찾기
+            MemberVO member = dBConnection.GetMember(code);//회원정보 일치하는 멤버 찾기
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
                 if (exception.IsDelete(member.Name+" 회원"))//삭제 한번 더 확인
                 {
-                    foreach (MyBook myBook in member.borrowedBook)//회원이 빌린 책 목록 삭제
-                    {
-                        myBook.book.Borrowed--;
-                    }
-                    voList.memberList.Remove(member);//회원 삭제
+                    dBConnection.DeleteMember(code);
                 }
             }
             else
                 exceptionView.NotExistedMember(code.Length);//일치하는 회원 없으면 예외처리
+            Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_DELETE);
         }
         private void Refresh(string name, string id, string phonenumber,int type)//재조회
         {
