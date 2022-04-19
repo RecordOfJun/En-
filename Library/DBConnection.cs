@@ -128,7 +128,7 @@ namespace Library
             connection.Open();
             query = "";
             query += "Insert into borrowed values ('";
-            query += bookId+"',"+code+ ",'"+DateTime.Now.ToString("yyyy-MM-dd")+"','"+DateTime.Now.AddDays(7).ToString("yyyy-MM-dd") +"');";
+            query += bookId+"',"+code+ ",'"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")+"','"+DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss") +"');";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -160,7 +160,7 @@ namespace Library
             while (reader.Read())
             {
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
-                MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString(), reader["returntime"].ToString());
+                MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString(), reader["returntime"].ToString());//db에는 정상적으로 저장 다시 불러올때 값 이상함
                 basicView.BorrowInformation(borrowBook);
                 bookList.Add(book);
             }

@@ -57,7 +57,7 @@ namespace Library.View
             Console.WriteLine("                              회원 전용 메뉴입니다!                 ");
             Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
-            Console.WriteLine("");
+            Console.WriteLine("                                 (뒤로가기:ESC)");
         }
         public void MainMenu()
         {
@@ -72,7 +72,7 @@ namespace Library.View
             Console.WriteLine("");
             Console.WriteLine("                     회원가입 후 도서 대여 및 반납이 가능합니다!                 ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
-            Console.WriteLine(" 입력한 정보를 다시 입력하려면 위쪽 방향키를,입력을 완료했으면 엔터를 눌러주세요!");
+            Console.WriteLine(" 입력한 정보를 다시 입력하려면 방향키로 이동, 입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -82,9 +82,9 @@ namespace Library.View
         public void ReviseForm()
         {
             Console.WriteLine("");
-            Console.WriteLine("");
             Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다!                 ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine(" 입력한 정보를 다시 입력하려면 방향키로 이동, 입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -115,9 +115,9 @@ namespace Library.View
         public void AddBook()
         {
             Console.WriteLine("");
-            Console.WriteLine("");
             Console.WriteLine("                             새로운 도서 추가를 원하시면                 ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
+            Console.WriteLine(" 입력한 정보를 다시 입력하려면 방향키로 이동, 입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -192,7 +192,7 @@ namespace Library.View
             Console.WriteLine("                              관리자 전용 메뉴입니다!                 ");
             Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)                     ");
-            Console.WriteLine("");
+            Console.WriteLine("                                 (뒤로가기:ESC)");
         }
         public void UserMenu()
         {
@@ -263,19 +263,19 @@ namespace Library.View
         }
         private void KeyGuide()
         {
-            Console.WriteLine("                  도서명 검색은 1,저자명 검색은 2, 출판사 검색은 3");
-            Console.WriteLine("              도서코드로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 도서코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("                  방향키를 이용해 입력을 원하는 정보를 선택하세요!");
+            Console.WriteLine("             전체조회시 바로  조회 버튼클릭, 메뉴로 돌아가고 싶으면ESC ");
+            Console.WriteLine("                 원하는 정보를 검색 후 도서코드를 입력해 주세요!");
         }
         public void SearchGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine();
             Console.WriteLine("                                  도서조회 방법");
-            Console.WriteLine("                         1.원하는 도서의 이름을 입력한다.");
-            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                         1.원하는 도서의 정보를 입력한다.");
+            Console.WriteLine("                          2.조회를 눌러 도서를 검색한다.");
             Console.WriteLine();
-            Console.WriteLine("                  도서명 검색은 1,저자명 검색은 2, 출판사 검색은 3");
+            Console.WriteLine("                  방향키를 이용해 입력을 원하는 정보를 선택하세요!");
             Console.WriteLine("                      메뉴로 돌아가고 싶으면ESC를 눌러주세요. ");
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -284,7 +284,7 @@ namespace Library.View
         private void BookManual(string firstLine, string thirdLine, string fourthLine)
         {
             Console.WriteLine("                         1.{0} 도서의 정보를 입력한다.",firstLine);
-            Console.WriteLine("                          2.엔터를 눌러 도서를 검색한다.");
+            Console.WriteLine("                          2.조회를 눌러 도서를 검색한다.");
             Console.WriteLine("                        3.{0} 도서의 도서코드를 입력한다.",thirdLine);
             Console.WriteLine("                          4.엔터를 눌러 도서를 {0}한다.",fourthLine);
         }
@@ -344,7 +344,7 @@ namespace Library.View
         private void UserManual()
         {
             Console.WriteLine("                         1.원하는 회원의 정보를 입력한다.");
-            Console.WriteLine("                          2.엔터를 눌러 회원을 검색한다.");
+            Console.WriteLine("                          2.조회를 눌러 회원을 검색한다.");
             Console.WriteLine("                        3.찾은 회원의 회원코드를 입력한다.");
         }
         public void MemberReviseGuide()
@@ -352,10 +352,10 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                  회원정보 수정");
             UserManual();
-            Console.WriteLine("                        4.엔터를 눌러 수정화면으로  넘어간다.");
-            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
-            Console.WriteLine("              수정으로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine("                      4.엔터를 눌러 수정화면으로  넘어간다.");
+            Console.WriteLine("                방향키를 이용해 입력을 원하는 정보를 선택하세요!");
+            Console.WriteLine("                      전체조회시 바로 조회를 눌러주세요 ");
+            Console.WriteLine("                                    뒤로가기:ESC");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
             Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
@@ -366,10 +366,10 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                    회원 삭제");
             UserManual();
-            Console.WriteLine();
-            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
-            Console.WriteLine("              삭제로 바로 넘어가려면 엔터, 메뉴로 돌아가고 싶으면ESC ");
-            Console.WriteLine("           처음부터 다시 시작하려면 회원코드 입력 시 공란으로 엔터를 눌러주세요");
+            Console.WriteLine(                         "4.엔터를 눌러 회원을 삭제한다.");
+            Console.WriteLine("                 방향키를 이용해 입력을 원하는 정보를 선택하세요!");
+            Console.WriteLine("                        전체조회시 바로 조회를 눌러주세요 ");
+            Console.WriteLine("                                    뒤로가기:ESC");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
             Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
@@ -381,7 +381,7 @@ namespace Library.View
             Console.WriteLine("                                    회원 조회");
             UserManual();
             Console.WriteLine();
-            Console.WriteLine("                  ID 검색은 1,회원명 검색은 2, 전화번호 검색은 3");
+            Console.WriteLine("                  방향키를 이용해 입력을 원하는 정보를 선택하세요!");
             Console.WriteLine("                           메뉴로 돌아가고 싶으면ESC ");
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------------");
