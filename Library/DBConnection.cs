@@ -128,7 +128,7 @@ namespace Library
             connection.Open();
             query = "";
             query += "Insert into borrowed values ('";
-            query += bookId+"','"+code+ "',"+DateTime.Now+");";
+            query += bookId+"',"+code+ ",'"+DateTime.Now.ToString("yyyy-MM-dd")+"','"+DateTime.Now.AddDays(7).ToString("yyyy-MM-dd") +"');";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -140,7 +140,7 @@ namespace Library
             query += "delete from borrowed ";
             query += "where bookid='" + bookId + "' ";
             if(type==Constant.DELETE_BORROW)
-                query += "and membercode='" + code + "';";
+                query += "and membercode=" + code + ";";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -220,6 +220,19 @@ namespace Library
             query = "";
             query += "select * from book ";
             query += "where id='" + id + "';";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
+        }
+        public bool IsBorrowd(string memberCode,string bookcode)
+        {
+            connection.Open();
+            query = "";
+            query += "select * from borrowed ";
+            query += "where bookid='" + bookcode + "' ";
+            query += "and membercode=" + memberCode + "; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();

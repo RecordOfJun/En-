@@ -71,12 +71,12 @@ namespace Library.Controller
             int remain = book.Quantity - book.Borrowed;
             if (remain > 0)//수량이 0보다 클 때 대여 가능
             {
-                if (userFunction.LoginMember.IsHaveBook(book))
+                if (userFunction.LoginMember.IsHaveBook(bookCode))
                 {
                     exceptionView.AlreadyHas(bookCode.Length);//이미 빌린 책인지 확인
                     return;
                 }
-                userFunction.LoginMember.AddBook(book);//책 대여
+                dBConnection.InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
                 book.Borrowed++;
                 exceptionView.BorrowSuccess(bookCode.Length);
                 return;

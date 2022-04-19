@@ -17,14 +17,14 @@ namespace Library.Controller
         public MemberVO LoginMember;
         public Input input;
         public MemberVO storage;
-        public static DBConnection dBConnection;
+        public DBConnection dBConnection;
         public bool isBack;
         public bool isUp;
         public int inputType;
         public User() { }
         public User(VOList voList,ExceptionAndView exceptionAndView)
         {
-            dBConnection = DBConnection.GetDBConnection();
+            this.dBConnection = DBConnection.GetDBConnection();
             storage = new MemberVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;

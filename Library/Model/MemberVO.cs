@@ -28,6 +28,7 @@ namespace Library.Model
         private string address;
         private string memberCode;
         public List<MyBook> borrowedBook = new List<MyBook>();
+        DBConnection dBConnection;
         public MemberVO()
         {
         }
@@ -40,6 +41,7 @@ namespace Library.Model
             this.address = address;
             this.personalCode = personalCode;
             this.memberCode = memberCode;
+            this.dBConnection = DBConnection.GetDBConnection();
         }
         public void Init()
         {
@@ -103,9 +105,9 @@ namespace Library.Model
         {
             borrowedBook.Remove(borrowedBook.Find(element => element == mybook));
         }
-        public bool IsHaveBook(BookVO book)
+        public bool IsHaveBook(string code)
         {
-            if (borrowedBook.Exists(element => element.book == book))
+            if (dBConnection.IsBorrowd(this.memberCode,code))
                 return Constant.IS_HAVE;
             return !Constant.IS_HAVE;
         }
