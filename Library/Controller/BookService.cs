@@ -125,6 +125,7 @@ namespace Library.Controller
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 book.Quantity = int.Parse(quantity);//수량 수정
+                dBConnection.UpdateBook(book);
             }
             ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             return;

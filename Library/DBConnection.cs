@@ -88,8 +88,8 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "Update member Set ";
-            query += "quantity=" + book.Quantity + ",";
+            query += "Update book Set ";
+            query += "quantity=" + book.Quantity + " ";
             query += "where id='" + book.Id + "';";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
@@ -99,7 +99,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "delete from member ";
+            query += "delete from book ";
             query += "where id='" + id + "';";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
@@ -117,7 +117,7 @@ namespace Library
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString()));
+                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
                 basicView.BookInformation(book);
                 bookList.Add(book);
             }
