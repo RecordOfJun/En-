@@ -145,19 +145,24 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBorrow(string name, string author, string publisher,string code)
+        public void SelectBorrow(string name, string author, string publisher,string code,List<BookVO> bookList)
         {
             connection.Open();
             query = "";
-            query += "SELECT * from book ";
-            query += "where name like '%" + name + "%' and ";
-            query += "author like '%" + author + "%' and ";
-            query += "publisher like '%" + publisher + "%'; ";
+            query += "SELECT book.*,borrowed.borrowtime,borrowed.returntime from book,borrowed ";
+            query += "where book.name like '%" + name + "%' and ";
+            query += "book.author like '%" + author + "%' and ";
+            query += "book.publisher like '%" + publisher + "%' and ";
+            query += "book.id in( select bookid from borrowed where membercode=" + code + ") ";
+            query += "group by book.id;";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                basicView.BookInformation(new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quanity"].ToString())));
+                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
+                MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString(), reader["returntime"].ToString());
+                basicView.BorrowInformation(borrowBook);
+                bookList.Add(book);
             }
             connection.Close();
         }

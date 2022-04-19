@@ -129,11 +129,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //찾은 책 리스트 전역 책 리스트로 넘겨주고 정보 출력
-            foreach (MyBook myBook in userFunction.LoginMember.borrowedBook.FindAll(element => element.book.Name.Contains(name) || element.book.Name.Contains(publisher) || element.book.Name.Contains(author)))
-            {
-                findList.Add(myBook.book);
-                ui.BorrowInformation(myBook);
-            }
+            dBConnection.SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
             bookList = findList;
         }
         public void ReturnBook()//반납 메소드
@@ -150,19 +146,12 @@ namespace Library.Controller
                 RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
-        private void UpdateBookCount(string Code)//책 수량 업데이트
+        private void UpdateBookCount(string code)//책 수량 업데이트
         {
-            if (Code == "")
+            if (code == "")
                 return;
-            MyBook myBook = userFunction.LoginMember.borrowedBook.Find(element => element.book.Id == Code);//로그인 멤버 대여함에서 코드 일치 책 탐색
-            if (myBook != null)
-            {
-                userFunction.LoginMember.RemoveBook(myBook);//로그인 한 멤버의 대여함에서 코드와 일치하는 책 삭제
-                myBook.book.Borrowed--;//수량 조정
-                exceptionView.ReturnSuccess(Code.Length);//완료
-            }
-            else
-                exceptionView.NotExisted(Code.Length);
+            dBConnection.DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);
+            exceptionView.ReturnSuccess(code.Length);//완료
 
         }
         private string InsertNameAndCode(string userInput, int type)//정보를 검색하고 도서코드를 입력하는메소드
