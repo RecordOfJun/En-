@@ -84,13 +84,13 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void UpdateBook(BookVO book)
+        public void UpdateBook(int quantity,string id)
         {
             connection.Open();
             query = "";
             query += "Update book Set ";
-            query += "quantity=" + book.Quantity + " ";
-            query += "where id='" + book.Id + "';";
+            query += "quantity=" + quantity + " ";
+            query += "where id='" + id + "';";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -133,13 +133,14 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void DeleteBorrow(string bookId,string code)
+        public void DeleteBorrow(string bookId,string code,int type)
         {
             connection.Open();
             query = "";
             query += "delete from borrowed ";
             query += "where bookid='" + bookId + "' ";
-            query += "and membercode='" + code + "';";
+            if(type==Constant.DELETE_BORROW)
+                query += "and membercode='" + code + "';";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();

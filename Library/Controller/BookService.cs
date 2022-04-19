@@ -92,12 +92,8 @@ namespace Library.Controller
             RefreshAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
-                foreach (MemberVO member in voList.memberList)//삭제할 책을 빌린 유저들의 대여 리스트에서 해당 책 삭제
-                {
-                    MyBook myBook = member.borrowedBook.Find(element => element.book == book);
-                    member.RemoveBook(myBook);
-                }
-                voList.bookList.Remove(book);//삭제
+                dBConnection.DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
+                dBConnection.DeleteBook(bookCode);
                 exceptionView.DeleteSuccess(bookCode.Length);//삭제 완료
             }
             RefreshAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
@@ -124,8 +120,7 @@ namespace Library.Controller
             ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
-                book.Quantity = int.Parse(quantity);//수량 수정
-                dBConnection.UpdateBook(book);
+                dBConnection.UpdateBook(int.Parse(quantity),bookCode);
             }
             ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             return;

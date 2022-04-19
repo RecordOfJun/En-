@@ -155,5 +155,7 @@ namespace Library
         public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
         public const int SEARCH_TYPE = 1;
         public const int INSERT_TYPE = 2;
+        public const int DELETE_BOOK = 1;
+        public const int DELETE_BORROW = 2;
     }
 }
