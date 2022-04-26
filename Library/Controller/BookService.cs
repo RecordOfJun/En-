@@ -19,12 +19,12 @@ namespace Library.Controller
         public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
         {
             this.dBConnection = DBConnection.GetDBConnection();
+            this.voList = voList;
+            this.userFunction = userFunction;
             storage = new BookVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
-            this.voList = voList;
-            this.userFunction = userFunction;
             input = new Input(ui);
         }
         public void SearchAndChoice(int type)//책 정보 조회,수정,삭제 기능 메소드

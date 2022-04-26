@@ -113,7 +113,7 @@ namespace Library.Controller
             if (length == Constant.PHONE_LENGTH)
                 return IsPhoneException(userInput);
 
-            else if (length == Constant.PERSONAL_LENGTH)
+            if (length == Constant.PERSONAL_LENGTH)
                 return IsPersnolException(userInput,memberList);
             return !Constant.IS_EXCEPTION;
         }

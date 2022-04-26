@@ -322,7 +322,7 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                               도서수량 수정 방법");
-            BookManual("수정할", "수정할", "수량");
+            BookManual("수정할", "수정할", "수정");
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
@@ -366,7 +366,7 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                    회원 삭제");
             UserManual();
-            Console.WriteLine(                         "4.엔터를 눌러 회원을 삭제한다.");
+            Console.WriteLine("                           4.엔터를 눌러 회원을 삭제한다.");
             Console.WriteLine("                 방향키를 이용해 입력을 원하는 정보를 선택하세요!");
             Console.WriteLine("                        전체조회시 바로 조회를 눌러주세요 ");
             Console.WriteLine("                                    뒤로가기:ESC");

@@ -12,7 +12,7 @@ namespace Library.Controller
         public Exception exception;
         public BasicView ui;
     }
-    class LibraryProgram
+    class MainMenu
     {
         ExceptionAndView exceptionAndView = new ExceptionAndView();
         VOList listData = new VOList();
@@ -36,7 +36,7 @@ namespace Library.Controller
 
         [DllImport("kernel32.dll", ExactSpelling = true)]
         private static extern IntPtr GetConsoleWindow();
-        public LibraryProgram()
+        public MainMenu()
         {
             exceptionAndView.exceptionView = this.exceptionView;
             exceptionAndView.exception = this.exception;
