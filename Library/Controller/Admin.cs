@@ -336,7 +336,7 @@ namespace Library.Controller
             }
             ShowMemberList(name, id, phonenumber);//검색한 정보 바탕으로 리스트 출력
         }
-        private string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+         string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
             while (!isException && !isBack)

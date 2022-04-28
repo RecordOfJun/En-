@@ -73,7 +73,6 @@ namespace Library.Controller
                     return;
                 }
                 DBConnection.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
-                book.Borrowed++;
                 exceptionView.BorrowSuccess(bookCode.Length);
                 return;
             }

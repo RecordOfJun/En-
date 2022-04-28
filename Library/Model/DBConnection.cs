@@ -120,10 +120,28 @@ namespace Library
             while (reader.Read())
             {
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
-                basicView.BookInformation(book);
                 bookList.Add(book);
             }
             connection.Close();
+            foreach(BookVO book in bookList)
+            {
+                book.Borrowed = NumberOfBorrowed(book.Id);
+                basicView.BookInformation(book);
+            }
+        }
+        private int NumberOfBorrowed(string bookid)
+        {
+            int count=0;
+            connection.Open();
+            query = "";
+            query += "SELECT COUNT(*) FROM borrowed where bookid=";
+            query += bookid + ";";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            while(reader.Read())
+                count = int.Parse(reader["COUNT(*)"].ToString());
+            connection.Close();
+            return count;
         }
         public void InsertBorrow(string bookId,string code)
         {
