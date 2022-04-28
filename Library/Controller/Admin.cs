@@ -140,7 +140,7 @@ namespace Library.Controller
                 if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
                 {
                     BookVO book = new BookVO(bookStorage.Id, bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity);
-                    dBConnection.InsertBook(book);
+                    DBConnection.GetDBConnection().InsertBook(book);
                 }
             }
         }
@@ -170,7 +170,7 @@ namespace Library.Controller
         private void ShowMemberList(string name,string id,string phonenumber)//유저정보 조회
         {
             List<MemberVO> findList = new List<MemberVO>();//찾은 멤버 리스트 저장
-            dBConnection.SelectMember(id, name, phonenumber,findList);
+            DBConnection.GetDBConnection().SelectMember(id, name, phonenumber,findList);
             //검색 정보와 일치하는 유저 정보들 찾은 후 전역 멤버 리스트로 넘겨주기
             memberList = findList;
         }
@@ -286,7 +286,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = dBConnection.GetMember(code);//회원코드와 일치하는 멤버 찾기
+            MemberVO member = DBConnection.GetDBConnection().GetMember(code);//회원코드와 일치하는 멤버 찾기
             if (member != null)
             {
                 this.LoginMember = member;
@@ -300,7 +300,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = dBConnection.GetMember(code);//회원정보 일치하는 멤버 찾기
+            MemberVO member = DBConnection.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
@@ -311,7 +311,7 @@ namespace Library.Controller
                 }
                 else if (exception.IsDelete(member.Name + " 회원"))//삭제 한번 더 확인
                 {
-                    dBConnection.DeleteMember(code);
+                    DBConnection.GetDBConnection().DeleteMember(code);
                 }
             }
             else
@@ -336,7 +336,7 @@ namespace Library.Controller
             }
             ShowMemberList(name, id, phonenumber);//검색한 정보 바탕으로 리스트 출력
         }
-        public string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+        private string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
             while (!isException && !isBack)

@@ -16,14 +16,12 @@ namespace Library.Controller
         public MemberVO LoginMember;
         public Input input;
         public MemberVO storage;
-        public DBConnection dBConnection;
         public bool isBack;
         public bool isUp;
         public int inputType;
         public User() { }
         public User(ExceptionAndView exceptionAndView)
         {
-            this.dBConnection = DBConnection.GetDBConnection();
             storage = new MemberVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
@@ -54,7 +52,7 @@ namespace Library.Controller
                 UserSelectMenu();
             }
         }
-        public void LinkData()//로그인 성공 시 해당 계정 정보 불러오기
+        private void LinkData()//로그인 성공 시 해당 계정 정보 불러오기
         {
             storage.Init();
             storage.Id = LoginMember.Id;
@@ -91,7 +89,7 @@ namespace Library.Controller
                 }
                 isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);
             }
-            MemberVO member = dBConnection.FindUser(storage.Id, storage.Password);
+            MemberVO member = DBConnection.GetDBConnection().FindUser(storage.Id, storage.Password);
             if (member!=null)
             {
                 LoginMember = member;
@@ -172,7 +170,7 @@ namespace Library.Controller
             if (type == 2 && IsConfirm(Constant.CONFIRM_REVISE))//수정완료 할 것인지 물어보고 작업 수행
                 ReviseData();
         }
-        public void ReviseData()//수정된 데이터 리스트에 업데이트
+        private void ReviseData()//수정된 데이터 리스트에 업데이트
         {
             LoginMember.Id = storage.Id;
             LoginMember.Password = storage.Password;
@@ -180,9 +178,9 @@ namespace Library.Controller
             LoginMember.PhoneNumber = storage.PhoneNumber;
             LoginMember.PersonalCode = storage.PersonalCode;
             LoginMember.Address = storage.Address;
-            dBConnection.UpdateMember(LoginMember, LoginMember.MemberCode);
+            DBConnection.GetDBConnection().UpdateMember(LoginMember, LoginMember.MemberCode);
         }
-        public void WriteData(int index, string data){//화면에 계정정보 출력
+        private void WriteData(int index, string data){//화면에 계정정보 출력
             Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
             Console.Write(data);
         }
@@ -197,7 +195,7 @@ namespace Library.Controller
                 return false;
             return true;
         }
-        public string SetData(int index,string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+        private string SetData(int index,string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             Console.CursorVisible = true;
             bool isException = Constant.IS_EXCEPTION;
@@ -264,11 +262,11 @@ namespace Library.Controller
             member.PersonalCode = storage.PersonalCode;
             member.PhoneNumber = storage.PhoneNumber;
             member.Address = storage.Address;
-            dBConnection.InsertMember(member);
+            DBConnection.GetDBConnection().InsertMember(member);
         }
 
         //로그인 후 메뉴 선택기능
-        public void UserSelectMenu()
+        private void UserSelectMenu()
         {
             int selectedMenu=0;
             bool isExit = false;

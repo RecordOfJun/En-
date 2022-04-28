@@ -157,5 +157,8 @@ namespace Library
         public const int INSERT_TYPE = 2;
         public const int DELETE_BOOK = 1;
         public const int DELETE_BORROW = 2;
+
+        //db connection
+        public const string SERVER_DATA = "Server=localhost;Port=3306;Database=ensharpstudy;Uid=root;Pwd=0000";
     }
 }

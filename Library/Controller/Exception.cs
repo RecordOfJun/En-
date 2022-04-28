@@ -9,17 +9,12 @@ namespace Library.Controller
 {
     class Exception//예외처리 클래스
     {
-        DBConnection dBConnection;
         ExceptionView exceptionView = new ExceptionView();
         string[] number = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
         string[] alphabat = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
-        public Exception()
-        {
-            dBConnection = DBConnection.GetDBConnection();
-        }
         public bool IsIdException(string userInput)
         {
-            if (dBConnection.IsExistedId(userInput))
+            if (DBConnection.GetDBConnection().IsExistedId(userInput))
             {
                 exceptionView.ExistedId(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -132,7 +127,7 @@ namespace Library.Controller
                 exceptionView.CheckGender(userInput.Length);
                 return Constant.IS_EXCEPTION;
             }
-            if (dBConnection.IsExistedPersonal(userInput))
+            if (DBConnection.GetDBConnection().IsExistedPersonal(userInput))
             {
                 exceptionView.ExistedCode(userInput.Length);
                 return Constant.IS_EXCEPTION;
@@ -234,7 +229,7 @@ namespace Library.Controller
                 }
 
             }
-            if (dBConnection.IsExistedBookId(userInput))
+            if (DBConnection.GetDBConnection().IsExistedBookId(userInput))
             {
                 exceptionView.ExistedBookId(userInput.Length);
                 return Constant.IS_EXCEPTION;

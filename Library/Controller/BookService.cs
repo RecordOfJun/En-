@@ -14,10 +14,8 @@ namespace Library.Controller
         BasicView ui;
         Input input;
         BookVO storage;
-        DBConnection dBConnection;
         public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
-            this.dBConnection = DBConnection.GetDBConnection();
             this.userFunction = userFunction;
             storage = new BookVO();
             exception = exceptionAndView.exception;
@@ -58,7 +56,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //입력한 정보와 일치하는 책 찾아 전역 리스트에 대입 AND 찾은 책 출력
-            dBConnection.SelectBook(name, author, publisher, findList);
+            DBConnection.GetDBConnection().SelectBook(name, author, publisher, findList);
             bookList = findList;
         }
         private void BorrowBook(string bookCode)//책 대여 메소드
@@ -74,7 +72,7 @@ namespace Library.Controller
                     exceptionView.AlreadyHas(bookCode.Length);//이미 빌린 책인지 확인
                     return;
                 }
-                dBConnection.InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
+                DBConnection.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
                 book.Borrowed++;
                 exceptionView.BorrowSuccess(bookCode.Length);
                 return;
@@ -90,8 +88,8 @@ namespace Library.Controller
             RefreshAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
-                dBConnection.DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
-                dBConnection.DeleteBook(bookCode);
+                DBConnection.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
+                DBConnection.GetDBConnection().DeleteBook(bookCode);
                 exceptionView.DeleteSuccess(bookCode.Length);//삭제 완료
             }
             RefreshAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
@@ -118,7 +116,7 @@ namespace Library.Controller
             ReviseAdminBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer");
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
-                dBConnection.UpdateBook(int.Parse(quantity),bookCode);
+                DBConnection.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);
             }
             ReviseAdminBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             return;
@@ -127,7 +125,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //찾은 책 리스트 전역 책 리스트로 넘겨주고 정보 출력
-            dBConnection.SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
+            DBConnection.GetDBConnection().SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
             bookList = findList;
         }
         public void ReturnBook()//반납 메소드
@@ -148,7 +146,7 @@ namespace Library.Controller
         {
             if (code == "")
                 return;
-            dBConnection.DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);
+            DBConnection.GetDBConnection().DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);
             exceptionView.ReturnSuccess(code.Length);//완료
 
         }

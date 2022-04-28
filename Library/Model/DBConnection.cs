@@ -15,7 +15,7 @@ namespace Library
         string query;
         private DBConnection()
         {
-            connection = new MySqlConnection("Server=localhost;Port=3306;Database=ensharpstudy;Uid=root;Pwd=0000");
+            connection = new MySqlConnection(Constant.SERVER_DATA);
         }
         public static DBConnection GetDBConnection()
         {
