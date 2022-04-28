@@ -304,7 +304,12 @@ namespace Library.Controller
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
-                if (exception.IsDelete(member.Name+" 회원"))//삭제 한번 더 확인
+                if (DBConnection.GetDBConnection().IsHaveBook(member.MemberCode))
+                {
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                    exceptionView.CheckHaveBook(member.MemberCode.Length);
+                }
+                else if (exception.IsDelete(member.Name + " 회원"))//삭제 한번 더 확인
                 {
                     dBConnection.DeleteMember(code);
                 }

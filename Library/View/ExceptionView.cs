@@ -117,6 +117,10 @@ namespace Library.View
         {
             InsertException(length, "  (7번째 자리를 다시 확인해 주세요!)");
         }
+        public void CheckHaveBook(int length)
+        {
+            SearchException(length, "  (대여중인 도서가 있는 회원입니다!)");
+        }
         public void ExistedId(int length)
         {
             InsertException(length, "  (이미 존재하는 아이디 입니다!)");

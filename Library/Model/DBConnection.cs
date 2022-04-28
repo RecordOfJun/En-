@@ -8,7 +8,7 @@ namespace Library
 {
     class DBConnection
     {
-        private static DBConnection dBConnection = new DBConnection();
+        private static DBConnection dBConnection;
         MySqlConnection connection;
         MySqlCommand command;
         BasicView basicView = new BasicView();
@@ -19,6 +19,8 @@ namespace Library
         }
         public static DBConnection GetDBConnection()
         {
+            if (dBConnection == null)
+                dBConnection = new DBConnection();
             return dBConnection;
         }
         public void InsertMember(MemberVO member)
@@ -238,6 +240,18 @@ namespace Library
             query += "select * from borrowed ";
             query += "where bookid='" + bookcode + "' ";
             query += "and membercode=" + memberCode + "; ";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            bool result = reader.Read();
+            connection.Close();
+            return result;
+        }
+        public bool IsHaveBook(string memberCode)
+        {
+            connection.Open();
+            query = "";
+            query += "select * from borrowed ";
+            query += "where membercode=" + memberCode + "; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();

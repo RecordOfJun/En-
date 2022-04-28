@@ -95,16 +95,6 @@ namespace Library.Model
             get { return personalCode; }
             set { personalCode = value; }
         }
-        
-        public void AddBook(BookVO book)
-        {
-            MyBook myBook=new MyBook(book,DateTime.Now.ToString("yyyy-MM-dd"),DateTime.Now.AddDays(7).ToString("yyyy-MM-dd"));
-            borrowedBook.Add(myBook);
-        }
-        public void RemoveBook(MyBook mybook)
-        {
-            borrowedBook.Remove(borrowedBook.Find(element => element == mybook));
-        }
         public bool IsHaveBook(string code)
         {
             if (dBConnection.IsBorrowd(this.memberCode,code))
