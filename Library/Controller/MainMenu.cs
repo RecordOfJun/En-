@@ -15,7 +15,6 @@ namespace Library.Controller
     class MainMenu
     {
         ExceptionAndView exceptionAndView = new ExceptionAndView();
-        VOList listData = new VOList();
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
@@ -41,8 +40,8 @@ namespace Library.Controller
             exceptionAndView.exceptionView = this.exceptionView;
             exceptionAndView.exception = this.exception;
             exceptionAndView.ui = this.ui;
-            userFunction = new User(listData,exceptionAndView);
-            adminFuncion=new Admin(listData,exceptionAndView);
+            userFunction = new User(exceptionAndView);
+            adminFuncion=new Admin(exceptionAndView);
             IntPtr handle = GetConsoleWindow();
             IntPtr sysMenu = GetSystemMenu(handle, false);
 

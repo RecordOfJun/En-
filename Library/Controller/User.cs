@@ -10,7 +10,6 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public VOList voList;
         public BasicView ui;
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
@@ -22,15 +21,14 @@ namespace Library.Controller
         public bool isUp;
         public int inputType;
         public User() { }
-        public User(VOList voList,ExceptionAndView exceptionAndView)
+        public User(ExceptionAndView exceptionAndView)
         {
             this.dBConnection = DBConnection.GetDBConnection();
             storage = new MemberVO();
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
-            this.voList = voList;
-            bookFunction = new BookService(voList, this,exceptionAndView); 
+            bookFunction = new BookService( this,exceptionAndView); 
             input = new Input(ui);
         }
         //로그인 기능
@@ -232,12 +230,12 @@ namespace Library.Controller
                     case Constant.PERSONAL_ADD_INDEX://주민번호
                         userInput = input.GetUserString(Constant.PERSONAL_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH, voList.memberList);
+                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH);
                         break;
                     case Constant.PHONE_ADD_INDEX://전화번호
                         userInput = input.GetUserString(Constant.PHONE_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
-                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH, voList.memberList);
+                            isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH);
                         break;
                     case Constant.ADDRESS_ADD_INDEX://주소
                         userInput = input.GetUserString(Console.WindowWidth - 30, Constant.NOT_PASSWORD_TYPE);

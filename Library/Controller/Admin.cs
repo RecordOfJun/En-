@@ -9,7 +9,7 @@ namespace Library.Controller
     {
         List<MemberVO> memberList;
         BookVO bookStorage;
-        public Admin(VOList voList,ExceptionAndView exceptionAndView):base(voList,exceptionAndView)
+        public Admin(ExceptionAndView exceptionAndView):base(exceptionAndView)
         {
             bookStorage = new BookVO();
         }

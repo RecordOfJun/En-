@@ -90,7 +90,7 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
-        public bool IsPersnoalAndPhoneException(string userInput,int length,List<MemberVO> memberList)
+        public bool IsPersnoalAndPhoneException(string userInput,int length)
         {
             bool isContainNumber;
             if (userInput == Constant.ESCAPE)
@@ -114,10 +114,10 @@ namespace Library.Controller
                 return IsPhoneException(userInput);
 
             if (length == Constant.PERSONAL_LENGTH)
-                return IsPersnolException(userInput,memberList);
+                return IsPersnolException(userInput);
             return !Constant.IS_EXCEPTION;
         }
-        public bool IsPersnolException(string userInput,List<MemberVO> memberList)
+        public bool IsPersnolException(string userInput)
         {
             string month = userInput.Substring(Constant.MONTH_INDEX, 2);//매직넘버
             string date= userInput.Substring(Constant.DAY_INDEX, 2);

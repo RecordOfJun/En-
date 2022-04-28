@@ -7,7 +7,6 @@ namespace Library.Controller
 {
     class BookService//책 관련 메소드 구현 클래스
     {
-        VOList voList;
         User userFunction;
         ExceptionView exceptionView;
         Exception exception;
@@ -16,10 +15,9 @@ namespace Library.Controller
         Input input;
         BookVO storage;
         DBConnection dBConnection;
-        public BookService(VOList voList, User userFunction,ExceptionAndView exceptionAndView)
+        public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
             this.dBConnection = DBConnection.GetDBConnection();
-            this.voList = voList;
             this.userFunction = userFunction;
             storage = new BookVO();
             exception = exceptionAndView.exception;
