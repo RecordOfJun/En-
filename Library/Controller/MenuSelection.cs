@@ -18,7 +18,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.MenuGuide();
             ui.MainMenu();
-            return Input.GetInput().SwicthMenu(4,index);
+            return KeyProcessing.GetInput().SwicthMenu(4,index);
         }
         public int SelectUserMenu(int index)//로그인 후 나오는 메뉴 선택
         {
@@ -26,7 +26,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.MemberGuide();
             ui.UserMenu();
-            return Input.GetInput().SwicthMenu(5,index);
+            return KeyProcessing.GetInput().SwicthMenu(5,index);
         }
         public int SelectAdminMenu(int index)//관리자 메뉴 선택
         {
@@ -34,7 +34,7 @@ namespace Library.Controller
             ui.AdminLabel();
             ui.AdminGuide();
             ui.AdminMenu();
-            return Input.GetInput().SwicthMenu(3,index);
+            return KeyProcessing.GetInput().SwicthMenu(3,index);
         }
         public int SelectBookMenu(int index)//도서관리 메뉴 선택
         {
@@ -42,7 +42,7 @@ namespace Library.Controller
             ui.AdminLabel();
             ui.AdminGuide();
             ui.BookManage();
-            return Input.GetInput().SwicthMenu(4,index);
+            return KeyProcessing.GetInput().SwicthMenu(4,index);
         }
         public int SelectMemberMenu(int index)//회원관리 메뉴 선택
         {
@@ -50,7 +50,7 @@ namespace Library.Controller
             ui.AdminLabel();
             ui.AdminGuide();
             ui.MemberManage();
-            return Input.GetInput().SwicthMenu(3,index);
+            return KeyProcessing.GetInput().SwicthMenu(3,index);
         }
 
     }

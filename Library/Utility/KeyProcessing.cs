@@ -4,14 +4,14 @@ using System.Text;
 using Library.View;
 namespace Library
 {
-    class Input
+    class KeyProcessing
     {
         BasicView basicView=new BasicView();
-        private static Input input;
-        public static Input GetInput()
+        private static KeyProcessing input;
+        public static KeyProcessing GetInput()
         {
             if (input == null)
-                input = new Input();
+                input = new KeyProcessing();
             return input;
         }
         public int SwicthMenu(int numberOfMenu,int index)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
@@ -101,29 +101,6 @@ namespace Library
             else
                 basicView.SetInputCursor(inputString);
         }
-        public int GetLeftRight(int index, int numberOfMenu)
-        {
-            ConsoleKeyInfo upAndDown = Console.ReadKey();
-            switch (upAndDown.Key)
-            {
-                case ConsoleKey.LeftArrow://위쪽 방향키 감지
-                    index += Constant.UP;
-                    break;
-                case ConsoleKey.RightArrow://아래쪽 방향 키 감지
-                    index += Constant.DOWN;
-                    break;
-                case ConsoleKey.Enter://엔터 감지
-                    return Constant.RETURN;
-                case ConsoleKey.Escape://엔터 감지
-                    return Constant.ESCAPE_INT;
-                default:
-                    break;
-            }
-            if (index < Constant.INDEX_MINIMUM)//위,아래 방향 키 입력시 커서가 가리키는 메뉴 인덱스 조정
-                index += numberOfMenu;
-            index = index % numberOfMenu;
-            return index;
-        }
         public int GetUpDown(int index, int numberOfMenu)
         {
             ConsoleKeyInfo upAndDown = Console.ReadKey();
@@ -194,21 +171,6 @@ namespace Library
                 selected = index;
             }
             return selected;
-        }
-        public bool IsEscAndEnter()
-        {
-            bool isNotESC = true;
-            while (isNotESC)//esc입력으로 빠져나오기
-            {
-                Console.SetCursorPosition(Constant.MIDDLE_CURSOR, Console.CursorTop);
-                ConsoleKeyInfo key = Console.ReadKey();
-                if (key.Key == ConsoleKey.Escape)
-                    return false;
-                if (key.Key == ConsoleKey.Enter)
-                    return true;
-                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
-            }
-            return true;
         }
     }
 }

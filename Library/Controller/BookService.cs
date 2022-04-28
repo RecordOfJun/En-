@@ -103,7 +103,7 @@ namespace Library.Controller
             string quantity=Constant.EMPTY;
             while (!isNumber) {//0보다 큰 숫자가 들어올 때까지 입력
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
-                quantity = Input.GetInput().GetUserString(2, Constant.NOT_PASSWORD_TYPE);
+                quantity = KeyProcessing.GetInput().GetUserString(2, Constant.NOT_PASSWORD_TYPE);
                 if (quantity == Constant.ESCAPE)
                     return;
                 isNumber = exception.IsNumber(quantity, Constant.INSERT_TYPE);
@@ -162,7 +162,7 @@ namespace Library.Controller
             //제목,작가명,출판사로 검색을 가능하게 함
             storage.Init();
             while (isNotSearch) {
-                selectedSector = Input.GetInput().SwicthSector(4,selectedSector);
+                selectedSector = KeyProcessing.GetInput().SwicthSector(4,selectedSector);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:
@@ -188,7 +188,7 @@ namespace Library.Controller
                 while (!isExisted)
                 {
                     Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
-                    userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
+                    userInput = KeyProcessing.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
                     if (userInput==Constant.ESCAPE_STRING)
                         return userInput;
                     isExisted = true;
@@ -214,7 +214,7 @@ namespace Library.Controller
             ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             ui.SearchForm();
             Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
-            userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+            userInput = KeyProcessing.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {
                 userInput = Constant.EMPTY;

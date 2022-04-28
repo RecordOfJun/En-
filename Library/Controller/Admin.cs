@@ -27,11 +27,11 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id= Input.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                id= KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (id == Constant.ESCAPE_STRING)
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                password = Input.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 if (password == Constant.ESCAPE_STRING)
                     return;
                 isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
@@ -105,7 +105,7 @@ namespace Library.Controller
                 inputType = 0;
                 while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
                 {
-                    selectedSector = Input.GetInput().SwicthSector(7,selectedSector);
+                    selectedSector = KeyProcessing.GetInput().SwicthSector(7,selectedSector);
                     switch (selectedSector)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
                     {
                         
@@ -210,7 +210,7 @@ namespace Library.Controller
             //제목,작가명,출판사로 검색을 가능하게 함
             while (isNotSearch)
             {
-                selectedSector = Input.GetInput().SwicthSector(Constant.MEMBER_SEARCH, selectedSector);
+                selectedSector = KeyProcessing.GetInput().SwicthSector(Constant.MEMBER_SEARCH, selectedSector);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:
@@ -236,7 +236,7 @@ namespace Library.Controller
                 while (!isExisted)
                 {
                     Console.SetCursorPosition(Constant.ADD_INDEX+2, Constant.CODE_INDEX+2);
-                    userInput = Input.GetInput().GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
+                    userInput = KeyProcessing.GetInput().GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
@@ -265,7 +265,7 @@ namespace Library.Controller
             {
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
                 //교수명 입력
-                userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+                userInput = KeyProcessing.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
                 if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
                 {
                     userInput = Constant.EMPTY;
@@ -336,67 +336,64 @@ namespace Library.Controller
             }
             ShowMemberList(name, id, phonenumber);//검색한 정보 바탕으로 리스트 출력
         }
+
+        private bool IsEmpty(string userInput)
+        {
+            if (userInput == Constant.EMPTY)
+            {
+                exceptionView.EmptyString();
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsNatural(string userInput,bool isException)
+        {
+            if (userInput == "0")
+            {
+                isException = Constant.IS_EXCEPTION;
+                exceptionView.QuantityAddException(userInput.Length);
+            }
+            return isException;
+        }
+
          string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
             while (!isException && !isBack)
             {
-                isUp = false;
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
                 ui.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
-                        userInput = Input.GetInput().GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
-                        userInput = Input.GetInput().GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
-                        isException = true;
-                        if (userInput == Constant.EMPTY)
-                        {
-                            exceptionView.EmptyString();
-                            isException=false;
-                        }
+                        userInput = KeyProcessing.GetInput().GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
+                        isException = IsEmpty(userInput);
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX:
-                        userInput = Input.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
-                        isException = true;
-                        if (userInput == Constant.EMPTY)
-                        {
-                            exceptionView.EmptyString();
-                            isException = false;
-                        }
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
+                        isException = IsEmpty(userInput);
                         break;
                     case Constant.NAME_ADD_INDEX:
-                        userInput = Input.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
-                        isException = true;
-                        if (userInput == Constant.EMPTY)
-                        {
-                            exceptionView.EmptyString();
-                            isException = false;
-                        }
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
+                        isException = IsEmpty(userInput);
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
-                        userInput = Input.GetInput().GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
-                        if (userInput == "0")
-                        {
-                            isException = Constant.IS_EXCEPTION;
-                            exceptionView.QuantityAddException(userInput.Length);
-                        }
+                        isException = IsNatural(userInput, isException);
                         break;
                     case Constant.PHONE_ADD_INDEX:
-                        userInput = Input.GetInput().GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
-                        if (userInput == "0")
-                        {
-                            isException = Constant.IS_EXCEPTION;
-                            exceptionView.QuantityAddException(userInput.Length);
-                        }
+                        isException = IsNatural(userInput,isException);
                         break;
                 }
                 if (userInput == Constant.ESCAPE_STRING)
