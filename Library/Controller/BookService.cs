@@ -134,7 +134,7 @@ namespace Library.Controller
         public void ReturnBook()//반납 메소드
         {
             string userInput=Constant.EMPTY;
-            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.ReturnGuide);
+            RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndCode(userInput,2);//반납할 책 정보 입력
@@ -142,7 +142,7 @@ namespace Library.Controller
                     return;
                 if (userInput != Constant.ESCAPE_STRING)
                     UpdateBookCount(userInput);//해당 책 수량 조정
-                RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.ReturnGuide);
+                RefreshBorrowBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY);
             }
         }
 
@@ -232,7 +232,7 @@ namespace Library.Controller
                     RefreshBook(name, author, publisher,ui.BorrowGuide);
                     break;
                 case Constant.BOOK_RETURN:
-                    RefreshBook(name, author, publisher,ui.ReturnGuide);
+                    RefreshBorrowBook(name, author, publisher);
                     break;
                 case Constant.BOOK_DELETE:
                     RefreshBook(name, author, publisher,ui.DeleteGuide);
@@ -245,7 +245,6 @@ namespace Library.Controller
                     break;
             }
         }
-
         private void RefreshBook(string name, string author, string publisher,bookUi action)//단순 조회시 출력
         {
             Console.Clear();
@@ -254,6 +253,13 @@ namespace Library.Controller
             ShowBookList(name, author, publisher);
         }
 
+        private void RefreshBorrowBook(string name, string author, string publisher)//반납시 출력
+        {
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.ReturnGuide();
+            ShowMyBook(name, author, publisher);
+        }
 
     }
 }
