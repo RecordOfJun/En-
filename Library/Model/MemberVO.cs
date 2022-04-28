@@ -27,7 +27,6 @@ namespace Library.Model
         private string phoneNumber;
         private string address;
         private string memberCode;
-        public List<MyBook> borrowedBook = new List<MyBook>();
         DBConnection dBConnection;
         public MemberVO()
         {

@@ -19,8 +19,8 @@ namespace Library.Controller
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
         BasicView ui = new BasicView();
-        User userFunction;
-        Admin adminFuncion;
+        User user;
+        Admin admin;
 
         private const int MF_BYCOMMAND = 0x00000000;
         public const int SC_CLOSE = 0xF060;
@@ -40,8 +40,8 @@ namespace Library.Controller
             exceptionAndView.exceptionView = this.exceptionView;
             exceptionAndView.exception = this.exception;
             exceptionAndView.ui = this.ui;
-            userFunction = new User(exceptionAndView);
-            adminFuncion=new Admin(exceptionAndView);
+            user = new User(exceptionAndView);
+            admin=new Admin(exceptionAndView);
             IntPtr handle = GetConsoleWindow();
             IntPtr sysMenu = GetSystemMenu(handle, false);
 
@@ -62,13 +62,13 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        userFunction.Login();//로그인
+                        user.Login();//로그인
                         break;
                     case Constant.SECOND_MENU:
-                        userFunction.AddOrReviseMember(1);//회원가입
+                        user.AddOrReviseMember(Constant.SIGN_UP);//회원가입
                         break;
                     case Constant.THIRD_MENU:
-                        adminFuncion.AdminLogin();//관리자 로그인
+                        admin.AdminLogin();//관리자 로그인
                         break;
                     case Constant.FOURTH_MENU:
                         exception.ExitProgramm();//프로그램 종료

@@ -40,7 +40,7 @@ namespace Library.Controller
             {
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
-                isCorrect = ChekId();//아이디 체크
+                isCorrect = IsExistedId();//아이디 체크
                 if (isBack)
                     return;
             }
@@ -62,7 +62,7 @@ namespace Library.Controller
             storage.Address = LoginMember.Address;
             storage.MemberCode = LoginMember.MemberCode;
         }
-        private bool ChekId()//아이디와 비밀번호가 일치하는 계정이 있는지 확인
+        private bool IsExistedId()//아이디와 비밀번호가 일치하는 계정이 있는지 확인
         {
             bool isException = false;
             while (!isException && !isBack) {//아이디 예외 없을 때 까지 입력받기
@@ -274,7 +274,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU:
-                        bookFunction.SearchAndChoice(5);//도서 단순 조회
+                        bookFunction.SearchAndChoice(Constant.SEARCH_BOOK);//도서 단순 조회
                         break;
                     case Constant.SECOND_MENU:
                         bookFunction.SearchAndChoice(Constant.BOOK_BORROW);//도서 대여
@@ -283,7 +283,7 @@ namespace Library.Controller
                         bookFunction.ReturnBook();//도서 반납
                         break;
                     case Constant.FOURTH_MENU:
-                        AddOrReviseMember(2);//개인정보 수정
+                        AddOrReviseMember(Constant.REVISE_MEMBER);//개인정보 수정
                         break;
                     case Constant.ESCAPE_INT:
                         isExit = exception.IsEscape();//ESC입력 감지
