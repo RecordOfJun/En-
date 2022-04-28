@@ -12,7 +12,6 @@ namespace Library.Controller
         Exception exception;
         List<BookVO> bookList;
         BasicView ui;
-        Input input;
         BookVO storage;
         public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
@@ -21,7 +20,6 @@ namespace Library.Controller
             exception = exceptionAndView.exception;
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
-            input = new Input(ui);
         }
         public void SearchAndChoice(int type)//책 정보 조회,수정,삭제 기능 메소드
         {
@@ -101,7 +99,7 @@ namespace Library.Controller
             string quantity=Constant.EMPTY;
             while (!isNumber) {//0보다 큰 숫자가 들어올 때까지 입력
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
-                quantity = input.GetUserString(2, Constant.NOT_PASSWORD_TYPE);
+                quantity = Input.GetInput().GetUserString(2, Constant.NOT_PASSWORD_TYPE);
                 if (quantity == Constant.ESCAPE)
                     return;
                 isNumber = exception.IsNumber(quantity, Constant.INSERT_TYPE);
@@ -156,7 +154,7 @@ namespace Library.Controller
             //제목,작가명,출판사로 검색을 가능하게 함
             storage.Init();
             while (isNotSearch) {
-                selectedSector = input.SwicthSector(4,selectedSector);
+                selectedSector = Input.GetInput().SwicthSector(4,selectedSector);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:
@@ -182,7 +180,7 @@ namespace Library.Controller
                 while (!isExisted)
                 {
                     Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
-                    userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
+                    userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);//도서코드 입력
                     if (userInput==Constant.ESCAPE_STRING)
                         return userInput;
                     isExisted = true;
@@ -207,7 +205,7 @@ namespace Library.Controller
             ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             ui.SearchForm();
             Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
-            userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+            userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {
                 userInput = Constant.EMPTY;

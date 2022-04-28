@@ -12,7 +12,6 @@ namespace Library.Controller
         public MenuSelection()
         {
             ui = new BasicView();
-            input = new Input(ui);
         }
         public int SelectMenu(int index)//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
         {

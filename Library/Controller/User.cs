@@ -14,7 +14,6 @@ namespace Library.Controller
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
-        public Input input;
         public MemberVO storage;
         public bool isBack;
         public bool isUp;
@@ -27,7 +26,6 @@ namespace Library.Controller
             ui = exceptionAndView.ui;
             exceptionView = exceptionAndView.exceptionView;
             bookFunction = new BookService( this,exceptionAndView); 
-            input = new Input(ui);
         }
         //로그인 기능
         public void Login()//로그인 메소드
@@ -69,7 +67,7 @@ namespace Library.Controller
             bool isException = false;
             while (!isException && !isBack) {//아이디 예외 없을 때 까지 입력받기
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                storage.Id = input.GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                storage.Id = Input.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (storage.Id == Constant.ESCAPE_STRING)
                 {
                     isBack = true;
@@ -81,7 +79,7 @@ namespace Library.Controller
             while (!isException && !isBack)//비밀번호 예외 없을 때 까지 입력받기
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                storage.Password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                storage.Password = Input.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 if (storage.Password == Constant.ESCAPE_STRING)
                 {
                     isBack = true;
@@ -128,7 +126,7 @@ namespace Library.Controller
             }
             while (isNotComplete)
             {
-                selectedSector = input.SwicthSector(8,selectedSector);
+                selectedSector = Input.GetInput().SwicthSector(8,selectedSector);
                 switch (selectedSector)
                 {
                     case (int)Constant.Menu.FIRST_MENU://아이디 입력
@@ -206,37 +204,37 @@ namespace Library.Controller
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://아이디
-                        userInput = input.GetUserString(Constant.ID_LENGTH,Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.ID_LENGTH,Constant.NOT_PASSWORD_TYPE);
                         if(userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsIdException(userInput);
                         break;
                     case Constant.PASSWORD_ADD_INDEX://패스워드
-                        userInput = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                         if ( userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsExceptionIdPassword(userInput,Constant.INSERT_TYPE);
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX://패스워드 확인
-                        userInput = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsIdentical(userInput, storage.Password);
                         break;
                     case Constant.NAME_ADD_INDEX://이름
-                        userInput = input.GetUserString(Constant.NAME_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.NAME_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNameException(userInput, Constant.INSERT_TYPE);
                         break;
                     case Constant.PERSONAL_ADD_INDEX://주민번호
-                        userInput = input.GetUserString(Constant.PERSONAL_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.PERSONAL_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PERSONAL_LENGTH);
                         break;
                     case Constant.PHONE_ADD_INDEX://전화번호
-                        userInput = input.GetUserString(Constant.PHONE_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.PHONE_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsPersnoalAndPhoneException(userInput, Constant.PHONE_LENGTH);
                         break;
                     case Constant.ADDRESS_ADD_INDEX://주소
-                        userInput = input.GetUserString(Console.WindowWidth - 30, Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Console.WindowWidth - 30, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)     
                             isException =exception.IsAdress(userInput);
                         break;

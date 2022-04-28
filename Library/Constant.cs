@@ -92,6 +92,7 @@ namespace Library
         public const int BOOK_REVISE = 4;
         public const int MEMBER_REVISE = 1;
         public const int MEMBER_DELETE = 2;
+        public const int MEMBER_SEARCH = 4;
 
         //ADMIN
         public const string ADMIN_ID = "1111111111";

@@ -6,10 +6,13 @@ namespace Library
 {
     class Input
     {
-        BasicView basicView;
-        public Input(BasicView basicView)
+        BasicView basicView=new BasicView();
+        private static Input input;
+        public static Input GetInput()
         {
-            this.basicView = basicView;
+            if (input == null)
+                input = new Input();
+            return input;
         }
         public int SwicthMenu(int numberOfMenu,int index)//메인메뉴,관심과목 메뉴,수강신청 메뉴 커서 이동 함수
         {

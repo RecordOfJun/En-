@@ -27,11 +27,11 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id= input.GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                id= Input.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                 if (id == Constant.ESCAPE_STRING)
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                password = input.GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                password = Input.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 if (password == Constant.ESCAPE_STRING)
                     return;
                 isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
@@ -105,7 +105,7 @@ namespace Library.Controller
                 inputType = 0;
                 while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
                 {
-                    selectedSector = input.SwicthSector(7,selectedSector);
+                    selectedSector = Input.GetInput().SwicthSector(7,selectedSector);
                     switch (selectedSector)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
                     {
                         
@@ -196,7 +196,7 @@ namespace Library.Controller
                         case Constant.MEMBER_DELETE:
                             DeleteMember(userInput);//검색한 정보와 입력한 회원코드를 토대로 회원 삭제
                             break;
-                        case 4://단순 조회 시 회원코드 조회 안함(매직넘버)
+                        case Constant.MEMBER_SEARCH://단순 조회 시 회원코드 조회 안함(매직넘버)
                             break;
                     }
                 }
@@ -210,7 +210,7 @@ namespace Library.Controller
             //제목,작가명,출판사로 검색을 가능하게 함
             while (isNotSearch)
             {
-                selectedSector = input.SwicthSector(4, selectedSector);
+                selectedSector = Input.GetInput().SwicthSector(Constant.MEMBER_SEARCH, selectedSector);
                 switch (selectedSector)
                 {
                     case Constant.FIRST_MENU:
@@ -230,13 +230,13 @@ namespace Library.Controller
                 }
             }
             Refresh(storage.Name, storage.Id, storage.PhoneNumber,type);//검색한 정보 토대로 회원 검색 해 출력
-            if (type != 4)//단순 조회 아닐 시(매직넘버)
+            if (type != Constant.MEMBER_SEARCH)//단순 조회 아닐 시(매직넘버)
             {
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)
                 {
                     Console.SetCursorPosition(Constant.ADD_INDEX+2, Constant.CODE_INDEX+2);
-                    userInput = input.GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
+                    userInput = Input.GetInput().GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
@@ -265,7 +265,7 @@ namespace Library.Controller
             {
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
                 //교수명 입력
-                userInput = input.GetUserString(10, Constant.NOT_PASSWORD_TYPE);
+                userInput = Input.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
                 if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
                 {
                     userInput = Constant.EMPTY;
@@ -330,7 +330,7 @@ namespace Library.Controller
                 case Constant.MEMBER_DELETE:
                     ui.MemberDeleteGuide();
                     break;
-                case 4://매직넘버
+                case Constant.MEMBER_SEARCH://매직넘버
                     ui.MemberSearchGuide();
                     break;
             }
@@ -347,12 +347,12 @@ namespace Library.Controller
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
-                        userInput = input.GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        userInput = Input.GetInput().GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH);
                         break;
                     case Constant.PASSWORD_ADD_INDEX:
-                        userInput = input.GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
+                        userInput = Input.GetInput().GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -361,7 +361,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PASSWORD_CONFIRM_INDEX:
-                        userInput = input.GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
+                        userInput = Input.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -370,7 +370,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.NAME_ADD_INDEX:
-                        userInput = input.GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
+                        userInput = Input.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
                         isException = true;
                         if (userInput == Constant.EMPTY)
                         {
@@ -379,7 +379,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PERSONAL_ADD_INDEX:
-                        userInput = input.GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
+                        userInput = Input.GetInput().GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
                         if (userInput == "0")
@@ -389,7 +389,7 @@ namespace Library.Controller
                         }
                         break;
                     case Constant.PHONE_ADD_INDEX:
-                        userInput = input.GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
+                        userInput = Input.GetInput().GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
                         if (userInput == "0")
