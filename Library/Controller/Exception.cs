@@ -16,7 +16,7 @@ namespace Library.Controller
         {
             if (DBConnection.GetDBConnection().IsExistedId(userInput))
             {
-                exceptionView.ExistedId(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (이미 존재하는 아이디 입니다!)");
                 return Constant.IS_EXCEPTION;
             }
             return IsExceptionIdPassword(userInput,Constant.INSERT_TYPE);
@@ -28,7 +28,10 @@ namespace Library.Controller
             if(userInput==Constant.ESCAPE)
                 return Constant.IS_EXCEPTION;
             if (length < Constant.ID_PASSWORD_MINIMUM_LENGTH ) {
-                exceptionView.IdPasswordLength(length);
+                if (type == Constant.INSERT_TYPE)
+                    exceptionView.InsertException(userInput.Length, "  (6~10 글자로 입력해 주세요!)");
+                else
+                    exceptionView.SearchException(userInput.Length, "  (6~10 글자로 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             foreach (string element in number)//인풋에서 숫자 제거
@@ -46,17 +49,17 @@ namespace Library.Controller
             if (userInput != Constant.EMPTY)
             {
                 if(type==Constant.INSERT_TYPE)
-                    exceptionView.IdPasswordContain(length);
+                    exceptionView.InsertException(userInput.Length, "  (영어와 숫자만 입력해 주세요!)");
                 else
-                    exceptionView.IdPasswordContainSearch(length);
+                    exceptionView.SearchException(userInput.Length, "  (영어와 숫자만 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             if (!isDeleteInt || !isDeletechar)
             {
                 if (type == Constant.INSERT_TYPE)
-                    exceptionView.IdPasswordNotContain(length);
+                    exceptionView.InsertException(userInput.Length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
                 else
-                    exceptionView.IdPasswordNotContainSearch(length);
+                    exceptionView.SearchException(userInput.Length, "  (영어와 숫자를 혼합해 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -65,7 +68,7 @@ namespace Library.Controller
         {
             if (userInput != password)
             {
-                exceptionView.NotIdentical(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (비밀번호를 동일하게 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -78,9 +81,9 @@ namespace Library.Controller
             if (!name.IsMatch(userInput))
             {
                 if(type==Constant.INSERT_TYPE)
-                    exceptionView.NameContain(userInput.Length);
+                    exceptionView.InsertException(userInput.Length, "  (한글만 입력해 주세요!)");
                 else
-                    exceptionView.NameContainSearch(userInput.Length);
+                    exceptionView.SearchException(userInput.Length, "  (한글만 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -92,7 +95,7 @@ namespace Library.Controller
                 return Constant.IS_EXCEPTION;
             if (length != userInput.Length)
             {
-                exceptionView.PersonalAndPhoneLength(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (양식에 맞는 글자수를 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             foreach(char letter in userInput)
@@ -100,7 +103,7 @@ namespace Library.Controller
                 isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
                 if (!isContainNumber)
                 {
-                    exceptionView.NumberContain(userInput.Length);
+                    exceptionView.InsertException(userInput.Length, "  (숫자만 입력해 주세요!)");
                     return Constant.IS_EXCEPTION;
                 }
 
@@ -119,17 +122,17 @@ namespace Library.Controller
             string gender = userInput.Substring(Constant.GENDER_INDEX, 1);
             if (int.Parse(month)>Constant.MONTH_LENGTH||int.Parse(date)>Constant.DAY_LENGTH)//매직넘버
             {
-                exceptionView.CheckDate(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (생년월일을 다시 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             if(int.Parse(gender) > Constant.GENDER_LAST || int.Parse(gender) < Constant.GENDER_FIRST)//매직넘버
             {
-                exceptionView.CheckGender(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (7번째 자리를 다시 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             if (DBConnection.GetDBConnection().IsExistedPersonal(userInput))
             {
-                exceptionView.ExistedCode(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (이미 가입이 완료된 사용자 입니다!)");
                 return Constant.IS_EXCEPTION;
             }
 
@@ -139,7 +142,7 @@ namespace Library.Controller
         {
             if (userInput.Substring(0, 3) != "010")
             {
-                exceptionView.StartWith010(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (010으로 시작해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -192,7 +195,7 @@ namespace Library.Controller
         {
             if (input == Constant.EMPTY)
             {
-                exceptionView.EmptyString();
+                exceptionView.InsertException(0, "(아무것도 입력하지 않았습니다!)");
                 return false;
             }
             foreach (string element in number)//인풋에서 숫자 제거
@@ -202,9 +205,9 @@ namespace Library.Controller
             if (input != Constant.EMPTY)
             {
                 if (type == Constant.INSERT_TYPE)
-                    exceptionView.NumberContain(input.Length);
+                    exceptionView.InsertException(input.Length, "  (숫자만 입력해 주세요!)");
                 else
-                    exceptionView.NumberContainSearch(input.Length);
+                    exceptionView.SearchException(input.Length, "  (숫자만 입력해 주세요!)");
                 return false;
             }
             return true;
@@ -216,7 +219,7 @@ namespace Library.Controller
                 return Constant.IS_EXCEPTION;
             if (length != userInput.Length)//8
             {
-                exceptionView.PersonalAndPhoneLength(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (양식에 맞는 글자수를 입력해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             foreach (char letter in userInput)
@@ -224,14 +227,14 @@ namespace Library.Controller
                 isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
                 if (!isContainNumber)
                 {
-                    exceptionView.NumberContain(userInput.Length);
+                    exceptionView.InsertException(userInput.Length, "  (숫자만 입력해 주세요!)");
                     return Constant.IS_EXCEPTION;
                 }
 
             }
             if (DBConnection.GetDBConnection().IsExistedBookId(userInput))
             {
-                exceptionView.ExistedBookId(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "(이미 존재하는 도서번호 입니다!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
@@ -242,7 +245,7 @@ namespace Library.Controller
             Regex adress = new Regex(@"^[가-힣]+[도|시](\s?)([가-힣]+[시|구|군])+(\s?)[가-힣]+[읍|면|동](\s?)([가-힣]+리)?(\s?)([0-9]+-?[0-9]*)(,?\s?)(([0-9]+동)?(\s?)[0-9]+호)?$");
             if (!roadName.IsMatch(userInput)&& !adress.IsMatch(userInput))
             {
-                exceptionView.ValidAdress(userInput.Length);
+                exceptionView.InsertException(userInput.Length * 2, "(주소 양식을 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;

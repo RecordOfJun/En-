@@ -132,7 +132,7 @@ namespace Library.Controller
                             if (bookStorage.IsNotNull())
                                 isNotComplete = false;
                             else
-                                exceptionView.SignUpException();
+                                exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
                             break;
                         case Constant.ESCAPE_INT:
                             return;
@@ -244,7 +244,7 @@ namespace Library.Controller
                     if (!memberList.Exists(member=>member.MemberCode==userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
                     {
                         isExisted = false;
-                        exceptionView.NotExisted(userInput.Length);//검색정보 중에 해당 회원코드가 없으면 예외출력
+                        exceptionView.SearchException(userInput.Length, "  (일치하는 정보가 존재하지 않습니다!)");
                     }
                 }
             }
@@ -295,7 +295,7 @@ namespace Library.Controller
                 Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_REVISE);
             }
             else
-                exceptionView.NotExistedMember(code.Length);//없으면 예외처리
+                exceptionView.SearchException(code.Length, "  (일치하는 유저가 존재하지 않습니다!)");
         }
         private void DeleteMember(string code)//회원 삭제
         {
@@ -308,7 +308,7 @@ namespace Library.Controller
                 if (DBConnection.GetDBConnection().IsHaveBook(member.MemberCode))
                 {
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
-                    exceptionView.CheckHaveBook(member.MemberCode.Length);
+                    exceptionView.SearchException(member.MemberCode.Length, "  (대여중인 도서가 있는 회원입니다!)");
                 }
                 else if (exception.IsDelete(member.Name + " 회원"))//삭제 한번 더 확인
                 {
@@ -316,7 +316,7 @@ namespace Library.Controller
                 }
             }
             else
-                exceptionView.NotExistedMember(code.Length);//일치하는 회원 없으면 예외처리
+                exceptionView.SearchException(code.Length, "  (일치하는 유저가 존재하지 않습니다!)");
             Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_DELETE);
         }
         private void Refresh(string name, string id, string phonenumber,int type)//재조회
@@ -342,7 +342,7 @@ namespace Library.Controller
         {
             if (userInput == Constant.EMPTY)
             {
-                exceptionView.EmptyString();
+                exceptionView.InsertException(0, "(아무것도 입력하지 않았습니다!)");
                 return false;
             }
             return true;
@@ -353,7 +353,7 @@ namespace Library.Controller
             if (userInput == "0")
             {
                 isException = Constant.IS_EXCEPTION;
-                exceptionView.QuantityAddException(userInput.Length);
+                exceptionView.InsertException(userInput.Length, "  (0보다 큰 숫자를 입력해 주세요!)");
             }
             return isException;
         }
@@ -405,7 +405,7 @@ namespace Library.Controller
                 }
             }
             if (!isBack)
-                exceptionView.InsertSuccess(userInput.Length);//완료 출력
+                exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
     }

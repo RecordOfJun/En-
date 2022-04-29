@@ -157,7 +157,7 @@ namespace Library.Controller
                         if (storage.IsNotNull())
                             isNotComplete = false;
                         else
-                            exceptionView.SignUpException();
+                            exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
                         break;
                     case Constant.ESCAPE_INT:
                         return;
@@ -249,7 +249,7 @@ namespace Library.Controller
                 }
             }
             if (!isBack)
-                exceptionView.InsertSuccess(userInput.Length);//예외 없이 입력 되었을 때 완료되었다고 알려줌
+                exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
         private void CreateTable()//새 계정 생성

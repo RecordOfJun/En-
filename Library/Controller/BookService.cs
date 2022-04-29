@@ -70,14 +70,14 @@ namespace Library.Controller
             {
                 if (userFunction.LoginMember.IsHaveBook(bookCode))
                 {
-                    exceptionView.AlreadyHas(bookCode.Length);//이미 빌린 책인지 확인
+                    exceptionView.SearchException(bookCode.Length, "  (이미 이 도서를 대여 하셨습니다!)");
                     return;
                 }
                 DBConnection.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
-                exceptionView.BorrowSuccess(bookCode.Length);
+                exceptionView.SearchComplete(bookCode.Length, "  (대여가 완료되었습니다!)");
                 return;
             }
-            exceptionView.NotRemain(bookCode.Length);//수량 없음
+            exceptionView.SearchException(bookCode.Length, "  (남은 수량이 없어 대여할 수 없습니다!)");
             return;
         }
 
@@ -91,7 +91,7 @@ namespace Library.Controller
             {
                 DBConnection.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
                 DBConnection.GetDBConnection().DeleteBook(bookCode);
-                exceptionView.DeleteSuccess(bookCode.Length);//삭제 완료
+                exceptionView.SearchComplete(bookCode.Length, "  (삭제가 완료되었습니다!))");//삭제 완료
             }
             RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.DeleteGuide, Constant.USER_BOOK);
         }
@@ -110,7 +110,7 @@ namespace Library.Controller
                 if (quantity == "0")
                 {
                     isNumber = Constant.IS_EXCEPTION;
-                    exceptionView.QuantityReviseException(quantity.Length);
+                    exceptionView.SearchException(quantity.Length, "  (0보다 큰 숫자를 입력해 주세요!)");
                 }
             }
             BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
@@ -151,7 +151,7 @@ namespace Library.Controller
             if (code == "")
                 return;
             DBConnection.GetDBConnection().DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);
-            exceptionView.ReturnSuccess(code.Length);//완료
+            exceptionView.SearchComplete(code.Length, "  (반납이 완료되었습니다!))");
 
         }
 
@@ -195,7 +195,7 @@ namespace Library.Controller
                     if (!bookList.Exists(book => book.Id == userInput))//검색정보중에 코드와 일치하는 도서 있는지 확인
                     {
                         isExisted = false;
-                        exceptionView.NotExisted(userInput.Length);
+                        exceptionView.SearchException(userInput.Length, "  (일치하는 정보가 존재하지 않습니다!)");
                     }
                 }
             }
