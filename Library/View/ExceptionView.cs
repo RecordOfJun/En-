@@ -67,7 +67,7 @@ namespace Library.View
         }
         public void IdPasswordLength(int length)
         {
-            InsertException(length, "  (6~10 글자로 입력해 주세요!)");
+            SearchException(length, "  (6~10 글자로 입력해 주세요!)");
         }
         public void IdPasswordContain(int length)
         {

@@ -34,7 +34,8 @@ namespace Library.Controller
                 password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
                 if (password == Constant.ESCAPE_STRING)
                     return;
-                isCorrect = (id == Constant.ADMIN_ID && password == Constant.ADMIN_PASSWORD);
+                MemberVO admin = DBConnection.GetDBConnection().SelectAdmin();
+                isCorrect = (id == admin.Id && password == admin.Password);
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
             }
@@ -68,7 +69,7 @@ namespace Library.Controller
         {
             bool isInsert = false;
             int selectedMenu=0;
-            while (!isInsert)//1,2,3,4,ESC만을 감지하여 키 입력 받기
+            while (!isInsert)
             {
                 selectedMenu = menuSelection.SelectBookMenu(selectedMenu);
                 switch (selectedMenu)
@@ -154,7 +155,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://유저 단순 조회
-                        SearchAndChoiceMember(4);
+                        SearchAndChoiceMember(Constant.MEMBER_SEARCH);
                         break;
                     case Constant.SECOND_MENU://유저 정보 수정
                         SearchAndChoiceMember(Constant.MEMBER_REVISE);
@@ -250,7 +251,7 @@ namespace Library.Controller
 
             return userInput;
         }
-        private string SelectUserData(int type)//교수명 입력
+        private string SelectUserData(int type)
         {
             string userInput=Constant.EMPTY;
             bool isNotException=true;

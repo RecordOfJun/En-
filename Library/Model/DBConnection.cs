@@ -65,7 +65,9 @@ namespace Library
             query += "SELECT * from member ";
             query += "where id like '%" + id + "%' and ";
             query += "name like '%" + name + "%' and ";
-            query += "phone like '%" + phone + "%'; ";
+            query += "phone like '%" + phone + "%'  ";
+            query += "and name <> 'Adm';";
+
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader=command.ExecuteReader();
             while (reader.Read())
@@ -76,6 +78,25 @@ namespace Library
             }
             connection.Close();
         }
+
+        public MemberVO SelectAdmin()
+        {
+            connection.Open();
+            query = "";
+            query += "SELECT id,password from member ";
+            query += "where name = 'Adm';";
+            command = new MySqlCommand(query, connection);
+            MySqlDataReader reader = command.ExecuteReader();
+            MemberVO admin = new MemberVO();
+            while (reader.Read())
+            {
+                admin.Id = reader["id"].ToString();
+                admin.Password = reader["password"].ToString();
+            }
+            connection.Close();
+            return admin;
+        }
+
         public void InsertBook(BookVO book)
         {
             connection.Open();

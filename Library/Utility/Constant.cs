@@ -155,7 +155,7 @@ namespace Library
         public const int COLUMN_DELETE = 50;
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
-        public const int DATA_INSERT_CURSOR = 25;
+        public const int DATA_INSERT_CURSOR = 27;
         public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
         public const int SEARCH_TYPE = 1;
         public const int INSERT_TYPE = 2;
