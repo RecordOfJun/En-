@@ -162,7 +162,8 @@ namespace Library
         public const int DELETE_BOOK = 1;
         public const int DELETE_BORROW = 2;
 
-        //db connection
-        public const string SERVER_DATA = "Server=localhost;Port=3306;Database=ensharpstudy;Uid=root;Pwd=0000";
+        //db connection and query
+        public const string SERVER_DATA = "Server=localhost;Port=3306;Database=hyungjune;Uid=root;Pwd=0000";
+        public const string INSERT_MEMBER = "Insert into member (id,password,name,personalcode,phone,adress) values ( ";
     }
 }

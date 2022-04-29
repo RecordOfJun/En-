@@ -27,8 +27,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "Insert into member (id,password,name,personalcode,phone,adress) ";
-            query += "values ('";
+            query += Constant.INSERT_MEMBER;
             query += member.Id + "','" + member.Password + "','" + member.Name + "','" + member.PersonalCode + "','" + member.PhoneNumber + "','" + member.Address + "');";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
