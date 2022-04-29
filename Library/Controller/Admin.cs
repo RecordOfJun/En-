@@ -74,7 +74,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://1 입력 시 단순 조회
-                        bookFunction.SearchAndChoice(5);
+                        bookFunction.SearchAndChoice(Constant.SEARCH_BOOK);
                         break;
                     case Constant.SECOND_MENU://2 입력 시
                         bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
@@ -235,7 +235,7 @@ namespace Library.Controller
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)
                 {
-                    Console.SetCursorPosition(Constant.ADD_INDEX+2, Constant.CODE_INDEX+2);
+                    Console.SetCursorPosition(1, Constant.CODE_INDEX+4);
                     userInput = KeyProcessing.GetInput().GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;

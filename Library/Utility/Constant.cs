@@ -137,8 +137,8 @@ namespace Library
             SEVENTH_SECTOR_CURSOR = 31,
             EIGHTH_SECTOR_CURSOR = 33,
             NINETH_SECTOR_CURSOR = 35,
-            BOOK_CODE_CURSOR = 27,
-            BOOK_QUANTITY_CURSOR = 29,
+            BOOK_CODE_CURSOR = 29,
+            BOOK_QUANTITY_CURSOR = 31,
         }
         public enum MemberSearch
         {
@@ -155,7 +155,7 @@ namespace Library
         public const int COLUMN_DELETE = 50;
         public const int PASSWORD_TYPE = 1;
         public const int NOT_PASSWORD_TYPE = 2;
-        public const int DATA_INSERT_CURSOR = 27;
+        public const int DATA_INSERT_CURSOR = 25;
         public const string UP_ARROW = "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
         public const int SEARCH_TYPE = 1;
         public const int INSERT_TYPE = 2;

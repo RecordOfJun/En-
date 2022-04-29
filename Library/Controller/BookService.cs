@@ -182,7 +182,7 @@ namespace Library.Controller
                 }
             }
             SpreadBook(type, storage.Name, storage.Author, storage.Publisher);//검색한 정보 출력
-            if (type != 5)//단순 조회가 아닐 경우 (매직넘버)
+            if (type != Constant.SEARCH_BOOK)//단순 조회가 아닐 경우 (매직넘버)
             {
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)

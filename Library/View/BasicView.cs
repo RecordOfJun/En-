@@ -259,7 +259,9 @@ namespace Library.View
             Console.WriteLine("  출판사 입력");
             Console.WriteLine();
             Console.WriteLine("  조회");
-            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("");
         }
         private void KeyGuide()
         {
@@ -296,7 +298,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("  도서코드를 입력해 주세요:");
+            Console.WriteLine("도서코드를 입력해 주세요:");
         }
         public void ReturnGuide()
         {
@@ -306,7 +308,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("  도서코드를 입력해 주세요:");
+            Console.WriteLine("도서코드를 입력해 주세요:");
         }
         public void DeleteGuide()
         {
@@ -316,7 +318,7 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("  도서코드를 입력해 주세요:");
+            Console.WriteLine("도서코드를 입력해 주세요:");
         }
         public void ReviseGuide()
         {
@@ -326,9 +328,9 @@ namespace Library.View
             KeyGuide();
             Console.WriteLine("---------------------------------------------------------------------------------");
             BookSearchForm();
-            Console.WriteLine("  도서코드를 입력해 주세요:");
+            Console.WriteLine("도서코드를 입력해 주세요:");
             Console.WriteLine();
-            Console.WriteLine("  변경수량을 입력해 주세요:");
+            Console.WriteLine("변경수량을 입력해 주세요:");
         }
         private void UserDataForm()
         {
@@ -339,6 +341,8 @@ namespace Library.View
             Console.WriteLine("  전화번호 입력");
             Console.WriteLine("");
             Console.WriteLine("  조회");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
             Console.WriteLine("");
         }
         private void UserManual()
@@ -358,8 +362,8 @@ namespace Library.View
             Console.WriteLine("                                    뒤로가기:ESC");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine("  :");
+            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
         public void MemberDeleteGuide()
         {
@@ -372,8 +376,8 @@ namespace Library.View
             Console.WriteLine("                                    뒤로가기:ESC");
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
-            Console.WriteLine("  회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine("  :");
+            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
         public void MemberSearchGuide()
         {

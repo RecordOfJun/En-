@@ -27,7 +27,6 @@ namespace Library.Model
         private string phoneNumber;
         private string address;
         private string memberCode;
-        DBConnection dBConnection;
         public MemberVO()
         {
         }
@@ -40,7 +39,6 @@ namespace Library.Model
             this.address = address;
             this.personalCode = personalCode;
             this.memberCode = memberCode;
-            this.dBConnection = DBConnection.GetDBConnection();
         }
         public void Init()
         {
@@ -96,7 +94,7 @@ namespace Library.Model
         }
         public bool IsHaveBook(string code)
         {
-            if (dBConnection.IsBorrowd(this.memberCode,code))
+            if (DBConnection.GetDBConnection().IsBorrowd(this.memberCode,code))
                 return Constant.IS_HAVE;
             return !Constant.IS_HAVE;
         }
