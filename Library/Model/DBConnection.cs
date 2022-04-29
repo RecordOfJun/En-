@@ -114,7 +114,8 @@ namespace Library
             query += "SELECT * from book ";
             query += "where name like '%" + name + "%' and ";
             query += "author like '%" + author + "%' and ";
-            query += "publisher like '%" + publisher + "%'; ";
+            query += "publisher like '%" + publisher + "%' ";
+            query += "order by id; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -169,18 +170,18 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "SELECT book.*,borrowed.borrowtime,borrowed.returntime from book,borrowed ";
+            query += "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=" + code + ") as B ";
             query += "where book.name like '%" + name + "%' and ";
             query += "book.author like '%" + author + "%' and ";
             query += "book.publisher like '%" + publisher + "%' and ";
-            query += "book.id in( select bookid from borrowed where membercode=" + code + ") ";
-            query += "group by book.id;";
+            query += "book.id = B.bookid ";
+            query += "order by B.returntime ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
-                MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString(), reader["returntime"].ToString());//db에는 정상적으로 저장 다시 불러올때 값 이상함
+                MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString().Substring(0,10), reader["returntime"].ToString().Substring(0, 10));//db에는 정상적으로 저장 다시 불러올때 값 이상함
                 basicView.BorrowInformation(borrowBook);
                 bookList.Add(book);
             }
