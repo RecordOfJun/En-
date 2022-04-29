@@ -203,7 +203,7 @@ namespace Library.View
             Console.WriteLine("                                 5.프로그램 종료                                ");
         }
         
-        public void BookInformation(BookVO book)
+        public void BookInformation(BookVO book, int type)
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.Write("도서코드:{0}", book.Id);
@@ -214,7 +214,10 @@ namespace Library.View
             Console.WriteLine("저자명:{0}", book.Author);
             Console.Write("가격:{0}",book.Price);
             Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
-            Console.WriteLine("대여 가능 수량:{0}", book.Quantity-book.Borrowed);
+            if(type==Constant.BOOK_BORROW)
+                Console.WriteLine("대여 가능 수량:{0}", book.Quantity-book.Borrowed);
+            else
+                Console.WriteLine("총 수량:{0}", book.Quantity);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
         public void BorrowInformation(MyBook myBook)

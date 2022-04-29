@@ -96,6 +96,8 @@ namespace Library
         public const int SIGN_UP=1;
         public const int REVISE_MEMBER = 2;
         public const int SEARCH_BOOK = 5;
+        public const int USER_BOOK = 1;
+        public const int ADMIN_BOOK = 2;
 
         //ADMIN
         public const string ADMIN_ID = "1111111111";
@@ -164,6 +166,9 @@ namespace Library
 
         //db connection and query
         public const string SERVER_DATA = "Server=localhost;Port=3306;Database=hyungjune;Uid=root;Pwd=0000";
-        public const string INSERT_MEMBER = "Insert into member (id,password,name,personalcode,phone,adress) values ( ";
+        public const string INSERT_MEMBER = "Insert into member (id,password,name,personalcode,phone,adress) values ( '";
+        public const string SELECT_ADMIN = "SELECT id,password from member where name = 'Adm';";
+        public const string BORROW_COUNT = "SELECT COUNT(*) FROM borrowed where bookid=";
+        public const string SELECT_BORROW = "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=";
     }
 }

@@ -106,7 +106,7 @@ namespace Library.Controller
             inputType = 0;
             Console.Clear();
             ui.LibraryLabel();
-            if (type == 1)
+            if (type == Constant.SIGN_UP)
             {//회원가입 일 때
                 storage.Init();
                 ui.AddMemberForm();
@@ -130,7 +130,7 @@ namespace Library.Controller
                 switch (selectedSector)
                 {
                     case (int)Constant.Menu.FIRST_MENU://아이디 입력
-                        if (type == 1)
+                        if (type == Constant.SIGN_UP)
                             storage.Id = SetData(Constant.ID_ADD_INDEX, storage.Id);
                         break;
                     case (int)Constant.Menu.SECOND_MENU://비밀번호 입력
@@ -163,7 +163,7 @@ namespace Library.Controller
                         return;
                 }
             }
-            if (type == 1 && IsConfirm(Constant.CONFRIM_ADD))//회원가입 시 완료할 것인지 물어보고 작업 수행
+            if (type == Constant.SIGN_UP && IsConfirm(Constant.CONFRIM_ADD))//회원가입 시 완료할 것인지 물어보고 작업 수행
                 CreateTable();
             if (type == 2 && IsConfirm(Constant.CONFIRM_REVISE))//수정완료 할 것인지 물어보고 작업 수행
                 ReviseData();

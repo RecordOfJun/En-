@@ -52,11 +52,11 @@ namespace Library.Controller
             }
         }
 
-        private void ShowBookList(string name,string author,string publisher)//책 검색 메소드
+        private void ShowBookList(string name,string author,string publisher,int type)//책 검색 메소드
         {
             List<BookVO> findList = new List<BookVO>();
             //입력한 정보와 일치하는 책 찾아 전역 리스트에 대입 AND 찾은 책 출력
-            DBConnection.GetDBConnection().SelectBook(name, author, publisher, findList);
+            DBConnection.GetDBConnection().SelectBook(name, author, publisher, findList,type);
             bookList = findList;
         }
 
@@ -86,14 +86,14 @@ namespace Library.Controller
             if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
-            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.DeleteGuide);
+            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.DeleteGuide,Constant.USER_BOOK);
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
                 DBConnection.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
                 DBConnection.GetDBConnection().DeleteBook(bookCode);
                 exceptionView.DeleteSuccess(bookCode.Length);//삭제 완료
             }
-            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.DeleteGuide);
+            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.DeleteGuide, Constant.USER_BOOK);
         }
         private void ReviseBook(string bookCode)//책 수량 설정 메소드
         {
@@ -114,12 +114,12 @@ namespace Library.Controller
                 }
             }
             BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
-            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.ReviseGuide);
+            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.ReviseGuide, Constant.ADMIN_BOOK);
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 DBConnection.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);
             }
-            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.ReviseGuide);
+            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.ReviseGuide, Constant.ADMIN_BOOK);
             return;
         }
 
@@ -229,28 +229,28 @@ namespace Library.Controller
             switch (type)//타입에 따라 가이드 다르게 출력
             {
                 case Constant.BOOK_BORROW:
-                    RefreshBook(name, author, publisher,ui.BorrowGuide);
+                    RefreshBook(name, author, publisher,ui.BorrowGuide, Constant.USER_BOOK);
                     break;
                 case Constant.BOOK_RETURN:
                     RefreshBorrowBook(name, author, publisher);
                     break;
                 case Constant.BOOK_DELETE:
-                    RefreshBook(name, author, publisher,ui.DeleteGuide);
+                    RefreshBook(name, author, publisher,ui.DeleteGuide, Constant.ADMIN_BOOK);
                     break;
                 case Constant.BOOK_REVISE:
-                    RefreshBook(name, author, publisher,ui.ReviseGuide);
+                    RefreshBook(name, author, publisher,ui.ReviseGuide, Constant.ADMIN_BOOK);
                     break;
                 case Constant.SEARCH_BOOK://단순조회(매직넘버)
-                    RefreshBook(name, author, publisher,ui.SearchGuide);
+                    RefreshBook(name, author, publisher,ui.SearchGuide, Constant.USER_BOOK);
                     break;
             }
         }
-        private void RefreshBook(string name, string author, string publisher,bookUi action)//단순 조회시 출력
+        private void RefreshBook(string name, string author, string publisher,bookUi action,int type)//단순 조회시 출력
         {
             Console.Clear();
             ui.LibraryLabel();
             action();
-            ShowBookList(name, author, publisher);
+            ShowBookList(name, author, publisher,type);
         }
 
         private void RefreshBorrowBook(string name, string author, string publisher)//반납시 출력

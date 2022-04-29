@@ -82,8 +82,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "SELECT id,password from member ";
-            query += "where name = 'Adm';";
+            query += Constant.SELECT_ADMIN;
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             MemberVO admin = new MemberVO();
@@ -127,7 +126,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBook(string name, string author, string publisher,List<BookVO> bookList)
+        public void SelectBook(string name, string author, string publisher,List<BookVO> bookList,int type)
         {
             connection.Open();
             query = "";
@@ -147,7 +146,7 @@ namespace Library
             foreach(BookVO book in bookList)
             {
                 book.Borrowed = NumberOfBorrowed(book.Id);
-                basicView.BookInformation(book);
+                basicView.BookInformation(book,type);
             }
         }
         private int NumberOfBorrowed(string bookid)
@@ -155,7 +154,7 @@ namespace Library
             int count=0;
             connection.Open();
             query = "";
-            query += "SELECT COUNT(*) FROM borrowed where bookid=";
+            query += Constant.BORROW_COUNT;
             query += bookid + ";";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -190,7 +189,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=" + code + ") as B ";
+            query += Constant.SELECT_BORROW + code + ") as B ";
             query += "where book.name like '%" + name + "%' and ";
             query += "book.author like '%" + author + "%' and ";
             query += "book.publisher like '%" + publisher + "%' and ";
