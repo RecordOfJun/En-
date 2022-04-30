@@ -10,7 +10,9 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public BasicView ui;
+        public BasicView basicUI;
+        public BookView bookUI;
+        public MemberView memberUI;
     }
     class MainMenu
     {
@@ -18,7 +20,9 @@ namespace Library.Controller
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
-        BasicView ui = new BasicView();
+        BasicView basicUI=new BasicView();
+        BookView bookUI=new BookView();
+        MemberView memberUI=new MemberView();
         User user;
         Admin admin;
 
@@ -39,7 +43,9 @@ namespace Library.Controller
         {
             exceptionAndView.exceptionView = this.exceptionView;
             exceptionAndView.exception = this.exception;
-            exceptionAndView.ui = this.ui;
+            exceptionAndView.basicUI = this.basicUI;
+            exceptionAndView.bookUI = this.bookUI;
+            exceptionAndView.memberUI = this.memberUI;
             user = new User(exceptionAndView);
             admin=new Admin(exceptionAndView);
             IntPtr handle = GetConsoleWindow();

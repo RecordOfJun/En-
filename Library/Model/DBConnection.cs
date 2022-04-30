@@ -11,7 +11,8 @@ namespace Library
         private static DBConnection dBConnection;
         MySqlConnection connection;
         MySqlCommand command;
-        BasicView basicView = new BasicView();
+        BookView bookUI = new BookView();
+        MemberView memberUI = new MemberView();
         string query;
         private DBConnection()
         {
@@ -72,7 +73,7 @@ namespace Library
             while (reader.Read())
             {
                 MemberVO member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
-                basicView.MemberInformation(member);
+                memberUI.MemberInformation(member);
                 memberList.Add(member);
             }
             connection.Close();
@@ -146,7 +147,7 @@ namespace Library
             foreach(BookVO book in bookList)
             {
                 book.Borrowed = NumberOfBorrowed(book.Id);
-                basicView.BookInformation(book,type);
+                bookUI.BookInformation(book,type);
             }
         }
         private int NumberOfBorrowed(string bookid)
@@ -201,7 +202,7 @@ namespace Library
             {
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
                 MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString().Substring(0,10), reader["returntime"].ToString().Substring(0, 10));//db에는 정상적으로 저장 다시 불러올때 값 이상함
-                basicView.BorrowInformation(borrowBook);
+                bookUI.BorrowInformation(borrowBook);
                 bookList.Add(book);
             }
             connection.Close();

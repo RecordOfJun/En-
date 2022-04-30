@@ -10,7 +10,9 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public BasicView ui;
+        public BasicView basicUI;
+        public BookView bookUI;
+        public MemberView memberUI;
         public BookService bookFunction;
         public MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
@@ -20,10 +22,12 @@ namespace Library.Controller
         public User() { }
         public User(ExceptionAndView exceptionAndView)
         {
+            this.exception = exceptionAndView.exception;
+            this.basicUI = exceptionAndView.basicUI;
+            this.bookUI = exceptionAndView.bookUI;
+            this.memberUI = exceptionAndView.memberUI;
+            this.exceptionView = exceptionAndView.exceptionView;
             storage = new MemberVO();
-            exception = exceptionAndView.exception;
-            ui = exceptionAndView.ui;
-            exceptionView = exceptionAndView.exceptionView;
             bookFunction = new BookService( this,exceptionAndView); 
         }
         //로그인 기능
@@ -33,8 +37,8 @@ namespace Library.Controller
             bool isCorrect = false;
             //UI 출력
             Console.Clear();
-            ui.LibraryLabel();
-            ui.LoginForm();
+            basicUI.LibraryLabel();
+            basicUI.LoginForm();
             while (!isCorrect)//일치하는 아이디 비밀번호 있을때까지 입력받기
             {
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
@@ -105,16 +109,16 @@ namespace Library.Controller
             bool isNotComplete = true;
             inputType = 0;
             Console.Clear();
-            ui.LibraryLabel();
+            basicUI.LibraryLabel();
             if (type == Constant.SIGN_UP)
             {//회원가입 일 때
                 storage.Init();
-                ui.AddMemberForm();
+                memberUI.AddMemberForm();
             }
             if (type == 2)
             {//수정일 때
                 LinkData();
-                ui.ReviseForm();
+                memberUI.ReviseForm();
                 //로그인 한 유저 정보 불러오기 OR 관리자가 선택한 유저 정보 불러오기
                 WriteData(Constant.ID_ADD_INDEX, storage.Id);
                 WriteData(Constant.PASSWORD_ADD_INDEX, new string('*', storage.Password.Length));
@@ -186,9 +190,9 @@ namespace Library.Controller
 
         public bool IsConfirm(int type)//기능 수행 후 재확인 
         {   if (type == Constant.CONFRIM_ADD)//회원가입인지 확인
-                ui.ConfirmAddForm();
+                basicUI.ConfirmAddForm();
             else
-                ui.ReviseDone();//수정인지 확인
+                basicUI.ReviseDone();//수정인지 확인
             ConsoleKeyInfo key;
             key = Console.ReadKey();
             if (key.Key == ConsoleKey.Escape)
@@ -202,7 +206,7 @@ namespace Library.Controller
             while (!isException&&!isBack)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
-                ui.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
+                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://아이디
@@ -244,7 +248,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING)
                 {
                     userInput = Constant.EMPTY;
-                    ui.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
+                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
                     return userInput;
                 }
             }

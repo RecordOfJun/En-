@@ -11,15 +11,17 @@ namespace Library.Controller
         ExceptionView exceptionView;
         Exception exception;
         List<BookVO> bookList;
-        BasicView ui;
+        BasicView basicUI;
+        BookView bookUI;
         BookVO storage;
-        delegate void bookUi();
+        delegate void bookForm();
         public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
             this.userFunction = userFunction;
             storage = new BookVO();
             exception = exceptionAndView.exception;
-            ui = exceptionAndView.ui;
+            basicUI = exceptionAndView.basicUI;
+            bookUI = exceptionAndView.bookUI;
             exceptionView = exceptionAndView.exceptionView;
         }
         public void SearchAndChoice(int type)//책 정보 조회,수정,삭제 기능 메소드
@@ -86,14 +88,14 @@ namespace Library.Controller
             if (bookCode == Constant.EMPTY)
                 return;
             BookVO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
-            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.DeleteGuide,Constant.USER_BOOK);
+            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.DeleteGuide,Constant.USER_BOOK);
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
                 DBConnection.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
                 DBConnection.GetDBConnection().DeleteBook(bookCode);
                 exceptionView.SearchComplete(bookCode.Length, "  (삭제가 완료되었습니다!))");//삭제 완료
             }
-            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.DeleteGuide, Constant.USER_BOOK);
+            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,bookUI.DeleteGuide, Constant.USER_BOOK);
         }
         private void ReviseBook(string bookCode)//책 수량 설정 메소드
         {
@@ -114,12 +116,12 @@ namespace Library.Controller
                 }
             }
             BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
-            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",ui.ReviseGuide, Constant.ADMIN_BOOK);
+            RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.ReviseGuide, Constant.ADMIN_BOOK);
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 DBConnection.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);
             }
-            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,ui.ReviseGuide, Constant.ADMIN_BOOK);
+            RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,bookUI.ReviseGuide, Constant.ADMIN_BOOK);
             return;
         }
 
@@ -211,14 +213,14 @@ namespace Library.Controller
             userInput = Constant.EMPTY;
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
-            ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
-            ui.SearchForm();
+            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            basicUI.SearchForm();
             Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
             userInput = KeyProcessing.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {
                 userInput = Constant.EMPTY;
-                ui.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
             }
             Console.CursorVisible = false;
             return userInput;
@@ -229,26 +231,26 @@ namespace Library.Controller
             switch (type)//타입에 따라 가이드 다르게 출력
             {
                 case Constant.BOOK_BORROW:
-                    RefreshBook(name, author, publisher,ui.BorrowGuide, Constant.USER_BOOK);
+                    RefreshBook(name, author, publisher,bookUI.BorrowGuide, Constant.USER_BOOK);
                     break;
                 case Constant.BOOK_RETURN:
                     RefreshBorrowBook(name, author, publisher);
                     break;
                 case Constant.BOOK_DELETE:
-                    RefreshBook(name, author, publisher,ui.DeleteGuide, Constant.ADMIN_BOOK);
+                    RefreshBook(name, author, publisher, bookUI.DeleteGuide, Constant.ADMIN_BOOK);
                     break;
                 case Constant.BOOK_REVISE:
-                    RefreshBook(name, author, publisher,ui.ReviseGuide, Constant.ADMIN_BOOK);
+                    RefreshBook(name, author, publisher, bookUI.ReviseGuide, Constant.ADMIN_BOOK);
                     break;
                 case Constant.SEARCH_BOOK://단순조회(매직넘버)
-                    RefreshBook(name, author, publisher,ui.SearchGuide, Constant.USER_BOOK);
+                    RefreshBook(name, author, publisher, bookUI.SearchGuide, Constant.USER_BOOK);
                     break;
             }
         }
-        private void RefreshBook(string name, string author, string publisher,bookUi action,int type)//단순 조회시 출력
+        private void RefreshBook(string name, string author, string publisher,bookForm action,int type)//단순 조회시 출력
         {
             Console.Clear();
-            ui.LibraryLabel();
+            basicUI.LibraryLabel();
             action();
             ShowBookList(name, author, publisher,type);
         }
@@ -256,8 +258,8 @@ namespace Library.Controller
         private void RefreshBorrowBook(string name, string author, string publisher)//반납시 출력
         {
             Console.Clear();
-            ui.LibraryLabel();
-            ui.ReturnGuide();
+            basicUI.LibraryLabel();
+            bookUI.ReturnGuide();
             ShowMyBook(name, author, publisher);
         }
 

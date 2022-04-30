@@ -20,8 +20,8 @@ namespace Library.Controller
             isBack = false;
             bool isCorrect = false;
             Console.Clear();
-            ui.AdminLabel();
-            ui.AdminLoginForm();
+            basicUI.AdminLabel();
+            basicUI.AdminLoginForm();
             while (!isCorrect)//관리자 아이디,비번과 일치할 때까지 입력
             {
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
@@ -101,8 +101,8 @@ namespace Library.Controller
                 //책 정보 초기화
                 bookStorage.Init();
                 Console.Clear();
-                ui.AdminLabel();
-                ui.AddBook();
+                basicUI.AdminLabel();
+                bookUI.AddBook();
                 inputType = 0;
                 while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
                 {
@@ -260,8 +260,8 @@ namespace Library.Controller
             //기존에 쓰여 있던 정보 없애주기
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
-            ui.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
-            ui.SearchForm();
+            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            basicUI.SearchForm();
             while (isNotException)
             {
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
@@ -270,7 +270,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
                 {
                     userInput = Constant.EMPTY;
-                    ui.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                    basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
                 if (type == (int)Constant.MemberSearch.ID)
@@ -322,17 +322,17 @@ namespace Library.Controller
         private void Refresh(string name, string id, string phonenumber,int type)//재조회
         {
             Console.Clear();
-            ui.AdminLabel();
+            basicUI.AdminLabel();
             switch (type)//수정,삭제,단순 조회에 따라 가이드UI다르게 출력
             {
                 case Constant.MEMBER_REVISE:
-                    ui.MemberReviseGuide();
+                    memberUI.MemberReviseGuide();
                     break;
                 case Constant.MEMBER_DELETE:
-                    ui.MemberDeleteGuide();
+                    memberUI.MemberDeleteGuide();
                     break;
                 case Constant.MEMBER_SEARCH://매직넘버
-                    ui.MemberSearchGuide();
+                    memberUI.MemberSearchGuide();
                     break;
             }
             ShowMemberList(name, id, phonenumber);//검색한 정보 바탕으로 리스트 출력
@@ -364,7 +364,7 @@ namespace Library.Controller
             while (!isException && !isBack)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
-                ui.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
+                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
@@ -400,7 +400,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING)
                 {
                     userInput = Constant.EMPTY;
-                    ui.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
+                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
                     return userInput;
                 }
             }
