@@ -71,40 +71,39 @@ namespace Library.Controller
             bool isException = false;
             while (!isException && !isBack) {//아이디 예외 없을 때 까지 입력받기
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                storage.Id = KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
-                if (storage.Id == Constant.ESCAPE_STRING)
+                storage.Id = KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);//입력
+                if (storage.Id == Constant.ESCAPE_STRING)//ESC감지
                 {
                     isBack = true;
                     return false;
                 }
-                isException = exception.IsExceptionIdPassword(storage.Id,Constant.INSERT_TYPE);
+                isException = exception.IsExceptionIdPassword(storage.Id,Constant.INSERT_TYPE);//예외처리
             }
             isException = false;
             while (!isException && !isBack)//비밀번호 예외 없을 때 까지 입력받기
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                storage.Password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
-                if (storage.Password == Constant.ESCAPE_STRING)
+                storage.Password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);//입력
+                if (storage.Password == Constant.ESCAPE_STRING)//ESC감지
                 {
                     isBack = true;
                     return false;
                 }
-                isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);
+                isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);//예외처리
             }
-            MemberVO member = DBConnection.GetDBConnection().FindUser(storage.Id, storage.Password);
+            MemberVO member = DBConnection.GetDBConnection().FindUser(storage.Id, storage.Password);//로그인 정보로 유저 찾기
             if (member!=null)
             {
-                LoginMember = member;
+                LoginMember = member;//유저가 존재할 때 유저 정보 넘겨줌
                 return !Constant.IS_EXCEPTION;
             }
 
-            exceptionView.CanNotLogin(storage.Password.Length);
+            exceptionView.CanNotLogin(storage.Password.Length);//유저 존재하지 않을 경우 예외처리
             return Constant.IS_EXCEPTION;
         }
         //회원가입 기능
         public void AddOrReviseMember(int type)//회원가입 or 회원정보 수정 메소드
         {
-            isBack = false;
             int selectedSector=0;
             bool isNotComplete = true;
             inputType = 0;
@@ -115,7 +114,7 @@ namespace Library.Controller
                 storage.Init();
                 memberUI.AddMemberForm();
             }
-            if (type == 2)
+            if (type == Constant.REVISE_MEMBER)
             {//수정일 때
                 LinkData();
                 memberUI.ReviseForm();
@@ -148,7 +147,7 @@ namespace Library.Controller
                         storage.Name = SetData(Constant.NAME_ADD_INDEX, storage.Name);
                         break;
                     case (int)Constant.Menu.FIFTH_MENU://주민번호 입력
-                        if (type == 1)//회원가입 시만 입력 가능하게
+                        if (type == Constant.SIGN_UP)//회원가입 시만 입력 가능하게
                             storage.PersonalCode = SetData(Constant.PERSONAL_ADD_INDEX, storage.PersonalCode);
                         break;
                     case (int)Constant.Menu.SIXTH_MENU://전화번호 입력
@@ -252,8 +251,7 @@ namespace Library.Controller
                     return userInput;
                 }
             }
-            if (!isBack)
-                exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
+            exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
         private void CreateTable()//새 계정 생성
@@ -276,6 +274,8 @@ namespace Library.Controller
             bool isExit = false;
             while (!isExit)
             {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
                 selectedMenu = menuSelection.SelectUserMenu(selectedMenu);//선택한 메뉴를 전달받음
                 switch (selectedMenu)
                 {

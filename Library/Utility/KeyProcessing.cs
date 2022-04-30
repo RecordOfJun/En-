@@ -114,7 +114,7 @@ namespace Library
                     break;
                 case ConsoleKey.Enter://엔터 감지
                     return Constant.RETURN;
-                case ConsoleKey.Escape://엔터 감지
+                case ConsoleKey.Escape://esc 감지
                     return Constant.ESCAPE_INT;
                 default:
                     break;

@@ -17,7 +17,6 @@ namespace Library.Controller
         {
             string id;
             string password;
-            isBack = false;
             bool isCorrect = false;
             Console.Clear();
             basicUI.AdminLabel();
@@ -47,6 +46,8 @@ namespace Library.Controller
             bool isExit = false;
             while (!isExit)
             {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
                 selectedMenu = menuSelection.SelectAdminMenu(selectedMenu);
                 switch (selectedMenu)
                 {
@@ -71,6 +72,8 @@ namespace Library.Controller
             int selectedMenu=0;
             while (!isInsert)
             {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
                 selectedMenu = menuSelection.SelectBookMenu(selectedMenu);
                 switch (selectedMenu)
                 {
@@ -95,15 +98,14 @@ namespace Library.Controller
         {
             if (IsConfirm(Constant.CONFRIM_ADD))
             {
-                isBack = false;
                 int selectedSector = 0;
                 bool isNotComplete = true;
+                inputType = 0;
                 //책 정보 초기화
                 bookStorage.Init();
                 Console.Clear();
                 basicUI.AdminLabel();
                 bookUI.AddBook();
-                inputType = 0;
                 while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
                 {
                     selectedSector = KeyProcessing.GetInput().SwicthSector(7,selectedSector);
@@ -151,6 +153,8 @@ namespace Library.Controller
             int selectedMenu=0;
             while (!isInsert)
             {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
                 selectedMenu = menuSelection.SelectMemberMenu(selectedMenu);
                 switch (selectedMenu)
                 {
@@ -331,7 +335,7 @@ namespace Library.Controller
                 case Constant.MEMBER_DELETE:
                     memberUI.MemberDeleteGuide();
                     break;
-                case Constant.MEMBER_SEARCH://매직넘버
+                case Constant.MEMBER_SEARCH:
                     memberUI.MemberSearchGuide();
                     break;
             }
@@ -361,7 +365,7 @@ namespace Library.Controller
          string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
-            while (!isException && !isBack)
+            while (!isException)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
                 basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
@@ -404,8 +408,7 @@ namespace Library.Controller
                     return userInput;
                 }
             }
-            if (!isBack)
-                exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
+            exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
     }

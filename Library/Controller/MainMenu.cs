@@ -64,6 +64,8 @@ namespace Library.Controller
             int selectedMenu=0;
             bool isExit = false;
             while (!isExit) {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
                 selectedMenu = menuSelection.SelectMenu(selectedMenu);//선택한 메뉴값을 전달해주는 메소드
                 switch (selectedMenu)
                 {
@@ -78,6 +80,8 @@ namespace Library.Controller
                         break;
                     case Constant.FOURTH_MENU:
                         exception.ExitProgramm();//프로그램 종료
+                        break;
+                    case Constant.ESCAPE_INT:
                         break;
                 }
             }
