@@ -21,7 +21,6 @@ namespace Library
             bool isNotEnter = true;
             while (isNotEnter)
             {
-                //기존 커서 삭제
                 switch (index)//상하 방향키 감지로 인데스 조정, 메뉴 커서 조정
                 {
                     case (int)Constant.Menu.FIRST_MENU:
@@ -45,10 +44,10 @@ namespace Library
                 }
                 Console.Write(">");//커서 출력
                 index = GetUpDown(index, numberOfMenu);//상하 방향키 입력 및 감지
-                basicView.DeleteString(Constant.MIDDLE_CURSOR, Console.CursorTop, 1);
+                basicView.DeleteString(Constant.MIDDLE_CURSOR, Console.CursorTop, 1);//기존 커서 삭제
                 if (index == Constant.RETURN)
                     return selected;//엔터 누르면 선택값 리턴
-                if (index == Constant.ESCAPE_INT)
+                if (index == Constant.ESCAPE_INT)//ESC감지
                     return Constant.ESCAPE_INT;
                 selected = index;
             }

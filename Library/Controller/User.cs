@@ -111,7 +111,7 @@ namespace Library.Controller
             basicUI.LibraryLabel();
             if (type == Constant.SIGN_UP)
             {//회원가입 일 때
-                storage.Init();
+                storage.Init();//가입정보 저장공간 초기화
                 memberUI.AddMemberForm();
             }
             if (type == Constant.REVISE_MEMBER)
@@ -157,7 +157,7 @@ namespace Library.Controller
                         storage.Address = SetData(Constant.ADDRESS_ADD_INDEX, storage.Address);
                         break;
                     case (int)Constant.Menu.EIGHTH_MENU://입력 완료 체크
-                        if (storage.IsNotNull())
+                        if (storage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
                             isNotComplete = false;
                         else
                             exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
@@ -244,7 +244,7 @@ namespace Library.Controller
                             isException =exception.IsAdress(userInput);
                         break;
                 }
-                if (userInput == Constant.ESCAPE_STRING)
+                if (userInput == Constant.ESCAPE_STRING)//ESC감지
                 {
                     userInput = Constant.EMPTY;
                     basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);

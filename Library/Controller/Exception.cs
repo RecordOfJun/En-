@@ -117,15 +117,15 @@ namespace Library.Controller
         }
         public bool IsPersnolException(string userInput)
         {
-            string month = userInput.Substring(Constant.MONTH_INDEX, 2);//매직넘버
+            string month = userInput.Substring(Constant.MONTH_INDEX, 2);
             string date= userInput.Substring(Constant.DAY_INDEX, 2);
             string gender = userInput.Substring(Constant.GENDER_INDEX, 1);
-            if (int.Parse(month)>Constant.MONTH_LENGTH||int.Parse(date)>Constant.DAY_LENGTH)//매직넘버
+            if (int.Parse(month)>Constant.MONTH_LENGTH||int.Parse(date)>Constant.DAY_LENGTH)
             {
                 exceptionView.InsertException(userInput.Length, "  (생년월일을 다시 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
-            if(int.Parse(gender) > Constant.GENDER_LAST || int.Parse(gender) < Constant.GENDER_FIRST)//매직넘버
+            if(int.Parse(gender) > Constant.GENDER_LAST || int.Parse(gender) < Constant.GENDER_FIRST)
             {
                 exceptionView.InsertException(userInput.Length, "  (7번째 자리를 다시 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;

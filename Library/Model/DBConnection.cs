@@ -24,7 +24,7 @@ namespace Library
                 dBConnection = new DBConnection();
             return dBConnection;
         }
-        public void InsertMember(MemberVO member)
+        public void InsertMember(MemberVO member)//회원가입 시 멤버정보 추가
         {
             connection.Open();
             query = "";
@@ -34,7 +34,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void UpdateMember(MemberVO member,string code)
+        public void UpdateMember(MemberVO member,string code)//회원 정보 수정 시 정보 업데이트
         {
             connection.Open();
             query = "";
@@ -48,7 +48,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void DeleteMember(string code)
+        public void DeleteMember(string code)//회원 삭제
         {
             connection.Open();
             query = "";
@@ -58,7 +58,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectMember(string id,string name, string phone,List<MemberVO> memberList)
+        public void SelectMember(string id,string name, string phone,List<MemberVO> memberList)//회원 전체 조회(ADMIN 제외)
         {
             connection.Open();
             query = "";
@@ -71,7 +71,7 @@ namespace Library
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader=command.ExecuteReader();
             while (reader.Read())
-            {
+            {//회원 정보 출력 및 리스트 추가
                 MemberVO member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
                 memberUI.MemberInformation(member);
                 memberList.Add(member);
@@ -79,7 +79,7 @@ namespace Library
             connection.Close();
         }
 
-        public MemberVO SelectAdmin()
+        public MemberVO SelectAdmin()//관리자 계정 불러오기
         {
             connection.Open();
             query = "";
@@ -96,7 +96,7 @@ namespace Library
             return admin;
         }
 
-        public void InsertBook(BookVO book)
+        public void InsertBook(BookVO book)//도서 추가
         {
             connection.Open();
             query = "";
@@ -106,7 +106,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void UpdateBook(int quantity,string id)
+        public void UpdateBook(int quantity,string id)//도서 수량 조정
         {
             connection.Open();
             query = "";
@@ -117,7 +117,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void DeleteBook(string id)
+        public void DeleteBook(string id)//도서 삭제
         {
             connection.Open();
             query = "";
@@ -127,7 +127,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBook(string name, string author, string publisher,List<BookVO> bookList,int type)
+        public void SelectBook(string name, string author, string publisher,List<BookVO> bookList,int type)//책 조회
         {
             connection.Open();
             query = "";
@@ -140,17 +140,18 @@ namespace Library
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
+                //검색한 책 정보 불러오기
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
                 bookList.Add(book);
             }
             connection.Close();
             foreach(BookVO book in bookList)
-            {
+            {//검색한 책의 대여 수 찾기 & 전체수량에서 대여수량 빼서 잔여수량 출력
                 book.Borrowed = NumberOfBorrowed(book.Id);
                 bookUI.BookInformation(book,type);
             }
         }
-        private int NumberOfBorrowed(string bookid)
+        private int NumberOfBorrowed(string bookid)//대여 수량 찾기
         {
             int count=0;
             connection.Open();
@@ -164,7 +165,7 @@ namespace Library
             connection.Close();
             return count;
         }
-        public void InsertBorrow(string bookId,string code)
+        public void InsertBorrow(string bookId,string code)//도서 대여
         {
             connection.Open();
             query = "";
@@ -174,7 +175,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void DeleteBorrow(string bookId,string code,int type)
+        public void DeleteBorrow(string bookId,string code,int type)//도서 반납
         {
             connection.Open();
             query = "";
@@ -186,7 +187,7 @@ namespace Library
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectBorrow(string name, string author, string publisher,string code,List<BookVO> bookList)
+        public void SelectBorrow(string name, string author, string publisher,string code,List<BookVO> bookList)//대여정보 출력
         {
             connection.Open();
             query = "";
@@ -199,7 +200,7 @@ namespace Library
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
-            {
+            {//빌린 책의 정보와 빌린 시간, 반납시간을 가져와 출력
                 BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
                 MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString().Substring(0,10), reader["returntime"].ToString().Substring(0, 10));//db에는 정상적으로 저장 다시 불러올때 값 이상함
                 bookUI.BorrowInformation(borrowBook);
@@ -207,7 +208,7 @@ namespace Library
             }
             connection.Close();
         }
-        public MemberVO FindUser(string id,string password)
+        public MemberVO FindUser(string id,string password)//ID,비번으로 유저 찾기
         {
             connection.Open();
             query = "";
@@ -222,7 +223,7 @@ namespace Library
             connection.Close();
             return member;
         }
-        public bool IsExistedId(string id)
+        public bool IsExistedId(string id)//ID존재여부 확인
         {
             connection.Open();
             query = "";
@@ -234,7 +235,7 @@ namespace Library
             connection.Close();
             return result;
         }
-        public bool IsExistedPersonal(string personal)
+        public bool IsExistedPersonal(string personal)//주민번호 존재여부 확인
         {
             connection.Open();
             query = "";
@@ -246,7 +247,7 @@ namespace Library
             connection.Close();
             return result;
         }
-        public MemberVO GetMember(string code)
+        public MemberVO GetMember(string code)//회원 코드로 유저 찾기
         {
             connection.Open();
             query = "";
@@ -260,7 +261,7 @@ namespace Library
             connection.Close();
             return member;
         }
-        public bool IsExistedBookId(string id)
+        public bool IsExistedBookId(string id)//도서 ID 중복확인
         {
             connection.Open();
             query = "";
@@ -272,7 +273,7 @@ namespace Library
             connection.Close();
             return result;
         }
-        public bool IsBorrowd(string memberCode,string bookcode)
+        public bool IsBorrowd(string memberCode,string bookcode)//이미 대여중인지 확인
         {
             connection.Open();
             query = "";
@@ -285,7 +286,7 @@ namespace Library
             connection.Close();
             return result;
         }
-        public bool IsHaveBook(string memberCode)
+        public bool IsHaveBook(string memberCode)//삭제할 유저가 대여중인지 확인
         {
             connection.Open();
             query = "";

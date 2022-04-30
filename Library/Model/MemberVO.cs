@@ -50,7 +50,7 @@ namespace Library.Model
             phoneNumber = Constant.EMPTY;
             address = Constant.EMPTY;
         }
-        public bool IsNotNull()
+        public bool IsNotNull()//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
         {
             if (id != Constant.EMPTY && password != Constant.EMPTY && temporalPassword != Constant.EMPTY && name != Constant.EMPTY && personalCode != Constant.EMPTY && phoneNumber != Constant.EMPTY && address != Constant.EMPTY)
                 return true;

@@ -25,8 +25,8 @@ namespace Library.Model
             this.price = price;
             this.quantity = quantity;
         }
-        public bool IsNotNull()
-        {
+        public bool IsNotNull()//도서 추가 시 빠뜨린 것 없는지 확인
+        {//정보 하나라도 없으면 예외처리
             if (id != Constant.EMPTY && name != Constant.EMPTY && publisher != Constant.EMPTY && author != Constant.EMPTY && price != Constant.EMPTY && quantity>0)
                 return true;
             return false;

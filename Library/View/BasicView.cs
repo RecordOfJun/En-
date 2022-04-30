@@ -146,7 +146,7 @@ namespace Library.View
         }
         public void BookManage()
         {
-            Console.WriteLine("                                 1.도서 관리                                        ");
+            Console.WriteLine("                                 1.도서 조회                                        ");
             Console.WriteLine("                                 2.도서 수정                                      ");
             Console.WriteLine("                                 3.도서 삭제                                ");
             Console.WriteLine("                                 4.도서 추가");

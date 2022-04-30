@@ -26,11 +26,11 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id= KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                id= KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);//아이디 입력
                 if (id == Constant.ESCAPE_STRING)
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
-                password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);
+                password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);//비밀번호 입력
                 if (password == Constant.ESCAPE_STRING)
                     return;
                 MemberVO admin = DBConnection.GetDBConnection().SelectAdmin();
@@ -77,16 +77,16 @@ namespace Library.Controller
                 selectedMenu = menuSelection.SelectBookMenu(selectedMenu);
                 switch (selectedMenu)
                 {
-                    case Constant.FIRST_MENU://1 입력 시 단순 조회
+                    case Constant.FIRST_MENU:// 단순 조회
                         bookFunction.SearchAndChoice(Constant.SEARCH_BOOK);
                         break;
-                    case Constant.SECOND_MENU://2 입력 시
+                    case Constant.SECOND_MENU:
                         bookFunction.SearchAndChoice(Constant.BOOK_REVISE);//책 수량 수정
                         break;
-                    case Constant.THIRD_MENU://3 입력 시
+                    case Constant.THIRD_MENU:
                         bookFunction.SearchAndChoice(Constant.BOOK_DELETE);//책 삭제
                         break;
-                    case Constant.FOURTH_MENU://4 입력 시 책 추가
+                    case Constant.FOURTH_MENU:// 책 추가
                         AddBook();
                         break;
                     case Constant.ESCAPE_INT://ESC감지
@@ -96,8 +96,6 @@ namespace Library.Controller
         }
         public void AddBook()//책 추가 메소드
         {
-            if (IsConfirm(Constant.CONFRIM_ADD))
-            {
                 int selectedSector = 0;
                 bool isNotComplete = true;
                 inputType = 0;
@@ -131,7 +129,7 @@ namespace Library.Controller
                             bookStorage.Quantity = int.Parse(SetData(Constant.PHONE_ADD_INDEX, Constant.EMPTY));//수량
                             break;
                         case (int)Constant.Menu.SEVENTH_MENU:
-                            if (bookStorage.IsNotNull())
+                            if (bookStorage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
                                 isNotComplete = false;
                             else
                                 exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
@@ -145,7 +143,6 @@ namespace Library.Controller
                     BookVO book = new BookVO(bookStorage.Id, bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity);
                     DBConnection.GetDBConnection().InsertBook(book);
                 }
-            }
         }
         private void ManageMember()//유저 관리 메소드
         {
