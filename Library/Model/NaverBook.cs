@@ -2,14 +2,33 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using System.IO;
 using System.Net;
 namespace Library.Model
 {
+    public class SearchResults
+    {
+        public string lastBulidDate;
+        public string total;
+        public string start;
+        public string display;
+
+        public List<ItemData> items;
+    }  
+    public class ItemData
+    {
+        public string title;
+        public string author;
+        public string price;
+        public string publisher;
+        public string isbn;
+        public string description;
+    }
     class NaverBook
     {
 
-        public string GetRequestResult(string bookName,string number)
+        public void GetRequestResult(string bookName,string number)
         {
             string result = "";
             WebRequest request;
@@ -22,10 +41,20 @@ namespace Library.Model
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             result = reader.ReadToEnd();
+            SearchResults searchResults = JsonConvert.DeserializeObject<SearchResults>(result);
+            foreach(ItemData item in searchResults.items)
+            {
+                Console.WriteLine("title="+item.title);
+                Console.WriteLine("author="+item.author);
+                Console.WriteLine("price="+item.price);
+                Console.WriteLine("publisher="+item.publisher);
+                Console.WriteLine("isbn="+item.isbn);
+                Console.WriteLine("description="+item.description);
+            }
+
             reader.Close();
             dataStream.Close();
             response.Close();
-            return result;
         }
     }
 }

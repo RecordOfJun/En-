@@ -150,6 +150,7 @@ namespace Library.View
             Console.WriteLine("                                 2.도서 수정                                      ");
             Console.WriteLine("                                 3.도서 삭제                                ");
             Console.WriteLine("                                 4.도서 추가");
+            Console.WriteLine("                                 5.네이버 도서 검색");
         }
         public void MemberManage()
         {
