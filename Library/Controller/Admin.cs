@@ -9,9 +9,11 @@ namespace Library.Controller
     {
         List<MemberVO> memberList;
         BookVO bookStorage;
+        NaverBook naverBook;
         public Admin(ExceptionAndView exceptionAndView):base(exceptionAndView)
         {
             bookStorage = new BookVO();
+            naverBook = new NaverBook();
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {
@@ -90,7 +92,7 @@ namespace Library.Controller
                         AddBook();
                         break;
                     case Constant.FIFTH_MENU:
-
+                        SearchNaver();
                         break;
                     case Constant.ESCAPE_INT://ESC감지
                         return;
@@ -258,7 +260,7 @@ namespace Library.Controller
         private string SelectUserData(int type)
         {
             string userInput=Constant.EMPTY;
-            bool isNotException=true;
+            bool isException=true;
             //ui
             Console.CursorVisible = true;
             //기존에 쓰여 있던 정보 없애주기
@@ -266,7 +268,7 @@ namespace Library.Controller
             //기존에 쓰여있던 문자열 지워주기
             basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
             basicUI.SearchForm();
-            while (isNotException)
+            while (isException)
             {
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
                 //교수명 입력
@@ -277,12 +279,29 @@ namespace Library.Controller
                     basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
                     break;
                 }
-                if (type == (int)Constant.MemberSearch.ID)
-                    isNotException=!exception.IsExceptionIdPassword(userInput,Constant.SEARCH_TYPE);
-                if (type == (int)Constant.MemberSearch.NAME)
-                    isNotException = !exception.IsNameException(userInput,Constant.SEARCH_TYPE);
-                if (type == (int)Constant.MemberSearch.PHONE)
-                    isNotException=!exception.IsNumber(userInput,Constant.SEARCH_TYPE);
+                switch (type)
+                {
+                    case (int)Constant.MemberSearch.ID:
+                        isException = !exception.IsExceptionIdPassword(userInput, Constant.SEARCH_TYPE);
+                        break;
+                    case (int)Constant.MemberSearch.NAME:
+                        isException = !exception.IsNameException(userInput, Constant.SEARCH_TYPE);
+                        break;
+                    case (int)Constant.MemberSearch.PHONE:
+                        isException = !exception.IsNumber(userInput, Constant.SEARCH_TYPE);
+                        break;
+                    case (int)Constant.MemberSearch.DISPLAY:
+                        isException = !exception.IsNumber(userInput, Constant.SEARCH_TYPE);
+                        if (isException==false&&(userInput == "0" || int.Parse(userInput) > 100))
+                        {
+                            exceptionView.SearchException(userInput.Length, "  (양식에 맞는 숫자를 입력해주세요!)");
+                            isException = true;
+                        }
+                        break;
+                    default:
+                        isException = false;
+                        break;
+                }
             }
             Console.CursorVisible = false;
             return userInput;
@@ -410,6 +429,49 @@ namespace Library.Controller
             }
             exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
+        }
+
+        private void SearchNaver()
+        {
+            bool isNotEscape = true;
+            while (isNotEscape)
+            {
+                Console.Clear();
+                basicUI.AdminLabel();
+                bookUI.NaverGuide();
+                isNotEscape=IsInsertQueryDisplay();
+            }
+        }
+        private bool IsInsertQueryDisplay()
+        {
+            int selectedSector = 0;
+            bool isNotSearch = true;
+            string query="";
+            string display="";
+            //제목,작가명,출판사로 검색을 가능하게 함
+            while (isNotSearch)
+            {
+                selectedSector = KeyProcessing.GetInput().SwicthSector(Constant.NAVER_SEARCH, selectedSector);
+                switch (selectedSector)
+                {
+                    case Constant.FIRST_MENU:
+                        query = SelectUserData((int)Constant.MemberSearch.QUERY);//아이디
+                        break;
+                    case Constant.SECOND_MENU:
+                        display = SelectUserData((int)Constant.MemberSearch.DISPLAY);//이름
+                        break;
+                    case Constant.THIRD_MENU:
+                        if(exception.IsInsertNaver(query,display))
+                            isNotSearch = false;
+                        break;
+                    case Constant.ESCAPE_INT:
+                        return false;
+                }
+            }
+            List<ItemData> items = naverBook.GetRequestResult(query, display);
+            foreach (ItemData item in items)
+                bookUI.NaverBookInformation(item);
+            return true;
         }
     }
 } 

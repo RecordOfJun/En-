@@ -51,6 +51,17 @@ namespace Library.View
                 Console.WriteLine("총 수량:{0}", book.Quantity);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
+        public void NaverBookInformation(ItemData item)
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("title :" + item.title);
+            Console.WriteLine("author :" + item.author);
+            Console.WriteLine("price :" + item.price);
+            Console.WriteLine("publisher :" + item.publisher);
+            Console.WriteLine("isbn :" + item.isbn);
+            Console.WriteLine("description :" + item.description);
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
         public void BorrowInformation(MyBook myBook)
         {
             BookVO book = myBook.book;
@@ -83,6 +94,35 @@ namespace Library.View
             Console.WriteLine("");
             Console.WriteLine("");
         }
+        private void NaverSearchForm()
+        {
+            Console.WriteLine("  검색어 입력");
+            Console.WriteLine();
+            Console.WriteLine("  수량 입력(1~100)");
+            Console.WriteLine();
+            Console.WriteLine("  조회");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine("");
+        }
+        private void Guide()
+        {
+            Console.WriteLine();
+            Console.WriteLine("                  방향키를 이용해 입력을 원하는 정보를 선택하세요!");
+            Console.WriteLine("                      메뉴로 돌아가고 싶으면ESC를 눌러주세요. ");
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+        }
+        public void NaverGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("                                네이버 도서조회 방법");
+            Console.WriteLine("                       1.원하는 키워드와 출력수를 입력한다.");
+            Console.WriteLine("                          2.조회를 눌러 도서를 검색한다.");
+            Guide();
+            NaverSearchForm();
+        }
 
         public void SearchGuide()
         {
@@ -91,11 +131,7 @@ namespace Library.View
             Console.WriteLine("                                  도서조회 방법");
             Console.WriteLine("                         1.원하는 도서의 정보를 입력한다.");
             Console.WriteLine("                          2.조회를 눌러 도서를 검색한다.");
-            Console.WriteLine();
-            Console.WriteLine("                  방향키를 이용해 입력을 원하는 정보를 선택하세요!");
-            Console.WriteLine("                      메뉴로 돌아가고 싶으면ESC를 눌러주세요. ");
-            Console.WriteLine();
-            Console.WriteLine("---------------------------------------------------------------------------------");
+            Guide();
             BookSearchForm();
         }
         private void BookManual(string firstLine, string thirdLine, string fourthLine)

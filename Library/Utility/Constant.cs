@@ -98,6 +98,7 @@ namespace Library
         public const int SEARCH_BOOK = 5;
         public const int USER_BOOK = 1;
         public const int ADMIN_BOOK = 2;
+        public const int NAVER_SEARCH = 3;
 
         //ADMIN
         public const string ADMIN_ID = "1111111111";
@@ -146,7 +147,9 @@ namespace Library
         {
             ID=1,
             NAME,
-            PHONE
+            PHONE,
+            QUERY,
+            DISPLAY
         }
         public const int MIDDLE_CURSOR = 31;
         public const int ESCAPE_INT = -2;

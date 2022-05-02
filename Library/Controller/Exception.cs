@@ -250,5 +250,14 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
+        public bool IsInsertNaver(string query,string display)
+        {
+            if (query == "" || display == "")
+            {
+                exceptionView.SearchException(0, "(정보를 다 입력해 주세요!)");
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
     }
 }

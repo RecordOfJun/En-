@@ -27,8 +27,7 @@ namespace Library.Model
     }
     class NaverBook
     {
-
-        public void GetRequestResult(string bookName,string number)
+        public List<ItemData> GetRequestResult(string bookName,string number)
         {
             string result = "";
             WebRequest request;
@@ -42,19 +41,11 @@ namespace Library.Model
             StreamReader reader = new StreamReader(dataStream);
             result = reader.ReadToEnd();
             SearchResults searchResults = JsonConvert.DeserializeObject<SearchResults>(result);
-            foreach(ItemData item in searchResults.items)
-            {
-                Console.WriteLine("title="+item.title);
-                Console.WriteLine("author="+item.author);
-                Console.WriteLine("price="+item.price);
-                Console.WriteLine("publisher="+item.publisher);
-                Console.WriteLine("isbn="+item.isbn);
-                Console.WriteLine("description="+item.description);
-            }
-
             reader.Close();
             dataStream.Close();
             response.Close();
+
+            return searchResults.items;
         }
     }
 }

@@ -160,7 +160,7 @@ namespace Library.View
         }
         public void SearchForm()
         {
-            Console.Write("검색어:");
+            Console.Write("  입력:");
         }
     }
 }
