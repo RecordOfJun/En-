@@ -64,6 +64,7 @@ namespace Library.View
             Console.SetCursorPosition(40, Console.CursorTop);
             Console.WriteLine("전화번호:{0}", member.PhoneNumber);
             Console.WriteLine("주소:{0}", member.Address);
+            Console.WriteLine("도서 대여 개수:{0}", member.Borrowed);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
 
@@ -90,29 +91,13 @@ namespace Library.View
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                  회원정보 수정");
-            UserManual();
-            Console.WriteLine("                      4.엔터를 눌러 수정화면으로  넘어간다.");
-            Console.WriteLine("                방향키를 이용해 입력을 원하는 정보를 선택하세요!");
-            Console.WriteLine("                      전체조회시 바로 조회를 눌러주세요 ");
-            Console.WriteLine("                                    뒤로가기:ESC");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            UserDataForm();
-            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            GuideForm();
         }
         public void MemberDeleteGuide()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                                    회원 삭제");
-            UserManual();
-            Console.WriteLine("                           4.엔터를 눌러 회원을 삭제한다.");
-            Console.WriteLine("                 방향키를 이용해 입력을 원하는 정보를 선택하세요!");
-            Console.WriteLine("                        전체조회시 바로 조회를 눌러주세요 ");
-            Console.WriteLine("                                    뒤로가기:ESC");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            UserDataForm();
-            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
-            Console.WriteLine(":");
+            GuideForm();
         }
         public void MemberSearchGuide()
         {
@@ -125,6 +110,24 @@ namespace Library.View
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------------------------------------------");
             UserDataForm();
+        }
+        public void CheckBorrowGuide()
+        {
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("                                    대여현황 조회");
+            GuideForm();
+        }
+        private void GuideForm()
+        {
+            UserManual();
+            Console.WriteLine("                           4.엔터를 눌러 회원을 삭제한다.");
+            Console.WriteLine("                 방향키를 이용해 입력을 원하는 정보를 선택하세요!");
+            Console.WriteLine("                        전체조회시 바로 조회를 눌러주세요 ");
+            Console.WriteLine("                                    뒤로가기:ESC");
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            UserDataForm();
+            Console.WriteLine("회원코드를 정확하게 입력해 주세요!");
+            Console.WriteLine(":");
         }
     }
 }

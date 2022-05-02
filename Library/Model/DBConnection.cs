@@ -73,10 +73,14 @@ namespace Library
             while (reader.Read())
             {//회원 정보 출력 및 리스트 추가
                 MemberVO member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
-                memberUI.MemberInformation(member);
                 memberList.Add(member);
             }
             connection.Close();
+            foreach (MemberVO member in memberList)
+            {
+                member.Borrowed = NumberOfBorrowed(Constant.BORROW_COUNT_MEMBER, member.MemberCode);
+                memberUI.MemberInformation(member);
+            }
         }
 
         public MemberVO SelectAdmin()//관리자 계정 불러오기
@@ -100,7 +104,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "Insert into book(name,publisher,author,price,quantity,isbn,pubdate,description) values ('";
+            query += Constant.INSERT_BOOK;
             query += book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity+ ",'" + book.Isbn+ "','" + book.Pubdate + "','" +book.Description+ "');";
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
@@ -147,17 +151,17 @@ namespace Library
             connection.Close();
             foreach(BookVO book in bookList)
             {//검색한 책의 대여 수 찾기 & 전체수량에서 대여수량 빼서 잔여수량 출력
-                book.Borrowed = NumberOfBorrowed(book.Id);
+                book.Borrowed = NumberOfBorrowed(Constant.BORROW_COUNT_BOOK,book.Id);
                 bookUI.BookInformation(book,type);
             }
         }
-        private int NumberOfBorrowed(string bookid)//대여 수량 찾기
+        private int NumberOfBorrowed(string sqlQuery,string id)//대여 수량 찾기
         {
             int count=0;
             connection.Open();
             query = "";
-            query += Constant.BORROW_COUNT;
-            query += bookid + ";";
+            query += sqlQuery;
+            query += id + ";";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while(reader.Read())

@@ -201,10 +201,5 @@ namespace Library.View
             Console.WriteLine();
             Console.WriteLine("변경수량을 입력해 주세요:");
         }
-
-        public void NaverAdd()
-        {
-
-        }
     }
 }

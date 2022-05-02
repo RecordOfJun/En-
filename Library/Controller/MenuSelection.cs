@@ -50,7 +50,7 @@ namespace Library.Controller
             ui.AdminLabel();
             ui.AdminGuide();
             ui.MemberManage();
-            return KeyProcessing.GetInput().SwicthMenu(3,index);
+            return KeyProcessing.GetInput().SwicthMenu(4,index);
         }
 
         public int SelectLogMenu(int index)//회원관리 메뉴 선택

@@ -26,6 +26,7 @@ namespace Library.Model
         private string phoneNumber;
         private string address;
         private string memberCode;
+        private int borrowed = 0;
         public MemberVO()
         {
         }
@@ -101,6 +102,11 @@ namespace Library.Model
         {
             get { return memberCode; }
             set { memberCode = value; }
+        }
+        public int Borrowed
+        {
+            get { return borrowed; }
+            set { borrowed = value; }
         }
     }
 }

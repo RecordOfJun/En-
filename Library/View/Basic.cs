@@ -159,6 +159,7 @@ namespace Library.View
             Console.WriteLine("                                 1.회원 조회      ");
             Console.WriteLine("                                 2.회원 정보 수정   ");
             Console.WriteLine("                                 3.회원 삭제         ");
+            Console.WriteLine("                                 4.회원별 대여현황         ");
         }
         public void SearchForm()
         {
@@ -184,6 +185,13 @@ namespace Library.View
             Console.WriteLine("                          원하시는 메뉴를 선택해 주세요    ");
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)   ");
             Console.WriteLine("                                 (뒤로가기:ESC)");
+        }
+        public void BorrowList()
+        {
+            Console.Clear();
+            AdminLabel();
+            Console.WriteLine("                      조회를 마쳤으면 ESC나 엔터를 입력해주세요. ");
+            Console.WriteLine(new string('=',Console.WindowWidth));
         }
     }
 }

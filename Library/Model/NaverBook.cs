@@ -32,10 +32,10 @@ namespace Library.Model
         {
             string result = "";
             WebRequest request;
-            request = WebRequest.Create("https://openapi.naver.com/v1/search/book.json?query="+bookName+"&display="+number);
+            request = WebRequest.Create(Constant.BOOK_SEARCH_URL+bookName+"&display="+number);
 
-            request.Headers.Add("X-Naver-Client-Id", "SsfDUUwgAZmuzt8kSFIg");
-            request.Headers.Add("X-Naver-Client-Secret", "IzA2jM8MfA");
+            request.Headers.Add("X-Naver-Client-Id", Constant.CLIENT_ID);
+            request.Headers.Add("X-Naver-Client-Secret", Constant.CLIENT_SECRET);
 
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();

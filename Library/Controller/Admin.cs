@@ -124,6 +124,9 @@ namespace Library.Controller
                     case Constant.THIRD_MENU://유저 삭제
                         SearchAndChoiceMember(Constant.MEMBER_DELETE);
                         break;
+                    case Constant.FOURTH_MENU://도서 대여 현황
+                        SearchAndChoiceMember(Constant.MEMBER_BORROW);
+                        break;
                     case Constant.ESCAPE_INT:
                         return;
                 }
@@ -160,9 +163,19 @@ namespace Library.Controller
                             break;
                         case Constant.MEMBER_SEARCH://단순 조회 시 회원코드 조회 안함(매직넘버)
                             break;
+                        case Constant.MEMBER_BORROW://단순 조회 시 회원코드 조회 안함(매직넘버)
+                            BorrowList(userInput);
+                            break;
                     }
                 }
             }
+        }
+        private void BorrowList(string membercode)
+        {
+            basicUI.BorrowList();
+            List<BookVO> bookList = new List<BookVO>();
+            DBConnection.GetDBConnection().SelectBorrow("", "", "", membercode,bookList);
+            KeyProcessing.GetInput().IsEscAndEnter();
         }
         private string InsertNameAndPersonal(string userInput, int type)//검색 정보 입력과 회원 코드 입력 메소드
         {
@@ -314,6 +327,9 @@ namespace Library.Controller
                     break;
                 case Constant.MEMBER_SEARCH:
                     memberUI.MemberSearchGuide();
+                    break;
+                case Constant.MEMBER_BORROW:
+                    memberUI.CheckBorrowGuide();
                     break;
             }
             ShowMemberList(name, id, phonenumber);//검색한 정보 바탕으로 리스트 출력

@@ -93,6 +93,7 @@ namespace Library
         public const int MEMBER_REVISE = 1;
         public const int MEMBER_DELETE = 2;
         public const int MEMBER_SEARCH = 4;
+        public const int MEMBER_BORROW = 3;
         public const int SIGN_UP=1;
         public const int REVISE_MEMBER = 2;
         public const int SEARCH_BOOK = 5;
@@ -171,9 +172,13 @@ namespace Library
         public const string SERVER_DATA = "Server=localhost;Port=3306;Database=hyungjune;Uid=root;Pwd=0000";
         public const string INSERT_MEMBER = "Insert into member (id,password,name,personalcode,phone,adress) values ( '";
         public const string SELECT_ADMIN = "SELECT id,password from member where name = 'Adm';";
-        public const string BORROW_COUNT = "SELECT COUNT(*) FROM borrowed where bookid=";
+        public const string BORROW_COUNT_BOOK = "SELECT COUNT(*) FROM borrowed where bookid=";
+        public const string BORROW_COUNT_MEMBER = "SELECT COUNT(*) FROM borrowed where membercode=";
         public const string SELECT_BORROW = "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=";
-        
-        //LOG
+        public const string INSERT_BOOK = "Insert into book(name,publisher,author,price,quantity,isbn,pubdate,description) values ('";
+        //Naver API
+        public const string BOOK_SEARCH_URL = "https://openapi.naver.com/v1/search/book.json?query=";
+        public const string CLIENT_ID = "SsfDUUwgAZmuzt8kSFIg";
+        public const string CLIENT_SECRET = "IzA2jM8MfA";
     }
 }

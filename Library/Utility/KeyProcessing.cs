@@ -173,6 +173,7 @@ namespace Library
         }
         public bool IsEscAndEnter()
         {
+            Console.CursorVisible = false;
             bool isNotESC = true;
             while (isNotESC)//esc입력으로 빠져나오기
             {
