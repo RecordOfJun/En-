@@ -37,14 +37,14 @@ namespace Library.View
         public void BookInformation(BookVO book, int type)
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.Write("도서코드:{0}", book.Id);
-            Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
-            Console.WriteLine("도서명:{0}", book.Name);
-            Console.Write("출판사:{0}", book.Publisher);
-            Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
-            Console.WriteLine("저자명:{0}", book.Author);
-            Console.Write("가격:{0}", book.Price);
-            Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
+            Console.WriteLine("id :" + book.Id);
+            Console.WriteLine("제목 :" + book.Name);
+            Console.WriteLine("저자 :" + book.Author);
+            Console.WriteLine("출판사 :" + book.Publisher);
+            Console.WriteLine("출판일 :" + book.Pubdate);
+            Console.WriteLine("가격 :" + book.Price);
+            Console.WriteLine("Isbn :" + book.Isbn);
+            Console.WriteLine("설명 :" + book.Description);
             if (type == Constant.BOOK_BORROW)
                 Console.WriteLine("대여 가능 수량:{0}", book.Quantity - book.Borrowed);
             else
@@ -57,9 +57,9 @@ namespace Library.View
             Console.WriteLine("번호 :" + sequence);
             Console.WriteLine("제목 :" + item.title);
             Console.WriteLine("저자 :" + item.author);
-            Console.WriteLine("가격 :" + item.price);
             Console.WriteLine("출판사 :" + item.publisher);
-            Console.WriteLine("출판사 :" + item.pubdate);
+            Console.WriteLine("출판일 :" + item.pubdate);
+            Console.WriteLine("가격 :" + item.price);
             Console.WriteLine("Isbn :" + item.isbn);
             Console.WriteLine("설명 :" + item.description);
             Console.WriteLine("---------------------------------------------------------------------------------");

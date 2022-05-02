@@ -100,7 +100,7 @@ namespace Library
         {
             connection.Open();
             query = "";
-            query += "Insert into book values ('";
+            query += "Insert into book(name,publisher,author,price,quantity,isbn,pubdate,description) values ('";
             query += book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity+ ",'" + book.Isbn+ "','" + book.Pubdate + "','" +book.Description+ "');";
             Console.WriteLine(query);
             command = new MySqlCommand(query, connection);
@@ -142,7 +142,7 @@ namespace Library
             while (reader.Read())
             {
                 //검색한 책 정보 불러오기
-                BookVO book = new BookVO( reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()),reader["isbn"].ToString(),reader["description"].ToString(),reader["pubdate"].ToString(), reader["id"].ToString());
+                BookVO book = new BookVO( reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()),reader["isbn"].ToString(),reader["description"].ToString(),DateTime.Parse(reader["pubdate"].ToString()).ToString("yyyy-mm-dd"), reader["id"].ToString());
                 bookList.Add(book);
             }
             connection.Close();
