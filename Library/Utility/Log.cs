@@ -6,8 +6,13 @@ namespace Library.Utility
 {
     class Log
     {
-        private string logData="";
+        private string logData;
         private static Log log;
+        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\Log.txt";
+        private Log()
+        {
+            logData = "";
+        }
         public static Log GetLog()
         {
             if (log == null)
@@ -17,11 +22,11 @@ namespace Library.Utility
 
         public void LogInit()
         {
-            logData = "";
+            logData="";
         }
         public void LogAdd(string data)
         {
-            logData +="["+DateTime.Now.ToString("yyyy-MM-dd HH:mm")+ data + "]\n";
+            logData+="["+DateTime.Now.ToString("yyyy-MM-dd HH:mm")+ data + "]\n";
         }
         public void ShowLog()
         {
@@ -29,7 +34,6 @@ namespace Library.Utility
         }
         public void DeleteLogFile()
         {
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\Log.txt";
             bool isExistFile = File.Exists(filePath);
             
             if (!isExistFile)
@@ -41,8 +45,7 @@ namespace Library.Utility
         }
         public void SaveLogFile()
         {
-            StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+"\\Log.txt");
-            sw.WriteLine(logData);
+            File.WriteAllText(filePath, logData);
         }
     }
 }
