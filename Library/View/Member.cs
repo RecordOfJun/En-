@@ -14,20 +14,16 @@ namespace Library.View
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
             Console.WriteLine(" 입력한 정보를 다시 입력하려면 방향키로 이동, 입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("---------------------------------------------------------------------------------");
             InsetForm();
 
         }
         public void ReviseForm()
         {
             Console.WriteLine("");
-            Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다!                 ");
+            Console.WriteLine("               개인정보 수정은 비밀번호, 이름, 전화번호,주소 만 가능합니다! ");
             Console.WriteLine("                   아래에 양식에 맞게 차례대로 정보를 입럭해 주세요!             ");
             Console.WriteLine(" 입력한 정보를 다시 입력하려면 방향키로 이동, 입력을 완료했으면 엔터를 눌러주세요!");
             Console.WriteLine("                           (ESC입력 시 메뉴로 돌아갑니다.)             ");
-            Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("---------------------------------------------------------------------------------");
             InsetForm();
 
         }
@@ -35,6 +31,8 @@ namespace Library.View
         {
             Console.WriteLine();
             Console.WriteLine();
+            Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine();
             Console.WriteLine("  ID[영문과 숫자를 혼합하여 6~10자 입력해 주세요]");
             Console.WriteLine("  :");

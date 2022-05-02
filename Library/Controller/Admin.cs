@@ -222,7 +222,7 @@ namespace Library.Controller
             //기존에 쓰여 있던 정보 없애주기
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
-            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop);
             basicUI.SearchForm();
             while (isException)
             {
@@ -232,7 +232,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING || userInput == Constant.EMPTY)//esc감지
                 {
                     userInput = Constant.EMPTY;
-                    basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                    basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
                     break;
                 }
                 switch (type)
@@ -271,6 +271,7 @@ namespace Library.Controller
             {
                 this.LoginMember = member;
                 AddOrReviseMember(2);//멤버 정보 수정
+                this.LoginMember = null;
                 Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_REVISE);
             }
             else
@@ -344,7 +345,7 @@ namespace Library.Controller
             while (!isException)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX + 2, index);
-                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
+                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://도서코드 입력
@@ -380,7 +381,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING)
                 {
                     userInput = Constant.EMPTY;
-                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
+                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop);
                     return userInput;
                 }
             }
@@ -468,7 +469,7 @@ namespace Library.Controller
             if (quantity == Constant.ESCAPE_INT)
                 return;
             //도서 추가할것인지 확인하기
-            BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Substring(0, 80).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
+            BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
             DBConnection.GetDBConnection().InsertBook(book);
         }
         private int SelectNumber(int sequence, int cursor)

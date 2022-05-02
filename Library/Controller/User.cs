@@ -208,7 +208,7 @@ namespace Library.Controller
             while (!isException&&!isBack)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
-                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
+                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop);
                 switch (index)
                 {
                     case Constant.ID_ADD_INDEX://아이디
@@ -250,7 +250,7 @@ namespace Library.Controller
                 if (userInput == Constant.ESCAPE_STRING)//ESC감지
                 {
                     userInput = Constant.EMPTY;
-                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
+                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop);
                     return userInput;
                 }
             }

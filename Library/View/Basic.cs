@@ -25,6 +25,13 @@ namespace Library.View
             Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
 
         }
+        public void DeleteString(int startCursorIndexOfX, int startCursorIndexOfY)
+        {
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
+            Console.Write(new string(' ', Console.WindowWidth-startCursorIndexOfX));
+            Console.SetCursorPosition(startCursorIndexOfX, startCursorIndexOfY);
+
+        }
         public void LibraryLabel()
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
@@ -53,14 +60,14 @@ namespace Library.View
         {
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("                     도서관리 시스템에 오신것을 환영합니다!                      ");
+            Console.WriteLine("                     도서관리 시스템에 오신것을 환영합니다! ");
             SelectGuide();
         }
         public void MemberGuide()
         {
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("                              회원 전용 메뉴입니다!                 ");
+            Console.WriteLine("                              회원 전용 메뉴입니다! ");
             SelectGuide();
         }
         
@@ -149,9 +156,9 @@ namespace Library.View
         }
         public void MemberManage()
         {
-            Console.WriteLine("                                 1.회원 조회                                        ");
-            Console.WriteLine("                                 2.회원 정보 수정                                     ");
-            Console.WriteLine("                                 3.회원 삭제                                ");
+            Console.WriteLine("                                 1.회원 조회      ");
+            Console.WriteLine("                                 2.회원 정보 수정   ");
+            Console.WriteLine("                                 3.회원 삭제         ");
         }
         public void SearchForm()
         {
@@ -168,13 +175,13 @@ namespace Library.View
         {
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("                              로그 관리 메뉴입니다!                 ");
+            Console.WriteLine("                              로그 관리 메뉴입니다!    ");
             SelectGuide();
         }
 
         private void SelectGuide()
         {
-            Console.WriteLine("                          원하시는 메뉴를 선택해 주세요                          ");
+            Console.WriteLine("                          원하시는 메뉴를 선택해 주세요    ");
             Console.WriteLine("                      (화살표 위, 아래 버튼으로 이동 후 엔터)   ");
             Console.WriteLine("                                 (뒤로가기:ESC)");
         }

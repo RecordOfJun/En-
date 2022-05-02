@@ -188,7 +188,10 @@ namespace Library.Controller
                         return Constant.ESCAPE;
                 }
             }
-            Log.GetLog().LogAdd(userFunction.LoginMember.Id +"'"+storage.Name+","+storage.Author+","+storage.Publisher+"'(으)로 도서검색");
+            if(userFunction.LoginMember!=null)
+                Log.GetLog().LogAdd(userFunction.LoginMember.Id +" '"+storage.Name+","+storage.Author+","+storage.Publisher+"'(으)로 도서검색");
+            else
+                Log.GetLog().LogAdd("관리자 '" + storage.Name + "," + storage.Author + "," + storage.Publisher + "'(으)로 도서검색");
             SpreadBook(type, storage.Name, storage.Author, storage.Publisher);//검색한 정보 출력
             if (type != Constant.SEARCH_BOOK)//단순 조회가 아닐 경우 (매직넘버)
             {
@@ -219,14 +222,14 @@ namespace Library.Controller
             userInput = Constant.EMPTY;
             Console.SetCursorPosition(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             //기존에 쓰여있던 문자열 지워주기
-            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, Constant.COLUMN_DELETE);
+            basicUI.DeleteString(Console.CursorLeft, Console.CursorTop);
             basicUI.SearchForm();
             Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, Console.CursorTop);
             userInput = KeyProcessing.GetInput().GetUserString(10, Constant.NOT_PASSWORD_TYPE);
             if (userInput == Constant.ESCAPE_STRING|| userInput == Constant.EMPTY)//esc감지
             {
                 userInput = Constant.EMPTY;
-                basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop, Constant.COLUMN_DELETE);
+                basicUI.DeleteString(Constant.COLUMN_PRINT_CURSOR, Console.CursorTop);
             }
             Console.CursorVisible = false;
             return userInput;

@@ -59,7 +59,7 @@ namespace Library.Controller
                 DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);
             }
             Console.SetWindowSize(81, 40);
-            Console.SetBufferSize(82, Console.BufferHeight);
+            Console.SetBufferSize(Console.WindowWidth+1, Console.BufferHeight);
         }
         public void start()//프로그램 시작
         {
