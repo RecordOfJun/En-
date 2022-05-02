@@ -109,7 +109,7 @@ namespace Library.Controller
             while (!isNumber) {//0보다 큰 숫자가 들어올 때까지 입력
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
                 quantity = KeyProcessing.GetInput().GetUserString(2, Constant.NOT_PASSWORD_TYPE);
-                if (quantity == Constant.ESCAPE)
+                if (quantity == Constant.ESCAPE_STRING)
                     return;
                 isNumber = exception.IsNumber(quantity, Constant.INSERT_TYPE);
                 if (quantity == "0")

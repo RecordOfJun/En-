@@ -471,6 +471,7 @@ namespace Library.Controller
             //도서 추가할것인지 확인하기
             BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
             DBConnection.GetDBConnection().InsertBook(book);
+            exceptionView.SearchComplete(quantity.ToString().Length, " (추가되었습니다!)");
         }
         private int SelectNumber(int sequence, int cursor)
         {

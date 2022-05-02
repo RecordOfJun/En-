@@ -26,6 +26,7 @@ namespace Library.Utility
         public void LogInit()
         {
             logData="";
+            exceptionView.LogComplete("(초기화를 완료했습니다!)");
         }
         public void LogAdd(string data)
         {
