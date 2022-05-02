@@ -7,10 +7,10 @@ namespace Library.Controller
 {
     class MenuSelection//메뉴 선택 관련 메소드 구현 클래스
     {
-        BasicView ui;
+        Basic ui;
         public MenuSelection()
         {
-            ui = new BasicView();
+            ui = new Basic();
         }
         public int SelectMenu(int index)//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
         {
@@ -18,7 +18,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.MenuGuide();
             ui.MainMenu();
-            return KeyProcessing.GetInput().SwicthMenu(4,index);
+            return KeyProcessing.GetInput().SwicthMenu(5,index);
         }
         public int SelectUserMenu(int index)//로그인 후 나오는 메뉴 선택
         {

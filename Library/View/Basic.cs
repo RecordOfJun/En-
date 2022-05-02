@@ -5,9 +5,9 @@ using Library.Model;
 
 namespace Library.View
 {
-    class BasicView
+    class Basic
     {
-        public BasicView()
+        public Basic()
         {
         }
         public void MainMenu()
@@ -15,7 +15,8 @@ namespace Library.View
             Console.WriteLine("                                 1.로그인                                        ");
             Console.WriteLine("                                 2.회원가입                                      ");
             Console.WriteLine("                                 3.관리자 로그인                                 ");
-            Console.WriteLine("                                 4.프로그램 종료                                 ");
+            Console.WriteLine("                                 4.로그 관리                                 ");
+            Console.WriteLine("                                 5.프로그램 종료                                 ");
         }
         public void DeleteString(int startCursorIndexOfX, int startCursorIndexOfY, int maximumLength)
         {

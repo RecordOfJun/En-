@@ -10,9 +10,9 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public BasicView basicUI;
-        public BookView bookUI;
-        public MemberView memberUI;
+        public Basic basicUI;
+        public Book bookUI;
+        public Member memberUI;
     }
     class MainMenu
     {
@@ -20,9 +20,9 @@ namespace Library.Controller
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
-        BasicView basicUI=new BasicView();
-        BookView bookUI=new BookView();
-        MemberView memberUI=new MemberView();
+        Basic basicUI=new Basic();
+        Book bookUI=new Book();
+        Member memberUI=new Member();
         User user;
         Admin admin;
 
@@ -79,6 +79,9 @@ namespace Library.Controller
                         admin.AdminLogin();//관리자 로그인
                         break;
                     case Constant.FOURTH_MENU:
+                        
+                        break;
+                    case Constant.FIFTH_MENU:
                         exception.ExitProgramm();//프로그램 종료
                         break;
                     case Constant.ESCAPE_INT:

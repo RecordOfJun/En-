@@ -6,7 +6,7 @@ namespace Library.View
 {
     class ExceptionView
     {
-        BasicView basicView = new BasicView();
+        Basic basicView = new Basic();
         DBConnection dBConnection;
         public ExceptionView()
         {

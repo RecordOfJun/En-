@@ -4,7 +4,7 @@ using System.Text;
 using Library.Model;
 namespace Library.View
 {
-    class MemberView
+    class Member
     {
 
         public void AddMemberForm()

@@ -6,7 +6,7 @@ namespace Library
 {
     class KeyProcessing
     {
-        BasicView basicView=new BasicView();
+        Basic basicView=new Basic();
         private static KeyProcessing input;
         public static KeyProcessing GetInput()
         {

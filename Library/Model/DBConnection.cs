@@ -11,8 +11,8 @@ namespace Library
         private static DBConnection dBConnection;
         MySqlConnection connection;
         MySqlCommand command;
-        BookView bookUI = new BookView();
-        MemberView memberUI = new MemberView();
+        Book bookUI = new Book();
+        Member memberUI = new Member();
         string query;
         private DBConnection()
         {
@@ -102,7 +102,6 @@ namespace Library
             query = "";
             query += "Insert into book(name,publisher,author,price,quantity,isbn,pubdate,description) values ('";
             query += book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity+ ",'" + book.Isbn+ "','" + book.Pubdate + "','" +book.Description+ "');";
-            Console.WriteLine(query);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
