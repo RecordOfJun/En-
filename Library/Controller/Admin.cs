@@ -431,15 +431,18 @@ namespace Library.Controller
             exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
-
+        private void Refresh()
+        {
+            Console.Clear();
+            basicUI.AdminLabel();
+            bookUI.NaverGuide();
+        }
         private void SearchNaver()
         {
             bool isNotEscape = true;
+            Refresh();
             while (isNotEscape)
             {
-                Console.Clear();
-                basicUI.AdminLabel();
-                bookUI.NaverGuide();
                 isNotEscape=IsInsertQueryDisplay();
             }
         }
@@ -450,6 +453,7 @@ namespace Library.Controller
             string query="";
             string display="";
             int sequence = 1;
+           
             //제목,작가명,출판사로 검색을 가능하게 함
             while (isNotSearch)
             {
@@ -471,15 +475,20 @@ namespace Library.Controller
                 }
             }
             items = naverBook.GetRequestResult(query, display);
-            Console.SetCursorPosition(0, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR + 2);
+            Refresh();
             foreach (ItemData item in items)
             {
                 bookUI.NaverBookInformation(item,sequence++);
             }
+            //NaverAddBook(sequence);
+            
+            return true;
+        }
+        private void NaverAddBook(int sequence)
+        {
             string selectSequence = SelectNumber(sequence, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
             string quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
-            Console.ReadLine();
-            return true;
+
         }
         private string SelectNumber(int sequence, int cursor)
         {

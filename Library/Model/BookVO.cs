@@ -11,6 +11,9 @@ namespace Library.Model
         private string publisher;
         private string author;
         private string price;
+        private string isbn;
+        private string publishDate;
+        private string description;
         private int quantity;
         private int borrowed;
         public BookVO()
