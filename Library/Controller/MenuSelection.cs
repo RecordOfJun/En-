@@ -53,5 +53,14 @@ namespace Library.Controller
             return KeyProcessing.GetInput().SwicthMenu(3,index);
         }
 
+        public int SelectLogMenu(int index)//회원관리 메뉴 선택
+        {
+            Console.Clear();
+            ui.LibraryLabel();
+            ui.LogGuide();
+            ui.LogMenu();
+            return KeyProcessing.GetInput().SwicthMenu(4, index);
+        }
+
     }
 }

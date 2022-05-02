@@ -6,12 +6,8 @@ namespace Library.Utility
 {
     class Log
     {
-        private string logData;
+        private string logData="";
         private static Log log;
-        private Log()
-        {
-            logData = "";
-        }
         public static Log GetLog()
         {
             if (log == null)
@@ -27,13 +23,25 @@ namespace Library.Utility
         {
             logData +="["+DateTime.Now.ToString("yyyy-MM-dd HH:mm")+ data + "]\n";
         }
+        public void ShowLog()
+        {
+
+        }
         public void DeleteLogFile()
         {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\Log.txt";
+            bool isExistFile = File.Exists(filePath);
+            
+            if (!isExistFile)
+            {
+                return;
+            }
+            File.Delete(filePath);
 
         }
         public void SaveLogFile()
         {
-            StreamWriter sw = new StreamWriter("Log.txt");
+            StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+"\\Log.txt");
             sw.WriteLine(logData);
         }
     }

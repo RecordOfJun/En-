@@ -173,5 +173,7 @@ namespace Library
         public const string SELECT_ADMIN = "SELECT id,password from member where name = 'Adm';";
         public const string BORROW_COUNT = "SELECT COUNT(*) FROM borrowed where bookid=";
         public const string SELECT_BORROW = "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=";
+        
+        //LOG
     }
 }

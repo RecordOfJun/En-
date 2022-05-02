@@ -190,7 +190,7 @@ namespace Library.Controller
             Console.Write(data);
         }
 
-        public bool IsConfirm(int type)//기능 수행 후 재확인 
+        private bool IsConfirm(int type)//기능 수행 후 재확인 
         {   if (type == Constant.CONFRIM_ADD)//회원가입인지 확인
                 basicUI.ConfirmAddForm();
             else

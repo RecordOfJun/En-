@@ -4,6 +4,7 @@ using System.Text;
 using Library.Model;
 using Library.View;
 using System.Runtime.InteropServices;
+using Library.Utility;
 namespace Library.Controller
 {
     class ExceptionAndView
@@ -48,6 +49,7 @@ namespace Library.Controller
             exceptionAndView.memberUI = this.memberUI;
             user = new User(exceptionAndView);
             admin=new Admin(exceptionAndView);
+            /*
             IntPtr handle = GetConsoleWindow();
             IntPtr sysMenu = GetSystemMenu(handle, false);
 
@@ -57,6 +59,7 @@ namespace Library.Controller
                 DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);
                 DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);
             }
+            */
             Console.SetWindowSize(81, 40);
         }
         public void start()//프로그램 시작
@@ -79,13 +82,41 @@ namespace Library.Controller
                         admin.AdminLogin();//관리자 로그인
                         break;
                     case Constant.FOURTH_MENU:
-                        
+                        LogManage();
                         break;
                     case Constant.FIFTH_MENU:
                         exception.ExitProgramm();//프로그램 종료
                         break;
                     case Constant.ESCAPE_INT:
                         break;
+                }
+            }
+        }
+        private void LogManage()
+        {
+            bool isInsert = false;
+            int selectedMenu = 0;
+            while (!isInsert)
+            {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
+                selectedMenu = menuSelection.SelectLogMenu(selectedMenu);
+                switch (selectedMenu)
+                {
+                    case Constant.FIRST_MENU://로그 조회
+                        
+                        break;
+                    case Constant.SECOND_MENU://로그 초기화
+                        Log.GetLog().LogInit();
+                        break;
+                    case Constant.THIRD_MENU://로그 저장
+                        Log.GetLog().SaveLogFile();
+                        break;
+                    case Constant.FOURTH_MENU://로그 삭제
+                        Log.GetLog().DeleteLogFile();
+                        break;
+                    case Constant.ESCAPE_INT:
+                        return;
                 }
             }
         }
