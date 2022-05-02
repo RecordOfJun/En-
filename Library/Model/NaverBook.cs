@@ -24,6 +24,7 @@ namespace Library.Model
         public string publisher;
         public string isbn;
         public string description;
+        public string pubdate;
     }
     class NaverBook
     {

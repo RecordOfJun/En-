@@ -12,27 +12,35 @@ namespace Library.Model
         private string author;
         private string price;
         private string isbn;
-        private string publishDate;
         private string description;
+        private string pubdate;
         private int quantity;
         private int borrowed;
         public BookVO()
         {    
         }
-        public BookVO(string id, string name, string publisher, string author, string price, int quantity)
+        public BookVO(string name, string publisher, string author, string price, int quantity,string isbn,string description, string pubdate)
         {
-            this.id = id;
             this.name = name;
             this.publisher = publisher;
             this.author = author;
             this.price = price;
             this.quantity = quantity;
+            this.isbn = isbn;
+            this.description = description;
+            this.pubdate = pubdate;
         }
-        public bool IsNotNull()//도서 추가 시 빠뜨린 것 없는지 확인
-        {//정보 하나라도 없으면 예외처리
-            if (id != Constant.EMPTY && name != Constant.EMPTY && publisher != Constant.EMPTY && author != Constant.EMPTY && price != Constant.EMPTY && quantity>0)
-                return true;
-            return false;
+        public BookVO(string name, string publisher, string author, string price, int quantity, string isbn, string description, string pubdate,string id)
+        {
+            this.name = name;
+            this.publisher = publisher;
+            this.author = author;
+            this.price = price;
+            this.quantity = quantity;
+            this.isbn = isbn;
+            this.description = description;
+            this.pubdate = pubdate;
+            this.id = id;
         }
         public void Init()
         {
@@ -78,6 +86,21 @@ namespace Library.Model
         {
             get { return borrowed; }
             set { borrowed = value; }
+        }
+        public string Isbn
+        {
+            get { return isbn; }
+            set { isbn = value; }
+        }
+        public string Description
+        {
+            get { return description; }
+            set { description = value; }
+        }
+        public string Pubdate
+        {
+            get { return pubdate; }
+            set { pubdate = value; }
         }
     }
 }

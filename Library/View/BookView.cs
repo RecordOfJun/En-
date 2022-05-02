@@ -59,6 +59,7 @@ namespace Library.View
             Console.WriteLine("저자 :" + item.author);
             Console.WriteLine("가격 :" + item.price);
             Console.WriteLine("출판사 :" + item.publisher);
+            Console.WriteLine("출판사 :" + item.pubdate);
             Console.WriteLine("Isbn :" + item.isbn);
             Console.WriteLine("설명 :" + item.description);
             Console.WriteLine("---------------------------------------------------------------------------------");

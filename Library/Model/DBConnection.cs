@@ -101,7 +101,8 @@ namespace Library
             connection.Open();
             query = "";
             query += "Insert into book values ('";
-            query += book.Id + "','" + book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity + ");";
+            query += book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity+ ",'" + book.Isbn+ "','" + book.Pubdate + "','" +book.Description+ "');";
+            Console.WriteLine(query);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -141,7 +142,7 @@ namespace Library
             while (reader.Read())
             {
                 //검색한 책 정보 불러오기
-                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
+                BookVO book = new BookVO( reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()),reader["isbn"].ToString(),reader["description"].ToString(),reader["pubdate"].ToString(), reader["id"].ToString());
                 bookList.Add(book);
             }
             connection.Close();
@@ -201,7 +202,7 @@ namespace Library
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {//빌린 책의 정보와 빌린 시간, 반납시간을 가져와 출력
-                BookVO book = new BookVO(reader["id"].ToString(), reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()));
+                BookVO book = new BookVO( reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()), reader["isbn"].ToString(), reader["description"].ToString(), reader["pubdate"].ToString(), reader["id"].ToString());
                 MyBook borrowBook = new MyBook(book, reader["borrowtime"].ToString().Substring(0,10), reader["returntime"].ToString().Substring(0, 10));//db에는 정상적으로 저장 다시 불러올때 값 이상함
                 bookUI.BorrowInformation(borrowBook);
                 bookList.Add(book);

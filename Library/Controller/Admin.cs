@@ -11,6 +11,7 @@ namespace Library.Controller
         BookVO bookStorage;
         NaverBook naverBook;
         List<ItemData> items;
+        delegate void Clear();
         public Admin(ExceptionAndView exceptionAndView):base(exceptionAndView)
         {
             bookStorage = new BookVO();
@@ -99,56 +100,6 @@ namespace Library.Controller
                         return;
                 }
             }
-        }
-        public void AddBook()//책 추가 메소드
-        {
-                int selectedSector = 0;
-                bool isNotComplete = true;
-                inputType = 0;
-                //책 정보 초기화
-                bookStorage.Init();
-                Console.Clear();
-                basicUI.AdminLabel();
-                bookUI.AddBook();
-                while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
-                {
-                    selectedSector = KeyProcessing.GetInput().SwicthSector(7,selectedSector);
-                    switch (selectedSector)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
-                    {
-                        
-                        case (int)Constant.Menu.FIRST_MENU:
-                            bookStorage.Id = SetData(Constant.ID_ADD_INDEX, bookStorage.Id);//책 코드
-                            break;
-                        case (int)Constant.Menu.SECOND_MENU:
-                            bookStorage.Name = SetData(Constant.PASSWORD_ADD_INDEX, bookStorage.Name);//도서명
-                            break;
-                        case (int)Constant.Menu.THIRD_MENU:
-                            bookStorage.Publisher = SetData(Constant.PASSWORD_CONFIRM_INDEX, bookStorage.Publisher);//출판사
-                            break;
-                        case (int)Constant.Menu.FOURTH_MENU:
-                            bookStorage.Author = SetData(Constant.NAME_ADD_INDEX, bookStorage.Author);//저자
-                            break;
-                        case (int)Constant.Menu.FIFTH_MENU:
-                            bookStorage.Price = SetData(Constant.PERSONAL_ADD_INDEX, bookStorage.Price);//가격
-                            break;
-                        case (int)Constant.Menu.SIXTH_MENU:
-                            bookStorage.Quantity = int.Parse(SetData(Constant.PHONE_ADD_INDEX, Constant.EMPTY));//수량
-                            break;
-                        case (int)Constant.Menu.SEVENTH_MENU:
-                            if (bookStorage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
-                                isNotComplete = false;
-                            else
-                                exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
-                            break;
-                        case Constant.ESCAPE_INT:
-                            return;
-                    }
-                }
-                if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
-                {
-                    BookVO book = new BookVO(bookStorage.Id, bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity);
-                    DBConnection.GetDBConnection().InsertBook(book);
-                }
         }
         private void ManageMember()//유저 관리 메소드
         {
@@ -431,22 +382,41 @@ namespace Library.Controller
             exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
             return userInput;
         }
-        private void Refresh()
+        private void RefreshNaver()
         {
             Console.Clear();
             basicUI.AdminLabel();
             bookUI.NaverGuide();
         }
+        private void RefreshAdd()
+        {
+            Console.Clear();
+            basicUI.AdminLabel();
+            bookUI.NaverGuide();
+            bookUI.NaverAddForm();
+        }
         private void SearchNaver()
         {
             bool isNotEscape = true;
-            Refresh();
+            RefreshNaver();
             while (isNotEscape)
             {
-                isNotEscape=IsInsertQueryDisplay();
+                isNotEscape=IsInsertQueryDisplay(RefreshNaver);
             }
         }
-        private bool IsInsertQueryDisplay()
+        private void AddBook()
+        {
+            bool isNotEscape = true;
+            RefreshAdd();
+            while (isNotEscape)
+            {
+                isNotEscape = IsInsertQueryDisplay(RefreshAdd);
+                if (!isNotEscape)
+                    return;
+                NaverAddBook(items.Count);
+            }
+        }
+        private bool IsInsertQueryDisplay(Clear clear)
         {
             int selectedSector = 0;
             bool isNotSearch = true;
@@ -475,22 +445,27 @@ namespace Library.Controller
                 }
             }
             items = naverBook.GetRequestResult(query, display);
-            Refresh();
+            clear();
             foreach (ItemData item in items)
             {
                 bookUI.NaverBookInformation(item,sequence++);
             }
-            //NaverAddBook(sequence);
             
             return true;
         }
         private void NaverAddBook(int sequence)
         {
-            string selectSequence = SelectNumber(sequence, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
-            string quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
-
+            int selectSequence = SelectNumber(sequence+1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
+            if (selectSequence == Constant.ESCAPE_INT)
+                return;
+            int quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
+            if (quantity == Constant.ESCAPE_INT)
+                return;
+            //도서 추가할것인지 확인하기
+            BookVO book = new BookVO(items[selectSequence-1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0,10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Substring(0,50).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
+            DBConnection.GetDBConnection().InsertBook(book);
         }
-        private string SelectNumber(int sequence, int cursor)
+        private int SelectNumber(int sequence, int cursor)
         {
             bool isNotExisted = true;
             string userInput="";
@@ -499,7 +474,7 @@ namespace Library.Controller
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, cursor);
                 userInput = KeyProcessing.GetInput().GetUserString(3, Constant.NOT_PASSWORD_TYPE);
                 if (userInput == Constant.ESCAPE_STRING)
-                    return userInput;
+                    return Constant.ESCAPE_INT;
                 isNotExisted = !exception.IsNumber(userInput, Constant.SEARCH_TYPE);
                 if (!isNotExisted && (userInput == "0" || int.Parse(userInput) >= sequence))
                 {
@@ -508,7 +483,7 @@ namespace Library.Controller
                 }
             }
             
-            return userInput;
+            return int.Parse(userInput);
         }
     }
 } 

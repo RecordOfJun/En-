@@ -18,7 +18,6 @@ namespace Library.Model
     }
     class MemberVO
     {
-
         private string id;
         private string password;
         private string temporalPassword;
