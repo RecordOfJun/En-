@@ -5,14 +5,14 @@ using Library.Model;
 using Library.View;
 namespace Library.Controller
 {
-    class Admin: User//관리자 관련 메소드 구현 클래스
+    class Admin : User//관리자 관련 메소드 구현 클래스
     {
         List<MemberVO> memberList;
         BookVO bookStorage;
         NaverBook naverBook;
         List<ItemData> items;
         delegate void Clear();
-        public Admin(ExceptionAndView exceptionAndView):base(exceptionAndView)
+        public Admin(ExceptionAndView exceptionAndView) : base(exceptionAndView)
         {
             bookStorage = new BookVO();
             naverBook = new NaverBook();
@@ -30,7 +30,7 @@ namespace Library.Controller
                 exceptionView.ClearLine(Constant.ID_LOGIN_INDEX);
                 exceptionView.ClearLine(Constant.PASSWORD_LOGIN_INDEX);
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.ID_LOGIN_INDEX);
-                id= KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);//아이디 입력
+                id = KeyProcessing.GetInput().GetUserString(Constant.ID_LENGTH, Constant.NOT_PASSWORD_TYPE);//아이디 입력
                 if (id == Constant.ESCAPE_STRING)
                     return;
                 Console.SetCursorPosition(Constant.ADD_INDEX, Constant.PASSWORD_LOGIN_INDEX);
@@ -46,7 +46,7 @@ namespace Library.Controller
         }
         public void AdminSelectMenu()//관리자 메뉴 선택
         {
-            int selectedMenu=0;
+            int selectedMenu = 0;
             bool isExit = false;
             while (!isExit)
             {
@@ -73,7 +73,7 @@ namespace Library.Controller
         private void ManageBook()//책 관리 메소드
         {
             bool isInsert = false;
-            int selectedMenu=0;
+            int selectedMenu = 0;
             while (!isInsert)
             {
                 if (selectedMenu == Constant.ESCAPE_INT)
@@ -104,7 +104,7 @@ namespace Library.Controller
         private void ManageMember()//유저 관리 메소드
         {
             bool isInsert = false;
-            int selectedMenu=0;
+            int selectedMenu = 0;
             while (!isInsert)
             {
                 if (selectedMenu == Constant.ESCAPE_INT)
@@ -126,10 +126,10 @@ namespace Library.Controller
                 }
             }
         }
-        private void ShowMemberList(string name,string id,string phonenumber)//유저정보 조회
+        private void ShowMemberList(string name, string id, string phonenumber)//유저정보 조회
         {
             List<MemberVO> findList = new List<MemberVO>();//찾은 멤버 리스트 저장
-            DBConnection.GetDBConnection().SelectMember(id, name, phonenumber,findList);
+            DBConnection.GetDBConnection().SelectMember(id, name, phonenumber, findList);
             //검색 정보와 일치하는 유저 정보들 찾은 후 전역 멤버 리스트로 넘겨주기
             memberList = findList;
         }
@@ -139,7 +139,7 @@ namespace Library.Controller
             string id = Constant.EMPTY;
             string name = Constant.EMPTY;
             string phonenumber = Constant.EMPTY;
-            Refresh(name, id, phonenumber,type);
+            Refresh(name, id, phonenumber, type);
             while (userInput != Constant.ESCAPE)
             {
                 userInput = InsertNameAndPersonal(userInput, type);//검색 정보 입력과 회원 코드 입력 메소드 호출
@@ -161,7 +161,7 @@ namespace Library.Controller
                 }
             }
         }
-        private string InsertNameAndPersonal(string userInput,int type)//검색 정보 입력과 회원 코드 입력 메소드
+        private string InsertNameAndPersonal(string userInput, int type)//검색 정보 입력과 회원 코드 입력 메소드
         {
             storage.Init();
             int selectedSector = 0;
@@ -188,18 +188,18 @@ namespace Library.Controller
                         return Constant.ESCAPE;
                 }
             }
-            Refresh(storage.Name, storage.Id, storage.PhoneNumber,type);//검색한 정보 토대로 회원 검색 해 출력
+            Refresh(storage.Name, storage.Id, storage.PhoneNumber, type);//검색한 정보 토대로 회원 검색 해 출력
             if (type != Constant.MEMBER_SEARCH)//단순 조회 아닐 시(매직넘버)
             {
                 bool isExisted = Constant.IS_EXCEPTION;
                 while (!isExisted)
                 {
-                    Console.SetCursorPosition(1, Constant.CODE_INDEX+4);
+                    Console.SetCursorPosition(1, Constant.CODE_INDEX + 4);
                     userInput = KeyProcessing.GetInput().GetUserString(Constant.MEMBER_PERSONALCODE_LENGTH, Constant.NOT_PASSWORD_TYPE);//매직넘버
                     if (userInput == Constant.ESCAPE_STRING)//ESC나 엔터 입력 시에는 빠져나오기
                         return userInput;
                     isExisted = true;
-                    if (!memberList.Exists(member=>member.MemberCode==userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
+                    if (!memberList.Exists(member => member.MemberCode == userInput))//검색 정보와 일치하는 맴버 입력 때까지 계속 입력
                     {
                         isExisted = false;
                         exceptionView.SearchException(userInput.Length, "  (일치하는 정보가 존재하지 않습니다!)");
@@ -211,8 +211,8 @@ namespace Library.Controller
         }
         private string SelectUserData(int type)
         {
-            string userInput=Constant.EMPTY;
-            bool isException=true;
+            string userInput = Constant.EMPTY;
+            bool isException = true;
             //ui
             Console.CursorVisible = true;
             //기존에 쓰여 있던 정보 없애주기
@@ -244,7 +244,7 @@ namespace Library.Controller
                         break;
                     case (int)Constant.MemberSearch.DISPLAY:
                         isException = !exception.IsNumber(userInput, Constant.SEARCH_TYPE);
-                        if (isException==false&&(userInput == "0" || int.Parse(userInput) > 100))
+                        if (isException == false && (userInput == "0" || int.Parse(userInput) > 100))
                         {
                             exceptionView.SearchException(userInput.Length, "  (양식에 맞는 숫자를 입력해주세요!)");
                             isException = true;
@@ -277,7 +277,7 @@ namespace Library.Controller
             if (code == Constant.EMPTY)
                 return;
             MemberVO member = DBConnection.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
-            Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
+            Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer", Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
                 if (DBConnection.GetDBConnection().IsHaveBook(member.MemberCode))
@@ -294,7 +294,7 @@ namespace Library.Controller
                 exceptionView.SearchException(code.Length, "  (일치하는 유저가 존재하지 않습니다!)");
             Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_DELETE);
         }
-        private void Refresh(string name, string id, string phonenumber,int type)//재조회
+        private void Refresh(string name, string id, string phonenumber, int type)//재조회
         {
             Console.Clear();
             basicUI.AdminLabel();
@@ -323,7 +323,7 @@ namespace Library.Controller
             return true;
         }
 
-        private bool IsNatural(string userInput,bool isException)
+        private bool IsNatural(string userInput, bool isException)
         {
             if (userInput == "0")
             {
@@ -333,12 +333,12 @@ namespace Library.Controller
             return isException;
         }
 
-         string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+        string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
         {
             bool isException = Constant.IS_EXCEPTION;
             while (!isException)
             {
-                Console.SetCursorPosition(Constant.ADD_INDEX+2, index);
+                Console.SetCursorPosition(Constant.ADD_INDEX + 2, index);
                 basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
                 switch (index)
                 {
@@ -369,7 +369,7 @@ namespace Library.Controller
                         userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
                         if (userInput != Constant.ESCAPE_STRING)
                             isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
-                        isException = IsNatural(userInput,isException);
+                        isException = IsNatural(userInput, isException);
                         break;
                 }
                 if (userInput == Constant.ESCAPE_STRING)
@@ -401,7 +401,7 @@ namespace Library.Controller
             RefreshNaver();
             while (isNotEscape)
             {
-                isNotEscape=IsInsertQueryDisplay(RefreshNaver);
+                isNotEscape = IsInsertQueryDisplay(RefreshNaver);
             }
         }
         private void AddBook()
@@ -420,10 +420,10 @@ namespace Library.Controller
         {
             int selectedSector = 0;
             bool isNotSearch = true;
-            string query="";
-            string display="";
+            string query = "";
+            string display = "";
             int sequence = 1;
-           
+
             //제목,작가명,출판사로 검색을 가능하게 함
             while (isNotSearch)
             {
@@ -437,7 +437,7 @@ namespace Library.Controller
                         display = SelectUserData((int)Constant.MemberSearch.DISPLAY);//이름
                         break;
                     case Constant.THIRD_MENU:
-                        if(exception.IsInsertNaver(query,display))
+                        if (exception.IsInsertNaver(query, display))
                             isNotSearch = false;
                         break;
                     case Constant.ESCAPE_INT:
@@ -448,27 +448,27 @@ namespace Library.Controller
             clear();
             foreach (ItemData item in items)
             {
-                bookUI.NaverBookInformation(item,sequence++);
+                bookUI.NaverBookInformation(item, sequence++);
             }
-            
+
             return true;
         }
         private void NaverAddBook(int sequence)
         {
-            int selectSequence = SelectNumber(sequence+1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
+            int selectSequence = SelectNumber(sequence + 1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
             if (selectSequence == Constant.ESCAPE_INT)
                 return;
             int quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
             if (quantity == Constant.ESCAPE_INT)
                 return;
             //도서 추가할것인지 확인하기
-            BookVO book = new BookVO(items[selectSequence-1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0,10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Substring(0,50).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
+            BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Substring(0, 80).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
             DBConnection.GetDBConnection().InsertBook(book);
         }
         private int SelectNumber(int sequence, int cursor)
         {
             bool isNotExisted = true;
-            string userInput="";
+            string userInput = "";
             while (isNotExisted)
             {
                 Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, cursor);
@@ -482,7 +482,7 @@ namespace Library.Controller
                     exceptionView.SearchException(userInput.Length, "  (검색목록 중에서 골라주세요!)");
                 }
             }
-            
+
             return int.Parse(userInput);
         }
     }
