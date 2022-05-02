@@ -10,6 +10,7 @@ namespace Library.Controller
         List<MemberVO> memberList;
         BookVO bookStorage;
         NaverBook naverBook;
+        List<ItemData> items;
         public Admin(ExceptionAndView exceptionAndView):base(exceptionAndView)
         {
             bookStorage = new BookVO();
@@ -448,6 +449,7 @@ namespace Library.Controller
             bool isNotSearch = true;
             string query="";
             string display="";
+            int sequence = 1;
             //제목,작가명,출판사로 검색을 가능하게 함
             while (isNotSearch)
             {
@@ -468,10 +470,36 @@ namespace Library.Controller
                         return false;
                 }
             }
-            List<ItemData> items = naverBook.GetRequestResult(query, display);
+            items = naverBook.GetRequestResult(query, display);
+            Console.SetCursorPosition(0, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR + 2);
             foreach (ItemData item in items)
-                bookUI.NaverBookInformation(item);
+            {
+                bookUI.NaverBookInformation(item,sequence++);
+            }
+            string selectSequence = SelectNumber(sequence, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);
+            string quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);
+            Console.ReadLine();
             return true;
+        }
+        private string SelectNumber(int sequence, int cursor)
+        {
+            bool isNotExisted = true;
+            string userInput="";
+            while (isNotExisted)
+            {
+                Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, cursor);
+                userInput = KeyProcessing.GetInput().GetUserString(3, Constant.NOT_PASSWORD_TYPE);
+                if (userInput == Constant.ESCAPE_STRING)
+                    return userInput;
+                isNotExisted = !exception.IsNumber(userInput, Constant.SEARCH_TYPE);
+                if (!isNotExisted && (userInput == "0" || int.Parse(userInput) >= sequence))
+                {
+                    isNotExisted = true;
+                    exceptionView.SearchException(userInput.Length, "  (검색목록 중에서 골라주세요!)");
+                }
+            }
+            
+            return userInput;
         }
     }
 } 

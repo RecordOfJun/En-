@@ -51,15 +51,16 @@ namespace Library.View
                 Console.WriteLine("총 수량:{0}", book.Quantity);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
-        public void NaverBookInformation(ItemData item)
+        public void NaverBookInformation(ItemData item,int sequence)
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
-            Console.WriteLine("title :" + item.title);
-            Console.WriteLine("author :" + item.author);
-            Console.WriteLine("price :" + item.price);
-            Console.WriteLine("publisher :" + item.publisher);
-            Console.WriteLine("isbn :" + item.isbn);
-            Console.WriteLine("description :" + item.description);
+            Console.WriteLine("번호 :" + sequence);
+            Console.WriteLine("제목 :" + item.title);
+            Console.WriteLine("저자 :" + item.author);
+            Console.WriteLine("가격 :" + item.price);
+            Console.WriteLine("출판사 :" + item.publisher);
+            Console.WriteLine("Isbn :" + item.isbn);
+            Console.WriteLine("설명 :" + item.description);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
         public void BorrowInformation(MyBook myBook)
@@ -96,14 +97,20 @@ namespace Library.View
         }
         private void NaverSearchForm()
         {
-            Console.WriteLine("  검색어 입력");
+            Console.WriteLine("  키워드 입력");
             Console.WriteLine();
-            Console.WriteLine("  수량 입력(1~100)");
+            Console.WriteLine("  출력수 입력(1~100)");
             Console.WriteLine();
             Console.WriteLine("  조회");
             Console.WriteLine("---------------------------------------------------------------------------------");
+            Console.WriteLine("검색된 도서의 번호와 수량을 입력 시 해당 도서를 도서관에 추가합니다.");
+            Console.WriteLine("(최대 추가 가능 권수 :100권)");
+            Console.WriteLine("ESC입력 시 재검색");
             Console.WriteLine("");
-            Console.WriteLine("");
+            Console.WriteLine("출력번호를 입력해 주세요:");
+            Console.WriteLine();
+            Console.WriteLine("추가수량을 입력해 주세요:");
+            Console.WriteLine("---------------------------------------------------------------------------------");
         }
         private void Guide()
         {
@@ -189,6 +196,11 @@ namespace Library.View
             Console.WriteLine("도서코드를 입력해 주세요:");
             Console.WriteLine();
             Console.WriteLine("변경수량을 입력해 주세요:");
+        }
+
+        public void NaverAdd()
+        {
+
         }
     }
 }
