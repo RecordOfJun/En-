@@ -45,6 +45,22 @@ namespace Library.View
             Console.ForegroundColor = ConsoleColor.White;
             ReadAndErase(printLocation, 50);
         }
+        public void LogComplete(string insert)
+        {
+            Console.SetCursorPosition(Constant.MIDDLE_CURSOR, 19);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(Constant.MIDDLE_CURSOR, 50);
+        }
+        public void LogException(string insert)
+        {
+            Console.SetCursorPosition(Constant.MIDDLE_CURSOR, 19);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(insert);
+            Console.ForegroundColor = ConsoleColor.White;
+            ReadAndErase(Constant.MIDDLE_CURSOR, 50);
+        }
         public void InsertComplete(int inputLength, string insert)
         {
             int printLocation = inputLength + Constant.ADD_INDEX+2;
