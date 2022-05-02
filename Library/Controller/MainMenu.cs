@@ -49,7 +49,6 @@ namespace Library.Controller
             exceptionAndView.memberUI = this.memberUI;
             user = new User(exceptionAndView);
             admin=new Admin(exceptionAndView);
-            /*
             IntPtr handle = GetConsoleWindow();
             IntPtr sysMenu = GetSystemMenu(handle, false);
 
@@ -59,8 +58,8 @@ namespace Library.Controller
                 DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);
                 DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);
             }
-            */
-            Console.SetWindowSize(81, 63);
+            Console.SetWindowSize(81, 40);
+            Console.SetBufferSize(82, Console.BufferHeight);
         }
         public void start()//프로그램 시작
         {
@@ -104,7 +103,7 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://로그 조회
-                        
+                        Log.GetLog().ShowLog();
                         break;
                     case Constant.SECOND_MENU://로그 초기화
                         Log.GetLog().LogInit();

@@ -171,5 +171,20 @@ namespace Library
             }
             return selected;
         }
+        public bool IsEscAndEnter()
+        {
+            bool isNotESC = true;
+            while (isNotESC)//esc입력으로 빠져나오기
+            {
+                Console.SetCursorPosition(Constant.MIDDLE_CURSOR, Console.CursorTop);
+                ConsoleKeyInfo key = Console.ReadKey();
+                if (key.Key == ConsoleKey.Escape)
+                    return false;
+                if (key.Key == ConsoleKey.Enter)
+                    return true;
+                basicView.DeleteString(Console.CursorLeft - 1, Console.CursorTop, 2);
+            }
+            return true;
+        }
     }
 }

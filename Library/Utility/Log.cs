@@ -33,9 +33,7 @@ namespace Library.Utility
         }
         public void ShowLog()
         {
-            Console.SetCursorPosition(0, 20);
-            Console.WriteLine(new string('=', Console.WindowWidth));
-            Console.WriteLine(logData);
+            exceptionView.LogView(logData);
             KeyProcessing.GetInput().IsEscAndEnter();
 
         }

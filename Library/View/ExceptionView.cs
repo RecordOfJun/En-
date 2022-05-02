@@ -95,6 +95,7 @@ namespace Library.View
         }
         public void AskExit()
         {
+            Console.SetCursorPosition(0, Console.CursorTop+1);
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                            정말 종료하시겠습니까?");
             Console.WriteLine("    종료하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
@@ -110,6 +111,13 @@ namespace Library.View
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("                   {0}의 수량을 정말 수정하시겠습니까?", name);
             Console.WriteLine("    수정하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
+        }
+        public void LogView(string logData)
+        {
+            Console.SetCursorPosition(0, 20);
+            Console.WriteLine("                     엔터나 ESC입력 시 조회목록을 닫습니다.                          ");
+            Console.WriteLine(new string('=', Console.WindowWidth));
+            Console.WriteLine(logData);
         }
     }
 }
