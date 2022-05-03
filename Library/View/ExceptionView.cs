@@ -7,11 +7,6 @@ namespace Library.View
     class ExceptionView
     {
         Basic basicView = new Basic();
-        DBConnection dBConnection;
-        public ExceptionView()
-        {
-            dBConnection = DBConnection.GetDBConnection();
-        }
         private void ReadAndErase(int leftCusor, int eraseLength)//예외 안내문 제거 함수
         {
             Console.ReadKey();

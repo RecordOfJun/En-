@@ -59,7 +59,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //입력한 정보와 일치하는 책 찾아 전역 리스트에 대입 AND 찾은 책 출력
-            DBConnection.GetDBConnection().SelectBook(name, author, publisher, findList,type);
+            BookDAO.GetDBConnection().SelectBook(name, author, publisher, findList,type);
             bookList = findList;
         }
 
@@ -76,7 +76,7 @@ namespace Library.Controller
                     exceptionView.SearchException(bookCode.Length, "  (이미 이 도서를 대여 하셨습니다!)");
                     return;
                 }
-                DBConnection.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
+                BookDAO.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
                 Log.GetLog().LogAdd(userFunction.LoginMember.Id +" '"+book.Name+"' 도서 대여");
                 exceptionView.SearchComplete(bookCode.Length, "  (대여가 완료되었습니다!)");
                 return;
@@ -93,8 +93,8 @@ namespace Library.Controller
             RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.DeleteGuide,Constant.USER_BOOK);//책 목록 없애주기
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
-                DBConnection.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
-                DBConnection.GetDBConnection().DeleteBook(bookCode);
+                BookDAO.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
+                BookDAO.GetDBConnection().DeleteBook(bookCode);
                 Log.GetLog().LogAdd("관리자 '" + book.Name + "' 도서 삭제");
                 exceptionView.SearchComplete(bookCode.Length, "  (삭제가 완료되었습니다!))");//삭제 완료
             }
@@ -122,7 +122,7 @@ namespace Library.Controller
             RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.ReviseGuide, Constant.ADMIN_BOOK);//책 목록 없애주기
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
-                DBConnection.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);//수량 수정
+                BookDAO.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);//수량 수정
                 Log.GetLog().LogAdd("관리자 '" + book.Name + "' 도서 수량 "+quantity+"(으)로 수정");
             }
             RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,bookUI.ReviseGuide, Constant.ADMIN_BOOK);
@@ -133,7 +133,7 @@ namespace Library.Controller
         {
             List<BookVO> findList = new List<BookVO>();
             //찾은 책 리스트 전역 책 리스트로 넘겨주고 정보 출력
-            DBConnection.GetDBConnection().SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
+            BookDAO.GetDBConnection().SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
             bookList = findList;
         }
 
@@ -156,7 +156,7 @@ namespace Library.Controller
         {
             if (code == "")
                 return;
-            DBConnection.GetDBConnection().DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);//책 반납
+            BookDAO.GetDBConnection().DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);//책 반납
             Log.GetLog().LogAdd(userFunction.LoginMember.Id+" '" + bookList.Find(book=>book.Id==code).Name + "' 도서 반납");
             exceptionView.SearchComplete(code.Length, "  (반납이 완료되었습니다!))");
 
@@ -272,5 +272,10 @@ namespace Library.Controller
             ShowMyBook(name, author, publisher);
         }
 
+        public void ShowBestBook()
+        {
+            RefreshBook("", "", "",bookUI.BestBookGuide, Constant.BEST_BOOK);
+            KeyProcessing.GetInput().IsEscAndEnter();
+        }
     }
 }

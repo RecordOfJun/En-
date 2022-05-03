@@ -104,6 +104,7 @@ namespace Library
         public const int USER_BOOK = 1;
         public const int ADMIN_BOOK = 2;
         public const int NAVER_SEARCH = 3;
+        public const int BEST_BOOK = 3;
 
         //ADMIN
         public const string ADMIN_ID = "1111111111";

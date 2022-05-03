@@ -38,7 +38,7 @@ namespace Library.Controller
                 password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);//비밀번호 입력
                 if (password == Constant.ESCAPE_STRING)
                     return;
-                MemberVO admin = DBConnection.GetDBConnection().SelectAdmin();
+                MemberVO admin = MemberDAO.GetDBConnection().SelectAdmin();
                 isCorrect = (id == admin.Id && password == admin.Password);
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
@@ -135,7 +135,7 @@ namespace Library.Controller
         private void ShowMemberList(string name, string id, string phonenumber)//유저정보 조회
         {
             List<MemberVO> findList = new List<MemberVO>();//찾은 멤버 리스트 저장
-            DBConnection.GetDBConnection().SelectMember(id, name, phonenumber, findList);
+            MemberDAO.GetDBConnection().SelectMember(id, name, phonenumber, findList);
             //검색 정보와 일치하는 유저 정보들 찾은 후 전역 멤버 리스트로 넘겨주기
             memberList = findList;
         }
@@ -174,7 +174,7 @@ namespace Library.Controller
         {
             basicUI.BorrowList();
             List<BookVO> bookList = new List<BookVO>();
-            DBConnection.GetDBConnection().SelectBorrow("", "", "", membercode,bookList);
+            BookDAO.GetDBConnection().SelectBorrow("", "", "", membercode,bookList);
             KeyProcessing.GetInput().IsEscAndEnter();
         }
         private string InsertNameAndPersonal(string userInput, int type)//검색 정보 입력과 회원 코드 입력 메소드
@@ -278,7 +278,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = DBConnection.GetDBConnection().GetMember(code);//회원코드와 일치하는 멤버 찾기
+            MemberVO member = MemberDAO.GetDBConnection().GetMember(code);//회원코드와 일치하는 멤버 찾기
             if (member != null)
             {
                 this.LoginMember = member;
@@ -293,18 +293,18 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = DBConnection.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
+            MemberVO member = MemberDAO.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer", Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
-                if (DBConnection.GetDBConnection().IsHaveBook(member.MemberCode))
+                if (MemberDAO.GetDBConnection().IsHaveBook(member.MemberCode))
                 {
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                     exceptionView.SearchException(member.MemberCode.Length, "  (대여중인 도서가 있는 회원입니다!)");
                 }
                 else if (exception.IsDelete(member.Name + " 회원"))//삭제 한번 더 확인
                 {
-                    DBConnection.GetDBConnection().DeleteMember(code);
+                    MemberDAO.GetDBConnection().DeleteMember(code);
                     Log.GetLog().LogAdd("관리자 "+member.Id+"회원 삭제");
                 }
             }
@@ -425,12 +425,12 @@ namespace Library.Controller
                 return;
             //도서 추가
             BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
-            if (DBConnection.GetDBConnection().IsExistedBookIsbn(book.Isbn))
+            if (BookDAO.GetDBConnection().IsExistedBookIsbn(book.Isbn))
             {
                 exceptionView.SearchException(quantity.ToString().Length, " (이미 추가된 도서입니다!)");
                 return;
             }
-            DBConnection.GetDBConnection().InsertBook(book);
+            BookDAO.GetDBConnection().InsertBook(book);
             Log.GetLog().LogAdd("관리자 " + book.Name + " 도서 추가");
             exceptionView.SearchComplete(quantity.ToString().Length, " (추가되었습니다!)");
         }

@@ -47,8 +47,10 @@ namespace Library.View
             Console.WriteLine("설명 :" + book.Description);
             if (type == Constant.BOOK_BORROW)
                 Console.WriteLine("대여 가능 수량:{0}", book.Quantity - book.Borrowed);
-            else
+            else if(type==Constant.ADMIN_BOOK)
                 Console.WriteLine("총 수량:{0}", book.Quantity);
+            else
+                Console.WriteLine("대여된 수량:{0}", book.Borrowed);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
         public void NaverBookInformation(ItemData item,int sequence)
@@ -200,6 +202,19 @@ namespace Library.View
             Console.WriteLine("도서코드를 입력해 주세요:");
             Console.WriteLine();
             Console.WriteLine("변경수량을 입력해 주세요:");
+        }
+
+        public void BestBookGuide()
+        {
+            Console.WriteLine();
+            Console.WriteLine("                                 인기도서 조회");
+            Console.WriteLine();
+            Console.WriteLine("                대여량이 가장 많은 도서들을 보실 수 있습니다!");
+            Console.WriteLine("                                   (1위~5위) ");
+            Console.WriteLine("                  조회를 마쳤으면 ESC나 엔터를 입력해주세요. ");
+            Console.WriteLine(new string('=', Console.WindowWidth));
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }

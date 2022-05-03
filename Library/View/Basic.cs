@@ -131,7 +131,8 @@ namespace Library.View
             Console.WriteLine("                                 2.도서 대여                   ");
             Console.WriteLine("                                 3.도서 반납              ");
             Console.WriteLine("                                 4.개인정보 수정          ");
-            Console.WriteLine("                                 5.프로그램 종료           ");
+            Console.WriteLine("                                 5.인기도서 조회          ");
+            Console.WriteLine("                                 6.프로그램 종료           ");
         }
         
         

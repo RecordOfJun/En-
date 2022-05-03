@@ -18,8 +18,6 @@ namespace Library.Controller
         public MemberVO LoginMember;
         protected MemberVO storage;
         private bool isBack;
-        private int inputType;
-        public User() { }
         public User(ExceptionAndView exceptionAndView)
         {
             this.exception = exceptionAndView.exception;
@@ -93,7 +91,7 @@ namespace Library.Controller
                 }
                 isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);//예외처리
             }
-            MemberVO member = DBConnection.GetDBConnection().FindUser(storage.Id, storage.Password);//로그인 정보로 유저 찾기
+            MemberVO member = MemberDAO.GetDBConnection().FindUser(storage.Id, storage.Password);//로그인 정보로 유저 찾기
             if (member!=null)
             {
                 LoginMember = member;//유저가 존재할 때 유저 정보 넘겨줌
@@ -106,9 +104,6 @@ namespace Library.Controller
         //회원가입 기능
         protected void ReviseMember()//회원가입 or 회원정보 수정 메소드
         {
-            int selectedSector=0;
-            bool isNotComplete = true;
-            inputType = 0;
             Console.Clear();
             basicUI.LibraryLabel();
             LinkData();
@@ -128,7 +123,6 @@ namespace Library.Controller
         }
         public void AddMember()
         {
-            inputType = 0;
             Console.Clear();
             basicUI.LibraryLabel();
             storage.Init();//가입정보 저장공간 초기화
@@ -191,7 +185,7 @@ namespace Library.Controller
             LoginMember.PhoneNumber = storage.PhoneNumber;
             LoginMember.PersonalCode = storage.PersonalCode;
             LoginMember.Address = storage.Address;
-            DBConnection.GetDBConnection().UpdateMember(LoginMember, LoginMember.MemberCode);
+            MemberDAO.GetDBConnection().UpdateMember(LoginMember, LoginMember.MemberCode);
             Log.GetLog().LogAdd(storage.Id + " 회원정보 수정");
         }
 
@@ -277,7 +271,7 @@ namespace Library.Controller
             member.PersonalCode = storage.PersonalCode;
             member.PhoneNumber = storage.PhoneNumber;
             member.Address = storage.Address;
-            DBConnection.GetDBConnection().InsertMember(member);
+            MemberDAO.GetDBConnection().InsertMember(member);
             Log.GetLog().LogAdd(member.Id + " 회원가입");
         }
 
@@ -305,10 +299,13 @@ namespace Library.Controller
                     case Constant.FOURTH_MENU:
                         ReviseMember();//개인정보 수정
                         break;
+                    case Constant.FIFTH_MENU:
+                        bookFunction.ShowBestBook();//인기도서
+                        break;
                     case Constant.ESCAPE_INT:
                         isExit = exception.IsEscape();//ESC입력 감지
                         break;
-                    case Constant.FIFTH_MENU:
+                    case Constant.SIXTH_MENU:
                         exception.ExitProgramm();//프로그램 종료
                         break;
                 }

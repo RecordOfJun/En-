@@ -14,7 +14,7 @@ namespace Library.Controller
         string[] alphabat = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
         public bool IsIdException(string userInput)
         {
-            if (DBConnection.GetDBConnection().IsExistedId(userInput))
+            if (MemberDAO.GetDBConnection().IsExistedId(userInput))
             {
                 exceptionView.InsertException(userInput.Length, "  (이미 존재하는 아이디 입니다!)");
                 return Constant.IS_EXCEPTION;
@@ -130,7 +130,7 @@ namespace Library.Controller
                 exceptionView.InsertException(userInput.Length, "  (7번째 자리를 다시 확인해 주세요!)");
                 return Constant.IS_EXCEPTION;
             }
-            if (DBConnection.GetDBConnection().IsExistedPersonal(userInput))
+            if (MemberDAO.GetDBConnection().IsExistedPersonal(userInput))
             {
                 exceptionView.InsertException(userInput.Length, "  (이미 가입이 완료된 사용자 입니다!)");
                 return Constant.IS_EXCEPTION;

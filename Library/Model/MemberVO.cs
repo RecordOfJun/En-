@@ -94,7 +94,7 @@ namespace Library.Model
         }
         public bool IsHaveBook(string code)
         {
-            if (DBConnection.GetDBConnection().IsBorrowd(this.memberCode,code))
+            if (MemberDAO.GetDBConnection().IsBorrowd(this.memberCode,code))
                 return Constant.IS_HAVE;
             return !Constant.IS_HAVE;
         }

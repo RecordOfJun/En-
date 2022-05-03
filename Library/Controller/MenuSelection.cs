@@ -26,7 +26,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.MemberGuide();
             ui.UserMenu();
-            return KeyProcessing.GetInput().SwicthMenu(5,index);
+            return KeyProcessing.GetInput().SwicthMenu(6,index);
         }
         public int SelectAdminMenu(int index)//관리자 메뉴 선택
         {
