@@ -104,34 +104,47 @@ namespace Library.Controller
             return Constant.IS_EXCEPTION;
         }
         //회원가입 기능
-        public void AddOrReviseMember(int type)//회원가입 or 회원정보 수정 메소드
+        protected void ReviseMember()//회원가입 or 회원정보 수정 메소드
         {
             int selectedSector=0;
             bool isNotComplete = true;
             inputType = 0;
             Console.Clear();
             basicUI.LibraryLabel();
-            if (type == Constant.SIGN_UP)
-            {//회원가입 일 때
-                storage.Init();//가입정보 저장공간 초기화
-                memberUI.AddMemberForm();
-            }
-            if (type == Constant.REVISE_MEMBER)
-            {//수정일 때
-                LinkData();
-                memberUI.ReviseForm();
-                //로그인 한 유저 정보 불러오기 OR 관리자가 선택한 유저 정보 불러오기
-                WriteData(Constant.ID_ADD_INDEX, storage.Id);
-                WriteData(Constant.PASSWORD_ADD_INDEX, new string('*', storage.Password.Length));
-                WriteData(Constant.NAME_ADD_INDEX, storage.Name);
-                WriteData(Constant.PERSONAL_ADD_INDEX, storage.PersonalCode);
-                WriteData(Constant.PHONE_ADD_INDEX, storage.PhoneNumber);
-                WriteData(Constant.ADDRESS_ADD_INDEX, storage.Address);
-                storage.TemporalPassword = storage.Password;
-            }
+            LinkData();
+            memberUI.ReviseForm();
+            //로그인 한 유저 정보 불러오기 OR 관리자가 선택한 유저 정보 불러오기
+            WriteData(Constant.ID_ADD_INDEX, storage.Id);
+            WriteData(Constant.PASSWORD_ADD_INDEX, new string('*', storage.Password.Length));
+            WriteData(Constant.NAME_ADD_INDEX, storage.Name);
+            WriteData(Constant.PERSONAL_ADD_INDEX, storage.PersonalCode);
+            WriteData(Constant.PHONE_ADD_INDEX, storage.PhoneNumber);
+            WriteData(Constant.ADDRESS_ADD_INDEX, storage.Address);
+            storage.TemporalPassword = storage.Password;
+            if (!IsInsertData(Constant.REVISE_MEMBER))
+                return;
+            if (IsConfirm(Constant.CONFIRM_REVISE))//수정완료 할 것인지 물어보고 작업 수행
+                ReviseData();
+        }
+        public void AddMember()
+        {
+            inputType = 0;
+            Console.Clear();
+            basicUI.LibraryLabel();
+            storage.Init();//가입정보 저장공간 초기화
+            memberUI.AddMemberForm();
+            if (!IsInsertData(Constant.SIGN_UP))
+                return;
+            if (IsConfirm(Constant.CONFRIM_ADD))//회원가입 시 완료할 것인지 물어보고 작업 수행
+                CreateTable();
+        }
+        private bool IsInsertData(int type)
+        {
+            int selectedSector = 0;
+            bool isNotComplete = true;
             while (isNotComplete)
             {
-                selectedSector = KeyProcessing.GetInput().SwicthSector(8,selectedSector);
+                selectedSector = KeyProcessing.GetInput().SwicthSector(8, selectedSector);
                 switch (selectedSector)
                 {
                     case (int)Constant.Menu.FIRST_MENU://아이디 입력
@@ -165,13 +178,10 @@ namespace Library.Controller
                             exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
                         break;
                     case Constant.ESCAPE_INT:
-                        return;
+                        return Constant.IS_EXCEPTION;
                 }
             }
-            if (type == Constant.SIGN_UP && IsConfirm(Constant.CONFRIM_ADD))//회원가입 시 완료할 것인지 물어보고 작업 수행
-                CreateTable();
-            if (type == 2 && IsConfirm(Constant.CONFIRM_REVISE))//수정완료 할 것인지 물어보고 작업 수행
-                ReviseData();
+            return !Constant.IS_EXCEPTION;
         }
         private void ReviseData()//수정된 데이터 리스트에 업데이트
         {
@@ -293,7 +303,7 @@ namespace Library.Controller
                         bookFunction.ReturnBook();//도서 반납
                         break;
                     case Constant.FOURTH_MENU:
-                        AddOrReviseMember(Constant.REVISE_MEMBER);//개인정보 수정
+                        ReviseMember();//개인정보 수정
                         break;
                     case Constant.ESCAPE_INT:
                         isExit = exception.IsEscape();//ESC입력 감지

@@ -75,7 +75,7 @@ namespace Library.Controller
                         user.Login();//로그인
                         break;
                     case Constant.SECOND_MENU:
-                        user.AddOrReviseMember(Constant.SIGN_UP);//회원가입
+                        user.AddMember();//회원가입
                         break;
                     case Constant.THIRD_MENU:
                         admin.AdminLogin();//관리자 로그인

@@ -283,7 +283,7 @@ namespace Library.Controller
             if (member != null)
             {
                 this.LoginMember = member;
-                AddOrReviseMember(2);//멤버 정보 수정
+               ReviseMember();//멤버 정보 수정
                 this.LoginMember = null;
                 Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_REVISE);
             }

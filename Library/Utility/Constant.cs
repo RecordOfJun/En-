@@ -73,6 +73,10 @@ namespace Library
         public const int MEMBER_NAME_LENGTH = 4;
         public const int MEMBER_PERSONALCODE_LENGTH = 13;
 
+        public const string ADRESS_FIRST = @"^[가-힣]+[도|시](\s?)[가-힣]+[시|구](\s?)[가-힣a-zA-Z]+로(\s?)[0-9]{1,3}번?길(\s?)([0-9]+-?[0-9]*)?(,?\s?)(([0-9]+동)?(\s?)[0-9]+호)?$";
+        public const string ADRESS_SECOND = @"^[가-힣]+[도|시](\s?)([가-힣]+[시|구|군])+(\s?)[가-힣]+[읍|면|동](\s?)([가-힣]+리)?(\s?)([0-9]+-?[0-9]*)(,?\s?)(([0-9]+동)?(\s?)[0-9]+호)?$";
+        public const string PHONE = @"^0[10|11|16|17|18|19]";
+        public const string NAME = @"^[가-힣]{1,4}";
         //if-else,switch
         public const int CONFRIM_LOGIN = 1;
         public const int CONFRIM_ADD = 1;
