@@ -171,7 +171,7 @@ namespace Library
             }
             return selected;
         }
-        public bool IsEscAndEnter()
+        public bool IsEscAndEnter()//esc나 enter로 빠져나오기
         {
             Console.CursorVisible = false;
             bool isNotESC = true;

@@ -108,7 +108,7 @@ namespace Library.View
         public void NaverAddForm()
         {
             Console.WriteLine("검색된 도서의 번호와 수량을 입력 시 해당 도서를 도서관에 추가합니다.");
-            Console.WriteLine("(최대 추가 가능 권수 :100권),(ESC입력 시 재검색)");
+            Console.WriteLine("(최대 추가 가능 권수 :99권),(ESC입력 시 재검색)");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("출력번호를 입력해 주세요:");

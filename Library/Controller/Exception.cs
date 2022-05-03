@@ -192,7 +192,7 @@ namespace Library.Controller
             }
             return false;
         }
-        public bool IsNumber(string input,int type)
+        public bool IsNumber(string input, int type)
         {
             if (input == Constant.EMPTY)
             {
@@ -212,33 +212,6 @@ namespace Library.Controller
                 return false;
             }
             return true;
-        }
-        public bool IsBookIdException(string userInput, int length)
-        {
-            bool isContainNumber;
-            if (userInput == Constant.ESCAPE)
-                return Constant.IS_EXCEPTION;
-            if (length != userInput.Length)//8
-            {
-                exceptionView.InsertException(userInput.Length, "  (양식에 맞는 글자수를 입력해 주세요!)");
-                return Constant.IS_EXCEPTION;
-            }
-            foreach (char letter in userInput)
-            {
-                isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
-                if (!isContainNumber)
-                {
-                    exceptionView.InsertException(userInput.Length, "  (숫자만 입력해 주세요!)");
-                    return Constant.IS_EXCEPTION;
-                }
-
-            }
-            if (DBConnection.GetDBConnection().IsExistedBookId(userInput))
-            {
-                exceptionView.InsertException(userInput.Length, "(이미 존재하는 도서번호 입니다!)");
-                return Constant.IS_EXCEPTION;
-            }
-            return !Constant.IS_EXCEPTION;
         }
         public bool IsAdress(string userInput)
         {

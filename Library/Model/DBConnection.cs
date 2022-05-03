@@ -265,12 +265,12 @@ namespace Library
             connection.Close();
             return member;
         }
-        public bool IsExistedBookId(string id)//도서 ID 중복확인
+        public bool IsExistedBookIsbn(string isbn)//도서 ID 중복확인
         {
             connection.Open();
             query = "";
             query += "select * from book ";
-            query += "where id='" + id + "';";
+            query += "where isbn='" + isbn + "';";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();

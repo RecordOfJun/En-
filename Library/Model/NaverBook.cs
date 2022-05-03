@@ -28,20 +28,20 @@ namespace Library.Model
     }
     class NaverBook
     {
-        public List<ItemData> GetRequestResult(string bookName,string number)
+        public List<ItemData> GetRequestResult(string bookName,string number)//naver openAPI이용 도서정보 불러오기
         {
             string result = "";
             WebRequest request;
-            request = WebRequest.Create(Constant.BOOK_SEARCH_URL+bookName+"&display="+number);
+            request = WebRequest.Create(Constant.BOOK_SEARCH_URL+bookName+"&display="+number);//검색어와 수량으로 도서리스트 불러오기
 
-            request.Headers.Add("X-Naver-Client-Id", Constant.CLIENT_ID);
-            request.Headers.Add("X-Naver-Client-Secret", Constant.CLIENT_SECRET);
+            request.Headers.Add("X-Naver-Client-Id", Constant.CLIENT_ID);//클라이언트 아이디
+            request.Headers.Add("X-Naver-Client-Secret", Constant.CLIENT_SECRET);//클라이언트 PW
 
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
             result = reader.ReadToEnd();
-            SearchResults searchResults = JsonConvert.DeserializeObject<SearchResults>(result);
+            SearchResults searchResults = JsonConvert.DeserializeObject<SearchResults>(result);//받아온 정보 JSON으로 분류
             reader.Close();
             dataStream.Close();
             response.Close();

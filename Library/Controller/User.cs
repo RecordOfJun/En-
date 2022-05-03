@@ -8,17 +8,17 @@ namespace Library.Controller
 {
     class User//사용자 기능 클래스
     {
-        public ExceptionView exceptionView;
-        public Exception exception;
-        public Basic basicUI;
-        public Book bookUI;
-        public Member memberUI;
-        public BookService bookFunction;
-        public MenuSelection menuSelection = new MenuSelection();
+        protected ExceptionView exceptionView;
+        protected Exception exception;
+        protected Basic basicUI;
+        protected Book bookUI;
+        protected Member memberUI;
+        protected BookService bookFunction;
+        protected MenuSelection menuSelection = new MenuSelection();
         public MemberVO LoginMember;
-        public MemberVO storage;
-        public bool isBack;
-        public int inputType;
+        protected MemberVO storage;
+        private bool isBack;
+        private int inputType;
         public User() { }
         public User(ExceptionAndView exceptionAndView)
         {
