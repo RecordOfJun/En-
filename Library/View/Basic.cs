@@ -171,8 +171,9 @@ namespace Library.View
         {
             Console.WriteLine("                                 1.로그 조회               ");
             Console.WriteLine("                                 2.로그 초기화                ");
-            Console.WriteLine("                                 3.로그파일 저장              ");
-            Console.WriteLine("                                 4.로그파일 삭제              ");
+            Console.WriteLine("                                 3.로그 수정                ");
+            Console.WriteLine("                                 4.로그파일 저장              ");
+            Console.WriteLine("                                 5.로그파일 삭제              ");
         }
         public void LogGuide()
         {

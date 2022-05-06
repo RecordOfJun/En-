@@ -59,7 +59,7 @@ namespace Library.Controller
             ui.LibraryLabel();
             ui.LogGuide();
             ui.LogMenu();
-            return KeyProcessing.GetInput().SwicthMenu(4, index);
+            return KeyProcessing.GetInput().SwicthMenu(5, index);
         }
 
     }

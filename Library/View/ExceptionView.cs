@@ -107,12 +107,19 @@ namespace Library.View
             Console.WriteLine("                   {0}의 수량을 정말 수정하시겠습니까?", name);
             Console.WriteLine("    수정하길 원하시면 엔터, 그렇지 않으면 엔터키를 제외한 아무키나 눌러주세요.");
         }
-        public void LogView(string logData)
+        public void LogView(List<int> numberList,List<string> dataList)
         {
             Console.SetCursorPosition(0, 20);
-            Console.WriteLine("                     엔터나 ESC입력 시 조회목록을 닫습니다.                          ");
+            Console.WriteLine("                      ESC입력 시 조회목록을 닫습니다.                          ");
+            Console.WriteLine();
             Console.WriteLine(new string('=', Console.WindowWidth));
-            Console.WriteLine(logData);
+            for(int count = 0; count < numberList.Count; count++)
+            {
+                Console.WriteLine(new string('-', Console.WindowWidth));
+                Console.WriteLine("로그번호:" + numberList[count]);
+                Console.WriteLine("내용:" + dataList[count]);
+                Console.WriteLine(new string('-', Console.WindowWidth));
+            }
         }
     }
 }

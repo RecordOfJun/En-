@@ -103,14 +103,18 @@ namespace Library.Controller
                 {
                     case Constant.FIRST_MENU://로그 조회
                         LogDAO.GetLog().ShowLog();
+                        KeyProcessing.GetInput().IsEscAndEnter();
                         break;
                     case Constant.SECOND_MENU://로그 초기화
                         LogDAO.GetLog().LogInit();
                         break;
-                    case Constant.THIRD_MENU://로그 저장
+                    case Constant.THIRD_MENU://로그 초기화
+                        LogDAO.GetLog().ReviseLog();
+                        break;
+                    case Constant.FOURTH_MENU://로그 저장
                         LogDAO.GetLog().SaveLogFile();
                         break;
-                    case Constant.FOURTH_MENU://로그 삭제
+                    case Constant.FIFTH_MENU://로그 삭제
                         LogDAO.GetLog().DeleteLogFile();
                         break;
                     case Constant.ESCAPE_INT:
