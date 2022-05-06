@@ -45,8 +45,22 @@ namespace Library.Model
             reader.Close();
             dataStream.Close();
             response.Close();
-
+            foreach(ItemData item in searchResults.items)
+            {
+                item.title = RemoveString(item.title);
+                item.author = RemoveString(item.author);
+                item.price = RemoveString(item.price);
+                item.publisher = RemoveString(item.publisher);
+                item.pubdate = RemoveString(item.pubdate);
+                item.description = RemoveString(item.description).Remove(100)+"...";
+                item.isbn = RemoveString(item.isbn);
+            }
             return searchResults.items;
+        }
+
+        private string RemoveString(string data)
+        {
+            return data.Replace("</b>", "").Replace("<b>", "");
         }
     }
 }
