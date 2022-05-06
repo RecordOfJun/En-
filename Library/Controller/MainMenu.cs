@@ -80,9 +80,6 @@ namespace Library.Controller
                         admin.AdminLogin();//관리자 로그인
                         break;
                     case Constant.FOURTH_MENU:
-                        LogManage();
-                        break;
-                    case Constant.FIFTH_MENU:
                         exception.ExitProgramm();//프로그램 종료
                         break;
                     case Constant.ESCAPE_INT:
@@ -90,37 +87,6 @@ namespace Library.Controller
                 }
             }
         }
-        private void LogManage()
-        {
-            bool isInsert = false;
-            int selectedMenu = 0;
-            while (!isInsert)
-            {
-                if (selectedMenu == Constant.ESCAPE_INT)
-                    selectedMenu = 0;
-                selectedMenu = menuSelection.SelectLogMenu(selectedMenu);
-                switch (selectedMenu)
-                {
-                    case Constant.FIRST_MENU://로그 조회
-                        LogDAO.GetLog().ShowLog();
-                        KeyProcessing.GetInput().IsEscAndEnter();
-                        break;
-                    case Constant.SECOND_MENU://로그 초기화
-                        LogDAO.GetLog().LogInit();
-                        break;
-                    case Constant.THIRD_MENU://로그 초기화
-                        LogDAO.GetLog().ReviseLog();
-                        break;
-                    case Constant.FOURTH_MENU://로그 저장
-                        LogDAO.GetLog().SaveLogFile();
-                        break;
-                    case Constant.FIFTH_MENU://로그 삭제
-                        LogDAO.GetLog().DeleteLogFile();
-                        break;
-                    case Constant.ESCAPE_INT:
-                        return;
-                }
-            }
-        }
+        
     }
 }

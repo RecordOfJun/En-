@@ -63,10 +63,13 @@ namespace Library.Controller
                     case Constant.SECOND_MENU:
                         ManageMember();//멤버 관리
                         break;
+                    case Constant.THIRD_MENU:
+                        LogManage();//멤버 관리
+                        break;
                     case Constant.ESCAPE_INT://ESC감지
                         isExit = exception.IsEscape();
                         break;
-                    case Constant.THIRD_MENU://프로그램 종료
+                    case Constant.FOURTH_MENU://프로그램 종료
                         exception.ExitProgramm();
                         break;
                 }
@@ -581,6 +584,56 @@ namespace Library.Controller
             if (key.Key == ConsoleKey.Escape)
                 return false;
             return true;
+        }
+        private void LogManage()
+        {
+            bool isInsert = false;
+            int selectedMenu = 0;
+            while (!isInsert)
+            {
+                if (selectedMenu == Constant.ESCAPE_INT)
+                    selectedMenu = 0;
+                selectedMenu = menuSelection.SelectLogMenu(selectedMenu);
+                switch (selectedMenu)
+                {
+                    case Constant.FIRST_MENU://로그 조회
+                        LogDAO.GetLog().ShowLog();
+                        KeyProcessing.GetInput().IsEscAndEnter();
+                        break;
+                    case Constant.SECOND_MENU://로그 초기화
+                        LogDAO.GetLog().LogInit();
+                        break;
+                    case Constant.THIRD_MENU://로그 초기화
+                        ReviseLog();
+                        break;
+                    case Constant.FOURTH_MENU://로그 저장
+                        LogDAO.GetLog().SaveLogFile();
+                        break;
+                    case Constant.FIFTH_MENU://로그 삭제
+                        LogDAO.GetLog().DeleteLogFile();
+                        break;
+                    case Constant.ESCAPE_INT:
+                        return;
+                }
+            }
+        }
+
+        private void ReviseLog()
+        {
+            while (true)
+            {
+                Console.Clear();
+                basicUI.AdminLabel();
+                basicUI.LogGuide();
+                basicUI.LogMenu();
+                LogDAO.GetLog().ShowLog();
+                Console.CursorVisible = true;
+                Console.SetCursorPosition(0, 21);
+                Console.WriteLine("제거할 로그번호를 입력해주세요!");
+                Console.Write(":");
+                if (LogDAO.GetLog().Revise() == Constant.ESCAPE_STRING)
+                    return;
+            }
         }
     }
 } 

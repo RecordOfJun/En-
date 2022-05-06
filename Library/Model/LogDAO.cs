@@ -74,34 +74,27 @@ namespace Library.Model
             LoadLog();
             exceptionView.LogView(numberList,dataList);         
         }
-        public void ReviseLog()
+        public string Revise()
         {
             string logNumber;
-            while (true) {
-                Console.Clear();
-                ShowLog();
-                Console.CursorVisible = true;
-                Console.SetCursorPosition(0, 21);
-                Console.WriteLine("제거할 로그번호 입력:");
-                Console.SetCursorPosition(Constant.DATA_INSERT_CURSOR, 21);
-                while (true)
-                {
-                    logNumber = KeyProcessing.GetInput().GetUserString(3, Constant.NOT_PASSWORD_TYPE);
-                    if (logNumber == Constant.ESCAPE_STRING)
-                        return;
-                    if (numberList.Exists(element => element.ToString() == logNumber))
-                        break;
-                    else
-                        exceptionView.SearchException(logNumber.Length, " (정확한 로그번호를 입력하세요!)");
-                }
-                connection.Open();
-                query = "";
-                query += "DELETE FROM log WHERE LOG_NUM=" + logNumber;
-                command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+            while (true)
+            {
+                Console.SetCursorPosition(Constant.ADD_INDEX, 22);
+                logNumber = KeyProcessing.GetInput().GetUserString(3, Constant.NOT_PASSWORD_TYPE);
+                if (logNumber == Constant.ESCAPE_STRING)
+                    return Constant.ESCAPE_STRING;
+                if (numberList.Exists(element => element.ToString() == logNumber))
+                    break;
+                else
+                    exceptionView.InsertException(logNumber.Length, " (정확한 로그번호를 입력하세요!)");
             }
-
+            connection.Open();
+            query = "";
+            query += "DELETE FROM log WHERE LOG_NUM=" + logNumber;
+            command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+            return Constant.EMPTY;
         }
         public void DeleteLogFile()//로그파일 삭제
         {

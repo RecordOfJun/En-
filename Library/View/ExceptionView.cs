@@ -112,6 +112,7 @@ namespace Library.View
             Console.SetCursorPosition(0, 20);
             Console.WriteLine("                      ESC입력 시 조회목록을 닫습니다.                          ");
             Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine(new string('=', Console.WindowWidth));
             for(int count = 0; count < numberList.Count; count++)
             {
