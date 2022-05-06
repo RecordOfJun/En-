@@ -52,7 +52,9 @@ namespace Library.Model
                 item.price = RemoveString(item.price);
                 item.publisher = RemoveString(item.publisher);
                 item.pubdate = RemoveString(item.pubdate);
-                item.description = RemoveString(item.description).Remove(100)+"...";
+                item.description = RemoveString(item.description);
+                if(item.description.Length>100)
+                    item.description=item.description.Remove(100) + "...";
                 item.isbn = RemoveString(item.isbn);
             }
             return searchResults.items;

@@ -170,6 +170,7 @@ namespace Library.Controller
                             break;
                         case Constant.MEMBER_BORROW://단순 조회 시 회원코드 조회 안함(매직넘버)
                             BorrowList(userInput);
+                            Refresh(name, id, phonenumber, type);
                             break;
                     }
                 }
@@ -287,7 +288,7 @@ namespace Library.Controller
             if (member != null)
             {
                 this.LoginMember = member;
-               ReviseMember();//멤버 정보 수정
+                ReviseMember();//멤버 정보 수정
                 this.LoginMember = null;
                 Refresh(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY, Constant.MEMBER_REVISE);
             }
@@ -431,10 +432,10 @@ namespace Library.Controller
         }
         private void NaverAddBook(int sequence)//네이버 검색으로 도서 추가
         {
-            int selectSequence = SelectNumber(sequence + 1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR);//도서번호 선택
+            int selectSequence = SelectNumber(sequence + 1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR, "  (검색목록 중에서 골라주세요!)");//도서번호 선택
             if (selectSequence == Constant.ESCAPE_INT)
                 return;
-            int quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR);//수량 선택
+            int quantity = SelectNumber(101, (int)Constant.SectorCursor.BOOK_QUANTITY_CURSOR, "  (알맞은 수량을 입력해주세요!)");//수량 선택
             if (quantity == Constant.ESCAPE_INT)
                 return;
             //도서 추가
@@ -448,7 +449,7 @@ namespace Library.Controller
             LogDAO.GetLog().LogAdd("관리자 \"" + book.Name + "\" 도서 추가");
             exceptionView.SearchComplete(quantity.ToString().Length, " (추가되었습니다!)");
         }
-        private int SelectNumber(int sequence, int cursor)//네이버검색 후 도서번호와 추가수량을 입력받는 함수
+        private int SelectNumber(int sequence, int cursor,string label)//네이버검색 후 도서번호와 추가수량을 입력받는 함수
         {
             bool isNotExisted = true;
             string userInput = "";
@@ -462,7 +463,7 @@ namespace Library.Controller
                 if (!isNotExisted && (userInput == "0" || int.Parse(userInput) >= sequence))//숫자 예외처리
                 {
                     isNotExisted = true;
-                    exceptionView.SearchException(userInput.Length, "  (검색목록 중에서 골라주세요!)");
+                    exceptionView.SearchException(userInput.Length, label);
                 }
             }
 
