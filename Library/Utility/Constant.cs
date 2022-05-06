@@ -66,7 +66,7 @@ namespace Library
         public const int PERSONAL_LENGTH = 13;
         public const int PHONE_LENGTH = 11;
         public const string ESCAPE = "0000000000000000000000000000000";
-        public const int BOOK_ID_LENGTH = 8;
+        public const int BOOK_ID_LENGTH = 10;
         public const int BOOK_STRING_LENGTH = 20;
         public const int BOOK_PRICE_LENGTH = 6;
         public const int BOOK_QUANTITY_LENGTH = 2;
@@ -76,6 +76,7 @@ namespace Library
         public const string ADRESS_FIRST = @"^[가-힣]+[도|시](\s?)[가-힣]+[시|구](\s?)[가-힣a-zA-Z]+로(\s?)[0-9]{1,3}번?길(\s?)([0-9]+-?[0-9]*)?(,?\s?)(([0-9]+동)?(\s?)[0-9]+호)?$";
         public const string ADRESS_SECOND = @"^[가-힣]+[도|시](\s?)([가-힣]+[시|구|군])+(\s?)[가-힣]+[읍|면|동](\s?)([가-힣]+리)?(\s?)([0-9]+-?[0-9]*)(,?\s?)(([0-9]+동)?(\s?)[0-9]+호)?$";
         public const string PHONE = @"^0[10|11|16|17|18|19]";
+        public const string DATE = @"^[1+[0-9]+[0-9]+[0-9]|20+[[0-1]+[0-9]|2+[0-2]]";
         public const string NAME = @"^[가-힣]{1,4}";
         //if-else,switch
         public const int CONFRIM_LOGIN = 1;

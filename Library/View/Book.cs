@@ -18,7 +18,7 @@ namespace Library.View
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("  도서번호[8글자의 숫자를 입력해 주세요]");
+            Console.WriteLine("  Isbn[10글자의 숫자를 입력해 주세요]");
             Console.WriteLine("  :");
             Console.WriteLine("  도서명[최대 20글자]");
             Console.WriteLine("  :");
@@ -29,6 +29,8 @@ namespace Library.View
             Console.WriteLine("  가격[숫자만 입력해주세요]");
             Console.WriteLine("  :");
             Console.WriteLine("  수량[숫자만 입력해 주세요]");
+            Console.WriteLine("  :");
+            Console.WriteLine("  출판일[ex)19980828]");
             Console.WriteLine("  :");
             Console.WriteLine("  완료하기");
 

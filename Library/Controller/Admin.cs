@@ -99,6 +99,9 @@ namespace Library.Controller
                     case Constant.FIFTH_MENU:
                         SearchNaver();
                         break;
+                    case Constant.SIXTH_MENU:// 책 추가
+                        NaverAddBook();
+                        break;
                     case Constant.ESCAPE_INT://ESC감지
                         return;
                 }
@@ -343,6 +346,15 @@ namespace Library.Controller
             }
             return true;
         }
+        private bool IsNatural(string userInput, bool isException)
+        {
+            if (userInput == "0")
+            {
+                isException = Constant.IS_EXCEPTION;
+                exceptionView.InsertException(userInput.Length, "  (0보다 큰 숫자를 입력해 주세요!)");
+            }
+            return isException;
+        }
         private void RefreshNaver()//네이버 검색FORM
         {
             Console.Clear();
@@ -365,7 +377,7 @@ namespace Library.Controller
                 isNotEscape = IsInsertQueryDisplay(RefreshNaver);
             }
         }
-        private void AddBook()//도서추가
+        private void NaverAddBook()//도서추가
         {
             bool isNotEscape = true;
             RefreshAdd();
@@ -453,6 +465,123 @@ namespace Library.Controller
             }
 
             return int.Parse(userInput);
+        }
+        public void AddBook()//책 추가 메소드
+        {
+            int selectedSector = 0;
+            bool isNotComplete = true;
+            //책 정보 초기화
+            bookStorage.Init();
+            Console.Clear();
+            basicUI.AdminLabel();
+            bookUI.AddBook();
+            while (isNotComplete)//마지막 정보 입력 전 까지 계속 입력
+            {
+                selectedSector = KeyProcessing.GetInput().SwicthSector(8, selectedSector);
+                switch (selectedSector)//위쪽 방향키와 엔터 감지로 입력 원하는 정보 찾기
+                {
+
+                    case (int)Constant.Menu.FIRST_MENU:
+                        bookStorage.Isbn = SetData(Constant.ID_ADD_INDEX, bookStorage.Id);//책 코드
+                        break;
+                    case (int)Constant.Menu.SECOND_MENU:
+                        bookStorage.Name = SetData(Constant.PASSWORD_ADD_INDEX, bookStorage.Name);//도서명
+                        break;
+                    case (int)Constant.Menu.THIRD_MENU:
+                        bookStorage.Publisher = SetData(Constant.PASSWORD_CONFIRM_INDEX, bookStorage.Publisher);//출판사
+                        break;
+                    case (int)Constant.Menu.FOURTH_MENU:
+                        bookStorage.Author = SetData(Constant.NAME_ADD_INDEX, bookStorage.Author);//저자
+                        break;
+                    case (int)Constant.Menu.FIFTH_MENU:
+                        bookStorage.Price = SetData(Constant.PERSONAL_ADD_INDEX, bookStorage.Price);//가격
+                        break;
+                    case (int)Constant.Menu.SIXTH_MENU:
+                        bookStorage.Quantity = int.Parse(SetData(Constant.PHONE_ADD_INDEX, Constant.EMPTY));//수량
+                        break;
+                    case (int)Constant.Menu.SEVENTH_MENU:
+                        bookStorage.Pubdate = SetData(Constant.PHONE_ADD_INDEX+2, Constant.EMPTY);//수량
+                        break;
+                    case (int)Constant.Menu.EIGHTH_MENU:
+                        if (bookStorage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
+                            isNotComplete = false;
+                        else
+                            exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
+                        break;
+                    case Constant.ESCAPE_INT:
+                        return;
+                }
+            }
+            if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
+            {
+                BookVO book = new BookVO(bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity, bookStorage.Isbn,"",bookStorage.Pubdate);
+                BookDAO.GetDBConnection().InsertBook(book);
+            }
+        }
+        private string SetData(int index, string userInput)//데이터 입력을 받고 상황별로 다른 예외처리를 해 예외가 없을때까지 입력받는 메소드
+        {
+            bool isException = Constant.IS_EXCEPTION;
+            while (!isException)
+            {
+                Console.SetCursorPosition(Constant.ADD_INDEX + 2, index);
+                basicUI.DeleteString(Console.CursorLeft, Console.CursorTop, 70);
+                switch (index)
+                {
+                    case Constant.ID_ADD_INDEX://도서코드 입력
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);
+                        if (userInput != Constant.ESCAPE_STRING)
+                            isException = exception.IsBookIdException(userInput, Constant.BOOK_ID_LENGTH);
+                        break;
+                    case Constant.PASSWORD_ADD_INDEX:
+                        userInput = KeyProcessing.GetInput().GetUserString(20, Constant.NOT_PASSWORD_TYPE);//도서명 입력
+                        isException = IsEmpty(userInput);
+                        break;
+                    case Constant.PASSWORD_CONFIRM_INDEX:
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//출판사 입력
+                        isException = IsEmpty(userInput);
+                        break;
+                    case Constant.NAME_ADD_INDEX:
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_STRING_LENGTH, Constant.NOT_PASSWORD_TYPE);//저자명 입력
+                        isException = IsEmpty(userInput);
+                        break;
+                    case Constant.PERSONAL_ADD_INDEX:
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_PRICE_LENGTH, Constant.NOT_PASSWORD_TYPE);//가격 입력
+                        if (userInput != Constant.ESCAPE_STRING)
+                            isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
+                        isException = IsNatural(userInput, isException);
+                        break;
+                    case Constant.PHONE_ADD_INDEX:
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_QUANTITY_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
+                        if (userInput != Constant.ESCAPE_STRING)
+                            isException = exception.IsNumber(userInput, Constant.INSERT_TYPE);
+                        isException = IsNatural(userInput, isException);
+                        break;
+                    case Constant.PHONE_ADD_INDEX+2:
+                        userInput = KeyProcessing.GetInput().GetUserString(Constant.BOOK_ID_LENGTH, Constant.NOT_PASSWORD_TYPE);//수량 입력
+                        isException = exception.IsDate(userInput);
+                        break;
+                }
+                if (userInput == Constant.ESCAPE_STRING)
+                {
+                    userInput = Constant.EMPTY;
+                    basicUI.DeleteString(Constant.ADD_INDEX + 2, Console.CursorTop, 70);
+                    return userInput;
+                }
+            }
+            exceptionView.InsertComplete(userInput.Length * 2, "  (완료되었습니다!))");
+            return userInput;
+        }
+        private bool IsConfirm(int type)//기능 수행 후 재확인 
+        {
+            if (type == Constant.CONFRIM_ADD)//회원가입인지 확인
+                basicUI.ConfirmAddForm();
+            else
+                basicUI.ReviseDone();//수정인지 확인
+            ConsoleKeyInfo key;
+            key = Console.ReadKey();
+            if (key.Key == ConsoleKey.Escape)
+                return false;
+            return true;
         }
     }
 } 

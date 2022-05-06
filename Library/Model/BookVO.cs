@@ -52,6 +52,12 @@ namespace Library.Model
             quantity = 0;
             borrowed = 0;
         }
+        public bool IsNotNull()//도서 추가 시 빠뜨린 것 없는지 확인
+        {//정보 하나라도 없으면 예외처리
+            if (pubdate != Constant.EMPTY && isbn != Constant.EMPTY && name != Constant.EMPTY && publisher != Constant.EMPTY && author != Constant.EMPTY && price != Constant.EMPTY && quantity > 0)
+                return true;
+            return false;
+        }
         public string Id
         {
             get { return id; }

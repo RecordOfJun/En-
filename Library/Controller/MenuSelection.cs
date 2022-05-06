@@ -42,7 +42,7 @@ namespace Library.Controller
             ui.AdminLabel();
             ui.AdminGuide();
             ui.BookManage();
-            return KeyProcessing.GetInput().SwicthMenu(5,index);
+            return KeyProcessing.GetInput().SwicthMenu(6,index);
         }
         public int SelectMemberMenu(int index)//회원관리 메뉴 선택
         {

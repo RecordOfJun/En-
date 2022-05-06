@@ -69,7 +69,7 @@ namespace Library.Model
             while (reader.Read())
             {
                 //검색한 책 정보 불러오기
-                BookVO book = new BookVO(reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()), reader["isbn"].ToString(), reader["description"].ToString(), DateTime.Parse(reader["pubdate"].ToString()).ToString("yyyy-mm-dd"), reader["id"].ToString());
+                BookVO book = new BookVO(reader["name"].ToString(), reader["publisher"].ToString(), reader["author"].ToString(), reader["price"].ToString(), int.Parse(reader["quantity"].ToString()), reader["isbn"].ToString(), reader["description"].ToString(), DateTime.Parse(reader["pubdate"].ToString()).ToString("yyyy-MM-dd"), reader["id"].ToString());
                 bookList.Add(book);
             }
             connection.Close();

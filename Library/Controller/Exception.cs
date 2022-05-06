@@ -233,5 +233,42 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
+        public bool IsBookIdException(string userInput, int length)
+        {
+            bool isContainNumber;
+            if (userInput == Constant.ESCAPE)
+                return Constant.IS_EXCEPTION;
+            if (length != userInput.Length)//8
+            {
+                exceptionView.InsertException(userInput.Length, "  (양식에 맞는 글자수를 입력해 주세요!)");
+                return Constant.IS_EXCEPTION;
+            }
+            foreach (char letter in userInput)
+            {
+                isContainNumber = (Constant.NUMBER_START <= letter && letter <= Constant.NUMBER_END);
+                if (!isContainNumber)
+                {
+                    exceptionView.InsertException(userInput.Length, "  (숫자만 입력해 주세요!)");
+                    return Constant.IS_EXCEPTION;
+                }
+
+            }
+            if (BookDAO.GetDBConnection().IsExistedBookIsbn(userInput))
+            {
+                exceptionView.InsertException(userInput.Length, "(이미 존재하는 Isbn 입니다!)");
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
+        public bool IsDate(string userInput)
+        {
+            Regex date = new Regex(@"(1[0-9][0-9][0-9])|(20([01][0-9]|2[012]))-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$");
+            if (!date.IsMatch(userInput))
+            {
+                exceptionView.InsertException(userInput.Length, "(양식에 맞게 입력해주세요.)");
+                return Constant.IS_EXCEPTION;
+            }
+            return !Constant.IS_EXCEPTION;
+        }
     }
 }
