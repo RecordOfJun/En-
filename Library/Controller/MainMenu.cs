@@ -41,11 +41,11 @@ namespace Library.Controller
         private static extern IntPtr GetConsoleWindow();
         public MainMenu()
         {
-            exceptionAndView.exceptionView = this.exceptionView;
-            exceptionAndView.exception = this.exception;
-            exceptionAndView.basicUI = this.basicUI;
-            exceptionAndView.bookUI = this.bookUI;
-            exceptionAndView.memberUI = this.memberUI;
+            exceptionAndView.exceptionView = exceptionView;
+            exceptionAndView.exception = exception;
+            exceptionAndView.basicUI = basicUI;
+            exceptionAndView.bookUI = bookUI;
+            exceptionAndView.memberUI = memberUI;
             user = new User(exceptionAndView);
             admin=new Admin(exceptionAndView);
             IntPtr handle = GetConsoleWindow();

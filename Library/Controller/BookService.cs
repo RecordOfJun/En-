@@ -10,15 +10,15 @@ namespace Library.Controller
         User userFunction;
         ExceptionView exceptionView;
         Exception exception;
-        List<BookVO> bookList;
+        List<BookDTO> bookList;
         Basic basicUI;
         Book bookUI;
-        BookVO storage;
+        BookDTO storage;
         delegate void bookForm();
         public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
             this.userFunction = userFunction;
-            storage = new BookVO("","","","",0,"","","","");
+            storage = new BookDTO("","","","",0,"","","","");
             exception = exceptionAndView.exception;
             basicUI = exceptionAndView.basicUI;
             bookUI = exceptionAndView.bookUI;
@@ -56,7 +56,7 @@ namespace Library.Controller
 
         private void ShowBookList(string name,string author,string publisher,int type)//책 검색 메소드
         {
-            List<BookVO> findList = new List<BookVO>();
+            List<BookDTO> findList = new List<BookDTO>();
             //입력한 정보와 일치하는 책 찾아 전역 리스트에 대입 AND 찾은 책 출력
             BookDAO.GetDBConnection().SelectBook(name, author, publisher, findList,type);
             bookList = findList;
@@ -66,7 +66,7 @@ namespace Library.Controller
         {
             if (bookCode == Constant.EMPTY)
                 return;
-            BookVO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
+            BookDTO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
             int remain = book.Quantity - book.Borrowed;
             if (remain > 0)//수량이 0보다 클 때 대여 가능
             {
@@ -88,7 +88,7 @@ namespace Library.Controller
         {
             if (bookCode == Constant.EMPTY)
                 return;
-            BookVO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
+            BookDTO book = bookList.Find(book => book.Id == bookCode);//코드와 일치하는 책 찾기
             RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.DeleteGuide,Constant.USER_BOOK);//책 목록 없애주기
             if (exception.IsDelete(book.Name))//정말 삭제할 것인지 확인
             {
@@ -117,7 +117,7 @@ namespace Library.Controller
                     exceptionView.SearchException(quantity.Length, "  (0보다 큰 숫자를 입력해 주세요!)");
                 }
             }
-            BookVO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
+            BookDTO book = bookList.Find(element => element.Id == bookCode) ;//코드와 일치하는 책 찾음
             RefreshBook("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer",bookUI.ReviseGuide, Constant.ADMIN_BOOK);//책 목록 없애주기
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
@@ -130,7 +130,7 @@ namespace Library.Controller
 
         private void ShowMyBook(string name, string author, string publisher)//대여중인 도서 조회 메소드
         {
-            List<BookVO> findList = new List<BookVO>();
+            List<BookDTO> findList = new List<BookDTO>();
             //찾은 책 리스트 전역 책 리스트로 넘겨주고 정보 출력
             BookDAO.GetDBConnection().SelectBorrow(name, author, publisher, userFunction.LoginMember.MemberCode, findList);
             bookList = findList;
@@ -166,7 +166,9 @@ namespace Library.Controller
             int selectedSector=0;
             bool isNotSearch = true;
             //제목,작가명,출판사로 검색을 가능하게 함
-            storage.Init();
+            storage.Name=Constant.EMPTY;
+            storage.Author = Constant.EMPTY;
+            storage.Publisher = Constant.EMPTY;
             while (isNotSearch) {
                 selectedSector = KeyProcessing.GetInput().SwicthSector(4,selectedSector);
                 switch (selectedSector)

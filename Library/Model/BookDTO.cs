@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Library.Model
 {
-    class BookVO
+    class BookDTO
     {
         private string id;
         private string name;
@@ -16,7 +16,7 @@ namespace Library.Model
         private string pubdate;
         private int quantity;
         private int borrowed;
-        public BookVO(string name, string publisher, string author, string price, int quantity, string isbn, string description, string pubdate,string id)
+        public BookDTO(string name, string publisher, string author, string price, int quantity, string isbn, string description, string pubdate,string id)
         {
             this.name = name;
             this.publisher = publisher;
@@ -37,12 +37,6 @@ namespace Library.Model
             price = Constant.EMPTY;
             quantity = 0;
             borrowed = 0;
-        }
-        public bool IsNotNull()//도서 추가 시 빠뜨린 것 없는지 확인
-        {//정보 하나라도 없으면 예외처리
-            if (pubdate != Constant.EMPTY && isbn != Constant.EMPTY && name != Constant.EMPTY && publisher != Constant.EMPTY && author != Constant.EMPTY && price != Constant.EMPTY && quantity > 0)
-                return true;
-            return false;
         }
         public string Id
         {

@@ -14,8 +14,8 @@ namespace Library.Controller
         protected Member memberUI;
         protected BookService bookFunction;
         protected MenuSelection menuSelection = new MenuSelection();
-        public MemberVO LoginMember;
-        protected MemberVO storage;
+        public MemberDTO LoginMember;
+        protected MemberDTO storage;
         private bool isBack;
         public User(ExceptionAndView exceptionAndView)
         {
@@ -24,7 +24,7 @@ namespace Library.Controller
             this.bookUI = exceptionAndView.bookUI;
             this.memberUI = exceptionAndView.memberUI;
             this.exceptionView = exceptionAndView.exceptionView;
-            storage = new MemberVO();
+            storage = new MemberDTO("","","","","","","");
             bookFunction = new BookService( this,exceptionAndView); 
         }
         //로그인 기능
@@ -54,7 +54,6 @@ namespace Library.Controller
         }
         private void LinkData()//로그인 성공 시 해당 계정 정보 불러오기
         {
-            storage.Init();
             storage.Id = LoginMember.Id;
             storage.Password = LoginMember.Password;
             storage.TemporalPassword = LoginMember.Password;
@@ -90,7 +89,7 @@ namespace Library.Controller
                 }
                 isException = exception.IsExceptionIdPassword(storage.Password,Constant.INSERT_TYPE);//예외처리
             }
-            MemberVO member = MemberDAO.GetDBConnection().FindUser(storage.Id, storage.Password);//로그인 정보로 유저 찾기
+            MemberDTO member = MemberDAO.GetDBConnection().FindUser(storage.Id, storage.Password);//로그인 정보로 유저 찾기
             if (member!=null)
             {
                 LoginMember = member;//유저가 존재할 때 유저 정보 넘겨줌
@@ -124,7 +123,7 @@ namespace Library.Controller
         {
             Console.Clear();
             basicUI.LibraryLabel();
-            storage.Init();//가입정보 저장공간 초기화
+            storage=new MemberDTO("","","","","","","");//가입정보 저장공간 초기화
             memberUI.AddMemberForm();
             if (!IsInsertData(Constant.SIGN_UP))
                 return;
@@ -165,7 +164,7 @@ namespace Library.Controller
                         storage.Address = SetData(Constant.ADDRESS_ADD_INDEX, storage.Address);
                         break;
                     case (int)Constant.Menu.EIGHTH_MENU://입력 완료 체크
-                        if (storage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
+                        if (exception.IsMemberNull(storage))//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
                             isNotComplete = false;
                         else
                             exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
@@ -184,7 +183,7 @@ namespace Library.Controller
             LoginMember.PhoneNumber = storage.PhoneNumber;
             LoginMember.PersonalCode = storage.PersonalCode;
             LoginMember.Address = storage.Address;
-            MemberDAO.GetDBConnection().UpdateMember(LoginMember, LoginMember.MemberCode);
+            MemberDAO.GetDBConnection().UpdateMember(storage, storage.MemberCode);
             LogDAO.GetLog().LogAdd(storage.Id + " 회원정보 수정");
         }
 
@@ -262,7 +261,7 @@ namespace Library.Controller
         }
         private void CreateTable()//새 계정 생성
         {
-            MemberVO member = new MemberVO(storage.Id,storage.Password,storage.Name,storage.PhoneNumber,storage.Address,storage.PersonalCode,"");//맴버 객체 생성
+            MemberDTO member = new MemberDTO(storage.Id,storage.Password,storage.Name,storage.PhoneNumber,storage.Address,storage.PersonalCode,"");//맴버 객체 생성
             MemberDAO.GetDBConnection().InsertMember(member);
             LogDAO.GetLog().LogAdd(member.Id + " 회원가입");
         }

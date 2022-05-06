@@ -7,14 +7,14 @@ namespace Library.Controller
 {
     class Admin : User//관리자 관련 메소드 구현 클래스
     {
-        List<MemberVO> memberList;
-        BookVO bookStorage;
+        List<MemberDTO> memberList;
+        BookDTO bookStorage;
         NaverBook naverBook;
         List<ItemData> items;
         delegate void Clear();
         public Admin(ExceptionAndView exceptionAndView) : base(exceptionAndView)
         {
-            bookStorage = new BookVO("","","","",0,"","","","");
+            bookStorage = new BookDTO("","","","",0,"","","","");
             naverBook = new NaverBook();
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
@@ -37,7 +37,7 @@ namespace Library.Controller
                 password = KeyProcessing.GetInput().GetUserString(Constant.PASSWORD_LENGTH, Constant.PASSWORD_TYPE);//비밀번호 입력
                 if (password == Constant.ESCAPE_STRING)
                     return;
-                MemberVO admin = MemberDAO.GetDBConnection().SelectAdmin();
+                MemberDTO admin = MemberDAO.GetDBConnection().SelectAdmin();
                 isCorrect = (id == admin.Id && password == admin.Password);
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
@@ -139,7 +139,7 @@ namespace Library.Controller
         }
         private void ShowMemberList(string name, string id, string phonenumber)//유저정보 조회
         {
-            List<MemberVO> findList = new List<MemberVO>();//찾은 멤버 리스트 저장
+            List<MemberDTO> findList = new List<MemberDTO>();//찾은 멤버 리스트 저장
             MemberDAO.GetDBConnection().SelectMember(id, name, phonenumber, findList);
             //검색 정보와 일치하는 유저 정보들 찾은 후 전역 멤버 리스트로 넘겨주기
             memberList = findList;
@@ -179,7 +179,7 @@ namespace Library.Controller
         private void BorrowList(string membercode)
         {
             basicUI.BorrowList();
-            List<BookVO> bookList = new List<BookVO>();
+            List<BookDTO> bookList = new List<BookDTO>();
             BookDAO.GetDBConnection().SelectBorrow("", "", "", membercode,bookList);
             KeyProcessing.GetInput().IsEscAndEnter();
         }
@@ -286,7 +286,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = MemberDAO.GetDBConnection().GetMember(code);//회원코드와 일치하는 멤버 찾기
+            MemberDTO member = MemberDAO.GetDBConnection().GetMember(code);//회원코드와 일치하는 멤버 찾기
             if (member != null)
             {
                 this.LoginMember = member;
@@ -301,7 +301,7 @@ namespace Library.Controller
         {
             if (code == Constant.EMPTY)
                 return;
-            MemberVO member = MemberDAO.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
+            MemberDTO member = MemberDAO.GetDBConnection().GetMember(code);//회원정보 일치하는 멤버 찾기
             Refresh("qwerqwerqwer", "qwerqwerqwer", "qwerqwerqwer", Constant.MEMBER_DELETE);//기존 회원정보 출력 없애기
             if (member != null)
             {
@@ -441,7 +441,7 @@ namespace Library.Controller
             if (quantity == Constant.ESCAPE_INT)
                 return;
             //도서 추가
-            BookVO book = new BookVO(items[selectSequence - 1].title, items[selectSequence - 1].publisher, items[selectSequence - 1].author, items[selectSequence - 1].price, quantity, items[selectSequence - 1].isbn.Substring(0, 10), items[selectSequence - 1].description, items[selectSequence - 1].pubdate,"");
+            BookDTO book = new BookDTO(items[selectSequence - 1].title, items[selectSequence - 1].publisher, items[selectSequence - 1].author, items[selectSequence - 1].price, quantity, items[selectSequence - 1].isbn.Substring(0, 10), items[selectSequence - 1].description, items[selectSequence - 1].pubdate,"");
             if (BookDAO.GetDBConnection().IsExistedBookIsbn(book.Isbn))
             {
                 exceptionView.SearchException(quantity.ToString().Length, " (이미 추가된 도서입니다!)");
@@ -476,7 +476,7 @@ namespace Library.Controller
             int selectedSector = 0;
             bool isNotComplete = true;
             //책 정보 초기화
-            bookStorage.Init();
+            bookStorage=new BookDTO("","","","",0,"","","","");
             Console.Clear();
             basicUI.AdminLabel();
             bookUI.AddBook();
@@ -508,7 +508,7 @@ namespace Library.Controller
                         bookStorage.Pubdate = SetData(Constant.PHONE_ADD_INDEX+2, Constant.EMPTY);//수량
                         break;
                     case (int)Constant.Menu.EIGHTH_MENU:
-                        if (bookStorage.IsNotNull())//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
+                        if (exception.IsBookNull(bookStorage))//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
                             isNotComplete = false;
                         else
                             exceptionView.InsertException(20, "  (정보를 다 입력해주세요!)");
@@ -519,7 +519,7 @@ namespace Library.Controller
             }
             if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
             {
-                BookVO book = new BookVO(bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity, bookStorage.Isbn,"",bookStorage.Pubdate,"");
+                BookDTO book = new BookDTO(bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity, bookStorage.Isbn,"",bookStorage.Pubdate,"");
                 BookDAO.GetDBConnection().InsertBook(book);
             }
         }

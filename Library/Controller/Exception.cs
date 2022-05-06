@@ -270,5 +270,18 @@ namespace Library.Controller
             }
             return !Constant.IS_EXCEPTION;
         }
+
+        public bool IsBookNull(BookDTO book)//도서 추가 시 빠뜨린 것 없는지 확인
+        {//정보 하나라도 없으면 예외처리
+            if (book.Pubdate != Constant.EMPTY && book.Isbn != Constant.EMPTY && book.Name != Constant.EMPTY && book.Publisher != Constant.EMPTY && book.Author != Constant.EMPTY && book.Price != Constant.EMPTY && book.Quantity > 0)
+                return true;
+            return false;
+        }
+        public bool IsMemberNull(MemberDTO member)//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
+        {
+            if (member.Id != Constant.EMPTY && member.Password != Constant.EMPTY && member.TemporalPassword != Constant.EMPTY && member.Name != Constant.EMPTY && member.PersonalCode != Constant.EMPTY && member.PhoneNumber != Constant.EMPTY && member.Address != Constant.EMPTY)
+                return true;
+            return false;
+        }
     }
 }

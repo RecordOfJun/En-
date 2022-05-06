@@ -6,17 +6,17 @@ namespace Library.Model
 {
     class MyBook
     {
-        public BookVO book;
+        public BookDTO book;
         public string borrowedTime;
         public string returnTime;
-        public MyBook(BookVO book,string borrowedTime,string returnTime)
+        public MyBook(BookDTO book,string borrowedTime,string returnTime)
         {
             this.book = book;
             this.borrowedTime = borrowedTime;
             this.returnTime = returnTime;
         }
     }
-    class MemberVO
+    class MemberDTO
     {
         private string id;
         private string password;
@@ -27,10 +27,7 @@ namespace Library.Model
         private string address;
         private string memberCode;
         private int borrowed = 0;
-        public MemberVO()
-        {
-        }
-        public MemberVO(string id,string password,string name,string phoneNumber,string address,string personalCode,string memberCode)
+        public MemberDTO(string id,string password,string name,string phoneNumber,string address,string personalCode,string memberCode)
         {
             this.id = id;
             this.password = password;
@@ -39,22 +36,6 @@ namespace Library.Model
             this.address = address;
             this.personalCode = personalCode;
             this.memberCode = memberCode;
-        }
-        public void Init()
-        {
-            id = Constant.EMPTY;
-            password = Constant.EMPTY;
-            temporalPassword = Constant.EMPTY;
-            name = Constant.EMPTY;
-            personalCode = Constant.EMPTY;
-            phoneNumber = Constant.EMPTY;
-            address = Constant.EMPTY;
-        }
-        public bool IsNotNull()//회원가입 OR 정보수정 시 빠뜨린 것 없는지 확인
-        {
-            if (id != Constant.EMPTY && password != Constant.EMPTY && temporalPassword != Constant.EMPTY && name != Constant.EMPTY && personalCode != Constant.EMPTY && phoneNumber != Constant.EMPTY && address != Constant.EMPTY)
-                return true;
-            return false;
         }
 
         public string Id

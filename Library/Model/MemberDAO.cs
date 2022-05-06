@@ -23,7 +23,7 @@ namespace Library.Model
                 memberDAO = new MemberDAO();
             return memberDAO;
         }
-        public void InsertMember(MemberVO member)//회원가입 시 멤버정보 추가
+        public void InsertMember(MemberDTO member)//회원가입 시 멤버정보 추가
         {
             connection.Open();
             query = "";
@@ -33,7 +33,7 @@ namespace Library.Model
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void UpdateMember(MemberVO member, string code)//회원 정보 수정 시 정보 업데이트
+        public void UpdateMember(MemberDTO member, string code)//회원 정보 수정 시 정보 업데이트
         {
             connection.Open();
             query = "";
@@ -57,7 +57,7 @@ namespace Library.Model
             command.ExecuteNonQuery();
             connection.Close();
         }
-        public void SelectMember(string id, string name, string phone, List<MemberVO> memberList)//회원 전체 조회(ADMIN 제외)
+        public void SelectMember(string id, string name, string phone, List<MemberDTO> memberList)//회원 전체 조회(ADMIN 제외)
         {
             connection.Open();
             query = "";
@@ -71,25 +71,25 @@ namespace Library.Model
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {//회원 정보 출력 및 리스트 추가
-                MemberVO member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+                MemberDTO member = new MemberDTO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
                 memberList.Add(member);
             }
             connection.Close();
-            foreach (MemberVO member in memberList)
+            foreach (MemberDTO member in memberList)
             {
                 member.Borrowed = BookDAO.GetDBConnection().NumberOfBorrowed(Constant.BORROW_COUNT_MEMBER, member.MemberCode);
                 memberUI.MemberInformation(member);
             }
         }
 
-        public MemberVO SelectAdmin()//관리자 계정 불러오기
+        public MemberDTO SelectAdmin()//관리자 계정 불러오기
         {
             connection.Open();
             query = "";
             query += Constant.SELECT_ADMIN;
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
-            MemberVO admin = new MemberVO();
+            MemberDTO admin = new MemberDTO("","","","","","","");
             while (reader.Read())
             {
                 admin.Id = reader["id"].ToString();
@@ -98,7 +98,7 @@ namespace Library.Model
             connection.Close();
             return admin;
         }
-        public MemberVO FindUser(string id, string password)//ID,비번으로 유저 찾기
+        public MemberDTO FindUser(string id, string password)//ID,비번으로 유저 찾기
         {
             connection.Open();
             query = "";
@@ -107,9 +107,9 @@ namespace Library.Model
             query += "password= '" + password + "';";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
-            MemberVO member = null;
+            MemberDTO member = null;
             while (reader.Read())
-                member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+                member = new MemberDTO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
             connection.Close();
             return member;
         }
@@ -137,7 +137,7 @@ namespace Library.Model
             connection.Close();
             return result;
         }
-        public MemberVO GetMember(string code)//회원 코드로 유저 찾기
+        public MemberDTO GetMember(string code)//회원 코드로 유저 찾기
         {
             connection.Open();
             query = "";
@@ -145,9 +145,9 @@ namespace Library.Model
             query += "where membercode='" + code + "'; ";
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
-            MemberVO member = null;
+            MemberDTO member = null;
             while (reader.Read())
-                member = new MemberVO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
+                member = new MemberDTO(reader["id"].ToString(), reader["password"].ToString(), reader["name"].ToString(), reader["phone"].ToString(), reader["adress"].ToString(), reader["personalcode"].ToString(), reader["membercode"].ToString());
             connection.Close();
             return member;
         }

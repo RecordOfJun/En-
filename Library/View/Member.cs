@@ -51,7 +51,7 @@ namespace Library.View
             Console.WriteLine("  완료하기");
         }
 
-        public void MemberInformation(MemberVO member)
+        public void MemberInformation(MemberDTO member)
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.Write("ID:{0}", member.Id);

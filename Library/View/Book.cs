@@ -36,7 +36,7 @@ namespace Library.View
 
         }
 
-        public void BookInformation(BookVO book, int type)
+        public void BookInformation(BookDTO book, int type)
         {
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.WriteLine("도서코드 :" + book.Id);
@@ -68,9 +68,8 @@ namespace Library.View
             Console.WriteLine("설명 :" + item.description);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
-        public void BorrowInformation(MyBook myBook)
+        public void BorrowInformation(BookDTO book,string borrowedTime,string returnTime)
         {
-            BookVO book = myBook.book;
             Console.WriteLine("---------------------------------------------------------------------------------");
             Console.Write("도서코드:{0}", book.Id);
             Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
@@ -81,9 +80,9 @@ namespace Library.View
             Console.Write("가격:{0}", book.Price);
             Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
             Console.WriteLine();
-            Console.Write("대여 날짜:{0}", myBook.borrowedTime);
+            Console.Write("대여 날짜:{0}", borrowedTime);
             Console.SetCursorPosition(Constant.WIDTH, Console.CursorTop);
-            Console.WriteLine("반납 기한:{0}", myBook.returnTime);
+            Console.WriteLine("반납 기한:{0}", returnTime);
             Console.WriteLine("---------------------------------------------------------------------------------");
         }
 
