@@ -14,7 +14,7 @@ namespace Library.Controller
         delegate void Clear();
         public Admin(ExceptionAndView exceptionAndView) : base(exceptionAndView)
         {
-            bookStorage = new BookVO();
+            bookStorage = new BookVO("","","","",0,"","","","");
             naverBook = new NaverBook();
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
@@ -102,7 +102,7 @@ namespace Library.Controller
                         SearchNaver();
                         break;
                     case Constant.SIXTH_MENU:// 책 추가
-                        NaverAddBook();
+                        AddNaverBook();
                         break;
                     case Constant.ESCAPE_INT://ESC감지
                         return;
@@ -185,7 +185,9 @@ namespace Library.Controller
         }
         private string InsertNameAndPersonal(string userInput, int type)//검색 정보 입력과 회원 코드 입력 메소드
         {
-            storage.Init();
+            storage.Id = Constant.EMPTY;
+            storage.Name = Constant.EMPTY;
+            storage.PhoneNumber = Constant.EMPTY;
             int selectedSector = 0;
             bool isNotSearch = true;
             //제목,작가명,출판사로 검색을 가능하게 함
@@ -380,7 +382,7 @@ namespace Library.Controller
                 isNotEscape = IsInsertQueryDisplay(RefreshNaver);
             }
         }
-        private void NaverAddBook()//도서추가
+        private void AddNaverBook()//도서추가
         {
             bool isNotEscape = true;
             RefreshAdd();
@@ -389,7 +391,7 @@ namespace Library.Controller
                 isNotEscape = IsInsertQueryDisplay(RefreshAdd);//네이버로 책 검색
                 if (!isNotEscape)
                     return;
-                NaverAddBook(items.Count);//추가할 책 선택 후 추가
+                SelectNaverBook(items.Count);//추가할 책 선택 후 추가
             }
         }
         private bool IsInsertQueryDisplay(Clear clear)//검색어와 수량을 입력해 리스트 받아오기
@@ -430,7 +432,7 @@ namespace Library.Controller
 
             return true;
         }
-        private void NaverAddBook(int sequence)//네이버 검색으로 도서 추가
+        private void SelectNaverBook(int sequence)//네이버 검색으로 도서 추가
         {
             int selectSequence = SelectNumber(sequence + 1, (int)Constant.SectorCursor.BOOK_CODE_CURSOR, "  (검색목록 중에서 골라주세요!)");//도서번호 선택
             if (selectSequence == Constant.ESCAPE_INT)
@@ -439,7 +441,7 @@ namespace Library.Controller
             if (quantity == Constant.ESCAPE_INT)
                 return;
             //도서 추가
-            BookVO book = new BookVO(items[selectSequence - 1].title.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].publisher.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].author.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].price.Replace("</b>", "").Replace("<b>", ""), quantity, items[selectSequence - 1].isbn.Substring(0, 10).Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].description.Replace("</b>", "").Replace("<b>", ""), items[selectSequence - 1].pubdate.Replace("</b>", "").Replace("<b>", ""));
+            BookVO book = new BookVO(items[selectSequence - 1].title, items[selectSequence - 1].publisher, items[selectSequence - 1].author, items[selectSequence - 1].price, quantity, items[selectSequence - 1].isbn.Substring(0, 10), items[selectSequence - 1].description, items[selectSequence - 1].pubdate,"");
             if (BookDAO.GetDBConnection().IsExistedBookIsbn(book.Isbn))
             {
                 exceptionView.SearchException(quantity.ToString().Length, " (이미 추가된 도서입니다!)");
@@ -517,7 +519,7 @@ namespace Library.Controller
             }
             if (IsConfirm(Constant.CONFRIM_ADD))//추가할 것인지 한번 더 확인
             {
-                BookVO book = new BookVO(bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity, bookStorage.Isbn,"",bookStorage.Pubdate);
+                BookVO book = new BookVO(bookStorage.Name, bookStorage.Publisher, bookStorage.Author, bookStorage.Price, bookStorage.Quantity, bookStorage.Isbn,"",bookStorage.Pubdate,"");
                 BookDAO.GetDBConnection().InsertBook(book);
             }
         }

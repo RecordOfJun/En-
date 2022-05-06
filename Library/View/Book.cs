@@ -30,7 +30,7 @@ namespace Library.View
             Console.WriteLine("  :");
             Console.WriteLine("  수량[숫자만 입력해 주세요]");
             Console.WriteLine("  :");
-            Console.WriteLine("  출판일[ex)19980828]");
+            Console.WriteLine("  출판일[ex)1998-08-28]");
             Console.WriteLine("  :");
             Console.WriteLine("  완료하기");
 

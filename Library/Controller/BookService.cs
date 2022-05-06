@@ -18,7 +18,7 @@ namespace Library.Controller
         public BookService(User userFunction,ExceptionAndView exceptionAndView)
         {
             this.userFunction = userFunction;
-            storage = new BookVO();
+            storage = new BookVO("","","","",0,"","","","");
             exception = exceptionAndView.exception;
             basicUI = exceptionAndView.basicUI;
             bookUI = exceptionAndView.bookUI;

@@ -16,20 +16,6 @@ namespace Library.Model
         private string pubdate;
         private int quantity;
         private int borrowed;
-        public BookVO()
-        {    
-        }
-        public BookVO(string name, string publisher, string author, string price, int quantity,string isbn,string description, string pubdate)
-        {
-            this.name = name;
-            this.publisher = publisher;
-            this.author = author;
-            this.price = price;
-            this.quantity = quantity;
-            this.isbn = isbn;
-            this.description = description;
-            this.pubdate = pubdate;
-        }
         public BookVO(string name, string publisher, string author, string price, int quantity, string isbn, string description, string pubdate,string id)
         {
             this.name = name;

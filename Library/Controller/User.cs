@@ -262,14 +262,7 @@ namespace Library.Controller
         }
         private void CreateTable()//새 계정 생성
         {
-            MemberVO member = new MemberVO();//맴버 객체 생성
-            //새 객체에 입력한 정보들 넣어주기
-            member.Id = storage.Id;
-            member.Password = storage.Password;
-            member.Name = storage.Name;
-            member.PersonalCode = storage.PersonalCode;
-            member.PhoneNumber = storage.PhoneNumber;
-            member.Address = storage.Address;
+            MemberVO member = new MemberVO(storage.Id,storage.Password,storage.Name,storage.PhoneNumber,storage.Address,storage.PersonalCode,"");//맴버 객체 생성
             MemberDAO.GetDBConnection().InsertMember(member);
             LogDAO.GetLog().LogAdd(member.Id + " 회원가입");
         }
