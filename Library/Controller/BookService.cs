@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Library.Model;
 using Library.View;
-using Library.Utility;
 namespace Library.Controller
 {
     class BookService//책 관련 메소드 구현 클래스
@@ -77,7 +76,7 @@ namespace Library.Controller
                     return;
                 }
                 BookDAO.GetDBConnection().InsertBorrow(bookCode, userFunction.LoginMember.MemberCode);//책 대여
-                Log.GetLog().LogAdd(userFunction.LoginMember.Id +" '"+book.Name+"' 도서 대여");
+                LogDAO.GetLog().LogAdd(userFunction.LoginMember.Id + " \"" + book.Name+ "\" 도서 대여");
                 exceptionView.SearchComplete(bookCode.Length, "  (대여가 완료되었습니다!)");
                 return;
             }
@@ -95,7 +94,7 @@ namespace Library.Controller
             {
                 BookDAO.GetDBConnection().DeleteBorrow(bookCode, Constant.EMPTY, Constant.DELETE_BOOK);
                 BookDAO.GetDBConnection().DeleteBook(bookCode);
-                Log.GetLog().LogAdd("관리자 '" + book.Name + "' 도서 삭제");
+                LogDAO.GetLog().LogAdd("관리자 \"" + book.Name + "\" 도서 삭제");
                 exceptionView.SearchComplete(bookCode.Length, "  (삭제가 완료되었습니다!))");//삭제 완료
             }
             RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,bookUI.DeleteGuide, Constant.USER_BOOK);
@@ -123,7 +122,7 @@ namespace Library.Controller
             if (exception.IsRevise(book.Name))//수정할 것인지 한번 더 확인
             {
                 BookDAO.GetDBConnection().UpdateBook(int.Parse(quantity),bookCode);//수량 수정
-                Log.GetLog().LogAdd("관리자 '" + book.Name + "' 도서 수량 "+quantity+"(으)로 수정");
+                LogDAO.GetLog().LogAdd("관리자 \"" + book.Name + "\" 도서 수량 " + quantity+"(으)로 수정");
             }
             RefreshBook(Constant.EMPTY, Constant.EMPTY, Constant.EMPTY,bookUI.ReviseGuide, Constant.ADMIN_BOOK);
             return;
@@ -157,7 +156,7 @@ namespace Library.Controller
             if (code == "")
                 return;
             BookDAO.GetDBConnection().DeleteBorrow(code, userFunction.LoginMember.MemberCode, Constant.DELETE_BORROW);//책 반납
-            Log.GetLog().LogAdd(userFunction.LoginMember.Id+" '" + bookList.Find(book=>book.Id==code).Name + "' 도서 반납");
+            LogDAO.GetLog().LogAdd(userFunction.LoginMember.Id+ " \"" + bookList.Find(book=>book.Id==code).Name + "\" 도서 반납");
             exceptionView.SearchComplete(code.Length, "  (반납이 완료되었습니다!))");
 
         }
@@ -189,9 +188,9 @@ namespace Library.Controller
                 }
             }
             if(userFunction.LoginMember!=null)
-                Log.GetLog().LogAdd(userFunction.LoginMember.Id +" '"+storage.Name+","+storage.Author+","+storage.Publisher+"'(으)로 도서검색");
+                LogDAO.GetLog().LogAdd(userFunction.LoginMember.Id +" \""+storage.Name+ "\"\"" + storage.Author+ "\"\"" + storage.Publisher+ "\"(으)로 도서검색");
             else
-                Log.GetLog().LogAdd("관리자 '" + storage.Name + "," + storage.Author + "," + storage.Publisher + "'(으)로 도서검색");
+                LogDAO.GetLog().LogAdd("관리자 \"" + storage.Name + "\"\"" + storage.Author + "\"\"" + storage.Publisher + "\"(으)로 도서검색");
             SpreadBook(type, storage.Name, storage.Author, storage.Publisher);//검색한 정보 출력
             if (type != Constant.SEARCH_BOOK)//단순 조회가 아닐 경우 (매직넘버)
             {

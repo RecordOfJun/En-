@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Library.Model;
 using Library.View;
-using Library.Utility;
 namespace Library.Controller
 {
     class User//사용자 기능 클래스
@@ -48,9 +47,9 @@ namespace Library.Controller
             if (IsConfirm(Constant.CONFRIM_LOGIN))//로그인 할 것인지 한번 더 확인
             {
                 LinkData();
-                Log.GetLog().LogAdd(storage.Id + "로그인");
+                LogDAO.GetLog().LogAdd(storage.Id + "로그인");
                 UserSelectMenu();
-                Log.GetLog().LogAdd(storage.Id + "로그아웃");
+                LogDAO.GetLog().LogAdd(storage.Id + "로그아웃");
             }
         }
         private void LinkData()//로그인 성공 시 해당 계정 정보 불러오기
@@ -186,7 +185,7 @@ namespace Library.Controller
             LoginMember.PersonalCode = storage.PersonalCode;
             LoginMember.Address = storage.Address;
             MemberDAO.GetDBConnection().UpdateMember(LoginMember, LoginMember.MemberCode);
-            Log.GetLog().LogAdd(storage.Id + " 회원정보 수정");
+            LogDAO.GetLog().LogAdd(storage.Id + " 회원정보 수정");
         }
 
         private void WriteData(int index, string data){//화면에 계정정보 출력
@@ -272,7 +271,7 @@ namespace Library.Controller
             member.PhoneNumber = storage.PhoneNumber;
             member.Address = storage.Address;
             MemberDAO.GetDBConnection().InsertMember(member);
-            Log.GetLog().LogAdd(member.Id + " 회원가입");
+            LogDAO.GetLog().LogAdd(member.Id + " 회원가입");
         }
 
         //로그인 후 메뉴 선택기능

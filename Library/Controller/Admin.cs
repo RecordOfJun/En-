@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Library.Model;
 using Library.View;
-using Library.Utility;
 namespace Library.Controller
 {
     class Admin : User//관리자 관련 메소드 구현 클래스
@@ -43,9 +42,9 @@ namespace Library.Controller
                 if (!isCorrect)//오입력 시 예외 출력
                     exceptionView.AdminError(password.Length);
             }
-            Log.GetLog().LogAdd( "관리자 로그인");
+            LogDAO.GetLog().LogAdd( "관리자 로그인");
             AdminSelectMenu();//로그인 성공 시 관리자 메뉴 선택
-            Log.GetLog().LogAdd("관리자 로그아웃");
+            LogDAO.GetLog().LogAdd("관리자 로그아웃");
         }
         public void AdminSelectMenu()//관리자 메뉴 선택
         {
@@ -207,7 +206,7 @@ namespace Library.Controller
                         return Constant.ESCAPE;
                 }
             }
-            Log.GetLog().LogAdd("관리자 '" + storage.Id + "," + storage.Name + "," + storage.PhoneNumber + "'(으)로 회원검색");
+            LogDAO.GetLog().LogAdd("관리자 \"" + storage.Id + "\" \"" + storage.Name + "\" \"" + storage.PhoneNumber + "\"(으)로 회원검색");
             Refresh(storage.Name, storage.Id, storage.PhoneNumber, type);//검색한 정보 토대로 회원 검색 해 출력
             if (type != Constant.MEMBER_SEARCH)//단순 조회 아닐 시(매직넘버)
             {
@@ -308,7 +307,7 @@ namespace Library.Controller
                 else if (exception.IsDelete(member.Name + " 회원"))//삭제 한번 더 확인
                 {
                     MemberDAO.GetDBConnection().DeleteMember(code);
-                    Log.GetLog().LogAdd("관리자 "+member.Id+"회원 삭제");
+                    LogDAO.GetLog().LogAdd("관리자 "+member.Id+" 회원 삭제");
                 }
             }
             else
@@ -417,7 +416,7 @@ namespace Library.Controller
                         return false;
                 }
             }
-            Log.GetLog().LogAdd("관리자 네이버에서 검색어 '"+query+"'(으)로 "+display+"개의 도서 검색");//로그 추가
+            LogDAO.GetLog().LogAdd("관리자 네이버에서 검색어 \"" + query+ "\"(으)로 " + display+"개의 도서 검색");//로그 추가
             items = naverBook.GetRequestResult(query, display);//데이터 받아오기
             clear();
             foreach (ItemData item in items)//받아온 데이터 출력
@@ -443,7 +442,7 @@ namespace Library.Controller
                 return;
             }
             BookDAO.GetDBConnection().InsertBook(book);
-            Log.GetLog().LogAdd("관리자 " + book.Name + " 도서 추가");
+            LogDAO.GetLog().LogAdd("관리자 \"" + book.Name + "\" 도서 추가");
             exceptionView.SearchComplete(quantity.ToString().Length, " (추가되었습니다!)");
         }
         private int SelectNumber(int sequence, int cursor)//네이버검색 후 도서번호와 추가수량을 입력받는 함수

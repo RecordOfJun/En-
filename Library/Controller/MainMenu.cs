@@ -4,7 +4,6 @@ using System.Text;
 using Library.Model;
 using Library.View;
 using System.Runtime.InteropServices;
-using Library.Utility;
 namespace Library.Controller
 {
     class ExceptionAndView
@@ -103,16 +102,16 @@ namespace Library.Controller
                 switch (selectedMenu)
                 {
                     case Constant.FIRST_MENU://로그 조회
-                        Log.GetLog().ShowLog();
+                        LogDAO.GetLog().ShowLog();
                         break;
                     case Constant.SECOND_MENU://로그 초기화
-                        Log.GetLog().LogInit();
+                        LogDAO.GetLog().LogInit();
                         break;
                     case Constant.THIRD_MENU://로그 저장
-                        Log.GetLog().SaveLogFile();
+                        LogDAO.GetLog().SaveLogFile();
                         break;
                     case Constant.FOURTH_MENU://로그 삭제
-                        Log.GetLog().DeleteLogFile();
+                        LogDAO.GetLog().DeleteLogFile();
                         break;
                     case Constant.ESCAPE_INT:
                         return;
