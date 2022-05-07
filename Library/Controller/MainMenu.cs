@@ -26,11 +26,6 @@ namespace Library.Controller
         User user;
         Admin admin;
 
-        private const int MF_BYCOMMAND = 0x00000000;
-        public const int SC_CLOSE = 0xF060;
-        public const int SC_MINIMIZE = 0xF020;
-        public const int SC_MAXIMIZE = 0xF030;
-        public const int SC_SIZE = 0xF000;
         [DllImport("user32.dll")]
         public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
 
@@ -53,9 +48,9 @@ namespace Library.Controller
 
             if (handle != IntPtr.Zero)//콘솔 창 크기 제어 방지
             {
-                DeleteMenu(sysMenu, SC_MINIMIZE, MF_BYCOMMAND);
-                DeleteMenu(sysMenu, SC_MAXIMIZE, MF_BYCOMMAND);
-                DeleteMenu(sysMenu, SC_SIZE, MF_BYCOMMAND);
+                DeleteMenu(sysMenu, Constant.SC_MINIMIZE, Constant.MF_BYCOMMAND);
+                DeleteMenu(sysMenu, Constant.SC_MAXIMIZE, Constant.MF_BYCOMMAND);
+                DeleteMenu(sysMenu, Constant.SC_SIZE, Constant.MF_BYCOMMAND);
             }
             Console.SetWindowSize(81, 40);
             Console.SetBufferSize(Console.WindowWidth+1, Console.BufferHeight);

@@ -180,11 +180,25 @@ namespace Library
         public const string SELECT_ADMIN = "SELECT id,password from member where name = 'Adm';";
         public const string BORROW_COUNT_BOOK = "SELECT COUNT(*) FROM borrowed where bookid=";
         public const string BORROW_COUNT_MEMBER = "SELECT COUNT(*) FROM borrowed where membercode=";
-        public const string SELECT_BORROW = "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode=";
+        public const string SELECT_BORROW = "SELECT book.*,B.borrowtime,B.returntime from book,( select * from borrowed where membercode={0}) as B where book.name like '%{1}%' and book.author like '%{2}%' and book.publisher like '%{3}%' and book.id = B.bookid order by B.returntime;";
+
         public const string INSERT_BOOK = "Insert into book(name,publisher,author,price,quantity,isbn,pubdate,description) values ('";
+        public const string UPDATE_BOOK = "Update book Set quantity={0} where id='{1}';";
+        public const string DELETE_BOOK_QUERY = "DELETE FROM book WHERE id='{0}';";
+        public const string SELECT_BOOK = "SELECT * from book where name like '%{0}%' and author like '%{1}%' and publisher like '%{2}%' order by id; ";
+        public const string INSERT_BORROW="Insert into borrowed values ('{0}',{1},'{2}','{3}');";
+        public const string DELETE_BORROW_QUERY="DELETE FROM borrowed WHERE bookid='{0}' ";
+        public const string SELECT_BY_ISBN = "select * from book where isbn='{0}';";
         //Naver API
         public const string BOOK_SEARCH_URL = "https://openapi.naver.com/v1/search/book.json?query=";
         public const string CLIENT_ID = "SsfDUUwgAZmuzt8kSFIg";
         public const string CLIENT_SECRET = "IzA2jM8MfA";
+
+        //DISPLAY
+        public const int MF_BYCOMMAND = 0x00000000;
+        public const int SC_CLOSE = 0xF060;
+        public const int SC_MINIMIZE = 0xF020;
+        public const int SC_MAXIMIZE = 0xF030;
+        public const int SC_SIZE = 0xF000;
     }
 }

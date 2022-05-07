@@ -24,12 +24,20 @@ namespace Library.Model
                 bookDAO = new BookDAO();
             return bookDAO;
         }
+        public void OpenConnection()
+        {
+            connection.Open();
+        }
+        public void CloseConnection()
+        {
+            connection.Close();
+        }
         public void InsertBook(BookDTO book)//도서 추가
         {
             connection.Open();
             query = "";
             query += Constant.INSERT_BOOK;
-            query += book.Name + "','" + book.Publisher + "','" + book.Author + "'," + book.Price + "," + book.Quantity + ",'" + book.Isbn + "','" + book.Pubdate + "','" + book.Description + "');";
+            query += string.Format("{0}','{1}','{2}',{3},{4},'{5}','{6}','{7}');", book.Name,book.Publisher,book.Author,book.Price,book.Quantity,book.Isbn,book.Pubdate,book.Description);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -38,9 +46,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "Update book Set ";
-            query += "quantity=" + quantity + " ";
-            query += "where id='" + id + "';";
+            query += string.Format(Constant.UPDATE_BOOK, quantity, id);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -49,8 +55,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "delete from book ";
-            query += "where id='" + id + "';";
+            query += string.Format(Constant.DELETE_BOOK_QUERY, id);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -59,11 +64,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from book ";
-            query += "where name like '%" + name + "%' and ";
-            query += "author like '%" + author + "%' and ";
-            query += "publisher like '%" + publisher + "%' ";
-            query += "order by id; ";
+            query += string.Format(Constant.SELECT_BOOK,name,author,publisher);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -105,8 +106,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "Insert into borrowed values ('";
-            query += bookId + "'," + code + ",'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "','" + DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss") + "');";
+            query += string.Format(Constant.INSERT_BORROW,bookId,code, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),DateTime.Now.AddDays(7).ToString("yyyy-MM-dd HH:mm:ss"));
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -114,9 +114,7 @@ namespace Library.Model
         public void DeleteBorrow(string bookId, string code, int type)//도서 반납
         {
             connection.Open();
-            query = "";
-            query += "delete from borrowed ";
-            query += "where bookid='" + bookId + "' ";
+            query = string.Format(Constant.DELETE_BORROW_QUERY, bookId);
             if (type == Constant.DELETE_BORROW)
                 query += "and membercode=" + code + ";";
             command = new MySqlCommand(query, connection);
@@ -129,12 +127,7 @@ namespace Library.Model
             string returnTime;
             connection.Open();
             query = "";
-            query += Constant.SELECT_BORROW + code + ") as B ";
-            query += "where book.name like '%" + name + "%' and ";
-            query += "book.author like '%" + author + "%' and ";
-            query += "book.publisher like '%" + publisher + "%' and ";
-            query += "book.id = B.bookid ";
-            query += "order by B.returntime ";
+            query +=string.Format(Constant.SELECT_BORROW,code,name,author,publisher);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -151,8 +144,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "select * from book ";
-            query += "where isbn='" + isbn + "';";
+            query += string.Format(Constant.SELECT_BY_ISBN,isbn);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();
