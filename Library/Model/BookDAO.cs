@@ -37,7 +37,7 @@ namespace Library.Model
             connection.Open();
             query = "";
             query += Constant.INSERT_BOOK;
-            query += string.Format("{0}','{1}','{2}',{3},{4},'{5}','{6}','{7}');", book.Name,book.Publisher,book.Author,book.Price,book.Quantity,book.Isbn,book.Pubdate,book.Description);
+            query += string.Format("{0}','{1}','{2}',{3},{4},'{5}','{6}','{7}');", book.Name,book.Publisher,book.Author,book.Price,book.Quantity,book.Isbn,book.Pubdate,book.Description.Replace("'",""));
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
