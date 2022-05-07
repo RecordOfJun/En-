@@ -7,10 +7,10 @@ namespace Library.Controller
 {
     class MenuSelection//메뉴 선택 관련 메소드 구현 클래스
     {
-        Basic ui;
+        Interface ui;
         public MenuSelection()
         {
-            ui = new Basic();
+            ui = new Interface();
         }
         public int SelectMenu(int index)//키보드 입력을 감지해 인덱스가 가리키는 메뉴 화면에 띄어주기
         {

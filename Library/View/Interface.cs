@@ -5,9 +5,9 @@ using Library.Model;
 
 namespace Library.View
 {
-    class Basic
+    class Interface
     {
-        public Basic()
+        public Interface()
         {
         }
         public void MainMenu()

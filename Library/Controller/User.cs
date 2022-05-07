@@ -9,7 +9,7 @@ namespace Library.Controller
     {
         protected ExceptionView exceptionView;
         protected Exception exception;
-        protected Basic basicUI;
+        protected Interface basicUI;
         protected Book bookUI;
         protected Member memberUI;
         protected BookService bookFunction;

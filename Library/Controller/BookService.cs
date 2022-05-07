@@ -11,7 +11,7 @@ namespace Library.Controller
         ExceptionView exceptionView;
         Exception exception;
         List<BookDTO> bookList;
-        Basic basicUI;
+        Interface basicUI;
         Book bookUI;
         BookDTO storage;
         delegate void bookForm();

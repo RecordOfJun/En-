@@ -10,7 +10,7 @@ namespace Library.Controller
     {
         public ExceptionView exceptionView;
         public Exception exception;
-        public Basic basicUI;
+        public Interface basicUI;
         public Book bookUI;
         public Member memberUI;
     }
@@ -20,7 +20,7 @@ namespace Library.Controller
         MenuSelection menuSelection = new MenuSelection();
         Exception exception = new Exception();
         ExceptionView exceptionView = new ExceptionView();
-        Basic basicUI=new Basic();
+        Interface basicUI=new Interface();
         Book bookUI=new Book();
         Member memberUI=new Member();
         User user;
