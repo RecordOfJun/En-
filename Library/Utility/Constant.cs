@@ -189,6 +189,19 @@ namespace Library
         public const string INSERT_BORROW="Insert into borrowed values ('{0}',{1},'{2}','{3}');";
         public const string DELETE_BORROW_QUERY="DELETE FROM borrowed WHERE bookid='{0}' ";
         public const string SELECT_BY_ISBN = "select * from book where isbn='{0}';";
+        public const string INIT_LOG= "DELETE FROM log; ALTER TABLE log AUTO_INCREMENT = 1;";
+        public const string INSERT_LOG = "INSERT INTO log (data) VALUES ('{0}');";
+        public const string SELECT_LOG = "SELECT * from log; ";
+        public const string DELETE_LOG = "DELETE FROM log WHERE LOG_NUM={0}";
+        public const string UPDATE_MEMBER="UPDATE member SET password='{0}', name='{1}', phone='{2}', adress='{3}' WHERE membercode={4};";
+        public const string DELETE_MEMBER = "delete from member where membercode={0};";
+        public const string SELECT_MEMBER="SELECT * from member where id like '%{0}%' and name like '%{1}%' and phone like '%{2}%' and name <> 'Adm';";
+        public const string FIND_MEMBER="SELECT * from member where id='{0}' and password= '{1}';";
+        public const string FIND_ID = "SELECT * from member where id='{0}'; ";
+        public const string FIND_PERSONAL="SELECT * from member where personalcode='{0}'; ";
+        public const string GET_MEMBER="SELECT * from member where membercode='{0}'; ";
+        public const string CHECK_BORROW = "select * from borrowed where bookid='{0}' and membercode={1}; ";
+        public const string HAVE_BORROW = "select * from borrowed where membercode={0}; ";
         //Naver API
         public const string BOOK_SEARCH_URL = "https://openapi.naver.com/v1/search/book.json?query=";
         public const string CLIENT_ID = "SsfDUUwgAZmuzt8kSFIg";

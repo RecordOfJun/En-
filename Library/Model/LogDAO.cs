@@ -35,8 +35,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "DELETE FROM log; ";
-            query+= "ALTER TABLE log AUTO_INCREMENT = 1;";
+            query += Constant.INIT_LOG;
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -47,7 +46,7 @@ namespace Library.Model
             logData = "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + data + "]";
             connection.Open();
             query = "";
-            query += "INSERT INTO log (data) VALUES ('" + logData + "');";
+            query += string.Format(Constant.INSERT_LOG,logData);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -58,7 +57,7 @@ namespace Library.Model
             dataList.RemoveAll(element=>element.Length>0);
             connection.Open();
             query = "";
-            query += "SELECT * from log; ";
+            query += Constant.SELECT_LOG;
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             logData = Constant.EMPTY;
@@ -76,8 +75,9 @@ namespace Library.Model
         }
         public string Revise()
         {
-            string logNumber;
-            while (true)
+            string logNumber="";
+            bool isContinue = true;
+            while (isContinue)
             {
                 Console.SetCursorPosition(Constant.ADD_INDEX, 22);
                 logNumber = KeyProcessing.GetInput().GetUserString(3, Constant.NOT_PASSWORD_TYPE);
@@ -90,7 +90,7 @@ namespace Library.Model
             }
             connection.Open();
             query = "";
-            query += "DELETE FROM log WHERE LOG_NUM=" + logNumber;
+            query += string.Format(Constant.DELETE_LOG,logNumber);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -111,6 +111,13 @@ namespace Library.Model
         public void SaveLogFile()//바탕화면에 저장
         {
             LoadLog();
+            for (int count = 0; count < numberList.Count; count++)
+            {
+                logData+=new string('-', Console.WindowWidth)+"\n";
+                logData += "로그번호:" + numberList[count] + "\n";
+                logData += "내용:" + dataList[count] + "\n";
+                logData += new string('-', Console.WindowWidth) + "\n";
+            }
             File.WriteAllText(filePath, logData);
             exceptionView.LogComplete("(저장을 완료했습니다!)");
         }

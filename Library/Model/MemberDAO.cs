@@ -37,12 +37,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "Update member Set ";
-            query += "password='" + member.Password + "',";
-            query += "name='" + member.Name + "',";
-            query += "phone='" + member.PhoneNumber + "',";
-            query += "adress='" + member.Address + "'  ";
-            query += "where membercode=" + code + ";";
+            query = string.Format(Constant.UPDATE_MEMBER,member.Password, member.Name, member.PhoneNumber, member.Address, code);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -51,8 +46,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "delete from member ";
-            query += "where membercode=" + code + ";";
+            query += string.Format(Constant.DELETE_MEMBER,code);
             command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
             connection.Close();
@@ -61,11 +55,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from member ";
-            query += "where id like '%" + id + "%' and ";
-            query += "name like '%" + name + "%' and ";
-            query += "phone like '%" + phone + "%'  ";
-            query += "and name <> 'Adm';";
+            query += string.Format(Constant.SELECT_MEMBER,id,name,phone);
 
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -102,9 +92,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from member ";
-            query += "where id='" + id + "' and ";
-            query += "password= '" + password + "';";
+            query += string.Format(Constant.FIND_MEMBER,id,password);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             MemberDTO member = null;
@@ -117,8 +105,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from member ";
-            query += "where id='" + id + "'; ";
+            query += string.Format(Constant.FIND_ID,id);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();
@@ -129,8 +116,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from member ";
-            query += "where personalcode='" + personal + "'; ";
+            query += string.Format(Constant.FIND_PERSONAL,personal);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();
@@ -141,8 +127,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "SELECT * from member ";
-            query += "where membercode='" + code + "'; ";
+            query +=string.Format(Constant.GET_MEMBER ,code);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             MemberDTO member = null;
@@ -155,9 +140,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "select * from borrowed ";
-            query += "where bookid='" + bookcode + "' ";
-            query += "and membercode=" + memberCode + "; ";
+            query += string.Format(Constant.CHECK_BORROW,bookcode,memberCode);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();
@@ -168,8 +151,7 @@ namespace Library.Model
         {
             connection.Open();
             query = "";
-            query += "select * from borrowed ";
-            query += "where membercode=" + memberCode + "; ";
+            query += string.Format(Constant.HAVE_BORROW,memberCode);
             command = new MySqlCommand(query, connection);
             MySqlDataReader reader = command.ExecuteReader();
             bool result = reader.Read();

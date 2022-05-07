@@ -4,18 +4,6 @@ using System.Text;
 
 namespace Library.Model
 {
-    class MyBook
-    {
-        public BookDTO book;
-        public string borrowedTime;
-        public string returnTime;
-        public MyBook(BookDTO book,string borrowedTime,string returnTime)
-        {
-            this.book = book;
-            this.borrowedTime = borrowedTime;
-            this.returnTime = returnTime;
-        }
-    }
     class MemberDTO
     {
         private string id;
