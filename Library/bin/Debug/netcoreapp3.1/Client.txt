@@ -1,0 +1,2 @@
+public const string CLIENT_ID = "SsfDUUwgAZmuzt8kSFIg";
+public const string CLIENT_SECRET = "IzA2jM8MfA";

@@ -15,7 +15,7 @@ namespace Library.Controller
         public Admin(ExceptionAndView exceptionAndView) : base(exceptionAndView)
         {
             bookStorage = new BookDTO("","","","",0,"","","","");
-            naverBook = new NaverBook();
+            naverBook = new NaverBook(exceptionView);
         }
         public void AdminLogin()//id="11111111111" ,password="9999999999" 관리자 로그인
         {
@@ -425,9 +425,12 @@ namespace Library.Controller
             LogDAO.GetLog().LogAdd("관리자 네이버에서 검색어 \"" + query+ "\"(으)로 " + display+"개의 도서 검색");//로그 추가
             items = naverBook.GetRequestResult(query, display);//데이터 받아오기
             clear();
-            foreach (ItemData item in items)//받아온 데이터 출력
+            if (items != null)
             {
-                bookUI.NaverBookInformation(item, sequence++);
+                foreach (ItemData item in items)//받아온 데이터 출력
+                {
+                    bookUI.NaverBookInformation(item, sequence++);
+                }
             }
 
             return true;

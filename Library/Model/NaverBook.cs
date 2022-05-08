@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;
+using Library.View;
 namespace Library.Model
 {
     public class SearchResults
@@ -28,11 +29,16 @@ namespace Library.Model
     }
     class NaverBook
     {
+        ExceptionView exceptionView;
+        public NaverBook(ExceptionView exceptionView)
+        {
+            this.exceptionView = exceptionView;
+        }
         public List<ItemData> GetRequestResult(string bookName,string number)//naver openAPI이용 도서정보 불러오기
         {
             string result = "";
             WebRequest request;
-            request = WebRequest.Create(Constant.BOOK_SEARCH_URL+bookName + "&display=101");//검색어와 수량으로 도서리스트 불러오기
+            request = WebRequest.Create(Constant.BOOK_SEARCH_URL+bookName + "&display="+101);//검색어와 수량으로 도서리스트 불러오기
 
             request.Headers.Add("X-Naver-Client-Id", Constant.CLIENT_ID);//클라이언트 아이디
             request.Headers.Add("X-Naver-Client-Secret", Constant.CLIENT_SECRET);//클라이언트 PW
@@ -60,9 +66,10 @@ namespace Library.Model
                 }
                 return searchResults.items;
             }
-            catch(WebException e)
+            catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.SetCursorPosition(0, Console.CursorTop + 2);
+                exceptionView.InsertException(0, e.Message);
                 return null;
             }
         }

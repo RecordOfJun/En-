@@ -24,14 +24,6 @@ namespace Library.Model
                 bookDAO = new BookDAO();
             return bookDAO;
         }
-        public void OpenConnection()
-        {
-            connection.Open();
-        }
-        public void CloseConnection()
-        {
-            connection.Close();
-        }
         public void InsertBook(BookDTO book)//도서 추가
         {
             connection.Open();
