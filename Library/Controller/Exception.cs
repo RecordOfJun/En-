@@ -143,7 +143,7 @@ namespace Library.Controller
             Regex phone = new Regex(Constant.PHONE);
             if (!phone.IsMatch(userInput))
             {
-                exceptionView.InsertException(userInput.Length, "(올바르지 않은  휴대전화번호 입니다.)");
+                exceptionView.InsertException(userInput.Length, "(올바르지 않은 휴대전화번호 입니다.)");
                 return Constant.IS_EXCEPTION;
             }
             return !Constant.IS_EXCEPTION;
