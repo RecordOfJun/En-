@@ -59,11 +59,11 @@ public class ImageDAO {
 	        		imageArray[index]=new ImageIcon(image.getScaledInstance(100,100, Image.SCALE_SMOOTH));
 	        		System.out.println(count);
 	        		index++;
-	        		if(index==29)
+	        		if(index==30)
 	        		break;
 	        	}
 	        	catch(Exception e) {
-	        		index--;
+	        		//index--;
 	        	}
 	        }
 		}

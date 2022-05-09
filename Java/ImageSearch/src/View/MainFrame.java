@@ -79,10 +79,16 @@ public class MainFrame extends JFrame{
 	}
 	
 	private void ShowButton(int maxLength,ImageIcon[] imageArray) {
-		FlowLayout resultLayout=new FlowLayout();
+		GridLayout resultLayout=new GridLayout(6,5);
 		JPanel resultPanel=new JPanel(resultLayout);
-		resultPanel.setSize(600, 500);
-		resultLayout.setAlignment(FlowLayout.LEFT);
+		JPanel leftPanel=new JPanel();
+		JLabel leftLabel=new JLabel("");
+		leftLabel.setSize(200, 10);
+		JPanel rightPanel=new JPanel();
+		resultPanel.setSize(600, 300);
+		leftPanel.setSize(200,300);
+		leftPanel.setBackground(Color.red);
+		rightPanel.setSize(200,300);
 		int length=maxLength;
 		if(imageArray.length<maxLength) 
 			length=imageArray.length;
@@ -90,19 +96,28 @@ public class MainFrame extends JFrame{
 			System.out.println(count);
 			JButton resultImage=new JButton(imageArray[count]);
 			resultImage.setSize(100, 100);
+			resultImage.addMouseListener(new resultAdapter(imageArray[count]));
 			resultPanel.add(resultImage);
 		}
+		//배치는 나중에
+		mainContainer.add(leftPanel,BorderLayout.WEST);
 		mainContainer.add(resultPanel,BorderLayout.CENTER);
+		mainContainer.add(rightPanel,BorderLayout.EAST);
 	}
 	
 	public void addBackButtonListner(ActionListener buttonListener) {
 		backButton.addActionListener(buttonListener);
 	}
-	/*
-	private class resultAdapter extends MouseAdapter {
-		private void MouseClicked(MouseEvent e) {
-			if(e.getClickCount()==2&&!)
+	class resultAdapter extends MouseAdapter {
+		ImageIcon image;
+		public resultAdapter(ImageIcon image) {
+			this.image=image;
+		}
+		public void mouseClicked(MouseEvent e) {
+			if(e.getClickCount()==2&&!e.isConsumed()) {
+				Enlargement enlargement=new Enlargement(image);
+				enlargement.ShowForm();
+			}
 		}
 	}
-	*/
 }

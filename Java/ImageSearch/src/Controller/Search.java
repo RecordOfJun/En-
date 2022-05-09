@@ -49,7 +49,7 @@ public class Search{
 				SetTextAndClicked("",Constant.isClick);
 			}
 			if(e.getKeyChar()=='\n') {
-				if(!mainFrame.searchField.getText().equals("")) {
+				if(mainFrame.searchField.getText().equals("")) {
 					SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 				}
 				else {//내용 있을 때 검색 시
