@@ -1,5 +1,6 @@
 package Controller;
 import Utility.Constant;
+import Model.*;
 import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -8,8 +9,10 @@ import View.MainFrame;
 
 public class Search{
 	MainFrame mainFrame;
+	ImageDAO imageDAO;
 	public Search() {
 		mainFrame=new MainFrame();
+		imageDAO=new ImageDAO();
 	}
 	public void LoadFrame() {
 		mainFrame.ShowForm();
@@ -50,6 +53,7 @@ public class Search{
 					SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 				}
 				else {//내용 있을 때 검색 시
+					imageDAO.getImage(mainFrame.searchField.getText());
 					mainFrame.SetResultForm();
 				}
 			}
@@ -65,6 +69,7 @@ public class Search{
 				SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 			}
 			else {//내용 있을 때 검색 시
+				imageDAO.getImage(mainFrame.searchField.getText());
 				mainFrame.SetResultForm();
 			}
 		}
