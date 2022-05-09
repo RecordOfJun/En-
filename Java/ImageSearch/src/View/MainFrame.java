@@ -11,6 +11,8 @@ public class MainFrame extends JFrame{
 	private JButton recordButton=new JButton("검색기록");
 	private JButton backButton=new JButton(new ImageIcon("images/backArrow.PNG"));
 	public boolean isClicked=false;
+	FlowLayout northLayout=new FlowLayout();
+	private JPanel northPanel=new JPanel(northLayout);
 	private Container mainContainer=getContentPane();
 	
 	public void ShowForm() {
@@ -54,20 +56,21 @@ public class MainFrame extends JFrame{
 	public void addSearchButtonListner(ActionListener buttonListener) {
 		searchButton.addActionListener(buttonListener);
 	}
-	//검색결과 보여주는 폼
-	public void SetResultForm() {
-		FlowLayout northLayout=new FlowLayout();
-		northLayout.setAlignment(FlowLayout.LEFT);
-		JPanel northPanel=new JPanel(northLayout);
-		setVisible(false);
-		mainContainer.removeAll();
-		mainContainer.setBackground(Color.white);
+	private void InitBackButton() {
 		backButton.setBackground(Color.white);
-		northPanel.setBackground(Color.white);
 		backButton.setSize(50, 50);
 		backButton.setBorderPainted(false);
 		backButton.setFocusPainted(false);
 		backButton.setContentAreaFilled(false);
+		northPanel.setBackground(Color.white);
+		northLayout.setAlignment(FlowLayout.LEFT);
+	}
+	//검색결과 보여주는 폼
+	public void SetResultForm() {
+		setVisible(false);
+		mainContainer.removeAll();
+		mainContainer.setBackground(Color.white);
+		InitBackButton();
 		northPanel.add(backButton);
 		mainContainer.setLayout(new BorderLayout());
 		mainContainer.add(northPanel,BorderLayout.NORTH);

@@ -1,8 +1,7 @@
 package Controller;
+import Utility.Constant;
 import java.awt.event.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import View.MainFrame;
@@ -28,8 +27,8 @@ public class Search{
 	
 	private class SearchFieldMouseListener implements MouseListener{
 		public void mousePressed(MouseEvent e) {
-			if(mainFrame.isClicked==false) {
-				SetTextAndClicked("",true);
+			if(mainFrame.isClicked==Constant.isNotClick) {
+				SetTextAndClicked("",Constant.isClick);
 			}
 		}
 		public void mouseEntered(MouseEvent e) {	
@@ -43,13 +42,12 @@ public class Search{
 	}
 	private class SearchFieldKeyListener implements KeyListener{
 		public void keyPressed(KeyEvent e) {
-			System.out.print('d');
-			if(mainFrame.isClicked==false) {
-				SetTextAndClicked("",true);
+			if(mainFrame.isClicked==Constant.isNotClick) {
+				SetTextAndClicked("",Constant.isClick);
 			}
 			if(e.getKeyChar()=='\n') {
 				if(!mainFrame.searchField.getText().equals("")) {
-					SetTextAndClicked("검색어가 비어있습니다.",false);
+					SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 				}
 				else {//내용 있을 때 검색 시
 					mainFrame.SetResultForm();
@@ -63,9 +61,8 @@ public class Search{
 	}
 	private class SearchButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.print('d');
-			if(mainFrame.isClicked==false||mainFrame.searchField.getText().equals("")) {
-				SetTextAndClicked("검색어가 비어있습니다.",false);
+			if(mainFrame.isClicked==Constant.isNotClick||mainFrame.searchField.getText().equals("")) {
+				SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 			}
 			else {//내용 있을 때 검색 시
 				mainFrame.SetResultForm();
@@ -76,5 +73,9 @@ public class Search{
 		public void actionPerformed(ActionEvent e) {
 			mainFrame.SetMainForm();
 		}
+	}
+	private void LoadResultForm() {
+		mainFrame.searchField.getText();
+		mainFrame.SetResultForm();
 	}
 }
