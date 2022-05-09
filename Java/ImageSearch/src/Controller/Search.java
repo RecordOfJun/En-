@@ -13,11 +13,12 @@ public class Search{
 		mainFrame=new MainFrame();
 	}
 	public void LoadFrame() {
-		mainFrame.MainForm();
-		mainFrame.firstForm();
-		mainFrame.addButtonListner(new SearchButtonListener());
+		mainFrame.ShowForm();
+		mainFrame.SetMainForm();
+		mainFrame.addSearchButtonListner(new SearchButtonListener());
 		mainFrame.addTextMouseListner(new SearchFieldMouseListener());
 		mainFrame.addTextKeyListner(new SearchFieldKeyListener());
+		mainFrame.addBackButtonListner(new BackButtonListener());
 	}
 	
 	private void SetTextAndClicked(String text,boolean isClicked) {
@@ -47,11 +48,11 @@ public class Search{
 				SetTextAndClicked("",true);
 			}
 			if(e.getKeyChar()=='\n') {
-				if(mainFrame.searchField.getText().equals("")) {
+				if(!mainFrame.searchField.getText().equals("")) {
 					SetTextAndClicked("검색어가 비어있습니다.",false);
 				}
 				else {//내용 있을 때 검색 시
-					
+					mainFrame.SetResultForm();
 				}
 			}
 		}
@@ -67,9 +68,13 @@ public class Search{
 				SetTextAndClicked("검색어가 비어있습니다.",false);
 			}
 			else {//내용 있을 때 검색 시
-				
+				mainFrame.SetResultForm();
 			}
 		}
 	}
-
+	private class BackButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			mainFrame.SetMainForm();
+		}
+	}
 }

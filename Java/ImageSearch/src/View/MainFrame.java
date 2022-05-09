@@ -7,22 +7,25 @@ import javax.swing.event.*;
 
 public class MainFrame extends JFrame{
 	public JTextField searchField=new JTextField();
-	JButton searchButton=new JButton(new ImageIcon("images/searchIcon.PNG"));
+	private JButton searchButton=new JButton(new ImageIcon("images/searchIcon.PNG"));
+	private JButton recordButton=new JButton("검색기록");
+	private JButton backButton=new JButton(new ImageIcon("images/backArrow.PNG"));
 	public boolean isClicked=false;
-	
 	private Container mainContainer=getContentPane();
-	public void MainForm() {
+	
+	public void ShowForm() {
 		setTitle("이미지 검색");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(1000, 500);
 	}
-	
-	public void firstForm() {
+	//검색 폼
+	public void SetMainForm() {
+		setVisible(false);
 		JPanel imagePanel=new JPanel();
 		JPanel searchPanel=new JPanel(new FlowLayout());
 		JPanel recordPanel=new JPanel();
 		JLabel googleLabel=new JLabel(new ImageIcon("images/googleLabel.png"));
-		JButton recordButton=new JButton("검색기록");
+		isClicked=false;
 		searchField.setText("검색어를 입력해주세요.");
 		mainContainer.removeAll();
 		mainContainer.setBackground(Color.white);
@@ -48,7 +51,29 @@ public class MainFrame extends JFrame{
 	public void addTextKeyListner(KeyListener buttonListener) {
 		searchField.addKeyListener(buttonListener);
 	}
-	public void addButtonListner(ActionListener buttonListener) {
+	public void addSearchButtonListner(ActionListener buttonListener) {
 		searchButton.addActionListener(buttonListener);
+	}
+	//검색결과 보여주는 폼
+	public void SetResultForm() {
+		FlowLayout northLayout=new FlowLayout();
+		northLayout.setAlignment(FlowLayout.LEFT);
+		JPanel northPanel=new JPanel(northLayout);
+		setVisible(false);
+		mainContainer.removeAll();
+		mainContainer.setBackground(Color.white);
+		backButton.setBackground(Color.white);
+		northPanel.setBackground(Color.white);
+		backButton.setSize(50, 50);
+		backButton.setBorderPainted(false);
+		backButton.setFocusPainted(false);
+		backButton.setContentAreaFilled(false);
+		northPanel.add(backButton);
+		mainContainer.setLayout(new BorderLayout());
+		mainContainer.add(northPanel,BorderLayout.NORTH);
+		setVisible(true);
+	}
+	public void addBackButtonListner(ActionListener buttonListener) {
+		backButton.addActionListener(buttonListener);
 	}
 }
