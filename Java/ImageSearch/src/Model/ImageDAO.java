@@ -63,7 +63,6 @@ public class ImageDAO {
 	        		break;
 	        	}
 	        	catch(Exception e) {
-	        		//index--;
 	        	}
 	        }
 		}

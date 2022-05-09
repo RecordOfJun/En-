@@ -5,11 +5,15 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class MainFrame extends JFrame{
-	//전역이 좀 많은거 같은데
+	//전역이 좀 많은거 같은데(패널들 따로 클래스 관리)
 	public JTextField searchField=new JTextField();
 	private JButton searchButton=new JButton(new ImageIcon("images/searchIcon.PNG"));
 	private JButton recordButton=new JButton("검색기록");
 	private JButton backButton=new JButton(new ImageIcon("images/backArrow.PNG"));
+	private JPanel searchMorePanel=new JPanel(new FlowLayout());
+	private JPanel centerPanel=new JPanel(new FlowLayout());
+	private String[] quantities= {"10","20","30"};
+	private JComboBox quantityBox=new JComboBox(quantities);
 	public boolean isClicked=false;
 	FlowLayout northLayout=new FlowLayout();
 	private JPanel northPanel=new JPanel(northLayout);
@@ -18,7 +22,8 @@ public class MainFrame extends JFrame{
 	public void ShowForm() {
 		setTitle("이미지 검색");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 500);
+		setSize(1000, 800);
+		setResizable(false);
 	}
 	//검색 폼
 	public void SetMainForm() {
@@ -67,6 +72,13 @@ public class MainFrame extends JFrame{
 	}
 	//검색결과 보여주는 폼
 	public void SetResultForm(ImageIcon[] imageArray) {
+		quantityBox.addActionListener (new ActionListener () {
+		    public void actionPerformed(ActionEvent e) {
+		    	JComboBox comboBox = (JComboBox) e.getSource(); 
+                int index = comboBox.getSelectedIndex()+1;
+                ShowResult(index*10,imageArray);
+		    }
+		});
 		setVisible(false);
 		mainContainer.removeAll();
 		mainContainer.setBackground(Color.white);
@@ -74,21 +86,26 @@ public class MainFrame extends JFrame{
 		northPanel.add(backButton);
 		mainContainer.setLayout(new BorderLayout());
 		mainContainer.add(northPanel,BorderLayout.NORTH);
-		ShowButton(30,imageArray);
+		searchMorePanel.add(searchField);
+		searchMorePanel.add(searchButton);
+		searchMorePanel.add(quantityBox);
+		northPanel.add(backButton);
+		ShowResult(10,imageArray);
 		setVisible(true);
 	}
 	
-	private void ShowButton(int maxLength,ImageIcon[] imageArray) {
-		GridLayout resultLayout=new GridLayout(6,5);
+	private void ShowResult(int maxLength,ImageIcon[] imageArray) {
+		setVisible(false);
+		centerPanel.removeAll();
+		GridLayout resultLayout;
+		if(maxLength==30)
+			resultLayout=new GridLayout(6,5);
+		else if(maxLength==20)
+			resultLayout=new GridLayout(4,5);
+		else
+			resultLayout=new GridLayout(2,5);
 		JPanel resultPanel=new JPanel(resultLayout);
-		JPanel leftPanel=new JPanel();
-		JLabel leftLabel=new JLabel("");
-		leftLabel.setSize(200, 10);
-		JPanel rightPanel=new JPanel();
-		resultPanel.setSize(600, 300);
-		leftPanel.setSize(200,300);
-		leftPanel.setBackground(Color.red);
-		rightPanel.setSize(200,300);
+		centerPanel.setBackground(Color.white);
 		int length=maxLength;
 		if(imageArray.length<maxLength) 
 			length=imageArray.length;
@@ -100,9 +117,10 @@ public class MainFrame extends JFrame{
 			resultPanel.add(resultImage);
 		}
 		//배치는 나중에
-		mainContainer.add(leftPanel,BorderLayout.WEST);
-		mainContainer.add(resultPanel,BorderLayout.CENTER);
-		mainContainer.add(rightPanel,BorderLayout.EAST);
+		centerPanel.add(searchMorePanel);
+		centerPanel.add(resultPanel);
+		mainContainer.add(centerPanel,BorderLayout.CENTER);
+		setVisible(true);
 	}
 	
 	public void addBackButtonListner(ActionListener buttonListener) {
