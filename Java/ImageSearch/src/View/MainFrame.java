@@ -37,7 +37,9 @@ public class MainFrame extends JFrame{
 		searchPanel.add(searchField);
 		searchPanel.add(searchButton);
 		recordPanel.add(recordButton);
-		searchField.addMouseListener(new searchFieldMouseEvent());
+		searchField.addMouseListener(new SearchFieldMouseEvent());
+		searchField.addKeyListener(new SearchFieldKeyEvent());
+		searchButton.addMouseListener(new SearchButtonEvent());
 		mainContainer.setLayout(new BorderLayout());
 		mainContainer.add(imagePanel,BorderLayout.NORTH);
 		mainContainer.add(searchPanel,BorderLayout.CENTER);
@@ -45,12 +47,40 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 	}
 	
-	private class searchFieldMouseEvent extends MouseAdapter{
+	private class SearchFieldMouseEvent extends MouseAdapter{
 		public void mousePressed(MouseEvent e) {
 			if(isClicked==false) {
-				searchField.setText("");
-				isClicked=true;
+				SetTextAndClicked("",true);
 			}
 		}
+	}
+	private class SearchFieldKeyEvent extends KeyAdapter{
+		public void keyPressed(KeyEvent e) {
+			if(isClicked==false) {
+				SetTextAndClicked("",true);
+			}
+			if(e.getKeyChar()=='\n') {
+				if(searchField.getText().equals("")) {
+					SetTextAndClicked("검색어가 비어있습니다.",false);
+				}
+				else {//내용 있을 때 검색 시
+					
+				}
+			}
+		}
+	}
+	private class SearchButtonEvent extends MouseAdapter{
+		public void mousePressed(MouseEvent e) {
+			if(isClicked==false||searchField.getText().equals("")) {
+				SetTextAndClicked("검색어가 비어있습니다.",false);
+			}
+			else {//내용 있을 때 검색 시
+				
+			}
+		}
+	}
+	private void SetTextAndClicked(String text,boolean isClicked) {
+		searchField.setText(text);
+		this.isClicked=isClicked;
 	}
 }
