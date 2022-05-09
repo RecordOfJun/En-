@@ -56,7 +56,7 @@ public class ImageDAO {
 	        		JSONObject urlObject=(JSONObject)Documents.get(count);
 	        		URL imageurl=new URL(urlObject.get("image_url").toString());
 	        		Image image=ImageIO.read(imageurl);
-	        		imageArray[index]=new ImageIcon(image.getScaledInstance(100,100, Image.SCALE_SMOOTH));
+	        		imageArray[index]=new ImageIcon(image);
 	        		System.out.println(count);
 	        		index++;
 	        		if(index==30)

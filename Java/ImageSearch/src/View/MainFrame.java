@@ -79,8 +79,9 @@ public class MainFrame extends JFrame{
                 ShowResult(index*10,imageArray);
 		    }
 		});
-		setVisible(false);
+		quantityBox.setSelectedIndex(0);
 		mainContainer.removeAll();
+		searchMorePanel.setBackground(Color.white);
 		mainContainer.setBackground(Color.white);
 		InitBackButton();
 		northPanel.add(backButton);
@@ -95,7 +96,6 @@ public class MainFrame extends JFrame{
 	}
 	
 	private void ShowResult(int maxLength,ImageIcon[] imageArray) {
-		setVisible(false);
 		centerPanel.removeAll();
 		GridLayout resultLayout;
 		if(maxLength==30)
@@ -111,7 +111,7 @@ public class MainFrame extends JFrame{
 			length=imageArray.length;
 		for(int count=0;count<length;count++) {
 			System.out.println(count);
-			JButton resultImage=new JButton(imageArray[count]);
+			JButton resultImage=new JButton(new ImageIcon(imageArray[count].getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 			resultImage.setSize(100, 100);
 			resultImage.addMouseListener(new resultAdapter(imageArray[count]));
 			resultPanel.add(resultImage);
@@ -120,6 +120,7 @@ public class MainFrame extends JFrame{
 		centerPanel.add(searchMorePanel);
 		centerPanel.add(resultPanel);
 		mainContainer.add(centerPanel,BorderLayout.CENTER);
+		setVisible(false);
 		setVisible(true);
 	}
 	
