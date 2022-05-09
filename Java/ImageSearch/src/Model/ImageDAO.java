@@ -6,15 +6,14 @@ import java.net.HttpURLConnection;
 import java.io.InputStreamReader;
 import org.json.simple.parser.*;
 import org.json.simple.*;
-import java.util.ArrayList;
+import javax.swing.*;
+import javax.imageio.ImageIO;
+import java.awt.Image;
+import org.json.simple.JSONArray;
 public class ImageDAO {
-	public class Documents{
-		ArrayList<ImageURL> documents;
-	}
-	public class ImageURL{
-		String image_url;
-	}
-	public void getImage(String searchInput) {
+	private ImageIcon[] imageArray;
+	
+	public ImageIcon[] getImage(String searchInput) {
 		try {
 			System.out.println(searchInput);
 			String encodedQuery=URLEncoder.encode(searchInput,"UTF-8");
@@ -34,7 +33,7 @@ public class ImageDAO {
 	        } 
 	        else if (responseCode == 500) {
 	            System.out.println("500:: 서버 에러, 문의 필요");
-	        } 
+	        }
 	        else { // 성공
 	            bufferReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	            stringBuilder = new StringBuilder();
@@ -45,15 +44,32 @@ public class ImageDAO {
 	        }
 	        JSONObject jsonObject=(JSONObject)new JSONParser().parse(stringBuilder.toString());
 	        JSONArray Documents=(JSONArray)jsonObject.get("documents");
-	        for(int i=0;i<Documents.size();i++) {
-	        	JSONObject imageurl=(JSONObject)Documents.get(i);
-	        	System.out.println(imageurl.get("image_url"));
-	        	if(i==29)
+	        if(Documents.size()>=30) {
+	        	imageArray=new ImageIcon[30];
+	        	System.out.print(Documents.size());
+	        }
+	        else
+	        	imageArray=new ImageIcon[Documents.size()];
+	        int index=0;
+	        for(int count=0;count<Documents.size();count++) {
+	        	try {
+	        		JSONObject urlObject=(JSONObject)Documents.get(count);
+	        		URL imageurl=new URL(urlObject.get("image_url").toString());
+	        		Image image=ImageIO.read(imageurl);
+	        		imageArray[index]=new ImageIcon(image.getScaledInstance(100,100, Image.SCALE_SMOOTH));
+	        		System.out.println(count);
+	        		index++;
+	        		if(index==29)
 	        		break;
+	        	}
+	        	catch(Exception e) {
+	        		index--;
+	        	}
 	        }
 		}
 		catch(Exception e) {
 			
 		}
+		return imageArray;
 	}
 }

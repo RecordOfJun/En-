@@ -53,8 +53,7 @@ public class Search{
 					SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 				}
 				else {//내용 있을 때 검색 시
-					imageDAO.getImage(mainFrame.searchField.getText());
-					mainFrame.SetResultForm();
+					LoadResultForm();
 				}
 			}
 		}
@@ -69,18 +68,16 @@ public class Search{
 				SetTextAndClicked("검색어가 비어있습니다.",Constant.isNotClick);
 			}
 			else {//내용 있을 때 검색 시
-				imageDAO.getImage(mainFrame.searchField.getText());
-				mainFrame.SetResultForm();
+				LoadResultForm();
 			}
 		}
 	}
 	private class BackButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			mainFrame.SetMainForm();
-		}
+		}//
 	}
 	private void LoadResultForm() {
-		mainFrame.searchField.getText();
-		mainFrame.SetResultForm();
+		mainFrame.SetResultForm(imageDAO.getImage(mainFrame.searchField.getText()));
 	}
 }

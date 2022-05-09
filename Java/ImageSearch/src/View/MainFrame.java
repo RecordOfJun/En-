@@ -3,9 +3,9 @@ import Controller.Search;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 
 public class MainFrame extends JFrame{
+	//전역이 좀 많은거 같은데
 	public JTextField searchField=new JTextField();
 	private JButton searchButton=new JButton(new ImageIcon("images/searchIcon.PNG"));
 	private JButton recordButton=new JButton("검색기록");
@@ -23,7 +23,7 @@ public class MainFrame extends JFrame{
 	//검색 폼
 	public void SetMainForm() {
 		setVisible(false);
-		JPanel imagePanel=new JPanel();
+		JPanel labelPanel=new JPanel();
 		JPanel searchPanel=new JPanel(new FlowLayout());
 		JPanel recordPanel=new JPanel();
 		JLabel googleLabel=new JLabel(new ImageIcon("images/googleLabel.png"));
@@ -31,18 +31,18 @@ public class MainFrame extends JFrame{
 		searchField.setText("검색어를 입력해주세요.");
 		mainContainer.removeAll();
 		mainContainer.setBackground(Color.white);
-		imagePanel.setBackground(Color.white);
+		labelPanel.setBackground(Color.white);
 		searchPanel.setBackground(Color.white);
 		recordPanel.setBackground(Color.white);
 		searchButton.setBackground(Color.white);
 		searchButton.setPreferredSize(new Dimension(40,40));
 		searchField.setPreferredSize(new Dimension(300,40));
-		imagePanel.add(googleLabel);
+		labelPanel.add(googleLabel);
 		searchPanel.add(searchField);
 		searchPanel.add(searchButton);
 		recordPanel.add(recordButton);
 		mainContainer.setLayout(new BorderLayout());
-		mainContainer.add(imagePanel,BorderLayout.NORTH);
+		mainContainer.add(labelPanel,BorderLayout.NORTH);
 		mainContainer.add(searchPanel,BorderLayout.CENTER);
 		mainContainer.add(recordPanel,BorderLayout.SOUTH);
 		setVisible(true);
@@ -66,7 +66,7 @@ public class MainFrame extends JFrame{
 		northLayout.setAlignment(FlowLayout.LEFT);
 	}
 	//검색결과 보여주는 폼
-	public void SetResultForm() {
+	public void SetResultForm(ImageIcon[] imageArray) {
 		setVisible(false);
 		mainContainer.removeAll();
 		mainContainer.setBackground(Color.white);
@@ -74,9 +74,35 @@ public class MainFrame extends JFrame{
 		northPanel.add(backButton);
 		mainContainer.setLayout(new BorderLayout());
 		mainContainer.add(northPanel,BorderLayout.NORTH);
+		ShowButton(30,imageArray);
 		setVisible(true);
 	}
+	
+	private void ShowButton(int maxLength,ImageIcon[] imageArray) {
+		FlowLayout resultLayout=new FlowLayout();
+		JPanel resultPanel=new JPanel(resultLayout);
+		resultPanel.setSize(600, 500);
+		resultLayout.setAlignment(FlowLayout.LEFT);
+		int length=maxLength;
+		if(imageArray.length<maxLength) 
+			length=imageArray.length;
+		for(int count=0;count<length;count++) {
+			System.out.println(count);
+			JButton resultImage=new JButton(imageArray[count]);
+			resultImage.setSize(100, 100);
+			resultPanel.add(resultImage);
+		}
+		mainContainer.add(resultPanel,BorderLayout.CENTER);
+	}
+	
 	public void addBackButtonListner(ActionListener buttonListener) {
 		backButton.addActionListener(buttonListener);
 	}
+	/*
+	private class resultAdapter extends MouseAdapter {
+		private void MouseClicked(MouseEvent e) {
+			if(e.getClickCount()==2&&!)
+		}
+	}
+	*/
 }
