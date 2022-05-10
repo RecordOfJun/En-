@@ -139,4 +139,8 @@ public class MainFrame extends JFrame{
 			}
 		}
 	}
+	
+	public void ShowRecord() {
+		
+	}
 }
