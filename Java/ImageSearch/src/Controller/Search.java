@@ -10,9 +10,11 @@ import View.MainFrame;
 public class Search{
 	MainFrame mainFrame;
 	ImageDAO imageDAO;
+	RecordDAO recordDAO;
 	public Search() {
 		mainFrame=new MainFrame();
 		imageDAO=new ImageDAO();
+		recordDAO=new RecordDAO();
 	}
 	public void LoadFrame() {
 		mainFrame.ShowForm();
@@ -21,6 +23,8 @@ public class Search{
 		mainFrame.addTextMouseListner(new SearchFieldMouseListener());
 		mainFrame.addTextKeyListner(new SearchFieldKeyListener());
 		mainFrame.addBackButtonListner(new BackButtonListener());
+		mainFrame.addRecordButtonListner(new RecordButtonListener());
+		mainFrame.addDeleteButtonListner(new DeleteButtonListener());
 	}
 	
 	private void SetTextAndClicked(String text,boolean isClicked) {
@@ -45,19 +49,19 @@ public class Search{
 	}
 	private class SearchFieldKeyListener implements KeyListener{
 		public void keyPressed(KeyEvent e) {
+		}
+		public void keyTyped(KeyEvent e) {	
 			if(mainFrame.isClicked==Constant.isNotClick) {
 				SetTextAndClicked("",Constant.isClick);
 			}
 			if(e.getKeyChar()=='\n') {
 				if(mainFrame.searchField.getText().equals("")) {
-					SetTextAndClicked("°Ë»ö¾î°¡ ºñ¾îÀÖ½À´Ï´Ù.",Constant.isNotClick);
+					SetTextAndClicked("ê²€ìƒ‰ì–´ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.",Constant.isNotClick);
 				}
-				else {//³»¿ë ÀÖÀ» ¶§ °Ë»ö ½Ã
+				else {//ë‚´ìš© ìˆì„ ë•Œ ê²€ìƒ‰ ì‹œ
 					LoadResultForm();
 				}
 			}
-		}
-		public void keyTyped(KeyEvent e) {	
 		}
 		public void keyReleased(KeyEvent e) {
 		}
@@ -65,9 +69,9 @@ public class Search{
 	private class SearchButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			if(mainFrame.isClicked==Constant.isNotClick||mainFrame.searchField.getText().equals("")) {
-				SetTextAndClicked("°Ë»ö¾î°¡ ºñ¾îÀÖ½À´Ï´Ù.",Constant.isNotClick);
+				SetTextAndClicked("ê²€ìƒ‰ì–´ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤.",Constant.isNotClick);
 			}
-			else {//³»¿ë ÀÖÀ» ¶§ °Ë»ö ½Ã
+			else {//ë‚´ìš© ìˆì„ ë•Œ ê²€ìƒ‰ ì‹œ
 				LoadResultForm();
 			}
 		}
@@ -78,6 +82,19 @@ public class Search{
 		}//
 	}
 	private void LoadResultForm() {
-		mainFrame.SetResultForm(imageDAO.getImage(mainFrame.searchField.getText()));
+		String text=mainFrame.searchField.getText();
+		recordDAO.InsertRecord(text);
+		mainFrame.SetResultForm(imageDAO.getImage(text));
+	}
+	private class RecordButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			mainFrame.SetRecordForm(recordDAO.SelectRecord());
+		}
+	}
+	private class DeleteButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			recordDAO.DeleteRecord();
+			mainFrame.SetRecordForm(recordDAO.SelectRecord());
+		}
 	}
 }

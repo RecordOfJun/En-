@@ -3,29 +3,30 @@ import Controller.Search;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import java.util.ArrayList;
 public class MainFrame extends JFrame{
-	//Àü¿ªÀÌ Á» ¸¹Àº°Å °°Àºµ¥(ÆĞ³Îµé µû·Î Å¬·¡½º °ü¸®)
+	//ì „ì—­ì´ ì¢€ ë§ì€ê±° ê°™ì€ë°(íŒ¨ë„ë“¤ ë”°ë¡œ í´ë˜ìŠ¤ ê´€ë¦¬)
 	public JTextField searchField=new JTextField();
 	private JButton searchButton=new JButton(new ImageIcon("images/searchIcon.PNG"));
-	private JButton recordButton=new JButton("°Ë»ö±â·Ï");
+	private JButton recordButton=new JButton("ê²€ìƒ‰ê¸°ë¡");
 	private JButton backButton=new JButton(new ImageIcon("images/backArrow.PNG"));
 	private JPanel searchMorePanel=new JPanel(new FlowLayout());
 	private JPanel centerPanel=new JPanel(new FlowLayout());
 	private String[] quantities= {"10","20","30"};
 	private JComboBox quantityBox=new JComboBox(quantities);
+	private JButton deleteButton=new JButton("ê¸°ë¡ ì‚­ì œ");
 	public boolean isClicked=false;
 	FlowLayout northLayout=new FlowLayout();
 	private JPanel northPanel=new JPanel(northLayout);
 	private Container mainContainer=getContentPane();
 	
 	public void ShowForm() {
-		setTitle("ÀÌ¹ÌÁö °Ë»ö");
+		setTitle("ì´ë¯¸ì§€ ê²€ìƒ‰");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 800);
+		setSize(1000, 900);
 		setResizable(false);
 	}
-	//°Ë»ö Æû
+	//ê²€ìƒ‰ í¼
 	public void SetMainForm() {
 		setVisible(false);
 		JPanel labelPanel=new JPanel();
@@ -33,7 +34,7 @@ public class MainFrame extends JFrame{
 		JPanel recordPanel=new JPanel();
 		JLabel googleLabel=new JLabel(new ImageIcon("images/googleLabel.png"));
 		isClicked=false;
-		searchField.setText("°Ë»ö¾î¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+		searchField.setText("ê²€ìƒ‰ì–´ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 		mainContainer.removeAll();
 		mainContainer.setBackground(Color.white);
 		labelPanel.setBackground(Color.white);
@@ -42,6 +43,7 @@ public class MainFrame extends JFrame{
 		searchButton.setBackground(Color.white);
 		searchButton.setPreferredSize(new Dimension(40,40));
 		searchField.setPreferredSize(new Dimension(300,40));
+		recordButton.setPreferredSize(new Dimension(100,60));
 		labelPanel.add(googleLabel);
 		searchPanel.add(searchField);
 		searchPanel.add(searchButton);
@@ -52,14 +54,17 @@ public class MainFrame extends JFrame{
 		mainContainer.add(recordPanel,BorderLayout.SOUTH);
 		setVisible(true);
 	}
-	public void addTextMouseListner(MouseListener buttonListener) {
-		searchField.addMouseListener(buttonListener);
+	public void addTextMouseListner(MouseListener mouseListener) {
+		searchField.addMouseListener(mouseListener);
 	}
 	public void addTextKeyListner(KeyListener buttonListener) {
 		searchField.addKeyListener(buttonListener);
 	}
 	public void addSearchButtonListner(ActionListener buttonListener) {
 		searchButton.addActionListener(buttonListener);
+	}
+	public void addRecordButtonListner(ActionListener buttonListener) {
+		recordButton.addActionListener(buttonListener);
 	}
 	private void InitBackButton() {
 		backButton.setBackground(Color.white);
@@ -70,7 +75,7 @@ public class MainFrame extends JFrame{
 		northPanel.setBackground(Color.white);
 		northLayout.setAlignment(FlowLayout.LEFT);
 	}
-	//°Ë»ö°á°ú º¸¿©ÁÖ´Â Æû
+	//ê²€ìƒ‰ê²°ê³¼ ë³´ì—¬ì£¼ëŠ” í¼
 	public void SetResultForm(ImageIcon[] imageArray) {
 		quantityBox.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -110,13 +115,12 @@ public class MainFrame extends JFrame{
 		if(imageArray.length<maxLength) 
 			length=imageArray.length;
 		for(int count=0;count<length;count++) {
-			System.out.println(count);
 			JButton resultImage=new JButton(new ImageIcon(imageArray[count].getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 			resultImage.setSize(100, 100);
 			resultImage.addMouseListener(new resultAdapter(imageArray[count]));
 			resultPanel.add(resultImage);
 		}
-		//¹èÄ¡´Â ³ªÁß¿¡
+		//ë°°ì¹˜ëŠ” ë‚˜ì¤‘ì—
 		centerPanel.add(searchMorePanel);
 		centerPanel.add(resultPanel);
 		mainContainer.add(centerPanel,BorderLayout.CENTER);
@@ -139,8 +143,33 @@ public class MainFrame extends JFrame{
 			}
 		}
 	}
-	
-	public void ShowRecord() {
-		
+	//ê²€ìƒ‰ê¸°ë¡ ë³´ì—¬ì£¼ê¸°
+	public void SetRecordForm(ArrayList<String> list) {
+		JPanel gridPanel=new JPanel(new GridLayout(2,1));
+		JPanel bottomPanel=new JPanel(new FlowLayout());
+		JTextArea recordArea=new JTextArea(26,60);
+		JScrollPane recordScroll=new JScrollPane(recordArea);
+		recordArea.setFont(new Font("Monospaced", Font.PLAIN, 15));
+		recordArea.setBackground(Color.CYAN);
+		for(int count=0;count<list.size();count+=2) {
+			recordArea.append(list.get(count)+"    ");
+			recordArea.append(list.get(count+1)+"\n");
+		}
+		recordArea.setEditable(false);
+		mainContainer.removeAll();
+		centerPanel.removeAll();
+		InitBackButton();
+		northPanel.add(backButton);
+		centerPanel.add(gridPanel);
+		bottomPanel.add(deleteButton);
+		gridPanel.add(recordScroll);
+		gridPanel.add(bottomPanel);
+		mainContainer.add(northPanel,BorderLayout.NORTH);
+		mainContainer.add(centerPanel,BorderLayout.CENTER);
+		setVisible(false);
+		setVisible(true);
+	}
+	public void addDeleteButtonListner(ActionListener buttonListener) {
+		deleteButton.addActionListener(buttonListener);
 	}
 }

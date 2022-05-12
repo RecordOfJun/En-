@@ -26,15 +26,15 @@ public class ImageDAO {
 			StringBuilder stringBuilder=new StringBuilder();
 			int responseCode = connection.getResponseCode();
 	        if (responseCode == 400) {
-	            System.out.println("400:: ÇØ´ç ¸í·ÉÀ» ½ÇÇàÇÒ ¼ö ¾øÀ½ (½ÇÇàÇÒ ¼ö ¾ø´Â »óÅÂÀÏ ¶§, ¿¤¸®º£ÀÌÅÍ ¼ö¿Í Command ¼ö°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§, ¿¤¸®º£ÀÌÅÍ Á¤¿øÀ» ÃÊ°úÇÏ¿© ÅÂ¿ï ¶§)");
+	            System.out.println("400:: ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Command ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ï¿½Ï¿ï¿½ ï¿½Â¿ï¿½ ï¿½ï¿½)");
 	        } 
 	        else if (responseCode == 401) {
-	            System.out.println("401:: X-Auth-Token Header°¡ Àß¸øµÊ");
+	            System.out.println("401:: X-Auth-Token Headerï¿½ï¿½ ï¿½ß¸ï¿½ï¿½ï¿½");
 	        } 
 	        else if (responseCode == 500) {
-	            System.out.println("500:: ¼­¹ö ¿¡·¯, ¹®ÀÇ ÇÊ¿ä");
+	            System.out.println("500:: ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½");
 	        }
-	        else { // ¼º°ø
+	        else { // ï¿½ï¿½ï¿½ï¿½
 	            bufferReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	            stringBuilder = new StringBuilder();
 	            String line = "";
@@ -46,7 +46,6 @@ public class ImageDAO {
 	        JSONArray Documents=(JSONArray)jsonObject.get("documents");
 	        if(Documents.size()>=30) {
 	        	imageArray=new ImageIcon[30];
-	        	System.out.print(Documents.size());
 	        }
 	        else
 	        	imageArray=new ImageIcon[Documents.size()];
@@ -57,7 +56,6 @@ public class ImageDAO {
 	        		URL imageurl=new URL(urlObject.get("image_url").toString());
 	        		Image image=ImageIO.read(imageurl);
 	        		imageArray[index]=new ImageIcon(image);
-	        		System.out.println(count);
 	        		index++;
 	        		if(index==30)
 	        		break;
