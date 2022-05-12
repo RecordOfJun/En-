@@ -1,12 +1,14 @@
 package view;
 import java.awt.*;
 import javax.swing.*;
-public class menuPanel extends JPanel {
+
+import utility.Constant;
+public class MenuPanel extends JPanel {
 	private JLabel defaultLabel=new JLabel("표준");
 	private JButton logButton=new JButton(new ImageIcon(new ImageIcon("image/log.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 	private JPanel leftPanel=new JPanel();
 	private JPanel rightPanel=new JPanel();
-	public menuPanel() {
+	public MenuPanel() {
 		setPanel();
 	}
 	private void setPanel() {
@@ -23,9 +25,9 @@ public class menuPanel extends JPanel {
 	}
 	private void setLayOut() {
 		leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		leftPanel.setBackground(new Color(225,225,225));
+		leftPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		rightPanel.setBackground(new Color(225,225,225));
+		rightPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		leftPanel.add(defaultLabel);
 	}
 }

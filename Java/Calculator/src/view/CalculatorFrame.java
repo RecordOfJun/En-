@@ -2,11 +2,11 @@ package view;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-public class mainFrame extends JFrame {
-	private buttonPanel buttons=new buttonPanel();
+public class CalculatorFrame extends JFrame {
+	private ButtonPanel buttons=new ButtonPanel();
 	private Container container=getContentPane();
-	private labelPanel calculatings=new labelPanel();
-	private menuPanel log=new menuPanel();
+	private TextPanel calculatings=new TextPanel();
+	private MenuPanel log=new MenuPanel();
 	private GridBagLayout gridBag=new GridBagLayout();
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];
 	private JPanel centerPanel=new JPanel(gridBag);
@@ -32,5 +32,8 @@ public class mainFrame extends JFrame {
 		constraint.fill=GridBagConstraints.BOTH;
 		centerPanel.add(component,constraint);
 	}
-	
+	public void refresh() {
+		setVisible(false);
+		setVisible(true);
+	}
 }
