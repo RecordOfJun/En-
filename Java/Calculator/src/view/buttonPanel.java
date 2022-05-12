@@ -8,7 +8,7 @@ public class buttonPanel extends JPanel {
 	private JButton floatButton=new JButton(".");
 	private JButton[] topButtons=new JButton[4];
 	private JButton[] rightButtons=new JButton[4];
-
+	
 	
 	public buttonPanel() {
 		setButton();
@@ -23,7 +23,7 @@ public class buttonPanel extends JPanel {
 		}
 		topButtons[0]=new JButton("CE");
 		topButtons[1]=new JButton("C");
-		topButtons[2]=new JButton("image/backspace.jpg");
+		topButtons[2]=new JButton("\u232B");
 		topButtons[3]=new JButton("÷");
 		rightButtons[0]=new JButton("×");
 		rightButtons[1]=new JButton("+");
@@ -36,23 +36,30 @@ public class buttonPanel extends JPanel {
 	private void setPanel() {
 		this.setLayout(new GridLayout(5,4,3,3));
 		for(int count=0;count<4;count++) {
-			topButtons[count].setBackground(Color.lightGray);
+			topButtons[count].setBackground(new Color(240,240,240));
+			topButtons[count].setBorder(null);
 			this.add(topButtons[count]);
 		}
 		int rightCount=0;
 		for(int count=0;count<10;count++) {
 			if(count%3==0&&count!=0) {
-				rightButtons[rightCount].setBackground(Color.lightGray);
+				rightButtons[rightCount].setBackground(new Color(240,240,240));
+				rightButtons[rightCount].setBorder(null);
 				this.add(rightButtons[rightCount]);
 				rightCount++;
 			}
 			this.add(numberButton[count]);
+			numberButton[count].setBorder(null);
 		}
+		negativeButton.setBorder(null);
+		floatButton.setBorder(null);
 		this.add(negativeButton);
 		this.add(numberButton[9]);
 		this.add(floatButton);
-		rightButtons[rightCount].setBackground(Color.lightGray);
+		rightButtons[rightCount].setBorder(null);
+		rightButtons[rightCount].setBackground(new Color(112,172,223));
 		this.add(rightButtons[rightCount]);
+		this.setBackground(new Color(225,225,225));
 		
 	}
 	

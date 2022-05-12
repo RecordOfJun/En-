@@ -8,33 +8,29 @@ public class mainFrame extends JFrame {
 	private labelPanel calculatings=new labelPanel();
 	private menuPanel log=new menuPanel();
 	private GridBagLayout gridBag=new GridBagLayout();
-	private GridBagConstraints constraints=new GridBagConstraints();
+	private GridBagConstraints[] constraints=new GridBagConstraints[2];
+	private JPanel centerPanel=new JPanel(gridBag);
 	public void loadFrame() {
 		setTitle("계산기");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.setLayout(new BorderLayout());
-		constraints.weightx=1.0;
-		constraints.weighty=1.0;
-		constraints.fill=GridBagConstraints.BOTH;
-		constraints.gridheight = 1;
-		addGridBag(calculatings,0,0);
-		constraints.gridheight = 2;
-		addGridBag(buttons,0,1);
-		//centerPanel.add(buttons,BorderLayout.CENTER);
-		//centerPanel.add(calculatings,BorderLayout.NORTH);
-		//northPanel.setPreferredSize(new Dimension(400,200));
-		//buttons.setPreferredSize(new Dimension(400,400));
-		JPanel centerPanel=new JPanel(gridBag);
+		constraints[0]=new GridBagConstraints();
+		constraints[1]=new GridBagConstraints();
+		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
+		addGridBag(buttons, constraints[1], 1, 0, 1, 2);
 		container.add(log,BorderLayout.NORTH);
 		container.add(centerPanel,BorderLayout.CENTER);
 		setSize(400, 600);
+		this.setIconImage(null);
 		setVisible(true);
 	}
-	
-	private void addGridBag(Component component,int x,int y) {
-		constraints.gridx=x;
-		constraints.gridx=y;
-		gridBag.setConstraints(component, constraints);
+	private void addGridBag(Component component,GridBagConstraints constraint,int x,int y,int weigthx,int weigthy) {
+		constraint.gridx=x;
+		constraint.gridx=y;
+		constraint.weightx=weigthx;
+		constraint.weighty=weigthy;
+		constraint.fill=GridBagConstraints.BOTH;
+		centerPanel.add(component,constraint);
 	}
 	
 }
