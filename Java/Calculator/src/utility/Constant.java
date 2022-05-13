@@ -15,4 +15,5 @@ public class Constant {
 	public static final int TYPE_NULL=0;
 	public static final int TYPE_OPERATOR=2;
 	public static final int TYPE_NUMBER=1;
+	public static final int TYPE_EQUAL=3;
 }
