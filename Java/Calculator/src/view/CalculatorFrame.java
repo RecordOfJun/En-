@@ -3,9 +3,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
 public class CalculatorFrame extends JFrame {
-	private ButtonPanel buttons=new ButtonPanel();
+	public ButtonPanel buttons=new ButtonPanel();
 	private Container container=getContentPane();
-	private TextPanel calculatings=new TextPanel();
+	public TextPanel calculatings=new TextPanel();
 	private MenuPanel log=new MenuPanel();
 	private GridBagLayout gridBag=new GridBagLayout();
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];

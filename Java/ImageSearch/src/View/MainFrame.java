@@ -1,9 +1,12 @@
 package View;
 import Controller.Search;
+import Controller.Search.SearchFieldMouseListener;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
+import Controller.Search;
 public class MainFrame extends JFrame{
 	//전역이 좀 많은거 같은데(패널들 따로 클래스 관리)
 	public JTextField searchField=new JTextField();

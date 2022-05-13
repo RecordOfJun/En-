@@ -32,19 +32,12 @@ public class Search{
 		mainFrame.isClicked=isClicked;
 	}
 	
-	private class SearchFieldMouseListener implements MouseListener{
+	public class SearchFieldMouseListener extends MouseAdapter{
 		public void mousePressed(MouseEvent e) {
 			if(mainFrame.isClicked==Constant.isNotClick) {
 				SetTextAndClicked("",Constant.isClick);
 			}
-		}
-		public void mouseEntered(MouseEvent e) {	
-		}
-		public void mouseReleased(MouseEvent e) {
-		}
-		public void mouseClicked(MouseEvent e) {	
-		}
-		public void mouseExited(MouseEvent e) {
+			System.out.println("A");
 		}
 	}
 	private class SearchFieldKeyListener implements KeyListener{

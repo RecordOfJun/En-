@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import utility.Constant;
+
 public class ButtonPanel extends JPanel {
 	private JButton[] numberButton=new JButton[10];
 	private JButton negativeButton=new JButton("+/-");
@@ -14,7 +15,7 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel() {
 		setButton();
 		setPanel();
-		setAdapter();
+		setAdapter();	
 	}
 	
 	//숫자버튼 초기화
@@ -104,15 +105,16 @@ public class ButtonPanel extends JPanel {
 			e.getComponent().setBackground(color);
 		}
 	}
-	public void appendAdapter(MouseAdapter adapter) {
+	public void appendAdapter(MouseListener adapter) {
 		for(int count=0;count<10;count++)
 			numberButton[count].addMouseListener(adapter);
 		floatButton.addMouseListener(adapter);
 		negativeButton.addMouseListener(adapter);
-		for(int count=0;count<4;count++)
+		for(int count=0;count<4;count++) {
 			topButtons[count].addMouseListener(adapter);
-		for(int count=0;count<3;count++)
 			rightButtons[count].addMouseListener(adapter);
-		rightButtons[3].addMouseListener(adapter);
+		}
+		System.out.println(floatButton.getActionListeners().length);
+		
 	}
 }

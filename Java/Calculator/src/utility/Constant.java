@@ -11,4 +11,8 @@ public class Constant {
 	public static final int EQUAL_BUTTON_G=172;
 	public static final int EQUAL_BUTTON_B=223;
 	public static final int BACKGROUND_RGB=225;
+	
+	public static final int TYPE_NULL=0;
+	public static final int TYPE_OPERATOR=2;
+	public static final int TYPE_NUMBER=1;
 }
