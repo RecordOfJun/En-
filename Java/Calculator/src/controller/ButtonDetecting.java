@@ -25,7 +25,7 @@ public class ButtonDetecting {
 			String character=getButtonText(e);
 			//숫자 받아온걸로 가공
 			//텍스트 최신화
-			textPanel.presentNumber.setText((Double.toString(switchButton(character))));
+			textPanel.presentNumber.setText(switchButton(character));
 
 		}
 	}
@@ -33,45 +33,44 @@ public class ButtonDetecting {
 		JButton button=(JButton)e.getSource();
 		return button.getText();
 	}
-	private double switchButton(String character) {
-		double result;
+	private String switchButton(String character) {
+		String result="";
 		switch(character) {
 			case"C":
-				//전체 초기화=>리스트 내부의 수식내용도 전체 삭제
-				result=calculation.initAll(); 
+				result=calculation.initAll();
+				System.out.println("전체 초기화");
 				break;
 			case"CE":
 				//직전 숫자만 삭제
 				System.out.println("직전 수 초기화");
-				result=1;
+				result="";
 				break;
 			case".":
-				//직전 숫자만 삭제
-				result=1;
+				result=calculation.appendDot(".");
 				System.out.println("콤마");
 				break;
 			case"+/-":
-				result=1;
+				result=calculation.appendSign();
 				//직전 숫자만 삭제
 				System.out.println("부호전환");
 				break;
 			case"=":
-				result=1;
+				result="";
 				//직전 숫자만 삭제
 				System.out.println("계산");
 				break;
 			case"\u232B":
-				result=1;
+				result="";
 				//직전 숫자만 삭제
 				System.out.println("백스페이스");
 				break;	
 			case"÷": case"×": case"+": case"-":
 				//직전 숫자만 삭제
-				result=1;
+				result="";
 				System.out.println("연산자");
 				break;
 			default:
-				result=1;
+				result=calculation.appendNumber(character);
 				System.out.println("숫자");
 				break;
 			

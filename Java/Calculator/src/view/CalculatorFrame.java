@@ -21,7 +21,7 @@ public class CalculatorFrame extends JFrame {
 		container.add(log,BorderLayout.NORTH);
 		container.add(centerPanel,BorderLayout.CENTER);
 		setSize(400, 600);
-		this.setIconImage(null);
+		this.setIconImage(new ImageIcon("image/calculator.png").getImage());
 		setVisible(true);
 	}
 	private void addGridBag(Component component,GridBagConstraints constraint,int x,int y,int weigthx,int weigthy) {

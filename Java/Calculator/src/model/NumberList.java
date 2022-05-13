@@ -1,20 +1,20 @@
 package model;
 import java.util.*;
 public class NumberList {
-	private ArrayList<String> number;
-	private double result;
+	private String number;
+	private double leftNumber;
+	private double rightNumber;
 	private String lastOperator;
 	private String lastNumber;
 	private int lastType;
 	public NumberList() {
-		number=new ArrayList<String>();
-		result=0;
+		number="0";
 	}
-	public double getResult() {
-		return result;
+	public String getNumber() {
+		return number;
 	}
-	public void setResult(double result) {
-		this.result=result;
+	public void setNumber(String number) {
+		this.number=number;
 	}
 	public String getLastOperator() {
 		return lastOperator;
