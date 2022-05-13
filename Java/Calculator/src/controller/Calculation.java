@@ -1,5 +1,6 @@
 package controller;
 import model.*;
+import view.*;
 import utility.Constant;
 import java.text.DecimalFormat;
 
@@ -19,7 +20,7 @@ public class Calculation {
 		status.setLastType(Constant.TYPE_NUMBER);
 	}
 	//부호 달기
-	public String appendSign() {
+	public void appendSign() {
 		number=status.getNumber();
 		if(number.contains("-"))
 			number=number.replace("-", "");
@@ -27,18 +28,20 @@ public class Calculation {
 			if(number!="0")
 				number="-"+number;
 		status.setNumber(number);
+		if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
+			status.setUpFieldText("");
+		}
+		//negative 붙이냐 마냐=>숫자 턴인지 아닌지
 		System.out.println(number);
-		return number;
 	}
 	public void detectNumber(String number) {//숫자를 쳤음
 		//위 필드가 채워져있을 때 마지막에 연산자가 들어왔었다면
 		if(status.getLastType()==Constant.TYPE_OPERATOR&&status.getUpField()!="") {
 			status.setNumber("0");//숫자만 초기화
 		}
-		//위 필드가 채워져 있을 때 마지막에 =이 들어왔었다면
 		else if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
 			status.setNumber("0");
-			status.setUpField("");//위 필드도 초기화
+			status.setUpFieldText("");
 		}
 		//위 필드가 채워지지 않았을 경우&위 필드가 채워져있는데 이전에 숫자를 쳤었다면
 		appendNumber(number);
@@ -92,19 +95,33 @@ public class Calculation {
 		//위 필드가 채워져 있을 때 마지막에 =이 들어왔었다면
 		else if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
 			status.setNumber("0");
-			status.setUpField("");//위 필드도 초기화
+			status.setUpFieldText("");
 		}
 		//위 필드가 채워지지 않았을 경우&위 필드가 채워져있는데 이전에 숫자를 쳤었다면
 		appendDot();
 	}
+	
+	public void detectBackSpace() {
+		if(status.getLastType()==Constant.TYPE_NUMBER)
+			removeNumber();
+		else if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
+			status.setUpFieldText("");
+		}
+	}
 	private void appendNumber(String number) {
 		//정수부분에 ,달기
 		this.number=status.getNumber();
-		if(this.number.compareTo("0")==0)
+		if(this.number=="0") {
+			System.out.println(this.number);
 			this.number=number;
+		}
 		else { 
-			if(this.number.replaceAll("/(0.|.|-)/", "").length()<16)
+			String replacement=this.number.replace("-","").replace(".", "");
+			if(replacement.charAt(0)=='0')
+				replacement=replacement.substring(1);
+			if(replacement.length()<16)
 				this.number=this.number+number;
+			System.out.println("y");
 		}
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
@@ -117,7 +134,16 @@ public class Calculation {
 			number=number.concat(".");
 		}
 		status.setNumber(number);
+		status.setLastType(Constant.TYPE_NUMBER);
 		System.out.println(number);
+	}
+	private void removeNumber() {
+		this.number=status.getNumber();
+		number=number.substring(0,number.length()-1);
+		if(number.compareTo("")==0||number.compareTo("-")==0)
+			number="0";
+		status.setNumber(this.number);
+		status.setLastType(Constant.TYPE_NUMBER);
 	}
 	private String convertFormat(Double number) {
 		DecimalFormat numberFormat=new DecimalFormat("################.################");
@@ -143,6 +169,11 @@ public class Calculation {
 				result=leftNumber-rightNumber;
 				break;
 		}
-		return convertFormat(result);
+		String resultToString;
+		if(result>=1e+17)
+			resultToString=String.format("%e",result);
+		else
+			resultToString=convertFormat(result);
+		return resultToString;
 	}
 }

@@ -1,5 +1,7 @@
 package model;
 
-public class Log {
+import java.util.ArrayList;
 
+public class Log {
+	ArrayList<String> logList=new ArrayList<String>();
 }

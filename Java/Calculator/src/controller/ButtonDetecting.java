@@ -27,7 +27,7 @@ public class ButtonDetecting {
 			//숫자 받아온걸로 가공
 			//텍스트 최신화
 			textPanel.presentNumber.setText(calculation.status.getNumber());
-			textPanel.calculateLog.setText(calculation.status.getUpField());
+			textPanel.calculateLog.setText(calculation.status.getUpFieldText());
 		}
 	}
 	private String getButtonText(MouseEvent e) {
@@ -49,8 +49,7 @@ public class ButtonDetecting {
 				System.out.println("콤마");
 				break;
 			case"+/-":
-				//calculation.appendSign();
-				//직전 숫자만 삭제
+				calculation.appendSign();
 				System.out.println("부호전환");
 				break;
 			case"=":
@@ -59,7 +58,7 @@ public class ButtonDetecting {
 				System.out.println("계산");
 				break;
 			case"\u232B":
-				//직전 숫자만 삭제
+				calculation.detectBackSpace();
 				System.out.println("백스페이스");
 				break;	
 			case"÷": case"×": case"+": case"-":

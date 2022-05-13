@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 import controller.ButtonDetecting;
 public class Main {
 	
