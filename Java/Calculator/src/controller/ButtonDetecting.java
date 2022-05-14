@@ -27,7 +27,7 @@ public class ButtonDetecting {
 			//숫자 받아온걸로 가공
 			//텍스트 최신화
 			textPanel.presentNumber.setText(calculation.status.getNumber());
-			textPanel.calculateLog.setText(calculation.status.getUpFieldText());
+			textPanel.calculateLog.setText(calculation.status.getUpField());
 		}
 	}
 	private String getButtonText(MouseEvent e) {
@@ -50,6 +50,7 @@ public class ButtonDetecting {
 				break;
 			case"+/-":
 				calculation.appendSign();
+				//직전 숫자만 삭제
 				System.out.println("부호전환");
 				break;
 			case"=":
