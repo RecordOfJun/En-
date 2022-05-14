@@ -117,4 +117,12 @@ public class ButtonPanel extends JPanel {
 		System.out.println(floatButton.getActionListeners().length);
 		
 	}
+	public void setButtonDisabled() {
+		for(int count=0;count<4;count++) {
+			rightButtons[count].setEnabled(false);
+		}
+		for(int count=2;count<4;count++) {
+			topButtons[count].setEnabled(false);
+		}
+	}
 }

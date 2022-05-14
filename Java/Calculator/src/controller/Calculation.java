@@ -9,8 +9,10 @@ import java.text.DecimalFormat;
 public class Calculation {
 	NumberList status;
 	private String number;
-	public Calculation() {
+	private ButtonPanel buttonPanel;
+	public Calculation(ButtonPanel buttonPanel) {
 		status=new NumberList();
+		this.buttonPanel=buttonPanel;
 	}
 	public void initAll() {
 		status.setNumber("0");
@@ -174,7 +176,14 @@ public class Calculation {
 				break;
 		}
 		String resultToString;
-		if(result>=1e+17)
+
+		if(Double.isNaN(result)||Double.isInfinite(result)) {
+			resultToString="정의되지않은결과입니다";
+			status.setUpField("");
+			status.setLastType(Constant.TYPE_NUMBER);
+			//buttonPanel.setButtonDisabled();
+		}
+		else if(result>=1e+17)
 			resultToString=String.format("%e",result);
 		else
 			resultToString=convertFormat(result);

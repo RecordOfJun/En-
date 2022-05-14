@@ -1,5 +1,8 @@
 package view;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.*;
 import javax.swing.event.*;
 public class CalculatorFrame extends JFrame {
@@ -10,6 +13,7 @@ public class CalculatorFrame extends JFrame {
 	private GridBagLayout gridBag=new GridBagLayout();
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];
 	private JPanel centerPanel=new JPanel(gridBag);
+	private int height;
 	public void loadFrame() {
 		setTitle("계산기");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +24,9 @@ public class CalculatorFrame extends JFrame {
 		addGridBag(buttons, constraints[1], 1, 0, 1, 2);
 		container.add(log,BorderLayout.NORTH);
 		container.add(centerPanel,BorderLayout.CENTER);
-		setSize(400, 600);
+		setSize(600,800);
+		height=getHeight();
+		setMinimumSize(getSize());
 		this.setIconImage(new ImageIcon("image/calculator.png").getImage());
 		setVisible(true);
 	}

@@ -14,7 +14,7 @@ public class ButtonDetecting {
 		frame=new CalculatorFrame();
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
-		calculation=new Calculation();
+		calculation=new Calculation(buttonPanel);
 	}
 	public void start(){
 		frame.loadFrame();
