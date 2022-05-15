@@ -27,7 +27,54 @@ public class ButtonDetecting {
 			//숫자 받아온걸로 가공
 			//텍스트 최신화
 			textPanel.presentNumber.setText(calculation.status.getNumber());
-			textPanel.calculateLog.setText(calculation.status.getUpField());
+			textPanel.calculateLog.setText(calculation.status.getUpFieldText());
+		}
+	}
+	public class numberButtonAdapter extends KeyAdapter {
+		public void keyPressed(KeyEvent e) {
+			String key="";
+			switch(e.getKeyCode()) {
+				case KeyEvent.VK_ESCAPE:
+					key="C";
+					break;
+				case KeyEvent.VK_DELETE:
+					key="CE";
+					break;
+				case KeyEvent.VK_BACK_SPACE:
+					key="\\u232B";
+					break;
+				case KeyEvent.VK_F9:
+					key="+/-";
+					break;
+				case KeyEvent.VK_ENTER:
+					key="=";
+					break;
+			}
+			switch(e.getKeyChar()) {
+			case '.':
+				key=".";
+				break;
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
+				key=String.valueOf(e.getKeyChar());
+				break;
+			case '/':
+				key="÷";
+				break;
+			case'*':
+				key="×";
+				break;
+			case'+':
+				key="+";
+				break;
+			case'-':
+				key="-";
+		}
+			if(key!="") {
+				switchButton(key);
+				textPanel.presentNumber.setText(calculation.status.getNumber());
+				textPanel.calculateLog.setText(calculation.status.getUpFieldText());
+			}
+				
 		}
 	}
 	private String getButtonText(MouseEvent e) {

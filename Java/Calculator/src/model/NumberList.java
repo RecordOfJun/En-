@@ -6,10 +6,12 @@ public class NumberList {
 	private String upField;
 	private String upFieldText;
 	private int lastType;
+	private boolean isError;
 	public NumberList() {
 		number="0";
 		upField="";
 		upFieldText="";
+		isError=false;
 	}
 	public String getNumber() {
 		return number;
@@ -37,5 +39,11 @@ public class NumberList {
 	
 	public String getUpFieldText() {
 		return upFieldText;
+	}
+	public void setIsError(boolean bool) {
+		isError=bool;
+	}
+	public boolean getIsError() {
+		return isError;
 	}
 }

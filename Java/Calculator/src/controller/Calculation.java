@@ -25,6 +25,8 @@ public class Calculation {
 	}
 	//부호 달기
 	public void appendSign() {
+		if(status.getIsError()==true)
+			status.setNumber("0");
 		number=status.getNumber();
 		if(number.contains("-"))
 			number=number.replace("-", "");
@@ -54,7 +56,7 @@ public class Calculation {
 	public void detectOperator(String operator) {//연산자가 들어왔음
 		status.setNumber(new BigDecimal(status.getNumber()).stripTrailingZeros().toPlainString());
 		//위 필드가 채워져있을 때 마지막에 숫자였다면
-		if(status.getUpField()!=""&&status.getLastType()==Constant.TYPE_NUMBER) {
+		if(status.getUpField()!=""&&status.getLastType()==Constant.TYPE_NUMBER&&!status.getUpField().endsWith("=")) {
 			//NUMBER와 UPFEILD 합쳐서 값 계산
 			String result=calculate(String.format("%s %s",status.getUpField(),status.getNumber()));
 			status.setNumber(result);
@@ -181,9 +183,14 @@ public class Calculation {
 			resultToString="정의되지않은결과입니다";
 			status.setUpField("");
 			status.setLastType(Constant.TYPE_NUMBER);
+			status.setIsError(true);
 			//buttonPanel.setButtonDisabled();
 		}
-		else if(result>=1e+17)
+		else if(result>9.999999999999999e+15)
+			resultToString=String.format("%e",result);
+		else if(result==0)
+			resultToString="0";
+		else if(result<1e-16)
 			resultToString=String.format("%e",result);
 		else
 			resultToString=convertFormat(result);

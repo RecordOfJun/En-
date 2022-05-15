@@ -20,11 +20,14 @@ public class ButtonPanel extends JPanel {
 	
 	//숫자버튼 초기화
 	private void setButton() {
-		for(int count=1;count<=10;count++) {
-			numberButton[count-1]=new JButton(Integer.toString(count%10));
-			numberButton[count-1].setBackground(Color.white);
-			numberButton[count-1].setFont(new Font("맑은 고딕",Font.BOLD,Constant.NUMBER_BUTTON_FONT_SIZE));
+		for(int count=0;count<9;count++) {
+			numberButton[count]=new JButton(Integer.toString(7-(count/3)*3+count%3));
+			numberButton[count].setBackground(Color.white);
+			numberButton[count].setFont(new Font("맑은 고딕",Font.BOLD,Constant.NUMBER_BUTTON_FONT_SIZE));
 		}
+		numberButton[9]=new JButton("0");
+		numberButton[9].setBackground(Color.white);
+		numberButton[9].setFont(new Font("맑은 고딕",Font.BOLD,Constant.NUMBER_BUTTON_FONT_SIZE));
 		topButtons[0]=new JButton("CE");
 		topButtons[0].setFont(new Font("맑은 고딕",Font.PLAIN,Constant.TOP_BUTTON_FONT_SIZE));
 		topButtons[1]=new JButton("C");
