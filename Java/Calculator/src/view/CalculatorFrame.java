@@ -2,6 +2,7 @@ package view;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -41,5 +42,10 @@ public class CalculatorFrame extends JFrame {
 	public void refresh() {
 		setVisible(false);
 		setVisible(true);
+	}
+	public void addKeyAdapter(KeyAdapter adapter) {
+		buttons.setFocusable(true);
+		buttons.requestFocusInWindow();
+		buttons.addKeyListener(adapter);
 	}
 }

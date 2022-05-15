@@ -19,6 +19,7 @@ public class ButtonDetecting {
 	public void start(){
 		frame.loadFrame();
 		buttonPanel.appendAdapter(new numberAdapter());
+		frame.addKeyAdapter(new numberButtonAdapter());
 	}
 	public class numberAdapter extends MouseAdapter{
 		public void mouseReleased(MouseEvent e) {
@@ -41,7 +42,7 @@ public class ButtonDetecting {
 					key="CE";
 					break;
 				case KeyEvent.VK_BACK_SPACE:
-					key="\\u232B";
+					key="\u232B";
 					break;
 				case KeyEvent.VK_F9:
 					key="+/-";
@@ -68,7 +69,7 @@ public class ButtonDetecting {
 				break;
 			case'-':
 				key="-";
-		}
+			}
 			if(key!="") {
 				switchButton(key);
 				textPanel.presentNumber.setText(calculation.status.getNumber());
