@@ -2,6 +2,8 @@ package controller;
 import view.ButtonPanel;
 import view.TextPanel;
 import view.CalculatorFrame;
+
+import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
 import utility.Constant;
@@ -19,17 +21,17 @@ public class ButtonDetecting {
 	public void start(){
 		frame.loadFrame();
 		buttonPanel.appendAdapter(new numberAdapter());
-		frame.addKeyAdapter(new numberButtonAdapter());
+		addKeyAdapter();
 	}
 	public class numberAdapter extends MouseAdapter{
 		public void mouseReleased(MouseEvent e) {
-			String character=getButtonText(e);
-			switchButton(character);
-			//숫자 받아온걸로 가공
-			//텍스트 최신화
-			textPanel.presentNumber.setText(calculation.status.getNumber());
-			textPanel.calculateLog.setText(calculation.status.getUpFieldText());
+			excuteCalculator(getButtonText(e));
 		}
+	}
+	private void excuteCalculator(String character) {
+		switchButton(character);
+		textPanel.setpresentNumberText(calculation.status.getNumber());
+		textPanel.calculateLog.setText(calculation.status.getUpFieldText());
 	}
 	public class numberButtonAdapter extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
@@ -71,9 +73,7 @@ public class ButtonDetecting {
 				key="-";
 			}
 			if(key!="") {
-				switchButton(key);
-				textPanel.presentNumber.setText(calculation.status.getNumber());
-				textPanel.calculateLog.setText(calculation.status.getUpFieldText());
+				excuteCalculator(key);
 			}
 				
 		}
@@ -120,6 +120,19 @@ public class ButtonDetecting {
 				System.out.println("숫자");
 				break;
 			
+		}
+	}
+	private void addKeyAdapter() {
+		buttonPanel.setFocusable(true);
+		buttonPanel.requestFocusInWindow();
+		buttonPanel.addKeyListener(new numberButtonAdapter());
+		buttonPanel.addFocusListener(new frameFocusAdapter());
+	}
+	
+	public class frameFocusAdapter extends FocusAdapter{
+		public void focusLost(FocusEvent e) {
+			e.getComponent().setFocusable(true);
+			e.getComponent().requestFocusInWindow();
 		}
 	}
 }

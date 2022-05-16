@@ -1,5 +1,7 @@
 package view;
 import java.awt.*;
+import java.text.DecimalFormat;
+
 import javax.swing.*;
 
 import utility.Constant;
@@ -32,5 +34,18 @@ public class TextPanel extends JPanel {
 		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		presentNumber.setBorder(null);
 		presentNumber.setEditable(false);
+	}
+	
+	public void setpresentNumberText(String number) {
+		if(number.contains("다")) {
+			presentNumber.setText(number);
+			System.out.println("d");
+		}
+		else {
+			Double text=Double.parseDouble(number);
+			DecimalFormat numberFormat=new DecimalFormat("#,###,###,###,###,###.################");
+			presentNumber.setText(numberFormat.format(text).toString());
+			System.out.println("s");
+		}
 	}
 }

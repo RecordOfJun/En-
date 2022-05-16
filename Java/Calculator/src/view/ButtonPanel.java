@@ -128,4 +128,50 @@ public class ButtonPanel extends JPanel {
 			topButtons[count].setEnabled(false);
 		}
 	}
+	//버튼 누르면 색깔 변하는거 나중에 구현
+	public class buttonColorAdapter extends KeyAdapter {
+		public void keyPressed(KeyEvent e) {
+			String key="";
+			switch(e.getKeyCode()) {
+				case KeyEvent.VK_ESCAPE:
+					key="C";
+					break;
+				case KeyEvent.VK_DELETE:
+					key="CE";
+					break;
+				case KeyEvent.VK_BACK_SPACE:
+					key="\u232B";
+					break;
+				case KeyEvent.VK_F9:
+					key="+/-";
+					break;
+				case KeyEvent.VK_ENTER:
+					key="=";
+					break;
+			}
+			switch(e.getKeyChar()) {
+			case '.':
+				key=".";
+				break;
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
+				key=String.valueOf(e.getKeyChar());
+				break;
+			case '/':
+				key="÷";
+				break;
+			case'*':
+				key="×";
+				break;
+			case'+':
+				key="+";
+				break;
+			case'-':
+				key="-";
+			}
+			if(key!="") {
+				
+			}
+				
+		}
+	}
 }
