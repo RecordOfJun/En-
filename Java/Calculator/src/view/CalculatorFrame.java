@@ -58,25 +58,15 @@ public class CalculatorFrame extends JFrame {
 		constraint.fill=GridBagConstraints.BOTH;
 		centerPanel.add(component,constraint);
 	}
-	public void refresh() {
-		setVisible(false);
-		setVisible(true);
-	}
-	public void addKeyAdapter(KeyAdapter adapter) {
-		buttons.setFocusable(true);
-		buttons.requestFocusInWindow();
-		buttons.addKeyListener(adapter);
-	}
 	public class ResizeListener extends ComponentAdapter {
         public void componentResized(ComponentEvent e) {
-            if(getSize().width>500) {
-            	System.out.print(getSize().width);
-            	setCalculatorFrame();
+        	setCalculatorFrame();
+            if(getSize().width>450) {
             	container.add(panel,BorderLayout.EAST);
             	container.repaint();
             	container.revalidate();
             }
-            else {
+            else if(getSize().width<600) {
             	container.remove(panel);
             	container.repaint();
             	container.revalidate();

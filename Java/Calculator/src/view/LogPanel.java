@@ -3,17 +3,27 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 public class LogPanel extends JPanel {
-	BoxLayout layout=new BoxLayout(this,BoxLayout.Y_AXIS);
+	private JPanel recordPanel=new JPanel();
+	private JPanel deletePanel=new JPanel();
+	private JButton deleteButton=new JButton();
+	private Box mainBox = Box.createVerticalBox();
+	BoxLayout layout=new BoxLayout(recordPanel,BoxLayout.Y_AXIS);
 	public LogPanel() {
-		this.setLayout(layout);
+		this.setLayout(new BorderLayout());
+		recordPanel.setLayout(layout);
+		recordPanel.add(mainBox);
+		deletePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		deletePanel.add(deleteButton);
+		this.add(recordPanel,BorderLayout.CENTER);
+		this.add(deletePanel,BorderLayout.SOUTH);
 	}
 	public void addButton(String formula,String result) {
 		JButton button=new JButton();
 		button.setHorizontalAlignment(SwingConstants.RIGHT);
-		button.setMaximumSize(new Dimension(600,60));
-		button.setMinimumSize(new Dimension(600,60));
-		button.setPreferredSize(new Dimension(600,60));
+		button.setMaximumSize(new Dimension(450,60));
+		button.setMinimumSize(new Dimension(450,60));
+		//button.setPreferredSize(new Dimension(450,60));
 		button.setText(formula);
-		this.add(button,0);
+		mainBox.add(button,0);
 	}
 }

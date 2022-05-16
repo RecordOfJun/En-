@@ -25,7 +25,7 @@ public class TextPanel extends JPanel {
 	
 	private void setLogField() {
 		calculateLog.setHorizontalAlignment(JTextField.RIGHT);
-		calculateLog.setFont(new Font("돋움",Font.PLAIN,15));
+		calculateLog.setFont(new Font("맑은 고딕",Font.PLAIN,15));
 		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		calculateLog.setBorder(null);
 		calculateLog.setEditable(false);

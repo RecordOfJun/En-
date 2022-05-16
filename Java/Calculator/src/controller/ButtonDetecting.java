@@ -17,13 +17,19 @@ public class ButtonDetecting {
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
 		calculation=new Calculation(buttonPanel,textPanel,frame.panel);
+		frame.addWindowListener( new WindowAdapter() {
+		    public void windowOpened( WindowEvent e ){
+		        buttonPanel.requestFocus();
+		    }
+		}); 
 	}
 	public void start(){
 		frame.loadFrame();
 		buttonPanel.appendAdapter(new numberAdapter());
-		addKeyAdapter();
 		frame.log.addLogListener(new logButtonListener());
 		frame.calculatings.addFrameConvert(new frameclickAdapter());
+		addKeyAdapter();
+		buttonPanel.requestFocusInWindow();
 	}
 	public void loadLogFrame() {
 		frame.log.addMouseListener(new frameclickAdapter());
@@ -33,6 +39,7 @@ public class ButtonDetecting {
 	public void loadCalculatorFrame() {
 		frame.calculatings.addMouseListener(new frameclickAdapter());
 		frame.setCalculatorFrame();
+		buttonPanel.requestFocusInWindow();
 	}
 	public class numberAdapter extends MouseAdapter{
 		public void mouseReleased(MouseEvent e) {
@@ -141,10 +148,12 @@ public class ButtonDetecting {
 		}
 	}
 	private void addKeyAdapter() {
-		buttonPanel.setFocusable(true);
 		buttonPanel.requestFocusInWindow();
 		buttonPanel.addKeyListener(new numberButtonAdapter());
 		buttonPanel.addFocusListener(new frameFocusAdapter());
+		buttonPanel.setFocusable(true);
+		buttonPanel.requestFocusInWindow();
+		//System.out.print("hi");
 	}
 	
 	public class frameFocusAdapter extends FocusAdapter{
