@@ -1,10 +1,14 @@
 package view;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import utility.Constant;
 public class TextPanel extends JPanel {
@@ -36,6 +40,7 @@ public class TextPanel extends JPanel {
 		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		presentNumber.setBorder(null);
 		presentNumber.setEditable(false);
+		presentNumber.getDocument().addDocumentListener(new textChangeListener());
 	}
 	public void setPresentText(String number) {
 		
@@ -69,40 +74,42 @@ public class TextPanel extends JPanel {
 	}
 	public String convertNumber(String number,int type) {
 		String text=number;
-		
-		BigDecimal result=new BigDecimal(number);
-		DecimalFormat numberFormat;
-		if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1) {
-			numberFormat=new DecimalFormat("0.################E0");
-		}
-		else if(result.compareTo(new BigDecimal("1e-16"))==1||result.compareTo(new BigDecimal("0"))==0) {
-
-			if(type==0)//log
-				numberFormat=new DecimalFormat("###############0.################");
-			else if(type==1)//타이핑 완료 후
-				numberFormat=new DecimalFormat("#,###,###,###,###,##0.################");
-			else {//타이핑중일때
-				String format="#,###,###,###,###,##0";
-				if(number.contains(".")) {
-					format+=".";
-					String[] temp=number.split("\\.");
-					if(temp.length==2) {
-						System.out.println("in");
-						int floatLength=0;
-						floatLength=temp[1].length();
-						for(int count=0;count<floatLength;count++) {
-							format+="0";
-						}
-					}
- 				}
-				numberFormat=new DecimalFormat(format);	
+		if(!number.contains("오")&&!number.contains("다")) {
+			BigDecimal result=new BigDecimal(number);
+			DecimalFormat numberFormat;
+			if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1) {
+				numberFormat=new DecimalFormat("0.################E0");
 			}
-			
+			else if(result.compareTo(new BigDecimal("1e-16"))==1||result.compareTo(new BigDecimal("0"))==0) {
+
+				if(type==0)//log
+					numberFormat=new DecimalFormat("###############0.################");
+				else if(type==1)//타이핑 완료 후
+					numberFormat=new DecimalFormat("#,###,###,###,###,##0.################");
+				else {//타이핑중일때
+					String format="#,###,###,###,###,##0";
+					if(number.contains(".")) {
+						format+=".";
+						String[] temp=number.split("\\.");
+						if(temp.length==2) {
+							System.out.println("in");
+							int floatLength=0;
+							floatLength=temp[1].length();
+							for(int count=0;count<floatLength;count++) {
+								format+="0";
+							}
+						}
+	 				}
+					numberFormat=new DecimalFormat(format);	
+				}
+				
+			}
+			else {
+				numberFormat=new DecimalFormat("0.################E0");
+			}
+			text=numberFormat.format(result).toString();
 		}
-		else {
-			numberFormat=new DecimalFormat("0.################E0");
-		}
-		text=numberFormat.format(result).toString();
+		
 		return text;
 	}
 	public void convertToLogColor() {
@@ -116,5 +123,31 @@ public class TextPanel extends JPanel {
 	public void addFrameConvert(MouseAdapter adapter) {
 		calculateLog.addMouseListener(adapter);
 		presentNumber.addMouseListener(adapter);
+	}
+	public class textChangeListener implements DocumentListener {
+
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			if(presentNumber.getText().length()>8)
+				presentNumber.setFont(new Font("돋움",Font.BOLD,35));
+			else
+				presentNumber.setFont(new Font("돋움",Font.BOLD,50));
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			if(presentNumber.getText().length()>8)
+				presentNumber.setFont(new Font("돋움",Font.BOLD,35));
+			else
+				presentNumber.setFont(new Font("돋움",Font.BOLD,50));
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			if(presentNumber.getText().length()>8)
+				presentNumber.setFont(new Font("돋움",Font.BOLD,35));
+			else
+				presentNumber.setFont(new Font("돋움",Font.BOLD,50));
+		}
 	}
 }
