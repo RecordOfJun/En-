@@ -16,12 +16,27 @@ public class ButtonDetecting {
 		frame=new CalculatorFrame();
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
-		calculation=new Calculation(buttonPanel);
+		calculation=new Calculation(buttonPanel,textPanel);
 	}
 	public void start(){
 		frame.loadFrame();
 		buttonPanel.appendAdapter(new numberAdapter());
 		addKeyAdapter();
+		frame.log.addLogListener(new logButtonListener());
+		frame.calculatings.addFrameConvert(new frameclickAdapter());
+	}
+	public void loadLogFrame() {
+		frame.log.addMouseListener(new frameclickAdapter());
+		frame.log.convertToLogColor();
+		frame.calculatings.convertToLogColor();
+		frame.calculatings.addMouseListener(new frameclickAdapter());
+		frame.setLogFrame();
+	}
+	public void loadCalculatorFrame() {
+		frame.log.convertToCalculatorColor();
+		frame.calculatings.convertToCalculatorColor();
+		frame.calculatings.addMouseListener(new frameclickAdapter());
+		frame.setCalculatorFrame();
 	}
 	public class numberAdapter extends MouseAdapter{
 		public void mouseReleased(MouseEvent e) {
@@ -140,6 +155,20 @@ public class ButtonDetecting {
 		public void focusLost(FocusEvent e) {
 			e.getComponent().setFocusable(true);
 			e.getComponent().requestFocusInWindow();
+		}
+	}
+	public class frameclickAdapter extends MouseAdapter{
+		public void mousePressed(MouseEvent e) {
+			loadCalculatorFrame();
+		}
+	}
+	public class logButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			for(int count=0;count<calculation.status.logList.size();count++) {
+				System.out.println(calculation.status.logList.get(count));
+				System.out.println(calculation.status.resultList.get(count));
+			}
+			loadLogFrame();
 		}
 	}
 }

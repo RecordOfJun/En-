@@ -41,4 +41,15 @@ public class MenuPanel extends JPanel {
 			e.getComponent().setForeground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		}
 	}
+	public void addLogListener(ActionListener listener) {
+		logButton.addActionListener(listener);
+	}
+	public void convertToLogColor() {
+		leftPanel.setBackground(Color.LIGHT_GRAY);
+		rightPanel.setBackground(Color.LIGHT_GRAY);
+	}
+	public void convertToCalculatorColor() {
+		leftPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		rightPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+	}
 }

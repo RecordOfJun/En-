@@ -1,5 +1,6 @@
 package view;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -65,7 +66,7 @@ public class TextPanel extends JPanel {
 		}
 		calculateLog.setText(text);
 	}
-	private String convertNumber(String number,int type) {
+	public String convertNumber(String number,int type) {
 		Double result=Double.parseDouble(number);
 		DecimalFormat numberFormat;
 		if(result>9.999999999999999e+15) {
@@ -99,5 +100,17 @@ public class TextPanel extends JPanel {
 			numberFormat=new DecimalFormat("0.################E0");
 		}
 		return numberFormat.format(result).toString();
+	}
+	public void convertToLogColor() {
+		calculateLog.setBackground(Color.LIGHT_GRAY);
+		presentNumber.setBackground(Color.LIGHT_GRAY);
+	}
+	public void convertToCalculatorColor() {
+		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+	}
+	public void addFrameConvert(MouseAdapter adapter) {
+		calculateLog.addMouseListener(adapter);
+		presentNumber.addMouseListener(adapter);
 	}
 }

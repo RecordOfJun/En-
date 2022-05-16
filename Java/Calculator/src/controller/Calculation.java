@@ -7,12 +7,14 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class Calculation {
-	NumberList status;
+	public NumberList status;
 	private String number;
 	private ButtonPanel buttonPanel;
-	public Calculation(ButtonPanel buttonPanel) {
+	private TextPanel textPanel;
+	public Calculation(ButtonPanel buttonPanel,TextPanel textPanel) {
 		status=new NumberList();
 		this.buttonPanel=buttonPanel;
+		this.textPanel=textPanel;
 	}
 	public void initAll() {
 		status.setNumber("0");
@@ -192,6 +194,9 @@ public class Calculation {
 			resultToString=String.format("%e",result);
 		else
 			resultToString=convertFormat(result);
+		formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
+		status.logList.add(0, formula);
+		status.resultList.add(0,resultToString);
 		return resultToString;
 	}
 }

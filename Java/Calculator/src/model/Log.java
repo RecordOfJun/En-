@@ -3,5 +3,9 @@ package model;
 import java.util.ArrayList;
 
 public class Log {
-	ArrayList<String> logList=new ArrayList<String>();
+	public ArrayList<String> logList=new ArrayList<String>();
+	public void addFirst() {
+		logList.add(0, null);
+	}
+	//public void 
 }
