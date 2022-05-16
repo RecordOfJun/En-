@@ -54,7 +54,6 @@ public class Calculation {
 	}
 	
 	public void detectOperator(String operator) {//연산자가 들어왔음
-		status.setNumber(new BigDecimal(status.getNumber()).stripTrailingZeros().toPlainString());
 		//위 필드가 채워져있을 때 마지막에 숫자였다면
 		if(status.getUpField()!=""&&status.getLastType()==Constant.TYPE_NUMBER&&!status.getUpField().endsWith("=")) {
 			//NUMBER와 UPFEILD 합쳐서 값 계산
@@ -68,7 +67,6 @@ public class Calculation {
 	}
 	
 	public void detectEqual() {//=입력 감지
-		status.setNumber(new BigDecimal(status.getNumber()).stripTrailingZeros().toPlainString());
 		if(status.getUpField()=="") {//위 필드가 비워져 있다면 아래 숫자와 = 합쳐서 위필드로 올림
 			status.setUpField(status.getNumber()+"=");
 		}

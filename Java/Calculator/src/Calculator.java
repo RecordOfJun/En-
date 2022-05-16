@@ -7,6 +7,8 @@ public class Calculator {
 		// TODO Auto-generated method stub
 		ButtonDetecting detecting=new ButtonDetecting();
 		detecting.start();
+		
+		//System.out.println(Double.parseDouble("0.0010")*1);
 	}
 
 }

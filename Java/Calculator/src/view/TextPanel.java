@@ -35,17 +35,69 @@ public class TextPanel extends JPanel {
 		presentNumber.setBorder(null);
 		presentNumber.setEditable(false);
 	}
-	
-	public void setpresentNumberText(String number) {
+	public void setPresentText(String number) {
+		
+	}
+	public void setPresentNumberText(String number,int type) {
 		if(number.contains("다")) {
 			presentNumber.setText(number);
 			System.out.println("d");
 		}
 		else {
-			Double text=Double.parseDouble(number);
-			DecimalFormat numberFormat=new DecimalFormat("#,###,###,###,###,###.################");
-			presentNumber.setText(numberFormat.format(text).toString());
+			String text=convertNumber(number,type);
+			presentNumber.setText(text.replace("E","e"));
 			System.out.println("s");
 		}
+	}
+	public void setLogNumberText(String log) {
+		String text="";
+		if(log!="") {
+			String[] temp=log.split(" ");
+			if(temp.length==1) {
+				text=convertNumber(temp[0].replace("=", ""),0)+"=";
+			}
+			else if(temp.length==2) {
+				text=convertNumber(temp[0],0)+" "+temp[1];
+			}
+			else if(temp.length==3) {
+				text=convertNumber(temp[0],0)+" "+temp[1]+" "+convertNumber(temp[2].replace("=", ""),0)+"=";
+			}
+		}
+		calculateLog.setText(text);
+	}
+	private String convertNumber(String number,int type) {
+		Double result=Double.parseDouble(number);
+		DecimalFormat numberFormat;
+		if(result>9.999999999999999e+15) {
+			numberFormat=new DecimalFormat("0.################E0");
+		}
+		else if(result>1e-16||result==0) {
+
+			if(type==0)//log
+				numberFormat=new DecimalFormat("###############0.################");
+			else if(type==1)//타이핑 완료 후
+				numberFormat=new DecimalFormat("#,###,###,###,###,##0.################");
+			else {//타이핑중일때
+				String format="#,###,###,###,###,##0";
+				if(number.contains(".")) {
+					format+=".";
+					String[] temp=number.split("\\.");
+					if(temp.length==2) {
+						System.out.println("in");
+						int floatLength=0;
+						floatLength=temp[1].length();
+						for(int count=0;count<floatLength;count++) {
+							format+="0";
+						}
+					}
+ 				}
+				numberFormat=new DecimalFormat(format);	
+			}
+			
+		}
+		else {
+			numberFormat=new DecimalFormat("0.################E0");
+		}
+		return numberFormat.format(result).toString();
 	}
 }
