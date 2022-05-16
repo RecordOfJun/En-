@@ -153,44 +153,44 @@ public class Calculation {
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
 	}
-	private String convertFormat(Double number) {
+	private String convertFormat(BigDecimal number) {
 		DecimalFormat numberFormat=new DecimalFormat("################.################");
 		return numberFormat.format(number).toString();
 	}
 	
 	private String calculate(String formula) {
-		String[] temp=formula.replace("=", "").split(" ");
-		double leftNumber=Double.parseDouble(temp[0]);
-		double rightNumber=Double.parseDouble(temp[2]);
-		double result=0;
+		String[] temp=formula.replace("=", "").split(" "); 
+		BigDecimal leftNumber=new BigDecimal(temp[0]);
+		BigDecimal rightNumber=new BigDecimal(temp[2]);
+		BigDecimal result=new BigDecimal("0");
 		switch(temp[1]) {
 			case"÷":
-				result=leftNumber/rightNumber;
+				result=leftNumber.divide(rightNumber);
 				break;
 			case"×":
-				result=leftNumber*rightNumber;
+				result=leftNumber.multiply(rightNumber);
 				break;
 			case"+":
-				result=leftNumber+rightNumber;
+				result=leftNumber.add(rightNumber);
 				break;
 			case"-":
-				result=leftNumber-rightNumber;
+				result=leftNumber.subtract(rightNumber);
 				break;
 		}
+		
 		String resultToString;
-
-		if(Double.isNaN(result)||Double.isInfinite(result)) {
-			resultToString="정의되지않은결과입니다";
+		if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1) {
+			resultToString="오버플로";
 			status.setUpField("");
 			status.setLastType(Constant.TYPE_NUMBER);
 			status.setIsError(true);
 			//buttonPanel.setButtonDisabled();
 		}
-		else if(result>9.999999999999999e+15)
+		else if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1)
 			resultToString=String.format("%e",result);
-		else if(result==0)
+		else if(result.compareTo(new BigDecimal("0"))==0)
 			resultToString="0";
-		else if(result<1e-16)
+		else if(result.compareTo(new BigDecimal("1e-16"))==-1)
 			resultToString=String.format("%e",result);
 		else
 			resultToString=convertFormat(result);

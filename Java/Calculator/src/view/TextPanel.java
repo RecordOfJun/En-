@@ -1,6 +1,7 @@
 package view;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import javax.swing.*;
@@ -67,12 +68,12 @@ public class TextPanel extends JPanel {
 		calculateLog.setText(text);
 	}
 	public String convertNumber(String number,int type) {
-		Double result=Double.parseDouble(number);
+		BigDecimal result=new BigDecimal(number);
 		DecimalFormat numberFormat;
-		if(result>9.999999999999999e+15) {
+		if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1) {
 			numberFormat=new DecimalFormat("0.################E0");
 		}
-		else if(result>1e-16||result==0) {
+		else if(result.compareTo(new BigDecimal("1e-16"))==1||result.compareTo(new BigDecimal("0"))==0) {
 
 			if(type==0)//log
 				numberFormat=new DecimalFormat("###############0.################");

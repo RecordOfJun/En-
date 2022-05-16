@@ -15,6 +15,7 @@ public class CalculatorFrame extends JFrame {
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];
 	private JPanel centerPanel=new JPanel(gridBag);
 	private JPanel panel=new JPanel();
+	private JScrollPane scroll=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	public void loadFrame() {
 		setTitle("계산기");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,14 +34,16 @@ public class CalculatorFrame extends JFrame {
 	public void setLogFrame() {
 		centerPanel.removeAll();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
-		addGridBag(panel, constraints[1], 1, 0, 1, 2);
+		addGridBag(scroll, constraints[1], 1, 0, 1, 2);
 		container.repaint();
+		container.revalidate();
 	}
 	public void setCalculatorFrame() {
 		centerPanel.removeAll();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
 		addGridBag(buttons, constraints[1], 1, 0, 1, 2);
 		container.repaint();
+		container.revalidate();
 	}
 	private void addGridBag(Component component,GridBagConstraints constraint,int x,int y,int weigthx,int weigthy) {
 		constraint.gridx=x;
