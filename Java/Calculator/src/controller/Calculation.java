@@ -11,10 +11,12 @@ public class Calculation {
 	private String number;
 	private ButtonPanel buttonPanel;
 	private TextPanel textPanel;
-	public Calculation(ButtonPanel buttonPanel,TextPanel textPanel) {
+	private LogPanel logPanel;
+	public Calculation(ButtonPanel buttonPanel,TextPanel textPanel,LogPanel logPanel) {
 		status=new NumberList();
 		this.buttonPanel=buttonPanel;
 		this.textPanel=textPanel;
+		this.logPanel=logPanel;
 	}
 	public void initAll() {
 		status.setNumber("0");
@@ -197,6 +199,7 @@ public class Calculation {
 		formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
 		status.logList.add(0, formula);
 		status.resultList.add(0,resultToString);
+		logPanel.addButton(formula,resultToString);
 		return resultToString;
 	}
 }

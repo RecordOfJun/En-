@@ -16,7 +16,7 @@ public class ButtonDetecting {
 		frame=new CalculatorFrame();
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
-		calculation=new Calculation(buttonPanel,textPanel);
+		calculation=new Calculation(buttonPanel,textPanel,frame.panel);
 	}
 	public void start(){
 		frame.loadFrame();
@@ -27,14 +27,10 @@ public class ButtonDetecting {
 	}
 	public void loadLogFrame() {
 		frame.log.addMouseListener(new frameclickAdapter());
-		frame.log.convertToLogColor();
-		frame.calculatings.convertToLogColor();
 		frame.calculatings.addMouseListener(new frameclickAdapter());
 		frame.setLogFrame();
 	}
 	public void loadCalculatorFrame() {
-		frame.log.convertToCalculatorColor();
-		frame.calculatings.convertToCalculatorColor();
 		frame.calculatings.addMouseListener(new frameclickAdapter());
 		frame.setCalculatorFrame();
 	}

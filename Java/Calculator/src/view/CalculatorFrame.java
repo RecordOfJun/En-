@@ -14,7 +14,7 @@ public class CalculatorFrame extends JFrame {
 	private GridBagLayout gridBag=new GridBagLayout();
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];
 	private JPanel centerPanel=new JPanel(gridBag);
-	private JPanel panel=new JPanel();
+	public LogPanel panel=new LogPanel();
 	private JScrollPane scroll=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	public void loadFrame() {
 		setTitle("계산기");
@@ -26,8 +26,9 @@ public class CalculatorFrame extends JFrame {
 		constraints[1]=new GridBagConstraints();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
 		addGridBag(buttons, constraints[1], 1, 0, 1, 2);
-		setSize(600,800);
-		setMinimumSize(getSize());
+		setPreferredSize(new Dimension(450,600));
+		setMinimumSize(getPreferredSize());
+		this.addComponentListener(new ResizeListener());
 		this.setIconImage(new ImageIcon("image/calculator.png").getImage());
 		setVisible(true);
 	}
@@ -35,6 +36,8 @@ public class CalculatorFrame extends JFrame {
 		centerPanel.removeAll();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
 		addGridBag(scroll, constraints[1], 1, 0, 1, 2);
+		log.convertToLogColor();
+		calculatings.convertToLogColor();
 		container.repaint();
 		container.revalidate();
 	}
@@ -42,6 +45,8 @@ public class CalculatorFrame extends JFrame {
 		centerPanel.removeAll();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
 		addGridBag(buttons, constraints[1], 1, 0, 1, 2);
+		log.convertToCalculatorColor();
+		calculatings.convertToCalculatorColor();
 		container.repaint();
 		container.revalidate();
 	}
@@ -61,5 +66,21 @@ public class CalculatorFrame extends JFrame {
 		buttons.setFocusable(true);
 		buttons.requestFocusInWindow();
 		buttons.addKeyListener(adapter);
+	}
+	public class ResizeListener extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+            if(getSize().width>500) {
+            	System.out.print(getSize().width);
+            	setCalculatorFrame();
+            	container.add(panel,BorderLayout.EAST);
+            	container.repaint();
+            	container.revalidate();
+            }
+            else {
+            	container.remove(panel);
+            	container.repaint();
+            	container.revalidate();
+            }
+        }
 	}
 }

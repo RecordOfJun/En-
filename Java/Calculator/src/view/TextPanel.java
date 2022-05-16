@@ -68,6 +68,8 @@ public class TextPanel extends JPanel {
 		calculateLog.setText(text);
 	}
 	public String convertNumber(String number,int type) {
+		String text=number;
+		
 		BigDecimal result=new BigDecimal(number);
 		DecimalFormat numberFormat;
 		if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1) {
@@ -100,7 +102,8 @@ public class TextPanel extends JPanel {
 		else {
 			numberFormat=new DecimalFormat("0.################E0");
 		}
-		return numberFormat.format(result).toString();
+		text=numberFormat.format(result).toString();
+		return text;
 	}
 	public void convertToLogColor() {
 		calculateLog.setBackground(Color.LIGHT_GRAY);
