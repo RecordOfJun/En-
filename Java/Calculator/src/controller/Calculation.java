@@ -206,11 +206,8 @@ public class Calculation {
 			System.out.println(leftNumber+" "+rightNumber+" "+result);
 			if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1) {
 				resultToString="오버플로";
-				status.setUpField("");
-				status.setLastType(Constant.TYPE_NUMBER);
-				status.setIsError(true);
+				setError();
 				return resultToString;
-				//buttonPanel.setButtonDisabled();
 			}
 			else if(result.compareTo(new BigDecimal("0"))==0)
 				resultToString="0";
@@ -226,11 +223,15 @@ public class Calculation {
 				resultToString="정의되지 않은 결과입니다";
 			else
 				resultToString="0으로 나눌 수 없습니다";
-			status.setUpField("");
-			status.setLastType(Constant.TYPE_NUMBER);
-			status.setIsError(true);
+			setError();
 			return resultToString;
 		}
 		return resultToString;
+	}
+	private void setError() {
+		status.setUpField("");
+		status.setLastType(Constant.TYPE_NUMBER);
+		status.setIsError(true);
+		buttonPanel.setButtonDisabled();
 	}
 }

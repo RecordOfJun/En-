@@ -6,7 +6,7 @@ import java.awt.event.*;
 import utility.Constant;
 public class MenuPanel extends JPanel {
 	private JLabel defaultLabel=new JLabel("표준");
-	private JButton logButton=new JButton(new ImageIcon(new ImageIcon("image/log.PNG").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
+	public JButton logButton=new JButton(new ImageIcon(new ImageIcon("image/log.PNG").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH)));
 	private JPanel leftPanel=new JPanel();
 	private JPanel rightPanel=new JPanel();
 	public MenuPanel() {

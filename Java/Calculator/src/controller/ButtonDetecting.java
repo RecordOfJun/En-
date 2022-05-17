@@ -16,7 +16,7 @@ public class ButtonDetecting {
 		frame=new CalculatorFrame();
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
-		calculation=new Calculation(buttonPanel,textPanel,frame.panel);
+		calculation=new Calculation(buttonPanel,textPanel,frame.logPanel);
 		frame.addWindowListener( new WindowAdapter() {
 		    public void windowOpened( WindowEvent e ){
 		        buttonPanel.requestFocus();

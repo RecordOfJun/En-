@@ -14,8 +14,7 @@ public class CalculatorFrame extends JFrame {
 	private GridBagLayout gridBag=new GridBagLayout();
 	private GridBagConstraints[] constraints=new GridBagConstraints[2];
 	private JPanel centerPanel=new JPanel(gridBag);
-	public LogPanel panel=new LogPanel();
-	private JScrollPane scroll=new JScrollPane(panel,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	public LogPanel logPanel=new LogPanel();
 	public void loadFrame() {
 		setTitle("계산기");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +34,7 @@ public class CalculatorFrame extends JFrame {
 	public void setLogFrame() {
 		centerPanel.removeAll();
 		addGridBag(calculatings, constraints[0], 0, 0, 1, 1);
-		addGridBag(scroll, constraints[1], 1, 0, 1, 2);
+		addGridBag(logPanel, constraints[1], 1, 0, 1, 2);
 		log.convertToLogColor();
 		calculatings.convertToLogColor();
 		container.repaint();
@@ -62,14 +61,16 @@ public class CalculatorFrame extends JFrame {
         public void componentResized(ComponentEvent e) {
         	setCalculatorFrame();
             if(getSize().width>450) {
-            	container.add(panel,BorderLayout.EAST);
+            	container.add(logPanel,BorderLayout.EAST);
             	container.repaint();
             	container.revalidate();
+            	log.logButton.setVisible(false);
             }
             else if(getSize().width<600) {
-            	container.remove(panel);
+            	container.remove(logPanel);
             	container.repaint();
             	container.revalidate();
+            	log.logButton.setVisible(true);
             }
         }
 	}

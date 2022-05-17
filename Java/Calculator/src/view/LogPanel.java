@@ -7,14 +7,17 @@ public class LogPanel extends JPanel {
 	private JPanel deletePanel=new JPanel();
 	private JButton deleteButton=new JButton();
 	private Box mainBox = Box.createVerticalBox();
-	BoxLayout layout=new BoxLayout(recordPanel,BoxLayout.Y_AXIS);
+	private JScrollPane scroll=new JScrollPane(recordPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	private BoxLayout layout=new BoxLayout(recordPanel,BoxLayout.Y_AXIS);
 	public LogPanel() {
 		this.setLayout(new BorderLayout());
 		recordPanel.setLayout(layout);
 		recordPanel.add(mainBox);
 		deletePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		deletePanel.add(deleteButton);
-		this.add(recordPanel,BorderLayout.CENTER);
+		deletePanel.setPreferredSize(new Dimension(300,40));
+		scroll.setBorder(null);
+		this.add(scroll,BorderLayout.CENTER);
 		this.add(deletePanel,BorderLayout.SOUTH);
 	}
 	public void addButton(String formula,String result) {
@@ -22,8 +25,10 @@ public class LogPanel extends JPanel {
 		button.setHorizontalAlignment(SwingConstants.RIGHT);
 		button.setMaximumSize(new Dimension(450,60));
 		button.setMinimumSize(new Dimension(450,60));
-		//button.setPreferredSize(new Dimension(450,60));
-		button.setText(formula);
+		button.setPreferredSize(new Dimension(300,60));
+		button.setText("<html>"+formula+"<br><font size=5>"+result+"</font></html>");
 		mainBox.add(button,0);
+		this.repaint();
+		this.revalidate();
 	}
 }
