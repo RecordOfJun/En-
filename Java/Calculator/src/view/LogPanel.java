@@ -12,9 +12,11 @@ public class LogPanel extends JPanel {
 	private Box mainBox = Box.createVerticalBox();
 	private JScrollPane scroll=new JScrollPane(recordPanel,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private BoxLayout layout=new BoxLayout(recordPanel,BoxLayout.Y_AXIS);
+	private JLabel label=new JLabel("아직 기록이 없음");
 	private ActionListener listener;
 	public LogPanel() {
 		this.setLayout(new BorderLayout());
+		mainBox.add(label);
 		recordPanel.setLayout(layout);
 		recordPanel.add(mainBox);
 		recordPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
@@ -32,6 +34,7 @@ public class LogPanel extends JPanel {
 		this.add(deletePanel,BorderLayout.SOUTH);
 	}
 	public void addButton(String formula,String result) {
+		mainBox.remove(label);
 		JButton button=new JButton();
 		button.setBorder(null);
 		button.addActionListener(listener);
@@ -61,6 +64,7 @@ public class LogPanel extends JPanel {
 	public class deleteListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			mainBox.removeAll();
+			mainBox.add(label);
 			mainBox.repaint();
 			mainBox.revalidate();
 		}

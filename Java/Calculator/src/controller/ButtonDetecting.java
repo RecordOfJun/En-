@@ -154,7 +154,6 @@ public class ButtonDetecting {
 		buttonPanel.addFocusListener(new frameFocusAdapter());
 		buttonPanel.setFocusable(true);
 		buttonPanel.requestFocusInWindow();
-		//System.out.print("hi");
 	}
 	
 	public class frameFocusAdapter extends FocusAdapter{
@@ -192,6 +191,7 @@ public class ButtonDetecting {
 				calculation.status.setLastType(Constant.TYPE_EQUAL);
 				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
 				textPanel.setLogNumberText(calculation.status.getUpFieldText());
+				loadCalculatorFrame();
 			}
 				
 		}
