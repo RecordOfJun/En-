@@ -22,6 +22,7 @@ public class ButtonDetecting {
 		        buttonPanel.requestFocus();
 		    }
 		}); 
+		frame.logPanel.setListener(new deleteButtonActionListener());
 	}
 	public void start(){
 		frame.loadFrame();
@@ -174,6 +175,25 @@ public class ButtonDetecting {
 				System.out.println(calculation.status.resultList.get(count));
 			}
 			loadLogFrame();
+		}
+	}
+	public class deleteButtonActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JButton button=null;
+			if(e.getSource() instanceof JButton) {
+				button=(JButton)e.getSource();
+			}
+			if(button!=null) {
+				String text=button.getText().replace("<html>","").replace("</font></html>","").replace("<font size=6>","").replace(",", "");
+				String[] temp=text.split("<br>");
+				calculation.status.setNumber(temp[1]);
+				calculation.status.setUpField(temp[0]);
+				calculation.status.setIsLog(true);
+				calculation.status.setLastType(Constant.TYPE_EQUAL);
+				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				textPanel.setLogNumberText(calculation.status.getUpFieldText());
+			}
+				
 		}
 	}
 }

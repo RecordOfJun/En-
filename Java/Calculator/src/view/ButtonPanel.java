@@ -120,13 +120,13 @@ public class ButtonPanel extends JPanel {
 		System.out.println(floatButton.getActionListeners().length);
 		
 	}
-	public void setButtonDisabled() {
-		for(int count=0;count<4;count++) {
-			rightButtons[count].setEnabled(false);
+	public void setButtonEnable(boolean isAble) {
+		for(int count=0;count<3;count++) {
+			rightButtons[count].setEnabled(isAble);
 		}
-		topButtons[3].setEnabled(false);
-		negativeButton.setEnabled(false);
-		floatButton.setEnabled(false);
+		topButtons[3].setEnabled(isAble);
+		negativeButton.setEnabled(isAble);
+		floatButton.setEnabled(isAble);
 	}
 	//버튼 누르면 색깔 변하는거 나중에 구현
 	public class buttonColorAdapter extends KeyAdapter {

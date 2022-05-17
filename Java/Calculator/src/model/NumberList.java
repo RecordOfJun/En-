@@ -9,11 +9,13 @@ public class NumberList {
 	public ArrayList<String> resultList=new ArrayList<String>();
 	private int lastType;
 	private boolean isError;
+	private boolean isLog;
 	public NumberList() {
 		number="0";
 		upField="";
 		upFieldText="";
 		isError=false;
+		isLog=false;
 	}
 	public String getNumber() {
 		return number;
@@ -47,5 +49,11 @@ public class NumberList {
 	}
 	public boolean getIsError() {
 		return isError;
+	}
+	public void setIsLog(boolean bool) {
+		isLog=bool;
+	}
+	public boolean getIsLog() {
+		return isLog;
 	}
 }

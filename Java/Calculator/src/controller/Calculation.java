@@ -3,8 +3,12 @@ import model.*;
 import view.*;
 import utility.Constant;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+
+import javax.swing.JButton;
 
 public class Calculation {
 	public NumberList status;
@@ -23,6 +27,7 @@ public class Calculation {
 		status.setUpField("");
 		status.setLastType(Constant.TYPE_NUMBER);
 		checkIsError();
+		status.setIsLog(false);
 	}
 	public void initLast() {
 		status.setNumber("0");
@@ -34,14 +39,15 @@ public class Calculation {
 			status.setIsError(false);
 			status.setNumber("0");
 			status.setUpField("");
+			buttonPanel.setButtonEnable(true);
 		}
 	}
 	//부호 달기
 	public void appendSign() {
 		if(!status.getIsError()) {
 			number=status.getNumber();
-			if(number.contains("-"))
-				number=number.replace("-", "");
+			if(number.startsWith("-"))
+				number=number.substring(1);
 			else
 				if(number!="0")
 					number="-"+number;
@@ -61,7 +67,8 @@ public class Calculation {
 		}
 		else if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
 			status.setNumber("0");
-			status.setUpFieldText("");
+			if(!status.getIsLog())
+				status.setUpFieldText("");
 		}
 		//위 필드가 채워지지 않았을 경우&위 필드가 채워져있는데 이전에 숫자를 쳤었다면
 		appendNumber(number);
@@ -94,7 +101,10 @@ public class Calculation {
 					if(upField.contains("×")||upField.contains("+")||upField.contains("-")||upField.contains("÷")) {
 						String[] temp=upField.split(" ");//연산자 기준으로 두개로 나눔
 						System.out.println(temp[0]);
-						temp[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
+						if(status.getIsLog())
+							temp[2]=status.getNumber()+"=";
+						else
+							temp[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
 						status.setUpField(String.format("%s %s %s",temp[0],temp[1],temp[2]));//위 필드를 최신화해줌
 						String result=calculate(status.getUpField());
 						status.setNumber(result);
@@ -177,10 +187,6 @@ public class Calculation {
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
 	}
-	private String convertFormat(BigDecimal number) {
-		DecimalFormat numberFormat=new DecimalFormat("################.################");
-		return numberFormat.format(number).toString();
-	}
 	
 	private String calculate(String formula) {
 		String[] temp=formula.replace("=", "").split(" "); 
@@ -212,11 +218,11 @@ public class Calculation {
 			else if(result.compareTo(new BigDecimal("0"))==0)
 				resultToString="0";
 			else
-				resultToString=convertFormat(result);
+				resultToString=result.toString();
 			formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
 			status.logList.add(0, formula);
 			status.resultList.add(0,resultToString);
-			logPanel.addButton(formula,resultToString);
+			logPanel.addButton(formula,textPanel.convertNumber(resultToString, 2));
 		}
 		catch(Exception e) {
 			if(e.getMessage()=="Division undefined")
@@ -226,12 +232,13 @@ public class Calculation {
 			setError();
 			return resultToString;
 		}
+		status.setIsLog(false);
 		return resultToString;
 	}
 	private void setError() {
 		status.setUpField("");
 		status.setLastType(Constant.TYPE_NUMBER);
 		status.setIsError(true);
-		buttonPanel.setButtonDisabled();
+		buttonPanel.setButtonEnable(false);
 	}
 }
