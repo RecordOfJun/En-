@@ -16,7 +16,7 @@ public class MenuPanel extends JPanel {
 		defaultLabel.setPreferredSize(new Dimension(400,40));
 		defaultLabel.setFont(new Font("맑은 고딕",Font.BOLD,30));
 		logButton.setPreferredSize(new Dimension(40,40));
-		//logButton.setBorder(null);
+		logButton.setBackground(null);
 		logButton.setBorderPainted(false); 
 		logButton.setFocusPainted(false); 
 		logButton.addMouseListener(new logAdapter());
@@ -47,9 +47,11 @@ public class MenuPanel extends JPanel {
 	public void convertToLogColor() {
 		leftPanel.setBackground(Color.LIGHT_GRAY);
 		rightPanel.setBackground(Color.LIGHT_GRAY);
+		logButton.setBackground(Color.LIGHT_GRAY);
 	}
 	public void convertToCalculatorColor() {
 		leftPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		rightPanel.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		logButton.setBackground(null);
 	}
 }

@@ -5,8 +5,6 @@ public class NumberList {
 	private String number;
 	private String upField;
 	private String upFieldText;
-	public ArrayList<String> logList=new ArrayList<String>();
-	public ArrayList<String> resultList=new ArrayList<String>();
 	private int lastType;
 	private boolean isError;
 	private boolean isLog;

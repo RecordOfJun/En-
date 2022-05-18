@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import controller.ButtonDetecting;
@@ -8,7 +9,9 @@ public class Calculator {
 		// TODO Auto-generated method stub
 		ButtonDetecting detecting=new ButtonDetecting();
 		detecting.start();
-		//System.out.println(Double.parseDouble("0.0010")*1);
+		//BigDecimal a=new BigDecimal("2");
+		//BigDecimal b=new BigDecimal("3");
+		//System.out.println(a.divide(b,16, RoundingMode.HALF_EVEN).toString());
 	}
 
 }

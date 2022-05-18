@@ -2,6 +2,8 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -14,6 +16,8 @@ import utility.Constant;
 public class TextPanel extends JPanel {
 	public JTextField calculateLog=new JTextField("");
 	public JTextField presentNumber=new JTextField("0");
+	//public JLabel calculateLog=new JLabel("");
+	//public JLabel presentNumber=new JLabel("0");
 	
 	public TextPanel() {
 		setLogField();
@@ -39,6 +43,7 @@ public class TextPanel extends JPanel {
 		presentNumber.setFont(new Font("돋움",Font.BOLD,50));
 		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		presentNumber.setBorder(null);
+		//presentNumber.addComponentListener(new textLabelListener());
 		presentNumber.setEditable(false);
 		presentNumber.getDocument().addDocumentListener(new textChangeListener());
 	}
@@ -149,5 +154,15 @@ public class TextPanel extends JPanel {
 			else
 				presentNumber.setFont(new Font("돋움",Font.BOLD,50));
 		}
+	}
+	public class textLabelListener extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+        	int size=50;
+        	System.out.println("re");
+        	while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
+        		presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
+        		size--;
+        	}
+        }
 	}
 }

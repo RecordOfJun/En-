@@ -3,6 +3,7 @@ import view.ButtonPanel;
 import view.TextPanel;
 import view.CalculatorFrame;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
@@ -89,6 +90,8 @@ public class ButtonDetecting {
 				break;
 			case'-':
 				key="-";
+			case'=':
+				key="=";
 			}
 			if(key!="") {
 				excuteCalculator(key);
@@ -101,52 +104,53 @@ public class ButtonDetecting {
 		return button.getText();
 	}
 	private void switchButton(String character) {
+		int type=2;
 		switch(character) {
 			case"C":
 				calculation.initAll();
 				System.out.println("전체 초기화");
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				break;
 			case"CE":
 				calculation.initLast();
 				System.out.println("직전 수 초기화");
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				break;
 			case".":
 				calculation.detectDot();
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				System.out.println("콤마");
 				break;
 			case"+/-":
 				calculation.appendSign();
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				//직전 숫자만 삭제
 				System.out.println("부호전환");
 				break;
 			case"=":
 				calculation.detectEqual();
-				textPanel.setPresentNumberText(calculation.status.getNumber(),1);
+				type=1;
 				//직전 숫자만 삭제
 				System.out.println("계산");
 				break;
 			case"\u232B":
 				calculation.detectBackSpace();
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				System.out.println("백스페이스");
 				break;	
 			case"÷": case"×": case"+": case"-":
 				//직전 숫자만 삭제
 				calculation.detectOperator(character);
-				textPanel.setPresentNumberText(calculation.status.getNumber(),1);
+				type=1;
 				System.out.println("연산자");
 				break;
 			default:
 				calculation.detectNumber(character);
-				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
+				type=2;
 				System.out.println("숫자");
 				break;
-			
 		}
+		textPanel.setPresentNumberText(calculation.status.getNumber(),type);
 	}
 	private void addKeyAdapter() {
 		buttonPanel.requestFocusInWindow();
@@ -169,11 +173,13 @@ public class ButtonDetecting {
 	}
 	public class logButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			for(int count=0;count<calculation.status.logList.size();count++) {
-				System.out.println(calculation.status.logList.get(count));
-				System.out.println(calculation.status.resultList.get(count));
+			JButton button=(JButton)e.getSource();
+			if(button!=null) {
+				if(button.getBackground().toString().equals("java.awt.Color[r=240,g=240,b=240]"))
+					loadLogFrame();
+				else
+					loadCalculatorFrame();
 			}
-			loadLogFrame();
 		}
 	}
 	public class deleteButtonActionListener implements ActionListener{

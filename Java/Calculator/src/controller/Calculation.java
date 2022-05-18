@@ -6,6 +6,7 @@ import utility.Constant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 import javax.swing.JButton;
@@ -197,7 +198,7 @@ public class Calculation {
 		try {
 			switch(temp[1]) {
 			case"÷":
-				result=leftNumber.divide(rightNumber);
+				result=leftNumber.divide(rightNumber,20, RoundingMode.HALF_EVEN);
 				break;
 			case"×":
 				result=leftNumber.multiply(rightNumber);
@@ -210,7 +211,7 @@ public class Calculation {
 				break;
 			}
 			System.out.println(leftNumber+" "+rightNumber+" "+result);
-			if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1) {
+			if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+9999"))==-1||result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-9999"))==-1&&result.compareTo(new BigDecimal("-1e-9999"))==1) {
 				resultToString="오버플로";
 				setError();
 				return resultToString;
@@ -220,8 +221,6 @@ public class Calculation {
 			else
 				resultToString=result.toString();
 			formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
-			status.logList.add(0, formula);
-			status.resultList.add(0,resultToString);
 			logPanel.addButton(formula,textPanel.convertNumber(resultToString, 2));
 		}
 		catch(Exception e) {
