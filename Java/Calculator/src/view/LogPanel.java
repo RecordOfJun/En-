@@ -43,7 +43,7 @@ public class LogPanel extends JPanel {
 		button.setMaximumSize(new Dimension(450,60));
 		button.setMinimumSize(new Dimension(450,60));
 		button.setPreferredSize(new Dimension(350,60));
-		button.setText("<html>"+formula+"<br><font size=6>"+result+"</font></html>");
+		button.setText("<html><p style=\"text-align:right;\">"+formula+"<br><font size=6>"+result+"</font></p></html>");
 		button.addMouseListener(new buttonFocusAdapter());
 		mainBox.add(button,0);
 		this.repaint();
@@ -52,7 +52,6 @@ public class LogPanel extends JPanel {
 	private class buttonFocusAdapter extends MouseAdapter{
 		public void mouseEntered(MouseEvent e) {
 			e.getComponent().setBackground(Color.LIGHT_GRAY);
-			System.out.println("hi");
 		}
 		public void mouseExited(MouseEvent e) {
 			e.getComponent().setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
