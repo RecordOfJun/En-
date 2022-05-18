@@ -9,9 +9,9 @@ public class Calculator {
 		// TODO Auto-generated method stub
 		ButtonDetecting detecting=new ButtonDetecting();
 		detecting.start();
-		//BigDecimal a=new BigDecimal("2");
+		//BigDecimal a=new BigDecimal("1.0e-20");
 		//BigDecimal b=new BigDecimal("3");
-		//System.out.println(a.divide(b,16, RoundingMode.HALF_EVEN).toString());
+		//System.out.println(a);
 	}
 
 }

@@ -16,6 +16,7 @@ public class LogPanel extends JPanel {
 	private ActionListener listener;
 	public LogPanel() {
 		this.setLayout(new BorderLayout());
+		label.setFont(new Font("맑은 고딕",Font.BOLD,20));
 		mainBox.add(label);
 		recordPanel.setLayout(layout);
 		recordPanel.add(mainBox);

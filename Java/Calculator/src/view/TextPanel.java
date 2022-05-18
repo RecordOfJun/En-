@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeListenerProxy;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -14,10 +17,10 @@ import javax.swing.event.DocumentListener;
 
 import utility.Constant;
 public class TextPanel extends JPanel {
-	public JTextField calculateLog=new JTextField("");
-	public JTextField presentNumber=new JTextField("0");
-	//public JLabel calculateLog=new JLabel("");
-	//public JLabel presentNumber=new JLabel("0");
+	//public JTextField calculateLog=new JTextField("");
+	//public JTextField presentNumber=new JTextField("0");
+	public JLabel calculateLog=new JLabel("");
+	public JLabel presentNumber=new JLabel("0");
 	
 	public TextPanel() {
 		setLogField();
@@ -36,16 +39,17 @@ public class TextPanel extends JPanel {
 		calculateLog.setFont(new Font("맑은 고딕",Font.PLAIN,15));
 		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		calculateLog.setBorder(null);
-		calculateLog.setEditable(false);
+		//calculateLog.setEditable(false);
 	}
 	private void setNumberField() {
 		presentNumber.setHorizontalAlignment(JTextField.RIGHT);
 		presentNumber.setFont(new Font("돋움",Font.BOLD,50));
 		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		presentNumber.setBorder(null);
+		presentNumber.addPropertyChangeListener(new labelChangeListener());
 		//presentNumber.addComponentListener(new textLabelListener());
-		presentNumber.setEditable(false);
-		presentNumber.getDocument().addDocumentListener(new textChangeListener());
+		//presentNumber.setEditable(false);
+		//presentNumber.getDocument().addDocumentListener(new textChangeListener());
 	}
 	public void setPresentText(String number) {
 		
@@ -113,6 +117,7 @@ public class TextPanel extends JPanel {
 				
 			}
 			text=numberFormat.format(result).toString().replace("E", "e");
+			
 		}
 		
 		return text;
@@ -159,10 +164,25 @@ public class TextPanel extends JPanel {
         public void componentResized(ComponentEvent e) {
         	int size=50;
         	System.out.println("re");
+        	/*
         	while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
         		presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
         		size--;
         	}
+        	*/
+        }
+	}
+	public class labelChangeListener implements PropertyChangeListener {
+        public void propertyChange(PropertyChangeEvent e) {
+        	int size=50;
+        	if(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
+        		/*while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
+        			presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
+        			size--;
+        		}*/
+        		System.out.println("in");
+        	}
+
         }
 	}
 }

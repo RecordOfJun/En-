@@ -189,7 +189,7 @@ public class ButtonDetecting {
 				button=(JButton)e.getSource();
 			}
 			if(button!=null) {
-				String text=button.getText().replace("<html><p style=\"text-align:right;\">","").replace("<font size=6>","").replace("</font></p></html>","");
+				String text=button.getText().replace("<html><p style=\"text-align:right;\">","").replace("<font size=6>","").replace("</font></p></html>","").replace(",", "");
 
 				String[] temp=text.split("<br>");
 				calculation.status.setNumber(temp[1]);

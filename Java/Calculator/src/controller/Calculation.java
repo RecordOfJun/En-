@@ -221,7 +221,7 @@ public class Calculation {
 			else
 				resultToString=result.toString();
 			formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
-			logPanel.addButton(formula,textPanel.convertNumber(resultToString, 2));
+			logPanel.addButton(formula,textPanel.convertNumber(resultToString, 1));
 		}
 		catch(Exception e) {
 			if(e.getMessage()=="Division undefined")
@@ -232,6 +232,7 @@ public class Calculation {
 			return resultToString;
 		}
 		status.setIsLog(false);
+		System.out.println(resultToString);
 		return resultToString;
 	}
 	private void setError() {
