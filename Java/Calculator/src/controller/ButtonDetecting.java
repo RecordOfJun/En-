@@ -26,7 +26,7 @@ public class ButtonDetecting {
 		    }
 		}); 
 		frame.addComponentListener(new textResizeListener());
-		frame.logPanel.setListener(new deleteButtonActionListener());
+		frame.logPanel.setListener(new logActionListener());
 	}
 	public void start(){
 		frame.loadFrame();
@@ -111,46 +111,38 @@ public class ButtonDetecting {
 		switch(character) {
 			case"C":
 				calculation.initAll();
-				System.out.println("전체 초기화");
 				type=2;
 				break;
 			case"CE":
 				calculation.initLast();
-				System.out.println("직전 수 초기화");
 				type=2;
 				break;
 			case".":
 				calculation.detectDot();
 				type=2;
-				System.out.println("콤마");
 				break;
 			case"+/-":
 				calculation.appendSign();
 				type=2;
 				//직전 숫자만 삭제
-				System.out.println("부호전환");
 				break;
 			case"=":
 				calculation.detectEqual();
 				type=1;
 				//직전 숫자만 삭제
-				System.out.println("계산");
 				break;
 			case"\u232B":
 				calculation.detectBackSpace();
 				type=2;
-				System.out.println("백스페이스");
 				break;	
 			case"÷": case"×": case"+": case"-":
 				//직전 숫자만 삭제
 				calculation.detectOperator(character);
 				type=1;
-				System.out.println("연산자");
 				break;
 			default:
 				calculation.detectNumber(character);
 				type=2;
-				System.out.println("숫자");
 				break;
 		}
 		textPanel.setPresentNumberText(calculation.status.getNumber(),type);
@@ -186,7 +178,7 @@ public class ButtonDetecting {
 			}
 		}
 	}
-	public class deleteButtonActionListener implements ActionListener{
+	public class logActionListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			JButton button=null;
 			if(e.getSource() instanceof JButton) {
@@ -195,14 +187,15 @@ public class ButtonDetecting {
 			if(button!=null) {
 				String text=button.getText().replace("<html><p style=\"text-align:right;\">","").replace("<font size=6>","").replace("</font></p></html>","").replace(",", "");
 
-				String[] temp=text.split("<br>");
-				calculation.status.setNumber(temp[1]);
-				calculation.status.setUpField(temp[0]);
+				String[] temporary=text.split("<br>");
+				calculation.status.setNumber(temporary[1]);
+				calculation.status.setUpField(temporary[0]);
 				calculation.status.setIsLog(true);
 				calculation.status.setLastType(Constant.TYPE_EQUAL);
 				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
 				textPanel.setLogNumberText(calculation.status.getUpFieldText());
 				loadCalculatorFrame();
+				resizeText();
 			}
 				
 		}

@@ -17,8 +17,6 @@ import javax.swing.event.DocumentListener;
 
 import utility.Constant;
 public class TextPanel extends JPanel {
-	//public JTextField calculateLog=new JTextField("");
-	//public JTextField presentNumber=new JTextField("0");
 	public JLabel calculateLog=new JLabel("");
 	public JLabel presentNumber=new JLabel("0");
 	
@@ -52,12 +50,10 @@ public class TextPanel extends JPanel {
 	public void setPresentNumberText(String number,int type) {
 		if(number.contains("다")) {
 			presentNumber.setText(number);
-			System.out.println("d");
 		}
 		else {
 			String text=convertNumber(number,type);
 			presentNumber.setText(text.replace("E","e"));
-			System.out.println("s");
 		}
 	}
 	public void setLogNumberText(String log) {
@@ -65,28 +61,34 @@ public class TextPanel extends JPanel {
 		if(log!="") {
 			String[] temp=log.split(" ");
 			if(temp.length==1) {
-				text=convertNumber(temp[0].replace("=", ""),0)+"=";
+				if(temp[0].contains("="))
+					text=convertNumber(temp[0].replace("=", ""),0)+"=";
+				else
+					text=temp[0];
 			}
 			else if(temp.length==2) {
 				text=convertNumber(temp[0],0)+" "+temp[1];
 			}
 			else if(temp.length==3) {
-				text=convertNumber(temp[0],0)+" "+temp[1]+" "+convertNumber(temp[2].replace("=", ""),0)+"=";
+				if(temp[2].contains("=")) {
+					text=convertNumber(temp[0],0)+" "+temp[1]+" "+convertNumber(temp[2].replace("=", ""),0)+"=";
+				}
+				else
+					text=convertNumber(temp[0],0)+" "+temp[1]+" "+convertNumber(temp[2],0);
 			}
 		}
 		calculateLog.setText(text);
 	}
 	public String convertNumber(String number,int type) {
 		String text=number;
-		if(!number.contains("오")&&!number.contains("다")) {
-			BigDecimal result=new BigDecimal(number);
+		if(!number.contains("오")&&!number.contains("다")&&!number.contains("(")) {
+			BigDecimal result=new BigDecimal(number.replace("=", ""));
 			DecimalFormat numberFormat;
 			if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+15"))==-1) {
-				numberFormat=new DecimalFormat("0.################E0");
+				numberFormat=new DecimalFormat("0.###############E0");
 			}
 			else if(result.compareTo(new BigDecimal("0"))!=0&&((result.compareTo(new BigDecimal("1e-3"))==-1&&result.compareTo(new BigDecimal("-1e-3"))==1&&result.toString().replace(".","").replace("-","").length()>17)||(result.compareTo(new BigDecimal("1e-16"))==-1&&result.compareTo(new BigDecimal("-1e-16"))==1))){
-				System.out.println("in");
-				numberFormat=new DecimalFormat("0.################E0");
+				numberFormat=new DecimalFormat("0.###############E0");
 			}
 			else{
 
@@ -158,7 +160,6 @@ public class TextPanel extends JPanel {
 	public class textLabelListener extends ComponentAdapter {
         public void componentResized(ComponentEvent e) {
         	int size=50;
-        	System.out.println("re");
         	while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
         		presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
         		size--;

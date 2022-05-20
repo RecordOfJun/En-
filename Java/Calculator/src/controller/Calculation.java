@@ -64,7 +64,6 @@ public class Calculation {
 				}
 				else{
 					status.setUpFieldText("negate("+textPanel.convertNumber(status.getNumber(),0)+")");
-					System.out.println(status.getUpFieldText()+"임");
 				}
 			}
 			else if(status.getLastType()==Constant.TYPE_OPERATOR) {
@@ -87,7 +86,6 @@ public class Calculation {
 			status.setNumber(number);
 		}
 		//negative 붙이냐 마냐=>숫자 턴인지 아닌지
-		System.out.println(number);
 	}
 	public void detectNumber(String number) {//숫자를 쳤음
 		checkIsError();
@@ -131,27 +129,27 @@ public class Calculation {
 					String upField=status.getUpField();
 					//연산자와 =이 같이 있다면
 					if(upField.contains("×")||upField.contains("+")||upField.contains("-")||upField.contains("÷")) {
-						String[] temp=upField.split(" ");//연산자 기준으로 두개로 나눔
-						System.out.println(temp[0]);
+						String[] temporary=upField.split(" ");//연산자 기준으로 두개로 나눔
 						if(status.getIsLog()) {
 							if(status.getUpFieldText().contains("="))
-								temp[2]=status.getNumber()+"=";//오른쪽에 아래 숫자를 넣어줌
+								temporary[2]=status.getNumber()+"=";//오른쪽에 아래 숫자를 넣어줌
 							else {
-								temp[2]=status.getUpFieldText()+"=";
+								temporary[2]=status.getUpFieldText()+"=";
 								status.setUpFieldText("");
 							}
-							temp[0]=deleteNegate(temp[0])+"=";
+							temporary[0]=deleteNegate(temporary[0])+"=";
 						}
 						else {
-							if(!status.getUpFieldText().contains("=")) {
-								temp[0]=status.getUpFieldText();
+							if(status.getUpFieldText().contains("(")) {
+								temporary[0]=status.getUpFieldText();
 								status.setUpFieldText("");
 							}
-							else
-								temp[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
-							temp[2]=deleteNegate(temp[2]);
+							else {
+								temporary[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
+							}
+							temporary[2]=deleteNegate(temporary[2]);
 						}
-						status.setUpField(String.format("%s %s %s",temp[0],temp[1],temp[2]));//위 필드를 최신화해줌
+						status.setUpField(String.format("%s %s %s",temporary[0],temporary[1],temporary[2]));//위 필드를 최신화해줌
 						String result=calculate(status.getUpField());
 						status.setNumber(result);
 					}
@@ -207,7 +205,6 @@ public class Calculation {
 		//정수부분에 ,달기
 		this.number=status.getNumber();
 		if(this.number.charAt(0)=='0'&&this.number.length()==1) {
-			System.out.println(this.number);
 			this.number=number;
 		}
 		else { 
@@ -216,12 +213,10 @@ public class Calculation {
 				replacement=replacement.substring(1);
 			if(replacement.length()<16)
 				this.number=this.number+number;
-			System.out.println("y");
 		}
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
 		status.setIsLog(false);
-		System.out.println(this.number);
 	}
 	
 	private void appendDot() {
@@ -231,7 +226,6 @@ public class Calculation {
 		}
 		status.setNumber(number);
 		status.setLastType(Constant.TYPE_NUMBER);
-		System.out.println(number);
 	}
 	private void removeNumber() {
 		this.number=status.getNumber();
@@ -243,13 +237,13 @@ public class Calculation {
 	}
 	
 	private String calculate(String formula) {
-		String[] temp=formula.replace("=", "").split(" "); 
-		BigDecimal leftNumber=new BigDecimal(deleteNegate(temp[0]));
-		BigDecimal rightNumber=new BigDecimal(deleteNegate(temp[2]));
+		String[] temporary=formula.replace("=", "").split(" "); 
+		BigDecimal leftNumber=new BigDecimal(deleteNegate(temporary[0]));
+		BigDecimal rightNumber=new BigDecimal(deleteNegate(temporary[2]));
 		BigDecimal result=new BigDecimal("0");
 		String resultToString="";
 		try {
-			switch(temp[1]) {
+			switch(temporary[1]) {
 			case"÷":
 				result=leftNumber.divide(rightNumber);
 				break;
@@ -265,7 +259,6 @@ public class Calculation {
 			}
 		}
 		catch(Exception e) {
-			System.out.println(e.getMessage());
 			if(e.getMessage()=="Division undefined") {
 				resultToString="정의되지 않은 결과입니다";
 				setError();
@@ -279,7 +272,7 @@ public class Calculation {
 			else
 				result=leftNumber.divide(rightNumber,MathContext.DECIMAL128);
 		}
-		System.out.println(leftNumber+" "+rightNumber+" "+result);
+		System.out.println(result.toString());
 		if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+9999"))==-1||result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-9999"))==-1&&result.compareTo(new BigDecimal("-1e-9999"))==1) {
 			resultToString="오버플로";
 			setError();
@@ -289,10 +282,9 @@ public class Calculation {
 			resultToString="0";
 		else
 			resultToString=result.toString();
-		formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
+		formula=String.format("%s %s %s=", textPanel.convertNumber(temporary[0], 0),temporary[1],textPanel.convertNumber(temporary[2], 0));
 		logPanel.addButton(formula,textPanel.convertNumber(resultToString, 1));
 		status.setIsLog(false);
-		System.out.println(resultToString);
 		return resultToString;
 	}
 	private void setError() {

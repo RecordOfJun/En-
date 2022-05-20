@@ -41,9 +41,9 @@ public class LogPanel extends JPanel {
 		button.addActionListener(listener);
 		button.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		button.setHorizontalAlignment(SwingConstants.RIGHT);
-		button.setMaximumSize(new Dimension(450,60));
+		//button.setMaximumSize(new Dimension(450,60));
 		button.setMinimumSize(new Dimension(450,60));
-		button.setPreferredSize(new Dimension(350,60));
+		button.setPreferredSize(new Dimension(450,60));
 		button.setText("<html><p style=\"text-align:right;\">"+formula+"<br><font size=6>"+result+"</font></p></html>");
 		button.addMouseListener(new buttonFocusAdapter());
 		mainBox.add(button,0);
