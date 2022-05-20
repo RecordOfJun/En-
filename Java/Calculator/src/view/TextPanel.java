@@ -84,7 +84,7 @@ public class TextPanel extends JPanel {
 			if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+15"))==-1) {
 				numberFormat=new DecimalFormat("0.################E0");
 			}
-			else if(result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-16"))==-1&&result.compareTo(new BigDecimal("-1e-16"))==1){
+			else if(result.compareTo(new BigDecimal("0"))!=0&&((result.compareTo(new BigDecimal("1e-3"))==-1&&result.compareTo(new BigDecimal("-1e-3"))==1&&result.toString().replace(".","").replace("-","").length()>17)||(result.compareTo(new BigDecimal("1e-16"))==-1&&result.compareTo(new BigDecimal("-1e-16"))==1))){
 				System.out.println("in");
 				numberFormat=new DecimalFormat("0.################E0");
 			}
