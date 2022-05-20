@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
-
 import javax.swing.*;
 import javax.swing.event.*;
 public class CalculatorFrame extends JFrame {
@@ -59,6 +58,7 @@ public class CalculatorFrame extends JFrame {
 	}
 	public class ResizeListener extends ComponentAdapter {
         public void componentResized(ComponentEvent e) {
+        	
         	setCalculatorFrame();
             if(getSize().width>450) {
             	container.add(logPanel,BorderLayout.EAST);

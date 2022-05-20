@@ -3,8 +3,10 @@ import view.ButtonPanel;
 import view.TextPanel;
 import view.CalculatorFrame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
 import utility.Constant;
@@ -23,6 +25,7 @@ public class ButtonDetecting {
 		        buttonPanel.requestFocus();
 		    }
 		}); 
+		frame.addComponentListener(new textResizeListener());
 		frame.logPanel.setListener(new deleteButtonActionListener());
 	}
 	public void start(){
@@ -151,6 +154,7 @@ public class ButtonDetecting {
 				break;
 		}
 		textPanel.setPresentNumberText(calculation.status.getNumber(),type);
+		resizeText();
 	}
 	private void addKeyAdapter() {
 		buttonPanel.requestFocusInWindow();
@@ -202,5 +206,20 @@ public class ButtonDetecting {
 			}
 				
 		}
+	}
+	private void resizeText() {
+		int size=50;
+		textPanel.presentNumber.setFont(new Font("돋움",Font.BOLD,size));
+    	while(textPanel.presentNumber.getPreferredSize().getWidth()>textPanel.presentNumber.getWidth()&&textPanel.presentNumber.getWidth()!=0) {
+    		textPanel.presentNumber.setFont(new Font("돋움",Font.BOLD,size));
+    		textPanel.presentNumber.repaint();
+    		textPanel.presentNumber.revalidate();
+    		size--;
+    	}
+	}
+	public class textResizeListener extends ComponentAdapter {
+        public void componentResized(ComponentEvent e) {
+        	resizeText();
+        }
 	}
 }

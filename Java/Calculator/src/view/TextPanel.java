@@ -23,9 +23,9 @@ public class TextPanel extends JPanel {
 	public JLabel presentNumber=new JLabel("0");
 	
 	public TextPanel() {
+		setPanel();
 		setLogField();
 		setNumberField();
-		setPanel();
 	}
 	private void setPanel() {
 		this.setLayout(new GridLayout(2,1,0,0));
@@ -39,17 +39,12 @@ public class TextPanel extends JPanel {
 		calculateLog.setFont(new Font("맑은 고딕",Font.PLAIN,15));
 		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		calculateLog.setBorder(null);
-		//calculateLog.setEditable(false);
 	}
 	private void setNumberField() {
 		presentNumber.setHorizontalAlignment(JTextField.RIGHT);
 		presentNumber.setFont(new Font("돋움",Font.BOLD,50));
 		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		presentNumber.setBorder(null);
-		presentNumber.addPropertyChangeListener(new labelChangeListener());
-		//presentNumber.addComponentListener(new textLabelListener());
-		//presentNumber.setEditable(false);
-		//presentNumber.getDocument().addDocumentListener(new textChangeListener());
 	}
 	public void setPresentText(String number) {
 		
@@ -116,19 +111,19 @@ public class TextPanel extends JPanel {
 				}
 				
 			}
-			text=numberFormat.format(result).toString().replace("E", "e");
-			
+			text=numberFormat.format(result).toString().replace("E", "e+");
+			if(text.substring(1).contains("-")) {
+				text=text.replace("+", "");
+			}
 		}
 		
 		return text;
 	}
 	public void convertToLogColor() {
-		calculateLog.setBackground(Color.LIGHT_GRAY);
-		presentNumber.setBackground(Color.LIGHT_GRAY);
+		this.setBackground(Color.LIGHT_GRAY);
 	}
 	public void convertToCalculatorColor() {
-		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
-		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		this.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 	}
 	public void addFrameConvert(MouseAdapter adapter) {
 		calculateLog.addMouseListener(adapter);
@@ -164,25 +159,12 @@ public class TextPanel extends JPanel {
         public void componentResized(ComponentEvent e) {
         	int size=50;
         	System.out.println("re");
-        	/*
         	while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
         		presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
         		size--;
+        		if(size==0)
+        			break;
         	}
-        	*/
-        }
-	}
-	public class labelChangeListener implements PropertyChangeListener {
-        public void propertyChange(PropertyChangeEvent e) {
-        	int size=50;
-        	if(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
-        		/*while(presentNumber.getPreferredSize().getWidth()>presentNumber.getWidth()) {
-        			presentNumber.setFont(new Font("맑은 고딕",Font.BOLD,size));
-        			size--;
-        		}*/
-        		System.out.println("in");
-        	}
-
         }
 	}
 }

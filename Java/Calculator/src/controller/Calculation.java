@@ -6,6 +6,7 @@ import utility.Constant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -53,7 +54,7 @@ public class Calculation {
 				if(number!="0")
 					number="-"+number;
 			status.setNumber(number);
-			if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
+			if(status.getUpField().endsWith(")")||status.getUpField().endsWith("=")||status.getLastType()==Constant.TYPE_OPERATOR) {
 				status.setUpFieldText("");
 			}
 		}
@@ -191,14 +192,14 @@ public class Calculation {
 	
 	private String calculate(String formula) {
 		String[] temp=formula.replace("=", "").split(" "); 
-		BigDecimal leftNumber=new BigDecimal(temp[0]);
-		BigDecimal rightNumber=new BigDecimal(temp[2]);
+		BigDecimal leftNumber=new BigDecimal(deleteNegate(temp[0]));
+		BigDecimal rightNumber=new BigDecimal(deleteNegate(temp[2]));
 		BigDecimal result=new BigDecimal("0");
 		String resultToString="";
 		try {
 			switch(temp[1]) {
 			case"÷":
-				result=leftNumber.divide(rightNumber,20, RoundingMode.HALF_EVEN);
+				result=leftNumber.divide(rightNumber);
 				break;
 			case"×":
 				result=leftNumber.multiply(rightNumber);
@@ -210,27 +211,34 @@ public class Calculation {
 				result=leftNumber.subtract(rightNumber);
 				break;
 			}
-			System.out.println(leftNumber+" "+rightNumber+" "+result);
-			if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+9999"))==-1||result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-9999"))==-1&&result.compareTo(new BigDecimal("-1e-9999"))==1) {
-				resultToString="오버플로";
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+			if(e.getMessage()=="Division undefined") {
+				resultToString="정의되지 않은 결과입니다";
 				setError();
 				return resultToString;
 			}
-			else if(result.compareTo(new BigDecimal("0"))==0)
-				resultToString="0";
-			else
-				resultToString=result.toString();
-			formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
-			logPanel.addButton(formula,textPanel.convertNumber(resultToString, 1));
-		}
-		catch(Exception e) {
-			if(e.getMessage()=="Division undefined")
-				resultToString="정의되지 않은 결과입니다";
-			else
+			else if(e.getMessage()=="Division by zero") {
 				resultToString="0으로 나눌 수 없습니다";
+				setError();
+				return resultToString;
+			}
+			else
+				result=leftNumber.divide(rightNumber,MathContext.DECIMAL128);
+		}
+		System.out.println(leftNumber+" "+rightNumber+" "+result);
+		if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+9999"))==-1||result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-9999"))==-1&&result.compareTo(new BigDecimal("-1e-9999"))==1) {
+			resultToString="오버플로";
 			setError();
 			return resultToString;
 		}
+		else if(result.compareTo(new BigDecimal("0"))==0)
+			resultToString="0";
+		else
+			resultToString=result.toString();
+		formula=String.format("%s %s %s=", textPanel.convertNumber(temp[0], 0),temp[1],textPanel.convertNumber(temp[2], 0));
+		logPanel.addButton(formula,textPanel.convertNumber(resultToString, 1));
 		status.setIsLog(false);
 		System.out.println(resultToString);
 		return resultToString;
@@ -240,5 +248,23 @@ public class Calculation {
 		status.setLastType(Constant.TYPE_NUMBER);
 		status.setIsError(true);
 		buttonPanel.setButtonEnable(false);
+	}
+	private String deleteNegate(String number) {
+		int negateCount=0;
+		for(int count=0;count<number.length();count++) {
+			if(number.substring(count).startsWith("(")) {
+				negateCount++;
+			}
+		}
+		if(negateCount%2==1)
+			return convertSign(number.replace("negate", "").replace("(", "").replace(")", ""));
+		else
+			return number.replace("negate", "").replace("(", "").replace(")", "");
+	}
+	private String convertSign(String number) {
+		if(number.startsWith("-"))
+			return number.substring(1);
+		else
+			return "-"+number;
 	}
 }
