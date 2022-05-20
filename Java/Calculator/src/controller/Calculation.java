@@ -47,6 +47,37 @@ public class Calculation {
 	//부호 달기
 	public void appendSign() {
 		if(!status.getIsError()) {
+			if(status.getIsLog()) {
+				String[] temporary=status.getUpFieldText().split(" ");
+				if(temporary.length==3&&temporary[2].contains("=")) {
+					String negate="negate("+textPanel.convertNumber(status.getNumber(),0)+")";
+					status.setUpField(String.format("%s %s %s", temporary[0],temporary[1],negate));
+				}
+				else {
+					String negate="negate("+textPanel.convertNumber(temporary[2],0)+")";
+					status.setUpField(String.format("%s %s %s", temporary[0],temporary[1],negate));
+				}
+			}
+			else if(status.getLastType()==Constant.TYPE_EQUAL) {
+				if(status.getUpFieldText().toString().endsWith(")")) {
+					status.setUpFieldText("negate("+textPanel.convertNumber(status.getUpFieldText(),0)+")");
+				}
+				else{
+					status.setUpFieldText("negate("+textPanel.convertNumber(status.getNumber(),0)+")");
+					System.out.println(status.getUpFieldText()+"임");
+				}
+			}
+			else if(status.getLastType()==Constant.TYPE_OPERATOR) {
+				String[] temporary=status.getUpFieldText().split(" ");
+				if(temporary.length==2) {
+					String negate="negate("+textPanel.convertNumber(status.getNumber(),0)+")";
+					status.setUpField(String.format("%s %s %s", temporary[0],temporary[1],negate));
+				}
+				else {
+					String negate="negate("+textPanel.convertNumber(temporary[2],0)+")";
+					status.setUpField(String.format("%s %s %s", temporary[0],temporary[1],negate));
+				}
+			}
 			number=status.getNumber();
 			if(number.startsWith("-"))
 				number=number.substring(1);
@@ -54,9 +85,6 @@ public class Calculation {
 				if(number!="0")
 					number="-"+number;
 			status.setNumber(number);
-			if(status.getUpField().endsWith(")")||status.getUpField().endsWith("=")||status.getLastType()==Constant.TYPE_OPERATOR) {
-				status.setUpFieldText("");
-			}
 		}
 		//negative 붙이냐 마냐=>숫자 턴인지 아닌지
 		System.out.println(number);
@@ -64,7 +92,9 @@ public class Calculation {
 	public void detectNumber(String number) {//숫자를 쳤음
 		checkIsError();
 		//위 필드가 채워져있을 때 마지막에 연산자가 들어왔었다면
-		if(status.getLastType()==Constant.TYPE_OPERATOR&&status.getUpField()!="") {
+		if(status.getLastType()==Constant.TYPE_OPERATOR&&status.getUpField()!=""||status.getUpField().endsWith(")")) {
+			String[] temporary=status.getUpField().split(" ");
+			status.setUpField(temporary[0]+" "+temporary[1]);
 			status.setNumber("0");//숫자만 초기화
 		}
 		else if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
@@ -103,19 +133,40 @@ public class Calculation {
 					if(upField.contains("×")||upField.contains("+")||upField.contains("-")||upField.contains("÷")) {
 						String[] temp=upField.split(" ");//연산자 기준으로 두개로 나눔
 						System.out.println(temp[0]);
-						if(status.getIsLog())
-							temp[2]=status.getNumber()+"=";
-						else
-							temp[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
+						if(status.getIsLog()) {
+							if(status.getUpFieldText().contains("="))
+								temp[2]=status.getNumber()+"=";//오른쪽에 아래 숫자를 넣어줌
+							else {
+								temp[2]=status.getUpFieldText()+"=";
+								status.setUpFieldText("");
+							}
+							temp[0]=deleteNegate(temp[0])+"=";
+						}
+						else {
+							if(!status.getUpFieldText().contains("=")) {
+								temp[0]=status.getUpFieldText();
+								status.setUpFieldText("");
+							}
+							else
+								temp[0]=status.getNumber();//왼쪽에 아래 숫자를 넣어줌
+							temp[2]=deleteNegate(temp[2]);
+						}
 						status.setUpField(String.format("%s %s %s",temp[0],temp[1],temp[2]));//위 필드를 최신화해줌
 						String result=calculate(status.getUpField());
 						status.setNumber(result);
 					}
 				}
 				else {//위 필드가 연산자로 끝날 때
+					String result;
 					//NUMBER와 UPFEILD 합쳐서 값 계산
-					String result=calculate(String.format("%s %s",status.getUpField(),status.getNumber()));
-					status.setUpField(status.getUpField()+" "+status.getNumber()+"=");
+					if(status.getUpField().split(" ").length==2) {
+						result=calculate(String.format("%s %s",status.getUpField(),status.getNumber()));
+						status.setUpField(status.getUpField()+" "+status.getNumber()+"=");
+					}
+					else {
+						result=calculate(status.getUpField());
+						status.setUpField(status.getUpField()+"=");
+					}
 					status.setNumber(result);
 				}
 			}
@@ -169,6 +220,7 @@ public class Calculation {
 		}
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
+		status.setIsLog(false);
 		System.out.println(this.number);
 	}
 	
