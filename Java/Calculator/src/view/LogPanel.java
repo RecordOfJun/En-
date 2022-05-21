@@ -30,7 +30,8 @@ public class LogPanel extends JPanel {
 		deleteButton.setContentAreaFilled(false);
 		deleteButton.addActionListener(new deleteListener());
 		scroll.setBorder(null);
-		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(8,0));
+		scroll.getVerticalScrollBar().setPreferredSize(new Dimension(3,0));
+		scroll.getVerticalScrollBar().setUnitIncrement(10);
 		this.add(scroll,BorderLayout.CENTER);
 		this.add(deletePanel,BorderLayout.SOUTH);
 	}
@@ -41,9 +42,9 @@ public class LogPanel extends JPanel {
 		button.addActionListener(listener);
 		button.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
 		button.setHorizontalAlignment(SwingConstants.RIGHT);
-		//button.setMaximumSize(new Dimension(450,60));
-		button.setMinimumSize(new Dimension(350,60));
-		button.setPreferredSize(new Dimension(250,60));
+		button.setMaximumSize(new Dimension(450,60));
+		button.setMinimumSize(new Dimension(450,60));
+		button.setPreferredSize(new Dimension(350,60));
 		formula=formula.replace(" ", "\t").replace("(", "( ").replace(")", " )");
 		button.setText("<html><p style=\"text-align:right;\">"+formula+"<br><font size=6>"+result+"</font></p></html>");
 		button.addMouseListener(new buttonFocusAdapter());

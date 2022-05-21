@@ -1,6 +1,6 @@
 package model;
 
-public class State {
+public class State {//셋다 모델이라고 보기엔 조금 애매함,컨트롤러에서 함수로 관리해야??
 	private int lastType;
 	private boolean isError;
 	private boolean isLog;

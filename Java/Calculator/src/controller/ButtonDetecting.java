@@ -180,7 +180,7 @@ public class ButtonDetecting {
 		public void actionPerformed(ActionEvent e) {
 			JButton button=(JButton)e.getSource();
 			if(button!=null) {
-				if(button.getBackground().toString().equals("java.awt.Color[r=240,g=240,b=240]"))
+				if(button.getBackground().toString().equals("java.awt.Color[r=230,g=230,b=230]"))
 					loadLogFrame();
 				else
 					loadCalculatorFrame();
