@@ -112,8 +112,15 @@ public class Calculation {
 				String result=calculate(String.format("%s %s",status.getUpField(),status.getNumber()));
 				status.setNumber(result);
 			}
+			else if(status.getLastType()==Constant.TYPE_OPERATOR&&status.getUpField().endsWith(")")) {
+				String result=calculate(status.getUpField());
+				status.setNumber(result);
+			}
 			//모든 경우 다 아래 숫자와 연산자가 합쳐져서 위 필드로 올라감
-			status.setUpField(String.format("%s %s", status.getNumber(),operator));
+			if(status.getLastType()==Constant.TYPE_EQUAL&&status.getUpFieldText().startsWith("n"))
+				status.setUpField(String.format("negate(%s) %s", status.getNumber(),operator));
+			else
+				status.setUpField(String.format("%s %s", status.getNumber(),operator));
 			status.setLastType(Constant.TYPE_OPERATOR);
 			//마지막에 연산자가 들어왔다고 알림
 		}
@@ -140,7 +147,7 @@ public class Calculation {
 							temporary[0]=deleteNegate(temporary[0])+"=";
 						}
 						else {
-							if(status.getUpFieldText().contains("(")) {
+							if(status.getUpFieldText()!=""&&!status.getUpFieldText().contains("=")) {
 								temporary[0]=status.getUpFieldText();
 								status.setUpFieldText("");
 							}
@@ -168,6 +175,7 @@ public class Calculation {
 					status.setNumber(result);
 				}
 			}
+			status.setIsLog(false);
 			status.setLastType(Constant.TYPE_EQUAL);
 		}
 		else
@@ -216,7 +224,7 @@ public class Calculation {
 		}
 		status.setNumber(this.number);
 		status.setLastType(Constant.TYPE_NUMBER);
-		status.setIsLog(false);
+		//status.setIsLog(false);
 	}
 	
 	private void appendDot() {

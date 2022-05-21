@@ -186,7 +186,7 @@ public class ButtonDetecting {
 			}
 			if(button!=null) {
 				String text=button.getText().replace("<html><p style=\"text-align:right;\">","").replace("<font size=6>","").replace("</font></p></html>","").replace(",", "");
-
+				text=text.replace(" ", "").replace("\t", " ");
 				String[] temporary=text.split("<br>");
 				calculation.status.setNumber(temporary[1]);
 				calculation.status.setUpField(temporary[0]);
