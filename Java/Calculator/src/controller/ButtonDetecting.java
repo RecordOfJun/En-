@@ -9,17 +9,26 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
+
+import model.NumberList;
+import model.State;
 import utility.Constant;
 public class ButtonDetecting {
 	private CalculatorFrame frame;
 	private TextPanel textPanel;
 	private ButtonPanel buttonPanel;
 	private Calculation calculation;
+	private NumberProcessing process;
+	public State state;
+	public NumberList status;
 	public ButtonDetecting(){
 		frame=new CalculatorFrame();
+		status=new NumberList();
+		state= new State();
 		textPanel=frame.calculatings;
 		buttonPanel=frame.buttons;
-		calculation=new Calculation(buttonPanel,textPanel,frame.logPanel);
+		calculation=new Calculation(buttonPanel,textPanel,frame.logPanel,state,status);
+		process=new NumberProcessing(buttonPanel,textPanel,state,status);
 		frame.addWindowListener( new WindowAdapter() {
 		    public void windowOpened( WindowEvent e ){
 		        buttonPanel.requestFocus();
@@ -110,19 +119,19 @@ public class ButtonDetecting {
 		int type=2;
 		switch(character) {
 			case"C":
-				calculation.initAll();
+				process.initAll();
 				type=2;
 				break;
 			case"CE":
-				calculation.initLast();
+				process.initLast();
 				type=2;
 				break;
 			case".":
-				calculation.detectDot();
+				process.detectDot();
 				type=2;
 				break;
 			case"+/-":
-				calculation.appendSign();
+				process.appendSign();
 				type=2;
 				//직전 숫자만 삭제
 				break;
@@ -132,7 +141,7 @@ public class ButtonDetecting {
 				//직전 숫자만 삭제
 				break;
 			case"\u232B":
-				calculation.detectBackSpace();
+				process.detectBackSpace();
 				type=2;
 				break;	
 			case"÷": case"×": case"+": case"-":
@@ -141,7 +150,7 @@ public class ButtonDetecting {
 				type=1;
 				break;
 			default:
-				calculation.detectNumber(character);
+				process.detectNumber(character);
 				type=2;
 				break;
 		}
@@ -190,8 +199,8 @@ public class ButtonDetecting {
 				String[] temporary=text.split("<br>");
 				calculation.status.setNumber(temporary[1]);
 				calculation.status.setUpField(temporary[0]);
-				calculation.status.setIsLog(true);
-				calculation.status.setLastType(Constant.TYPE_EQUAL);
+				calculation.state.setIsLog(true);
+				calculation.state.setLastType(Constant.TYPE_EQUAL);
 				textPanel.setPresentNumberText(calculation.status.getNumber(),2);
 				textPanel.setLogNumberText(calculation.status.getUpFieldText());
 				loadCalculatorFrame();
