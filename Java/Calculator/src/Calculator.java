@@ -9,7 +9,7 @@ public class Calculator {
 		// TODO Auto-generated method stub
 		ButtonDetecting detecting=new ButtonDetecting();
 		detecting.start();
-		//BigDecimal a=new BigDecimal("1.0e-20");
+		//BigDecimal a=new BigDecimal("1.e-20");
 		//BigDecimal b=new BigDecimal("negate3");
 		//System.out.println(b);
 	}

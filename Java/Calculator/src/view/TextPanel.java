@@ -118,6 +118,9 @@ public class TextPanel extends JPanel {
 			if(text.substring(1).contains("-")) {
 				text=text.replace("+", "");
 			}
+			if(text.contains("e")&&!text.contains(".")) {
+				text=text.replace("e", ".e");
+			}
 		}
 		
 		return text;
