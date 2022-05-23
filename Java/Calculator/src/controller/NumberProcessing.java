@@ -4,7 +4,6 @@ import model.NumberList;
 import model.State;
 import utility.Constant;
 import view.ButtonPanel;
-import view.LogPanel;
 import view.TextPanel;
 
 public class NumberProcessing {
