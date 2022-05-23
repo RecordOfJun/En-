@@ -1,6 +1,8 @@
 package view;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import utility.Constant;
 
@@ -10,7 +12,7 @@ public class ButtonPanel extends JPanel {
 	private JButton floatButton=new JButton(".");
 	private JButton[] topButtons=new JButton[4];
 	private JButton[] rightButtons=new JButton[4];
-	
+	public ArrayList<JButton> buttons=new ArrayList<JButton>();
 	
 	public ButtonPanel() {
 		setButton();
@@ -42,15 +44,24 @@ public class ButtonPanel extends JPanel {
 		floatButton.setBackground(Color.white);
 	}
 	private void setAdapter() {
-		for(int count=0;count<10;count++)
+		for(int count=0;count<10;count++) {
 			numberButton[count].addMouseListener(new ButtonFocusAdapter());
+			buttons.add(numberButton[count]);
+		}
 		floatButton.addMouseListener(new ButtonFocusAdapter());
+		buttons.add(floatButton);
 		negativeButton.addMouseListener(new ButtonFocusAdapter());
-		for(int count=0;count<4;count++)
+		buttons.add(negativeButton);
+		for(int count=0;count<4;count++) {
 			topButtons[count].addMouseListener(new ButtonFocusAdapter());
-		for(int count=0;count<3;count++)
+			buttons.add(topButtons[count]);
+		}
+		for(int count=0;count<3;count++) {
 			rightButtons[count].addMouseListener(new ButtonFocusAdapter());
+			buttons.add(rightButtons[count]);
+		}
 		rightButtons[3].addMouseListener(new EqualButtonFocusAdapter());
+		buttons.add(rightButtons[3]);
 	}
 	
 	private void setPanel() {

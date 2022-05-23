@@ -102,13 +102,23 @@ public class ButtonDetecting {
 				break;
 			case'-':
 				key="-";
+				break;
 			case'=':
 				key="=";
+				break;
 			}
 			if(key!="") {
+				buttonPressedEffect(key);
 				excuteCalculator(key);
+				
 			}
 				
+		}
+	}
+	private void buttonPressedEffect(String key) {
+		for(int count=0;count<buttonPanel.buttons.size();count++) {
+			if(buttonPanel.buttons.get(count).getText().equals(key))
+				buttonPanel.buttons.get(count).doClick();
 		}
 	}
 	private String getButtonText(MouseEvent e) {
