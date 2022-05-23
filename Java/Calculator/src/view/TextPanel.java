@@ -80,6 +80,7 @@ public class TextPanel extends JPanel {
 		calculateLog.setText(text);
 	}
 	public String convertNumber(String number,int type) {
+		System.out.println("넘겨받은 수="+number);
 		String text=number;
 		if(!number.contains("오")&&!number.contains("다")&&!number.contains("(")) {
 			BigDecimal result=new BigDecimal(number.replace("=", ""));
@@ -87,7 +88,7 @@ public class TextPanel extends JPanel {
 			if(result.compareTo(new BigDecimal("9.999999999999999e+15"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+15"))==-1) {
 				numberFormat=new DecimalFormat("0.###############E0");
 			}
-			else if(result.compareTo(new BigDecimal("0"))!=0&&((result.compareTo(new BigDecimal("1e-3"))==-1&&result.compareTo(new BigDecimal("-1e-3"))==1&&result.toString().replace(".","").replace("-","").length()>17)||(result.compareTo(new BigDecimal("1e-16"))==-1&&result.compareTo(new BigDecimal("-1e-16"))==1))){
+			else if(result.compareTo(new BigDecimal("0"))!=0&&((result.compareTo(new BigDecimal("1e-3"))==-1&&result.compareTo(new BigDecimal("-1e-3"))==1&&result.toPlainString().replace(".","").replace("-","").length()>17)||(result.compareTo(new BigDecimal("1e-16"))==-1&&result.compareTo(new BigDecimal("-1e-16"))==1))){
 				numberFormat=new DecimalFormat("0.###############E0");
 			}
 			else{

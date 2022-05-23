@@ -152,7 +152,7 @@ public class Calculation {
 			else
 				result=leftNumber.divide(rightNumber,MathContext.DECIMAL128);
 		}
-		System.out.println(result.toString());
+		System.out.println(result.toPlainString());
 		if(result.compareTo(new BigDecimal("9.999999999999999e+9999"))==1||result.compareTo(new BigDecimal("-9.999999999999999e+9999"))==-1||result.compareTo(new BigDecimal("0"))!=0&&result.compareTo(new BigDecimal("1e-9999"))==-1&&result.compareTo(new BigDecimal("-1e-9999"))==1) {
 			resultToString="오버플로";
 			setError();
@@ -161,7 +161,7 @@ public class Calculation {
 		else if(result.compareTo(new BigDecimal("0"))==0)
 			resultToString="0";
 		else
-			resultToString=result.toString();
+			resultToString=result.toPlainString();
 		formula=String.format("%s %s %s=", textPanel.convertNumber(temporary[0], 0),temporary[1],textPanel.convertNumber(temporary[2], 0));
 		logPanel.addButton(formula,textPanel.convertNumber(resultToString, 1));
 		state.setIsLog(false);
