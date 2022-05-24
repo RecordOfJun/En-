@@ -73,6 +73,7 @@ public class ButtonPanel extends JPanel {
 				topButtons[count].setFont(new Font("맑은 고딕",Font.PLAIN,Constant.RIGHT_BUTTON_FONT_SIZE));
 			this.add(topButtons[count]);
 		}
+		topButtons[2].setFont(new Font(null,Font.PLAIN,20));
 		int rightCount=0;
 		for(int count=0;count<10;count++) {
 			if(count%3==0&&count!=0) {

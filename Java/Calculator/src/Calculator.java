@@ -11,7 +11,8 @@ public class Calculator {
 		detecting.start();
 		//BigDecimal a=new BigDecimal("1.e-20");
 		//BigDecimal b=new BigDecimal("negate3");
-		//System.out.println(b);
+		
+		//System.out.println(a.toString());
 	}
 
 }
