@@ -57,7 +57,7 @@ public class Calculation {
 	
 	public void detectEqual() {//=입력 감지
 		if(!state.getIsError()){//마지막 타입 =이라고 알림
-			if(status.getUpField()==""||status.getUpFieldText().split(" ").length==1) {//위 필드가 비워져 있다면 아래 숫자와 = 합쳐서 위필드로 올림
+			if(status.getUpField()==""||status.getUpField().split(" ").length==1) {//위 필드가 비워져 있다면 아래 숫자와 = 합쳐서 위필드로 올림
 				status.setUpField(status.getNumber()+"=");
 			}
 			else {//위 필드가 비어져 있지 않을 때

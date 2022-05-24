@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeListenerProxy;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -19,7 +16,10 @@ import utility.Constant;
 public class TextPanel extends JPanel {
 	public JLabel calculateLog=new JLabel("");
 	public JLabel presentNumber=new JLabel("0");
-	
+	private JScrollPane formulaScroll=new JScrollPane(calculateLog,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	private JPanel formulaPanel=new JPanel();
+	private JButton leftButton=new JButton("<");
+	private JButton rightButton=new JButton(">");
 	public TextPanel() {
 		setPanel();
 		setLogField();
@@ -28,20 +28,33 @@ public class TextPanel extends JPanel {
 	private void setPanel() {
 		this.setLayout(new GridLayout(2,1,0,0));
 		this.setPreferredSize(new Dimension(300,60));
-		this.add(calculateLog);
+		formulaPanel.setLayout(new BorderLayout());
+		this.add(formulaPanel);
 		this.add(presentNumber);
 	}
 	
 	private void setLogField() {
 		calculateLog.setHorizontalAlignment(JTextField.RIGHT);
 		calculateLog.setFont(new Font("맑은 고딕",Font.PLAIN,15));
-		calculateLog.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		calculateLog.setBackground(null);
 		calculateLog.setBorder(null);
+		formulaScroll.getViewport().setBackground(null);
+		formulaScroll.setBackground(null);
+		formulaScroll.setBorder(null);
+		leftButton.setBackground(null);
+		leftButton.setBorder(null);
+		rightButton.setBackground(null);
+		rightButton.setBorder(null);
+		rightButton.addActionListener(new rightButtonAction());
+		formulaPanel.setBackground(null);
+		formulaPanel.add(leftButton,BorderLayout.WEST);
+		formulaPanel.add(formulaScroll,BorderLayout.CENTER);
+		formulaPanel.add(rightButton,BorderLayout.EAST);
 	}
 	private void setNumberField() {
 		presentNumber.setHorizontalAlignment(JTextField.RIGHT);
 		presentNumber.setFont(new Font("돋움",Font.BOLD,50));
-		presentNumber.setBackground(new Color(Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB,Constant.BACKGROUND_RGB));
+		presentNumber.setBackground(null);
 		presentNumber.setBorder(null);
 	}
 	public void setPresentText(String number) {
@@ -171,5 +184,15 @@ public class TextPanel extends JPanel {
         			break;
         	}
         }
+	}
+	public class rightButtonAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()+60);
+		}
+	}
+	public class leftButtonAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()-60);
+		}
 	}
 }
