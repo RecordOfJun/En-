@@ -47,7 +47,7 @@ public class Calculation {
 			}
 			//모든 경우 다 아래 숫자와 연산자가 합쳐져서 위 필드로 올라감
 			if(state.getLastType()==Constant.TYPE_EQUAL&&status.getUpFieldText().endsWith(")"))
-				status.setUpField(String.format("negate(%s) %s", status.getNumber(),operator));
+				status.setUpField(String.format("%s %s", status.getUpFieldText(),operator));
 			else
 				status.setUpField(String.format("%s %s", status.getNumber(),operator));
 			state.setLastType(Constant.TYPE_OPERATOR);
