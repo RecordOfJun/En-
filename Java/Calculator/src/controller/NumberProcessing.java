@@ -90,7 +90,7 @@ public class NumberProcessing {
 		}
 		else if(state.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
 			status.setNumber("0");
-			if(!state.getIsLog())
+			if(!state.getIsLog()&&status.getUpFieldText().split(" ").length!=1)
 				status.setUpFieldText("");
 		}
 		//위 필드가 채워지지 않았을 경우&위 필드가 채워져있는데 이전에 숫자를 쳤었다면
@@ -116,7 +116,7 @@ public class NumberProcessing {
 		if(!state.getIsError()) {
 			if(state.getLastType()==Constant.TYPE_NUMBER)
 				removeNumber();
-			else if(state.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!="") {
+			else if(state.getLastType()==Constant.TYPE_EQUAL&&status.getUpField()!=""&&status.getUpFieldText().split(" ").length!=1) {
 				status.setUpFieldText("");
 			}
 		}
