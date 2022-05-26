@@ -8,6 +8,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.*;
 
 import model.NumberList;
@@ -36,6 +39,7 @@ public class ButtonDetecting {
 		}); 
 		frame.addComponentListener(new textResizeListener());
 		frame.logPanel.setListener(new logActionListener());
+		textPanel.calculateLog.addPropertyChangeListener(new buttonAttachListener());
 	}
 	public void start(){
 		frame.loadFrame();
@@ -233,5 +237,21 @@ public class ButtonDetecting {
         public void componentResized(ComponentEvent e) {
         	resizeText();
         }
+	}
+	public class buttonAttachListener implements PropertyChangeListener{
+		public void propertyChange(PropertyChangeEvent e) {
+			int lastValue=-1;
+			int presentValue=0;
+			while(true) {
+				lastValue=textPanel.formulaScroll.getHorizontalScrollBar().getValue();
+				textPanel.formulaScroll.getHorizontalScrollBar().setValue(lastValue+50);
+				presentValue=textPanel.formulaScroll.getHorizontalScrollBar().getValue();
+				if(lastValue==presentValue)
+					break;
+			}
+			frame.repaint();
+			frame.revalidate();
+			//formulaScroll.getHorizontalScrollBar().setValue(lastValue+60);
+		}
 	}
 }

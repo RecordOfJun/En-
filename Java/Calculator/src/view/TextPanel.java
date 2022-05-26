@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -16,10 +18,10 @@ import utility.Constant;
 public class TextPanel extends JPanel {
 	public JLabel calculateLog=new JLabel("");
 	public JLabel presentNumber=new JLabel("0");
-	private JScrollPane formulaScroll=new JScrollPane(calculateLog,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	public JScrollPane formulaScroll=new JScrollPane(calculateLog,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	private JPanel formulaPanel=new JPanel();
-	private JButton leftButton=new JButton("<");
-	private JButton rightButton=new JButton(">");
+	private JButton leftButton=new JButton("< ");
+	private JButton rightButton=new JButton(" >");
 	public TextPanel() {
 		setPanel();
 		setLogField();
@@ -38,6 +40,7 @@ public class TextPanel extends JPanel {
 		calculateLog.setFont(new Font("맑은 고딕",Font.PLAIN,15));
 		calculateLog.setBackground(null);
 		calculateLog.setBorder(null);
+		//calculateLog.addPropertyChangeListener(new buttonAttachListener());
 		formulaScroll.getViewport().setBackground(null);
 		formulaScroll.setBackground(null);
 		formulaScroll.setBorder(null);
@@ -46,6 +49,7 @@ public class TextPanel extends JPanel {
 		rightButton.setBackground(null);
 		rightButton.setBorder(null);
 		rightButton.addActionListener(new rightButtonAction());
+		leftButton.addActionListener(new leftButtonAction());
 		formulaPanel.setBackground(null);
 		formulaPanel.add(leftButton,BorderLayout.WEST);
 		formulaPanel.add(formulaScroll,BorderLayout.CENTER);
@@ -187,12 +191,14 @@ public class TextPanel extends JPanel {
 	}
 	public class rightButtonAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()+60);
+			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()+50);
+			System.out.println(formulaScroll.getHorizontalScrollBar().getValue());
 		}
 	}
 	public class leftButtonAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()-60);
+			formulaScroll.getHorizontalScrollBar().setValue(formulaScroll.getHorizontalScrollBar().getValue()-50);
+			System.out.println(formulaScroll.getHorizontalScrollBar().getValue());
 		}
 	}
 }
