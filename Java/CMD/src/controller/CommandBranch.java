@@ -1,18 +1,35 @@
 package controller;
 import view.*;
+import model.*;
+import controller.commands.*;
 import java.util.Scanner;
 public class CommandBranch {
 	Information information;
 	CommandResult commandResult;
+	DirectoryData directoryData;
+	CD commandCD;
+	CLS commandCLS;
+	COPY commandCOPY;
+	DIR commandDIR;
+	HELP commandHELP;
+	MOVE commandMOVE;
 	public CommandBranch(){
 		information=new Information();
 		commandResult=new CommandResult();
+		directoryData=new DirectoryData();
+		commandCD= new CD();
+		commandCLS=new CLS();
+		commandCOPY=new COPY();
+		commandDIR=new DIR();
+		commandHELP=new HELP(commandResult);
+		commandMOVE=new MOVE();
 	}
 	public void excuteCMD() {
 		boolean isExited=false;
 		information.showOSInformation(getOSversion());
+		directoryData.setDirectory(System.getProperty("user.home"));
 		while(!isExited) {
-			information.showCurrentDirectory(getCurrentDirectory());
+			information.showCurrentDirectory(directoryData.getDirectory());
 			isExited=detectCommand();
 		}
 	}
@@ -27,6 +44,10 @@ public class CommandBranch {
 	private boolean detectCommand() {
 		Scanner userInput=new Scanner(System.in);
 		String firstKeyWord=userInput.next();
+		if(userInput.hasNextLine())
+			System.out.println("있음");
+		//String command=userInput.nextLine()
+		/*;
 		switch(firstKeyWord.toLowerCase()) {
 			case "cd":
 				
@@ -39,6 +60,7 @@ public class CommandBranch {
 				break;
 			case "help":
 				commandResult.showAllCommand();
+				//commandHELP.detectLine(userInput.next());
 				break;
 			case "copy":
 				
@@ -51,6 +73,10 @@ public class CommandBranch {
 			default:
 				information.informNoneCommand(firstKeyWord);
 		}
+		*/
 		return false;
 	}
+	//private String detectHelp() {
+		
+	//}
 }
