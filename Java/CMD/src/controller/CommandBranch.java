@@ -21,7 +21,7 @@ public class CommandBranch {
 		commandCD= new CD(commandResult,directoryData);
 		//commandCLS=new CLS();
 		commandCOPY=new COPY();
-		commandDIR=new DIR();
+		//commandDIR=new DIR();
 		//commandHELP=new HELP(commandResult);
 		commandMOVE=new MOVE();
 	}
@@ -47,6 +47,33 @@ public class CommandBranch {
 		String command=userInput.nextLine();
 		String firstKeyWord=UserInputProcessing.getInstance().splitCommand(command);
 		String extraCommand;
+		switch(UserInputProcessing.getInstance().extractCommand(firstKeyWord)) {
+		case 1:
+			extraCommand=command.trim().toLowerCase().substring(2);
+			commandCD.excuteCommand(extraCommand);
+			break;
+		case 2:
+			
+			break;
+		case 5:
+			commandResult.clearConsole();
+			break;
+		case 4:
+			commandResult.showAllCommand();
+			//commandHELP.detectLine(userInput.next());
+			break;
+		case 3:
+			
+			break;
+		case 6:
+			
+			break;
+		case 7:
+			return true;
+		default:
+			information.informNoneCommand(firstKeyWord);
+	}
+		/*
 		switch(firstKeyWord.toLowerCase()) {
 			case "cd":case "cd..":case "cd\\":case "cd..\\..":
 				extraCommand=command.trim().toLowerCase().substring(2);
@@ -73,6 +100,7 @@ public class CommandBranch {
 			default:
 				information.informNoneCommand(firstKeyWord);
 		}
+		*/
 		return false;
 	}
 }

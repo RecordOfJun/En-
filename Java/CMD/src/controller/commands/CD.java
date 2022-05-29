@@ -24,47 +24,35 @@ public class CD implements commandExcution {
 	}
 	private void CDBranch(String extraLine) {
 		String extraCommand=extraLine.trim();
-		switch(extraCommand) {
-			case "":
-				commandResult.showDirectory(directoryData.getDirectory());
-				break;
-			case "..":
-				moveToParent();
-				break;
-			case "\\":
-				moveToRoot();
-				break;
-			case "..\\..":
-				moveToParent();
-				moveToParent();
-				break;
-			default:
-				moveToAbsolutePath(extraCommand);
-				break;
-		}
-	}
-	private boolean moveToParent() {
-		String parentPath;
-		if(path.getParentFile()!=null) {
-			parentPath=path.getParentFile().getAbsolutePath();
-			path=path.getParentFile();
-		}
+		if(extraCommand.equals(""))
+			commandResult.showDirectory(path.getAbsolutePath());
+		if(extraCommand.contains(":"))
+			moveToAbsolutePath(extraCommand);
 		else
-			return true;
-		directoryData.setDirectory(parentPath);
-		return false;
-	}
-	private void moveToRoot() {
-		boolean isRoot=false;
-		while(!isRoot)
-			isRoot=moveToParent();
+			moveToRelativePath(extraCommand);
+		checkAndSetPath();
 	}
 	private void moveToAbsolutePath(String filePath) {
 		path=new File(filePath);
-		if(path.exists())
-			directoryData.setDirectory(path.getAbsolutePath());
+			
+	}
+	private void moveToRelativePath(String filePath) {
+		path=new File(path.getPath()+"\\"+filePath);
+	}
+	private void checkAndSetPath() {
+		if(path.exists()) {
+			if(!path.isDirectory()) {
+				System.out.println("디렉터리 이름이 올바르지 않습니다.");
+			}
+			try {
+				directoryData.setDirectory(path.getCanonicalPath());
+			}
+			catch(Exception e) {
+				System.out.println("지정된 경로를 찾을 수 없습니다.");
+				return;
+			}
+		}
 		else
 			System.out.println("지정된 경로를 찾을 수 없습니다.");
-			
 	}
 }
