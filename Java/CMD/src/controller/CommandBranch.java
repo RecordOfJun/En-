@@ -47,17 +47,9 @@ public class CommandBranch {
 		String command=userInput.nextLine();
 		String firstKeyWord=UserInputProcessing.getInstance().splitCommand(command);
 		String extraCommand;
-		switch(UserInputProcessing.getInstance().extractCommand(firstKeyWord)) {
-			case 1:
-				System.out.println("cd");
-				break;
-			default:
-				information.informNoneCommand(firstKeyWord);
-		}
-		/*
 		switch(firstKeyWord.toLowerCase()) {
 			case "cd":case "cd..":case "cd\\":case "cd..\\..":
-				extraCommand=command.trim().toLowerCase().replace("cd", "").trim();
+				extraCommand=command.trim().toLowerCase().substring(2);
 				commandCD.excuteCommand(extraCommand);
 				break;
 			case "dir":
@@ -81,7 +73,6 @@ public class CommandBranch {
 			default:
 				information.informNoneCommand(firstKeyWord);
 		}
-		*/
 		return false;
 	}
 }

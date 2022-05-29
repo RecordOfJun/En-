@@ -11,11 +11,4 @@ public class UserInputProcessing {
 		String[] command=line.trim().split("[\\s]+");
 		return command[0];
 	}
-	public int extractCommand(String line) {
-		String command=line.toLowerCase().trim();
-		if(command.startsWith("cd")&&!command.substring(2).matches("[(가-힣)|(a-z)|(0-9)]")) {
-			return 1;
-		}
-		return 2;
-	}
 }

@@ -16,21 +16,15 @@ public class CD implements commandExcution {
 	@Override
 	public void excuteCommand(String command) {
 		// TODO Auto-generated method stub
-		/*
-		if(keyWords.length==1) {
-			synchronizeFile();
-			CDBranch(keyWords[0]);
-		}
-		else{
-			
-		}
-		*/
+		synchronizeFile();
+		CDBranch(command);
 	}
 	private void synchronizeFile() {
 		path=new File(directoryData.getDirectory());
 	}
-	private void CDBranch(String firstKeyWord) {
-		switch(firstKeyWord) {
+	private void CDBranch(String extraLine) {
+		String extraCommand=extraLine.trim();
+		switch(extraCommand) {
 			case "":
 				commandResult.showDirectory(directoryData.getDirectory());
 				break;
@@ -44,7 +38,9 @@ public class CD implements commandExcution {
 				moveToParent();
 				moveToParent();
 				break;
-				
+			default:
+				moveToAbsolutePath(extraCommand);
+				break;
 		}
 	}
 	private boolean moveToParent() {
@@ -63,7 +59,12 @@ public class CD implements commandExcution {
 		while(!isRoot)
 			isRoot=moveToParent();
 	}
-	private void moveToAbsolutePath() {
-		
+	private void moveToAbsolutePath(String filePath) {
+		path=new File(filePath);
+		if(path.exists())
+			directoryData.setDirectory(path.getAbsolutePath());
+		else
+			System.out.println("지정된 경로를 찾을 수 없습니다.");
+			
 	}
 }
