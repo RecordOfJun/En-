@@ -1,8 +1,12 @@
 package view;
 
+import java.io.File;
+import java.nio.file.FileStore;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import javax.swing.filechooser.FileSystemView;
 public class CommandResult {
 	public void showAllCommand() {
 		System.out.println("특정 명령어에 대한 자세한 내용이 필요하면 HELP 명령어 이름을 입력하십시오.\r\n"
@@ -111,6 +115,13 @@ public class CommandResult {
 	public void showDirectory(String path) {
 		System.out.println(path);
 	}
+	public void showDiskData(String path) {
+		System.out.println(" C 드라이브의 볼륨: Local Disk");
+		//System.out.println(" 볼륨 일련 번호: "+FileStore a);
+		System.out.println();
+		System.out.println(String.format(" %s 디렉터리", path));
+		System.out.println();
+	}
 	public void showDirectoryData(Date lastModified,String DIR,String fileName) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd aa hh:mm");
 		System.out.println(dateFormat.format(lastModified)+String.format("    %-15s%s",DIR,fileName));
@@ -118,5 +129,9 @@ public class CommandResult {
 	public void showFileData(Date lastModified,long fileByte,String fileName) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd aa hh:mm");
 		System.out.println(dateFormat.format(lastModified)+String.format("%,18d %s",fileByte ,fileName));
+	}
+	public void showDirectoryByte(int directoryCount,int fileCount,long fileByte,long usableByte) {
+		System.out.println(String.format("%15d개 파일  %,16d 바이트",fileCount,fileByte));
+		System.out.println(String.format("%15d개 디렉터리%,16d 바이트 남음",directoryCount,usableByte));
 	}
 }
