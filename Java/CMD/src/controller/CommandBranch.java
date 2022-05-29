@@ -21,7 +21,7 @@ public class CommandBranch {
 		commandCD= new CD(commandResult,directoryData);
 		//commandCLS=new CLS();
 		commandCOPY=new COPY();
-		//commandDIR=new DIR();
+		commandDIR=new DIR(commandResult,directoryData);
 		//commandHELP=new HELP(commandResult);
 		commandMOVE=new MOVE();
 	}
@@ -53,7 +53,8 @@ public class CommandBranch {
 			commandCD.excuteCommand(extraCommand);
 			break;
 		case 2:
-			
+			extraCommand=command.trim().toLowerCase().substring(3);
+			commandDIR.excuteCommand(extraCommand);
 			break;
 		case 5:
 			commandResult.clearConsole();

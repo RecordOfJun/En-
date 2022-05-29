@@ -1,5 +1,8 @@
 package view;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CommandResult {
 	public void showAllCommand() {
 		System.out.println("특정 명령어에 대한 자세한 내용이 필요하면 HELP 명령어 이름을 입력하십시오.\r\n"
@@ -107,5 +110,13 @@ public class CommandResult {
 	}
 	public void showDirectory(String path) {
 		System.out.println(path);
+	}
+	public void showDirectoryData(Date lastModified,String DIR,String fileName) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd aa hh:mm");
+		System.out.println(dateFormat.format(lastModified)+String.format("    %-15s%s",DIR,fileName));
+	}
+	public void showFileData(Date lastModified,long fileByte,String fileName) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd aa hh:mm");
+		System.out.println(dateFormat.format(lastModified)+String.format("%,18d %s",fileByte ,fileName));
 	}
 }

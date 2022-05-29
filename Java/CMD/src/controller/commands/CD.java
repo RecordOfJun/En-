@@ -17,18 +17,18 @@ public class CD implements commandExcution {
 	public void excuteCommand(String command) {
 		// TODO Auto-generated method stub
 		synchronizeFile();
-		CDBranch(command);
+		cdBranch(command);
 	}
 	private void synchronizeFile() {
 		path=new File(directoryData.getDirectory());
 	}
-	private void CDBranch(String extraLine) {
+	private void cdBranch(String extraLine) {
 		String extraCommand=extraLine.trim();
 		if(extraCommand.equals(""))
 			commandResult.showDirectory(path.getAbsolutePath());
-		if(extraCommand.contains(":"))
+		else if(extraCommand.contains(":"))//절대경로 이동
 			moveToAbsolutePath(extraCommand);
-		else
+		else//상대경로 이동
 			moveToRelativePath(extraCommand);
 		checkAndSetPath();
 	}
