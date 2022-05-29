@@ -24,8 +24,8 @@ public class ButtonDetecting {
 	private NumberProcessing process;
 	public State state;
 	public NumberList status;
-	public ButtonDetecting(CalculatorFrame a){
-		frame=a;
+	public ButtonDetecting(){
+		frame=new CalculatorFrame();
 		status=new NumberList();
 		state= new State();
 		textPanel=frame.calculatings;

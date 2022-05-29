@@ -11,3 +11,17 @@ C:\Users\user\Desktop\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.csproj.
 C:\Users\user\Desktop\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.dll
 C:\Users\user\Desktop\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.pdb
 C:\Users\user\Desktop\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.genruntimeconfig.cache
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.exe
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.deps.json
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.runtimeconfig.json
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.runtimeconfig.dev.json
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.dll
+C:\Users\12\OneDrive\개발\TicTacToe\bin\Debug\netcoreapp3.1\TicTacToe.pdb
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.csproj.AssemblyReference.cache
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.AssemblyInfoInputs.cache
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.AssemblyInfo.cs
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.csproj.CoreCompileInputs.cache
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.dll
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.pdb
+C:\Users\12\OneDrive\개발\TicTacToe\obj\Debug\netcoreapp3.1\TicTacToe.genruntimeconfig.cache

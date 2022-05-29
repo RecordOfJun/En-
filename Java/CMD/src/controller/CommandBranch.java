@@ -1,5 +1,6 @@
 package controller;
 import view.*;
+import utility.*;
 import model.*;
 import controller.commands.*;
 import java.util.Scanner;
@@ -8,20 +9,20 @@ public class CommandBranch {
 	CommandResult commandResult;
 	DirectoryData directoryData;
 	CD commandCD;
-	CLS commandCLS;
+	//CLS commandCLS;
 	COPY commandCOPY;
 	DIR commandDIR;
-	HELP commandHELP;
+	//HELP commandHELP;
 	MOVE commandMOVE;
 	public CommandBranch(){
 		information=new Information();
 		commandResult=new CommandResult();
 		directoryData=new DirectoryData();
-		commandCD= new CD();
-		commandCLS=new CLS();
+		commandCD= new CD(commandResult,directoryData);
+		//commandCLS=new CLS();
 		commandCOPY=new COPY();
 		commandDIR=new DIR();
-		commandHELP=new HELP(commandResult);
+		//commandHELP=new HELP(commandResult);
 		commandMOVE=new MOVE();
 	}
 	public void excuteCMD() {
@@ -43,14 +44,21 @@ public class CommandBranch {
 	}
 	private boolean detectCommand() {
 		Scanner userInput=new Scanner(System.in);
-		String firstKeyWord=userInput.next();
-		if(userInput.hasNextLine())
-			System.out.println("있음");
-		//String command=userInput.nextLine()
-		/*;
+		String command=userInput.nextLine();
+		String firstKeyWord=UserInputProcessing.getInstance().splitCommand(command);
+		String extraCommand;
+		switch(UserInputProcessing.getInstance().extractCommand(firstKeyWord)) {
+			case 1:
+				System.out.println("cd");
+				break;
+			default:
+				information.informNoneCommand(firstKeyWord);
+		}
+		/*
 		switch(firstKeyWord.toLowerCase()) {
-			case "cd":
-				
+			case "cd":case "cd..":case "cd\\":case "cd..\\..":
+				extraCommand=command.trim().toLowerCase().replace("cd", "").trim();
+				commandCD.excuteCommand(extraCommand);
 				break;
 			case "dir":
 				
@@ -76,7 +84,4 @@ public class CommandBranch {
 		*/
 		return false;
 	}
-	//private String detectHelp() {
-		
-	//}
 }

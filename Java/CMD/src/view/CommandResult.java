@@ -105,4 +105,7 @@ public class CommandResult {
 		for(int line=0;line<30;line++)
 			System.out.println();
 	}
+	public void showDirectory(String path) {
+		System.out.println(path);
+	}
 }
