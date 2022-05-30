@@ -18,6 +18,9 @@ public class Command {
 	}
 	protected void movePath(String extraLine) {
 		String extraCommand=extraLine.trim();
+		if(extraCommand.startsWith("\\")){
+			extraCommand="c:"+extraCommand;
+		}
 		if(extraCommand.contains(":"))//절대경로 이동
 			moveToAbsolutePath(extraCommand);
 		else//상대경로 이동
