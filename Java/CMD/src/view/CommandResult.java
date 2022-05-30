@@ -134,4 +134,26 @@ public class CommandResult {
 		System.out.println(String.format("%15d개 파일  %,16d 바이트",fileCount,fileByte));
 		System.out.println(String.format("%15d개 디렉터리%,16d 바이트 남음",directoryCount,usableByte));
 	}
+	public void announceWrongCommand() {
+		System.out.println("명령 구문이 올바르지 않습니다.");
+	}
+	public void announcePathFindFailed() {
+		System.out.println("지정된 경로를 찾을 수 없습니다.");
+	}
+	public void announceIsNotDirectory() {
+		System.out.println("디렉터리 이름이 올바르지 않습니다.");
+	}
+	public void announceFileFindFailed() {
+		System.out.println("파일을 찾을 수 없습니다.");
+	}
+	public void announceCanNotCopySameFile() {
+		System.out.println("같은 파일로 복사할 수 없습니다.");
+		System.out.println("     0개 파일이 복사되었습니다.");
+	}
+	public void announceCopyComplete(int count) {
+		System.out.println(String.format("     %d개 파일이 복사되었습니다.",count));
+	}
+	public void askCopy(String rightPath) {
+		System.out.print(rightPath+"을(를) 덮어쓰시겠습니까? (Yes/No/All):");
+	}
 }

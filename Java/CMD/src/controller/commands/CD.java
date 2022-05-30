@@ -5,54 +5,38 @@ import java.io.File;
 
 import controller.commandExcution;
 import model.*;
-public class CD implements commandExcution {
-	CommandResult commandResult;
-	DirectoryData directoryData;
-	File path;
-	public CD(CommandResult commandResult,DirectoryData directoryData) {
-		this.commandResult=commandResult;
-		this.directoryData=directoryData;
+public class CD extends Command implements commandExcution {
+	public CD(CommandResult commandResult, DirectoryData directoryData) {
+		super(commandResult, directoryData);
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void excuteCommand(String command) {
 		// TODO Auto-generated method stub
 		synchronizeFile();
-		cdBranch(command);
+		setCdBranch(command);
 	}
-	private void synchronizeFile() {
-		path=new File(directoryData.getDirectory());
-	}
-	private void cdBranch(String extraLine) {
+	private void setCdBranch(String extraLine) {
 		String extraCommand=extraLine.trim();
 		if(extraCommand.equals(""))
 			commandResult.showDirectory(path.getAbsolutePath());
-		else if(extraCommand.contains(":"))//절대경로 이동
-			moveToAbsolutePath(extraCommand);
-		else//상대경로 이동
-			moveToRelativePath(extraCommand);
+		movePath(extraCommand);
 		checkAndSetPath();
-	}
-	private void moveToAbsolutePath(String filePath) {
-		path=new File(filePath);
-			
-	}
-	private void moveToRelativePath(String filePath) {
-		path=new File(path.getPath()+"\\"+filePath);
 	}
 	private void checkAndSetPath() {
 		if(path.exists()) {
 			if(!path.isDirectory()) {
-				System.out.println("디렉터리 이름이 올바르지 않습니다.");
+				commandResult.announceIsNotDirectory();
 			}
 			try {
 				directoryData.setDirectory(path.getCanonicalPath());
 			}
 			catch(Exception e) {
-				System.out.println("지정된 경로를 찾을 수 없습니다.");
+				commandResult.announcePathFindFailed();
 				return;
 			}
 		}
 		else
-			System.out.println("지정된 경로를 찾을 수 없습니다.");
+			commandResult.announcePathFindFailed();
 	}
 }

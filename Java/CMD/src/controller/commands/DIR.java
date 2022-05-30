@@ -1,22 +1,16 @@
 package controller.commands;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.swing.filechooser.FileSystemView;
 
 import controller.commandExcution;
 import model.DirectoryData;
 import view.CommandResult;
 
-public class DIR implements commandExcution {
-	CommandResult commandResult;
-	DirectoryData directoryData;
-	File path;
-	public DIR(CommandResult commandResult,DirectoryData directoryData) {
-		this.commandResult=commandResult;
-		this.directoryData=directoryData;
+public class DIR extends Command implements commandExcution {
+	public DIR(CommandResult commandResult, DirectoryData directoryData) {
+		super(commandResult, directoryData);
+		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void excuteCommand(String command) {
@@ -31,26 +25,8 @@ public class DIR implements commandExcution {
 		}
 		else {
 			commandResult.showDiskData(getPath(path));
-			System.out.println("파일을 찾을 수 없습니다.");
+			commandResult.announceFileFindFailed();
 		}
-	}
-	private void synchronizeFile() {
-		path=new File(directoryData.getDirectory());
-	}
-	private void movePath(String extraLine) {
-		String extraCommand=extraLine.trim();
-		if(extraCommand.contains(":"))//절대경로 이동
-			moveToAbsolutePath(extraCommand);
-		else//상대경로 이동
-			moveToRelativePath(extraCommand);
-	}
-	private void moveToAbsolutePath(String filePath) {
-		path=new File(filePath);
-			
-	}
-	private void moveToRelativePath(String filePath) {
-		path=new File(path.getPath()+"\\"+filePath);
-		path=new File(getPath(path));
 	}
 	private void findDirectoryData() {
 		File[] files=path.listFiles();
@@ -90,14 +66,5 @@ public class DIR implements commandExcution {
 		Date lastModified=new Date(path.lastModified());
 		commandResult.showFileData(lastModified, path.length(), path.getName());
 		commandResult.showDirectoryByte(1, 0, path.length(), path.getUsableSpace());
-	}
-	private String getPath(File file) {
-		try {
-			String canonicalPath=file.getCanonicalPath();
-			return canonicalPath;
-		}
-		catch(Exception e) {
-			return "";
-		}
 	}
 }

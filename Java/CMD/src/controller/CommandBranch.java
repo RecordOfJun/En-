@@ -14,16 +14,18 @@ public class CommandBranch {
 	DIR commandDIR;
 	//HELP commandHELP;
 	MOVE commandMOVE;
+	UserInputProcessing userInputProcessing;
 	public CommandBranch(){
 		information=new Information();
 		commandResult=new CommandResult();
 		directoryData=new DirectoryData();
 		commandCD= new CD(commandResult,directoryData);
 		//commandCLS=new CLS();
-		commandCOPY=new COPY();
+		commandCOPY=new COPY(commandResult,directoryData);
 		commandDIR=new DIR(commandResult,directoryData);
 		//commandHELP=new HELP(commandResult);
 		commandMOVE=new MOVE();
+		userInputProcessing=new UserInputProcessing();
 	}
 	public void excuteCMD() {
 		boolean isExited=false;
@@ -38,16 +40,12 @@ public class CommandBranch {
 		String version=System.getProperty("os.version");
 		return version;
 	}
-	private String getCurrentDirectory() {
-		String currentDirectory="현재위치";
-		return currentDirectory;
-	}
 	private boolean detectCommand() {
 		Scanner userInput=new Scanner(System.in);
 		String command=userInput.nextLine();
-		String firstKeyWord=UserInputProcessing.getInstance().splitCommand(command);
+		String firstKeyWord=userInputProcessing.splitCommand(command);
 		String extraCommand;
-		switch(UserInputProcessing.getInstance().extractCommand(firstKeyWord)) {
+		switch(userInputProcessing.extractCommand(firstKeyWord)) {
 		case 1:
 			extraCommand=command.trim().toLowerCase().substring(2);
 			commandCD.excuteCommand(extraCommand);
@@ -64,44 +62,18 @@ public class CommandBranch {
 			//commandHELP.detectLine(userInput.next());
 			break;
 		case 3:
-			
+			extraCommand=command.trim().toLowerCase().substring(4);
+			commandCOPY.excuteCommand(extraCommand);
 			break;
 		case 6:
-			
+			extraCommand=command.trim().toLowerCase().substring(4);
+			commandCOPY.excuteCommand(extraCommand);
 			break;
 		case 7:
 			return true;
 		default:
 			information.informNoneCommand(firstKeyWord);
 	}
-		/*
-		switch(firstKeyWord.toLowerCase()) {
-			case "cd":case "cd..":case "cd\\":case "cd..\\..":
-				extraCommand=command.trim().toLowerCase().substring(2);
-				commandCD.excuteCommand(extraCommand);
-				break;
-			case "dir":
-				
-				break;
-			case "cls":
-				commandResult.clearConsole();
-				break;
-			case "help":
-				commandResult.showAllCommand();
-				//commandHELP.detectLine(userInput.next());
-				break;
-			case "copy":
-				
-				break;
-			case "move":
-				
-				break;
-			case "exit":
-				return true;
-			default:
-				information.informNoneCommand(firstKeyWord);
-		}
-		*/
 		return false;
 	}
 }
