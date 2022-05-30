@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import controller.commandExcution;
 import model.DirectoryData;
+import utility.Constant;
 import view.CommandResult;
 
 public class COPY extends TransForm {
@@ -29,7 +30,7 @@ public class COPY extends TransForm {
 		}
 		else if(leftFile.isFile()) {
 			int result=fileCopy(leftFile, rightFile);
-			if(result==1||result==3)
+			if(result==Constant.ANSWERYES||result==Constant.ANSWERALL)
 				commandResult.announceCopyComplete(1);
 			else
 				commandResult.announceCopyComplete(0);
@@ -42,16 +43,16 @@ public class COPY extends TransForm {
 		boolean isAll=false;
 		for(int count=0;count<childFiles.length;count++) {
 			if(childFiles[count].isFile()) {
-				System.out.println(leftFile.getName()+"\\"+childFiles[count].getName());
+				System.out.println(leftFile.getName()+Constant.BACKSLASH+childFiles[count].getName());
 				if(!isAll) {
 					int result=fileCopy(childFiles[count], rightFile);
-					if(result==1)
+					if(result==Constant.ANSWERYES)
 						completeCount++;
-					else if(result==3) {
+					else if(result==Constant.ANSWERALL) {
 						completeCount++;
 						isAll=true;
 					}
-					else if(result==0) {
+					else if(result==Constant.RESULTERROR) {
 						commandResult.announceCopyComplete(0);
 						return;
 					}
@@ -59,7 +60,7 @@ public class COPY extends TransForm {
 				else {
 					File temporaryFile=rightFile.getAbsoluteFile();
 					if(temporaryFile.isDirectory())
-						temporaryFile=new File(temporaryFile.getPath()+"\\"+childFiles[count].getName());
+						temporaryFile=new File(temporaryFile.getPath()+Constant.BACKSLASH+childFiles[count].getName());
 					tryCopy(childFiles[count], temporaryFile);
 					completeCount++;
 				}
@@ -69,7 +70,7 @@ public class COPY extends TransForm {
 	}
 	private int fileCopy(File leftFile,File rightFile) {
 		if(rightFile.exists()&&rightFile.isDirectory())
-			rightFile=new File(rightFile.getPath()+"\\"+leftFile.getName());
+			rightFile=new File(rightFile.getPath()+Constant.BACKSLASH+leftFile.getName());
 		if(getPath(leftFile).equals(getPath(rightFile))) {
 			commandResult.announceCanNotCopySameFile();
 			return 0;//오류
@@ -77,16 +78,16 @@ public class COPY extends TransForm {
 		else if(rightFile.exists()) {//물어보기
 			int result=0;
 			switch(askCover(rightFile.getName())) {
-				case 1:
+				case Constant.ANSWERYES:
 					tryCopy(leftFile, rightFile);
-					result=1;
+					result=Constant.ANSWERYES;
 					break;
-				case 2:
-					result=2;
+				case Constant.ANSWERNO:
+					result=Constant.ANSWERNO;
 					break;
-				case 3:
+				case Constant.ANSWERALL:
 					tryCopy(leftFile, rightFile);
-					result=3;
+					result=Constant.ANSWERALL;
 					break;
 			}
 			return result;
@@ -97,7 +98,7 @@ public class COPY extends TransForm {
 	private int tryCopy(File leftFile,File rightFile) {
 		try {
 			Files.copy(leftFile.toPath(), rightFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
-			return 1;
+			return Constant.RESULTSUCESS;
 		}
 		catch(Exception e){
 			if(e.getClass().toString().equals("class java.nio.file.NoSuchFileException"))
@@ -105,7 +106,7 @@ public class COPY extends TransForm {
 			else if(e.getClass().toString().equals("class java.nio.file.AccessDeniedException")) {
 				commandResult.excessDenied();
 			}
-			return 0;
+			return Constant.RESULTERROR;
 		}
 	}
 }

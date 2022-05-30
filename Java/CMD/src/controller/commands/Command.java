@@ -3,6 +3,7 @@ package controller.commands;
 import java.io.File;
 
 import model.DirectoryData;
+import utility.Constant;
 import view.CommandResult;
 
 public class Command {
@@ -18,10 +19,10 @@ public class Command {
 	}
 	protected void movePath(String extraLine) {
 		String extraCommand=extraLine.trim();
-		if(extraCommand.startsWith("\\")){
-			extraCommand="c:"+extraCommand;
+		if(extraCommand.startsWith(Constant.BACKSLASH)){
+			extraCommand=Constant.ROOTDRIVE+extraCommand;
 		}
-		if(extraCommand.contains(":"))//절대경로 이동
+		if(extraCommand.contains(Constant.COLONE))//절대경로 이동
 			moveToAbsolutePath(extraCommand);
 		else//상대경로 이동
 			moveToRelativePath(extraCommand);
@@ -32,7 +33,7 @@ public class Command {
 			
 	}
 	protected void moveToRelativePath(String filePath) {
-		path=new File(path.getPath()+"\\"+filePath);
+		path=new File(path.getPath()+Constant.BACKSLASH+filePath);
 		path=new File(getPath(path));
 	}
 	protected String getPath(File file) {
@@ -41,7 +42,7 @@ public class Command {
 			return canonicalPath;
 		}
 		catch(Exception e) {
-			return "";
+			return Constant.EMPTY;
 		}
 	}
 }

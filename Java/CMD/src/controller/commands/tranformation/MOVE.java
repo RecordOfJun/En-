@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import model.DirectoryData;
+import utility.Constant;
 import view.CommandResult;
 
 public class MOVE extends TransForm{
@@ -26,7 +27,7 @@ public class MOVE extends TransForm{
 		else {
 			if(rightFile.isFile()) {
 				int answer=askCover(getPath(rightFile));
-				if(answer==1||answer==3) {
+				if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
 					tryMove(leftFile,rightFile);
 				}
 				else
@@ -38,18 +39,18 @@ public class MOVE extends TransForm{
 		}
 	}
 	private void moveToDirectory(File leftFile,File rightFile) {
-		rightFile=new File(rightFile.getPath()+"\\"+leftFile.getName());
+		rightFile=new File(rightFile.getPath()+Constant.BACKSLASH+leftFile.getName());
 		if(rightFile.exists()) {
 			int answer=askCover(getPath(rightFile));
 			if(rightFile.isDirectory()) {
-				if(answer==1||answer==3) {
+				if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
 					commandResult.excessDenied();
 				}
 				else
 					announceMoveComplete(leftFile, 1);
 			}
 			else if(rightFile.isFile()) {
-				if(answer==1||answer==3) {
+				if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
 					tryMove(leftFile,rightFile);
 				}
 				else

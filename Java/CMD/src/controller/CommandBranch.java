@@ -41,30 +41,30 @@ public class CommandBranch {
 		String firstKeyWord=userInputProcessing.splitCommand(command);
 		String extraCommand;
 		switch(userInputProcessing.extractCommand(firstKeyWord)) {
-		case 1:
-			extraCommand=command.trim().toLowerCase().substring(2);
+		case Constant.CD:
+			extraCommand=command.trim().toLowerCase().substring(Constant.CDLENGTH);
 			commandCD.excuteCommand(extraCommand);
 			break;
-		case 2:
-			extraCommand=command.trim().toLowerCase().substring(3);
+		case Constant.DIR:
+			extraCommand=command.trim().toLowerCase().substring(Constant.DIRLENGTH);
 			information.showDirveInformation();
 			commandDIR.excuteCommand(extraCommand);
 			break;
-		case 5:
+		case Constant.CLS:
 			commandResult.clearConsole();
 			break;
-		case 4:
+		case Constant.HELP:
 			commandResult.showAllCommand();
 			break;
-		case 3:
-			extraCommand=command.trim().toLowerCase().substring(4);
+		case Constant.COPY:
+			extraCommand=command.trim().toLowerCase().substring(Constant.COPYLENGTH);
 			commandCOPY.excuteCommand(extraCommand);
 			break;
-		case 6:
-			extraCommand=command.trim().toLowerCase().substring(4);
+		case Constant.MOVE:
+			extraCommand=command.trim().toLowerCase().substring(Constant.MOVELENGTH);
 			commandMOVE.excuteCommand(extraCommand);
 			break;
-		case 7:
+		case Constant.EXIT:
 			return true;
 		default:
 			information.informNoneCommand(firstKeyWord);

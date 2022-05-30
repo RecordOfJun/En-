@@ -5,6 +5,7 @@ import java.util.Date;
 
 import controller.commandExcution;
 import model.DirectoryData;
+import utility.Constant;
 import view.CommandResult;
 
 public class DIR extends Command implements commandExcution {
@@ -56,9 +57,9 @@ public class DIR extends Command implements commandExcution {
 	}
 	private void addCurrentAndParentData() {
 		Date lastModified=new Date(path.lastModified());
-		commandResult.showDirectoryData(lastModified,"<DIR>",".");
+		commandResult.showDirectoryData(lastModified,Constant.DIRECTORY,Constant.CURRENTFILE);
 		lastModified=new Date(path.getParentFile().lastModified());
-		commandResult.showDirectoryData(lastModified,"<DIR>","..");
+		commandResult.showDirectoryData(lastModified,Constant.DIRECTORY,Constant.PARENTFILE);
 	}
 	private void findFileData() {
 		commandResult.showDiskData(getPath(path.getParentFile()));

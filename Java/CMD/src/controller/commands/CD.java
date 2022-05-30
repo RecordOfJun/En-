@@ -5,6 +5,7 @@ import java.io.File;
 
 import controller.commandExcution;
 import model.*;
+import utility.Constant;
 public class CD extends Command implements commandExcution {
 	public CD(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
@@ -18,7 +19,7 @@ public class CD extends Command implements commandExcution {
 	}
 	private void setCdBranch(String extraLine) {
 		String extraCommand=extraLine.trim();
-		if(extraCommand.equals(""))
+		if(extraCommand.equals(Constant.EMPTY))
 			commandResult.showDirectory(path.getAbsolutePath());
 		movePath(extraCommand);
 		checkAndSetPath();

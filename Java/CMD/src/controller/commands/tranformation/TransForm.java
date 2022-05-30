@@ -6,6 +6,7 @@ import java.util.Scanner;
 import controller.commandExcution;
 import controller.commands.Command;
 import model.DirectoryData;
+import utility.Constant;
 import view.CommandResult;
 
 public class TransForm extends Command implements commandExcution {
@@ -18,29 +19,29 @@ public class TransForm extends Command implements commandExcution {
 		synchronizeFile();
 		setBranchByCommandLength(command);
 	}
-	protected void setBranchByCommandLength(String command) {
-		String[] filePaths=command.trim().split("[\\s]+");
+	private void setBranchByCommandLength(String command) {
+		String[] filePaths=command.trim().split(Constant.BLANK);
 		switch(filePaths.length) {
-			case 1:
-				transferEqual(filePaths[0]);
+			case Constant.LENGTHONE:
+				handleOnePath(filePaths[Constant.LEFTFILE]);
 				break;
-			case 2:
-				two(filePaths[0], filePaths[1]);
+			case Constant.LENGTHTWO:
+				handleTwoPath(filePaths[Constant.LEFTFILE], filePaths[Constant.RIGHTFILE]);
 				break;
 			default:
-				three(filePaths[0]);
+				handleMorePath(filePaths[Constant.LEFTFILE]);
 				break;
 		}
 
 	}
-	protected void transferEqual(String filePath) {
-		if(filePath.equals(""))
+	private void handleOnePath(String filePath) {
+		if(filePath.equals(Constant.EMPTY))
 			commandResult.announceWrongCommand();
 		else {
-			two(filePath,"");
+			handleTwoPath(filePath,Constant.EMPTY);
 		}
 	}
-	protected void two(String leftPath,String rightPath) {
+	private void handleTwoPath(String leftPath,String rightPath) {
 		movePath(leftPath);
 		path=new File(getPath(path));
 		if(path.exists()) {
@@ -50,7 +51,7 @@ public class TransForm extends Command implements commandExcution {
 			commandResult.announceFileFindFailed();
 		}
 	}
-	protected void three(String leftPath) {
+	private void handleMorePath(String leftPath) {
 		movePath(leftPath);
 		path=new File(getPath(path));
 		if(path.exists()) {
@@ -68,17 +69,17 @@ public class TransForm extends Command implements commandExcution {
 			commandResult.askCover(rightFileName);
 			String answer=userInput.nextLine();
 			switch(answer.toLowerCase().charAt(0)) {
-				case 'y':
+				case Constant.STARTWITHY:
 					isAnswered=true;
-					answerResult=1;
+					answerResult=Constant.ANSWERYES;
 					break;
-				case 'n':
+				case Constant.STARTWITHN:
 					isAnswered=true;
-					answerResult=2;
+					answerResult=Constant.ANSWERNO;
 					break;
-				case 'a':
+				case Constant.STARTWITHA:
 					isAnswered=true;
-					answerResult=3;
+					answerResult=Constant.ANSWERALL;
 					break;
 				default:
 					break;
