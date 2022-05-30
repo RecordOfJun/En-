@@ -155,4 +155,13 @@ public class CommandResult {
 	public void askCover(String rightPath) {
 		System.out.print(rightPath+"을(를) 덮어쓰시겠습니까? (Yes/No/All):");
 	}
+	public void announceFileMoveComplete(int count) {
+		System.out.println(String.format("     %d개 파일을 이동했습니다.",count));
+	}
+	public void announceDirectoryMoveComplete(int count) {
+		System.out.println(String.format("     %d개 디렉터리를 이동했습니다.",count));
+	}
+	public void excessDenied() {
+		System.out.println("액세스가 거부되었습니다.");
+	}
 }

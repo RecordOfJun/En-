@@ -1,4 +1,4 @@
-package controller.commands;
+package controller.commands.tranformation;
 
 
 
@@ -11,7 +11,7 @@ import controller.commandExcution;
 import model.DirectoryData;
 import view.CommandResult;
 
-public class COPY extends Command implements commandExcution {
+public class COPY extends TransForm {
 
 	public COPY(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
@@ -19,54 +19,7 @@ public class COPY extends Command implements commandExcution {
 	}
 
 	@Override
-	public void excuteCommand(String command) {
-		// TODO Auto-generated method stub
-		synchronizeFile();
-		setBranchByCommandLength(command);
-	}
-	private void setBranchByCommandLength(String command) {
-		String[] filePaths=command.trim().split("[\\s]+");
-		switch(filePaths.length) {
-			case 1:
-				transferEqual(filePaths[0]);
-				break;
-			case 2:
-				two(filePaths[0], filePaths[1]);
-				break;
-			default:
-				three(filePaths[0]);
-				break;
-		}
-
-	}
-	private void transferEqual(String filePath) {
-		if(filePath.equals(""))
-			commandResult.announceWrongCommand();
-		else {
-			two(filePath,"");
-		}
-	}
-	private void two(String leftPath,String rightPath) {
-		movePath(leftPath);
-		path=new File(getPath(path));
-		if(path.exists()) {
-			copyFile(rightPath);
-		}
-		else {
-			commandResult.announceFileFindFailed();
-		}
-	}
-	private void three(String leftPath) {
-		movePath(leftPath);
-		path=new File(getPath(path));
-		if(path.exists()) {
-			commandResult.announceWrongCommand();
-		}
-		else {
-			commandResult.announceFileFindFailed();
-		}
-	}
-	private void copyFile(String rightPath) {
+	protected void transferFile(String rightPath) {
 		File leftFile=new File(getPath(path));
 		synchronizeFile();
 		movePath(rightPath);
@@ -115,61 +68,46 @@ public class COPY extends Command implements commandExcution {
 		commandResult.announceCopyComplete(completeCount);
 	}
 	private int fileCopy(File leftFile,File rightFile) {
-		if(rightFile.isDirectory())
+		if(rightFile.exists()&&rightFile.isDirectory())
 			rightFile=new File(rightFile.getPath()+"\\"+leftFile.getName());
 		if(getPath(leftFile).equals(getPath(rightFile))) {
 			commandResult.announceCanNotCopySameFile();
 			return 0;//오류
 		}
 		else if(rightFile.exists()) {//물어보기
+			int result=0;
 			switch(askCover(rightFile.getName())) {
 				case 1:
 					tryCopy(leftFile, rightFile);
-					return 1;
+					result=1;
+					break;
 				case 2:
-					return 2;
+					result=2;
+					break;
 				case 3:
 					tryCopy(leftFile, rightFile);
-					return 3;
+					result=3;
+					break;
 			}
+			return result;
 		}
 		else 
-			tryCopy(leftFile, rightFile);
-		return 1;
+			return tryCopy(leftFile, rightFile);
 	}
-	private int askCover(String rightFileName) {
-		Scanner userInput=new Scanner(System.in);
-		boolean isAnswered=false;
-		int answerResult=0;
-		while(!isAnswered) {
-			commandResult.askCover(rightFileName);
-			String answer=userInput.nextLine();
-			switch(answer.toLowerCase().charAt(0)) {
-				case 'y':
-					isAnswered=true;
-					answerResult=1;
-					break;
-				case 'n':
-					isAnswered=true;
-					answerResult=2;
-					break;
-				case 'a':
-					isAnswered=true;
-					answerResult=3;
-					break;
-				default:
-					break;
-			}
-		}
-		return answerResult;
-	}
-	private void tryCopy(File leftFile,File rightFile) {
+	private int tryCopy(File leftFile,File rightFile) {
 		try {
 			Files.copy(leftFile.toPath(), rightFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
+			return 1;
 		}
 		catch(Exception e){
-			commandResult.announcePathFindFailed();
-			commandResult.announceCopyComplete(0);
+			if(e.getClass().toString().equals("class java.nio.file.NoSuchFileException"))
+				commandResult.announcePathFindFailed();
+			else if(e.getClass().toString().equals("class java.nio.file.AccessDeniedException")) {
+				commandResult.excessDenied();
+				announceMoveComplete(leftFile, 0);
+				announceMoveComplete(leftFile, 0);
+			}
+			return 0;
 		}
 	}
 }

@@ -3,6 +3,9 @@ import view.*;
 import utility.*;
 import model.*;
 import controller.commands.*;
+import controller.commands.tranformation.COPY;
+import controller.commands.tranformation.MOVE;
+
 import java.util.Scanner;
 public class CommandBranch {
 	Information information;
@@ -24,7 +27,7 @@ public class CommandBranch {
 		commandCOPY=new COPY(commandResult,directoryData);
 		commandDIR=new DIR(commandResult,directoryData);
 		//commandHELP=new HELP(commandResult);
-		commandMOVE=new MOVE();
+		commandMOVE=new MOVE(commandResult,directoryData);
 		userInputProcessing=new UserInputProcessing();
 	}
 	public void excuteCMD() {
@@ -67,7 +70,7 @@ public class CommandBranch {
 			break;
 		case 6:
 			extraCommand=command.trim().toLowerCase().substring(4);
-			commandCOPY.excuteCommand(extraCommand);
+			commandMOVE.excuteCommand(extraCommand);
 			break;
 		case 7:
 			return true;
