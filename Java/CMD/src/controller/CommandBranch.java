@@ -73,7 +73,7 @@ public class CommandBranch {
 			return true;
 		default:
 			information.informNoneCommand(firstKeyWord);
-	}
+		}
 		return false;
 	}
 }

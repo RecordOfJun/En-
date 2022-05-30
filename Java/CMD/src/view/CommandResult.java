@@ -148,12 +148,12 @@ public class CommandResult {
 	}
 	public void announceCanNotCopySameFile() {
 		System.out.println("같은 파일로 복사할 수 없습니다.");
-		System.out.println("     0개 파일이 복사되었습니다.");
+		announceCopyComplete(0);
 	}
 	public void announceCopyComplete(int count) {
 		System.out.println(String.format("     %d개 파일이 복사되었습니다.",count));
 	}
-	public void askCopy(String rightPath) {
+	public void askCover(String rightPath) {
 		System.out.print(rightPath+"을(를) 덮어쓰시겠습니까? (Yes/No/All):");
 	}
 }
