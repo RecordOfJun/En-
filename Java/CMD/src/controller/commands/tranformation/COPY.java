@@ -104,8 +104,6 @@ public class COPY extends TransForm {
 				commandResult.announcePathFindFailed();
 			else if(e.getClass().toString().equals("class java.nio.file.AccessDeniedException")) {
 				commandResult.excessDenied();
-				announceMoveComplete(leftFile, 0);
-				announceMoveComplete(leftFile, 0);
 			}
 			return 0;
 		}

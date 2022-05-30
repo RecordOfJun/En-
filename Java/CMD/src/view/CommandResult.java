@@ -116,8 +116,6 @@ public class CommandResult {
 		System.out.println(path);
 	}
 	public void showDiskData(String path) {
-		System.out.println(" C 드라이브의 볼륨: Local Disk");
-		//System.out.println(" 볼륨 일련 번호: "+FileStore a);
 		System.out.println();
 		System.out.println(String.format(" %s 디렉터리", path));
 		System.out.println();

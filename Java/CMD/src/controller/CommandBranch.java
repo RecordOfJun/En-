@@ -12,10 +12,8 @@ public class CommandBranch {
 	CommandResult commandResult;
 	DirectoryData directoryData;
 	CD commandCD;
-	//CLS commandCLS;
 	COPY commandCOPY;
 	DIR commandDIR;
-	//HELP commandHELP;
 	MOVE commandMOVE;
 	UserInputProcessing userInputProcessing;
 	public CommandBranch(){
@@ -23,25 +21,19 @@ public class CommandBranch {
 		commandResult=new CommandResult();
 		directoryData=new DirectoryData();
 		commandCD= new CD(commandResult,directoryData);
-		//commandCLS=new CLS();
 		commandCOPY=new COPY(commandResult,directoryData);
 		commandDIR=new DIR(commandResult,directoryData);
-		//commandHELP=new HELP(commandResult);
 		commandMOVE=new MOVE(commandResult,directoryData);
 		userInputProcessing=new UserInputProcessing();
 	}
 	public void excuteCMD() {
 		boolean isExited=false;
-		information.showOSInformation(getOSversion());
+		information.showOSInformation();
 		directoryData.setDirectory(System.getProperty("user.home"));
 		while(!isExited) {
 			information.showCurrentDirectory(directoryData.getDirectory());
 			isExited=detectCommand();
 		}
-	}
-	private String getOSversion() {
-		String version=System.getProperty("os.version");
-		return version;
 	}
 	private boolean detectCommand() {
 		Scanner userInput=new Scanner(System.in);
@@ -55,6 +47,7 @@ public class CommandBranch {
 			break;
 		case 2:
 			extraCommand=command.trim().toLowerCase().substring(3);
+			information.showDirveInformation();
 			commandDIR.excuteCommand(extraCommand);
 			break;
 		case 5:
@@ -62,7 +55,6 @@ public class CommandBranch {
 			break;
 		case 4:
 			commandResult.showAllCommand();
-			//commandHELP.detectLine(userInput.next());
 			break;
 		case 3:
 			extraCommand=command.trim().toLowerCase().substring(4);

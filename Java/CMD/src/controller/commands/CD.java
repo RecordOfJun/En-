@@ -32,6 +32,7 @@ public class CD extends Command implements commandExcution {
 				directoryData.setDirectory(path.getCanonicalPath());
 			}
 			catch(Exception e) {
+				System.out.println(e.getCause());
 				commandResult.announcePathFindFailed();
 				return;
 			}

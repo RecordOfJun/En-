@@ -35,7 +35,6 @@ public class DIR extends Command implements commandExcution {
 		long fileByte=0;
 		commandResult.showDiskData(getPath(path));
 		if(getPath(path.getParentFile())!="") {
-			System.out.println(path.getParentFile());
 			directoryCount+=2;
 			addCurrentAndParentData();
 		}
