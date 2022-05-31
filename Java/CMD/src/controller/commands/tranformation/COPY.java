@@ -1,13 +1,10 @@
 package controller.commands.tranformation;
-
-
-
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
-import controller.commandExcution;
+import controller.CommandExcution;
 import model.DirectoryData;
 import utility.Constant;
 import view.CommandResult;
@@ -16,7 +13,6 @@ public class COPY extends TransForm {
 
 	public COPY(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -41,28 +37,38 @@ public class COPY extends TransForm {
 		File[] childFiles=leftFile.listFiles();
 		int completeCount=0;
 		boolean isAll=false;
+		boolean isCopied=false;
 		for(int count=0;count<childFiles.length;count++) {
 			if(childFiles[count].isFile()) {
 				System.out.println(leftFile.getName()+Constant.BACKSLASH+childFiles[count].getName());
-				if(!isAll) {
+				if((!rightFile.exists()||rightFile.isFile())&&!isCopied) {
 					int result=fileCopy(childFiles[count], rightFile);
-					if(result==Constant.ANSWERYES)
+					if(result==Constant.ANSWERYES||result==Constant.ANSWERALL) {
 						completeCount++;
-					else if(result==Constant.ANSWERALL) {
-						completeCount++;
-						isAll=true;
-					}
-					else if(result==Constant.RESULTERROR) {
-						commandResult.announceCopyComplete(0);
-						return;
+						isCopied=true;
 					}
 				}
-				else {
-					File temporaryFile=rightFile.getAbsoluteFile();
-					if(temporaryFile.isDirectory())
-						temporaryFile=new File(temporaryFile.getPath()+Constant.BACKSLASH+childFiles[count].getName());
-					tryCopy(childFiles[count], temporaryFile);
-					completeCount++;
+				else if(rightFile.isDirectory()) {
+					if(!isAll) {
+						int result=fileCopy(childFiles[count], rightFile);
+						if(result==Constant.ANSWERYES)
+							completeCount++;
+						else if(result==Constant.ANSWERALL) {
+							completeCount++;
+							isAll=true;
+						}
+						else if(result==Constant.RESULTERROR) {
+							commandResult.announceCopyComplete(0);
+							return;
+						}
+					}
+					else {
+						File temporaryFile=rightFile.getAbsoluteFile();
+						if(temporaryFile.isDirectory())
+							temporaryFile=new File(temporaryFile.getPath()+Constant.BACKSLASH+childFiles[count].getName());
+						tryCopy(childFiles[count], temporaryFile);
+						completeCount++;
+					}
 				}
 			}
 		}
@@ -101,9 +107,9 @@ public class COPY extends TransForm {
 			return Constant.RESULTSUCESS;
 		}
 		catch(Exception e){
-			if(e.getClass().toString().equals("class java.nio.file.NoSuchFileException"))
+			if(e.getClass().toString().equals(Constant.NONEFILE))
 				commandResult.announcePathFindFailed();
-			else if(e.getClass().toString().equals("class java.nio.file.AccessDeniedException")) {
+			else if(e.getClass().toString().equals(Constant.EXCESSDENIED)) {
 				commandResult.excessDenied();
 			}
 			return Constant.RESULTERROR;

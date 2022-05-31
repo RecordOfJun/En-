@@ -3,19 +3,17 @@ package controller.commands.tranformation;
 import java.io.File;
 import java.util.Scanner;
 
-import controller.commandExcution;
+import controller.CommandExcution;
 import controller.commands.Command;
 import model.DirectoryData;
 import utility.Constant;
 import view.CommandResult;
 
-public class TransForm extends Command implements commandExcution {
+public class TransForm extends Command implements CommandExcution {
 	public TransForm(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
-		// TODO Auto-generated constructor stub
 	}
 	public void excuteCommand(String command) {
-		// TODO Auto-generated method stub
 		synchronizeFile();
 		setBranchByCommandLength(command);
 	}

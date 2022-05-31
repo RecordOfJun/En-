@@ -1,19 +1,14 @@
 package controller.commands;
 import view.*;
-
-import java.io.File;
-
-import controller.commandExcution;
+import controller.CommandExcution;
 import model.*;
 import utility.Constant;
-public class CD extends Command implements commandExcution {
+public class CD extends Command implements CommandExcution {
 	public CD(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void excuteCommand(String command) {
-		// TODO Auto-generated method stub
 		synchronizeFile();
 		setCdBranch(command);
 	}

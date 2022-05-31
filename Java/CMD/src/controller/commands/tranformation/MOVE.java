@@ -11,7 +11,6 @@ public class MOVE extends TransForm{
 
 	public MOVE(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
-		// TODO Auto-generated constructor stub
 	}
 	protected void transferFile(String rightPath) {
 		File leftFile=new File(getPath(path));
@@ -67,9 +66,9 @@ public class MOVE extends TransForm{
 			announceMoveComplete(leftFile, 1);
 		}
 		catch(Exception e){
-			if(e.getClass().toString().equals("class java.nio.file.NoSuchFileException"))
+			if(e.getClass().toString().equals(Constant.NONEFILE))
 				commandResult.announcePathFindFailed();
-			else if(e.getClass().toString().equals("class java.nio.file.AccessDeniedException")) {
+			else if(e.getClass().toString().equals(Constant.EXCESSDENIED)) {
 				commandResult.excessDenied();
 				announceMoveComplete(leftFile, 0);
 			}

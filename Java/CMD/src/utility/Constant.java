@@ -47,4 +47,8 @@ public class Constant {
 	public static final String DIRECTORY="<DIR>";
 	public static final String CURRENTFILE=".";
 	public static final String PARENTFILE="..";
+	
+	//CATCH ERROR
+	public static final String NONEFILE="class java.nio.file.NoSuchFileException";
+	public static final String EXCESSDENIED="class java.nio.file.AccessDeniedException";
 }

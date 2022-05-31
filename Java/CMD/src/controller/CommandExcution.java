@@ -1,5 +1,5 @@
 package controller;
 
-public interface commandExcution {
+public interface CommandExcution {
 	public void excuteCommand(String command);
 }

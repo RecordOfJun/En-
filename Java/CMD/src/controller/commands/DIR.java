@@ -2,20 +2,17 @@ package controller.commands;
 
 import java.io.File;
 import java.util.Date;
-
-import controller.commandExcution;
+import controller.CommandExcution;
 import model.DirectoryData;
 import utility.Constant;
 import view.CommandResult;
 
-public class DIR extends Command implements commandExcution {
+public class DIR extends Command implements CommandExcution {
 	public DIR(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
-		// TODO Auto-generated constructor stub
 	}
 	@Override
 	public void excuteCommand(String command) {
-		// TODO Auto-generated method stub
 		synchronizeFile();
 		movePath(command);
 		if(path.exists()) {
