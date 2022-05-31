@@ -40,7 +40,7 @@ public class COPY extends TransForm {
 		boolean isCopied=false;
 		for(int count=0;count<childFiles.length;count++) {
 			if(childFiles[count].isFile()) {
-				System.out.println(leftFile.getName()+Constant.BACKSLASH+childFiles[count].getName());
+				commandResult.showFileName(leftFile.getName(), childFiles[count].getName());
 				if((!rightFile.exists()||rightFile.isFile())&&!isCopied) {
 					int result=fileCopy(childFiles[count], rightFile);
 					if(result==Constant.ANSWERYES||result==Constant.ANSWERALL) {

@@ -7,6 +7,8 @@ import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.filechooser.FileSystemView;
+
+import utility.Constant;
 public class CommandResult {
 	public void showAllCommand() {
 		System.out.println("특정 명령어에 대한 자세한 내용이 필요하면 HELP 명령어 이름을 입력하십시오.\r\n"
@@ -109,7 +111,7 @@ public class CommandResult {
 				+ "도구에 대한 자세한 내용은 온라인 도움말의 명령줄 참조를 참조하십시오.");
 	}
 	public void clearConsole() {
-		for(int line=0;line<30;line++)
+		for(int line=0;line<50;line++)
 			System.out.println();
 	}
 	public void showDirectory(String path) {
@@ -153,6 +155,9 @@ public class CommandResult {
 	public void askCover(String rightPath) {
 		System.out.print(rightPath+"을(를) 덮어쓰시겠습니까? (Yes/No/All):");
 	}
+	public void showFileName(String leftFileName,String rightFileName) {
+		System.out.println(leftFileName+Constant.BACKSLASH+rightFileName);
+	}
 	public void announceFileMoveComplete(int count) {
 		System.out.println(String.format("     %d개 파일을 이동했습니다.",count));
 	}
@@ -161,5 +166,8 @@ public class CommandResult {
 	}
 	public void excessDenied() {
 		System.out.println("액세스가 거부되었습니다.");
+	}
+	public void announceProcessError() {
+		System.out.println("다른 프로세스가 파일을 사용 중이기 때문에 프로세스가 액세스 할 수 없습니다.");
 	}
 }

@@ -5,10 +5,11 @@ public class UserInputProcessing {
 		String[] command=line.trim().split(Constant.BLANK);
 		return command[0];
 	}
-	public int extractCommand(String line) {
+	public int extractCommand(String line) {//명령어 추출 함수
 		String command=line.trim().toLowerCase();
 		int branchCase=0;
 		int checkingIndex=0;
+		//앞글자가 무엇으로 시작하는지 판단
 		if(command.startsWith("cd")) {
 			branchCase=Constant.CD;
 			checkingIndex=Constant.CDLENGTH;
@@ -37,6 +38,7 @@ public class UserInputProcessing {
 			branchCase=Constant.EXIT;
 			checkingIndex=Constant.EXITLENGTH;	
 		}
+		//
 		if(command.length()>checkingIndex&&command.substring(checkingIndex,checkingIndex+1).matches("[(가-힣)|(0-9)|(a-z)]"))
 			branchCase=Constant.NONECOMMAND;
 		return branchCase;

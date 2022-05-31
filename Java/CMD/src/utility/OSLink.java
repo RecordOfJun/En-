@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class OSLink {
-	public String execCmd(String cmd) {
+	public String execCmd(String cmd) {//현재 컴퓨터의 OS정보 가져오는 함수
 	    try {
 	        Process process = Runtime.getRuntime().exec("cmd /c " + cmd);
 	        BufferedReader reader = new BufferedReader(
