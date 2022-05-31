@@ -7,7 +7,7 @@ import controller.commands.tranformation.COPY;
 import controller.commands.tranformation.MOVE;
 
 import java.util.Scanner;
-public class CommandBranch {
+public class CommandBranch {//명령어 분기 클래스
 	Information information;
 	CommandResult commandResult;
 	DirectoryData directoryData;
@@ -29,7 +29,8 @@ public class CommandBranch {
 	public void excuteCMD() {
 		boolean isExited=false;
 		information.showOSInformation();
-		directoryData.setDirectory(System.getProperty("user.home"));
+		directoryData.setDirectory(System.getProperty("user.home"));//현재 디렉토리 유저로 초기화
+		commandResult.addLine();
 		while(!isExited) {
 			information.showCurrentDirectory(directoryData.getDirectory());
 			isExited=detectCommand();
@@ -38,8 +39,8 @@ public class CommandBranch {
 	private boolean detectCommand() {
 		Scanner userInput=new Scanner(System.in);
 		String command=userInput.nextLine();
-		String firstKeyWord=userInputProcessing.splitCommand(command);
-		String extraCommand;
+		String firstKeyWord=userInputProcessing.splitCommand(command);//명령어 저장
+		String extraCommand;//명령어 뒤의 문자열 저장
 		switch(userInputProcessing.extractCommand(firstKeyWord)) {
 		case Constant.CD:
 			extraCommand=command.trim().toLowerCase().substring(Constant.CDLENGTH);
@@ -55,6 +56,7 @@ public class CommandBranch {
 			break;
 		case Constant.HELP:
 			commandResult.showAllCommand();
+			commandResult.addLine();
 			break;
 		case Constant.COPY:
 			extraCommand=command.trim().toLowerCase().substring(Constant.COPYLENGTH);
@@ -66,7 +68,9 @@ public class CommandBranch {
 			break;
 		case Constant.EXIT:
 			return true;
-		default:
+		case Constant.ENTER:
+			break;
+		default://명령어 아닐 시
 			information.informNoneCommand(firstKeyWord);
 		}
 		return false;

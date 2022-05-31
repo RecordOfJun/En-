@@ -46,25 +46,20 @@ public class MOVE extends TransForm{
 	private void moveToDirectory(File leftFile,File rightFile) {
 		rightFile=new File(rightFile.getPath()+Constant.BACKSLASH+leftFile.getName());
 		if(rightFile.exists()) {
-			if(getPath(leftFile).equals(getPath(rightFile))) {
-				announceMoveComplete(leftFile, 1);
+			int answer=askCover(getPath(rightFile));
+			if(rightFile.isDirectory()) {
+				if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
+					commandResult.excessDenied();
+				}
+				else
+					announceMoveComplete(leftFile, 1);
 			}
-			else {
-				int answer=askCover(getPath(rightFile));
-				if(rightFile.isDirectory()) {
-					if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
-						commandResult.excessDenied();
-					}
-					else
-						announceMoveComplete(leftFile, 1);
+			else if(rightFile.isFile()) {
+				if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
+					tryMove(leftFile,rightFile);
 				}
-				else if(rightFile.isFile()) {
-					if(answer==Constant.ANSWERYES||answer==Constant.ANSWERALL) {
-						tryMove(leftFile,rightFile);
-					}
-					else
-						announceMoveComplete(leftFile, 0);
-				}
+				else
+					announceMoveComplete(leftFile, 0);
 			}
 		}
 		else {

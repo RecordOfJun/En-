@@ -10,7 +10,6 @@ public class Information {
 	}
 	
 	public void showCurrentDirectory(String path) {
-		System.out.println();
 		System.out.print(path+">");
 	}
 	public void informNoneCommand(String userInput) {

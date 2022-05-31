@@ -16,8 +16,9 @@ public class TransForm extends Command implements CommandExcution {
 	public void excuteCommand(String command) {
 		synchronizeFile();
 		setBranchByCommandLength(command);
+		commandResult.addLine();
 	}
-	private void setBranchByCommandLength(String command) {
+	private void setBranchByCommandLength(String command) {//커맨드에 찍힌 파일 개수에 따라 분기
 		String[] filePaths=command.trim().split(Constant.BLANK);
 		switch(filePaths.length) {
 			case Constant.LENGTHONE:
@@ -33,13 +34,13 @@ public class TransForm extends Command implements CommandExcution {
 
 	}
 	private void handleOnePath(String filePath) {
-		if(filePath.equals(Constant.EMPTY))
+		if(filePath.equals(Constant.EMPTY))//아무것도 없을 때
 			commandResult.announceWrongCommand();
 		else {
 			handleTwoPath(filePath,Constant.EMPTY);
 		}
 	}
-	private void handleTwoPath(String leftPath,String rightPath) {
+	private void handleTwoPath(String leftPath,String rightPath) {//파일 두개일때
 		movePath(leftPath);
 		path=new File(getPath(path));
 		if(path.exists()) {
@@ -49,7 +50,7 @@ public class TransForm extends Command implements CommandExcution {
 			commandResult.announceFileFindFailed();
 		}
 	}
-	private void handleMorePath(String leftPath) {
+	private void handleMorePath(String leftPath) {//파일 세개 이상일 때
 		movePath(leftPath);
 		path=new File(getPath(path));
 		if(path.exists()) {
@@ -59,7 +60,7 @@ public class TransForm extends Command implements CommandExcution {
 			commandResult.announceFileFindFailed();
 		}
 	}
-	protected int askCover(String rightFileName) {
+	protected int askCover(String rightFileName) {//덮어쓰기 질문
 		Scanner userInput=new Scanner(System.in);
 		boolean isAnswered=false;
 		int answerResult=0;
@@ -88,7 +89,7 @@ public class TransForm extends Command implements CommandExcution {
 	protected void transferFile(String rightPath) {
 		
 	}
-	protected void announceMoveComplete(File leftFile,int count) {
+	protected void announceMoveComplete(File leftFile,int count) {//파일 이동 완료구문
 		if(leftFile.isDirectory())
 			commandResult.announceDirectoryMoveComplete(count);
 		else

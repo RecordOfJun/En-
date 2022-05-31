@@ -2,6 +2,7 @@ package utility;
 
 public class Constant {
 	//COMMAND
+	public static final int ENTER=-1;
 	public static final int NONECOMMAND=0;
 	public static final int CD=1;
 	public static final int DIR=2;

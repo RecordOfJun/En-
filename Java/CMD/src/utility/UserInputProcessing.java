@@ -10,7 +10,9 @@ public class UserInputProcessing {
 		int branchCase=0;
 		int checkingIndex=0;
 		//앞글자가 무엇으로 시작하는지 판단
-		if(command.startsWith("cd")) {
+		if(command.equals(Constant.EMPTY))
+			return -1;
+		else if(command.startsWith("cd")) {
 			branchCase=Constant.CD;
 			checkingIndex=Constant.CDLENGTH;
 		}
@@ -38,7 +40,7 @@ public class UserInputProcessing {
 			branchCase=Constant.EXIT;
 			checkingIndex=Constant.EXITLENGTH;	
 		}
-		//
+		//기준 글자 바로 뒤에 숫자,한글,영어중 하나가 들어오면 다른 명령어로 판단
 		if(command.length()>checkingIndex&&command.substring(checkingIndex,checkingIndex+1).matches("[(가-힣)|(0-9)|(a-z)]"))
 			branchCase=Constant.NONECOMMAND;
 		return branchCase;

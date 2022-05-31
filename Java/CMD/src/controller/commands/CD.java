@@ -18,8 +18,9 @@ public class CD extends Command implements CommandExcution {
 			commandResult.showDirectory(path.getAbsolutePath());
 		movePath(extraCommand);
 		checkAndSetPath();
+		commandResult.addLine();
 	}
-	private void checkAndSetPath() {
+	private void checkAndSetPath() {//현재 경로 지정
 		if(path.exists()) {
 			if(!path.isDirectory()) {
 				commandResult.announceIsNotDirectory();
