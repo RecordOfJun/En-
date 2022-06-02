@@ -12,6 +12,7 @@ public class MOVE extends TransForm{
 	public MOVE(CommandResult commandResult, DirectoryData directoryData) {
 		super(commandResult, directoryData);
 	}
+	
 	protected void transferFile(String rightPath) {
 		File leftFile=new File(getPath(path));
 		synchronizeFile();
@@ -20,6 +21,7 @@ public class MOVE extends TransForm{
 		moveFile(leftFile,rightFile);
 		
 	}
+	
 	private void moveFile(File leftFile,File rightFile) {
 		if(!rightFile.exists())
 			tryMove(leftFile,rightFile);
@@ -43,6 +45,7 @@ public class MOVE extends TransForm{
 			}
 		}
 	}
+	
 	private void moveToDirectory(File leftFile,File rightFile) {
 		rightFile=new File(rightFile.getPath()+Constant.BACKSLASH+leftFile.getName());
 		if(rightFile.exists()) {
@@ -66,6 +69,7 @@ public class MOVE extends TransForm{
 			tryMove(leftFile,rightFile);
 		}
 	}
+	
 	private void tryMove(File leftFile,File rightFile) {
 		try {
 			Files.move(leftFile.toPath(), rightFile.toPath(),StandardCopyOption.REPLACE_EXISTING);

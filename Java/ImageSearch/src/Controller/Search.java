@@ -13,8 +13,8 @@ public class Search{
 	RecordDAO recordDAO;
 	public Search() {
 		mainFrame=new MainFrame();
-		imageDAO=new ImageDAO();
-		recordDAO=new RecordDAO();
+		//imageDAO=new ImageDAO();
+		//recordDAO=new RecordDAO();
 	}
 	public void LoadFrame() {
 		mainFrame.ShowForm();
@@ -77,7 +77,7 @@ public class Search{
 	private void LoadResultForm() {
 		String text=mainFrame.searchField.getText();
 		recordDAO.InsertRecord(text);
-		mainFrame.SetResultForm(imageDAO.getImage(text));
+		//mainFrame.SetResultForm(imageDAO.getImage(text));
 	}
 	private class RecordButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {

@@ -90,6 +90,7 @@ public class TransForm extends Command implements CommandExcution {
 		
 	}
 	protected void announceMoveComplete(File leftFile,int count) {//파일 이동 완료구문
+		System.out.println(leftFile.isDirectory());
 		if(leftFile.isDirectory())
 			commandResult.announceDirectoryMoveComplete(count);
 		else

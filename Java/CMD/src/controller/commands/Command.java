@@ -10,6 +10,7 @@ public class Command {//명령어 클래스들의 부모 클래스
 	protected CommandResult commandResult;
 	protected DirectoryData directoryData;
 	protected File path;
+	
 	public Command(CommandResult commandResult,DirectoryData directoryData) {
 		this.commandResult=commandResult;
 		this.directoryData=directoryData;

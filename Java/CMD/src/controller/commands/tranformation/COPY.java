@@ -31,8 +31,8 @@ public class COPY extends TransForm {
 			else
 				commandResult.announceCopyComplete(0);
 		}
-		
 	}
+	
 	private void directoryCopy(File leftFile,File rightFile) {
 		File[] childFiles=leftFile.listFiles();
 		int completeCount=0;
@@ -74,6 +74,7 @@ public class COPY extends TransForm {
 		}
 		commandResult.announceCopyComplete(completeCount);
 	}
+	
 	private int fileCopy(File leftFile,File rightFile) {
 		if(rightFile.exists()&&rightFile.isDirectory())
 			rightFile=new File(rightFile.getPath()+Constant.BACKSLASH+leftFile.getName());
@@ -101,6 +102,7 @@ public class COPY extends TransForm {
 		else 
 			return tryCopy(leftFile, rightFile);
 	}
+	
 	private int tryCopy(File leftFile,File rightFile) {
 		try {
 			Files.copy(leftFile.toPath(), rightFile.toPath(),StandardCopyOption.REPLACE_EXISTING);
