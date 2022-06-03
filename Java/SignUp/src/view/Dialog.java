@@ -68,4 +68,20 @@ public static Dialog instance;
 	public void personalCheckSucess() {
 		showMessageDialog(null, "확인 되었습니다!", "중복확인 성공",JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	public void signUpSucess() {
+		showMessageDialog(null, "가입이 완료되었습니다!", "회원가입 성공",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void informID(String id) {
+		showMessageDialog(null, "회원님의 아이디는\n"+id, "로그인 정보 찾기",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void informPW(String password) {
+		showMessageDialog(null, "회원님의 비밀번호는\n"+password, "로그인 정보 찾기",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void alertNotExist() {
+		showMessageDialog(null, "존재하지 않는 사용자 정보입니다.", "로그인 정보 찾기",JOptionPane.ERROR_MESSAGE);
+	}
 }

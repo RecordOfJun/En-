@@ -71,8 +71,11 @@ public class LoginPanel extends JPanel {
 	public class searchButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			UserSearchingFrame searchFrame=new UserSearchingFrame();
+			
 		}
 	}
+	
+	
 	
 	public String getIdAndPw() {
 		return idText.getText()+"/"+String.valueOf(pwText.getPassword());

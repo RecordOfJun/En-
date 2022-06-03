@@ -1,10 +1,11 @@
 package controller;
 
 import javax.swing.JButton;
+import model.UserDAO;
 import javax.swing.*;
 import java.awt.*;
-
 import view.AdressFrame;
+import view.Dialog;
 import view.SignUpPanel;
 import view.mainFrame;
 import view.mainFrame.signUpButtonAction;
@@ -51,19 +52,26 @@ public class MainController {
 	
 	public class completeAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(accountCreation.checkData(frame.signUpPanel.isCheckedID, frame.signUpPanel.isCheckedPersonal, frame.signUpPanel.getInsertData()));
+			ArrayList<String> userData=frame.signUpPanel.getInsertData();
+			if(accountCreation.isCorrectData(frame.signUpPanel.isCheckedID, frame.signUpPanel.isCheckedPersonal, userData)) {
+				accountCreation.addAccount(userData);
+				frame.container.remove(frame.signUpPanel);
+				frame.container.add(frame.loginPanel);
+				frame.repaint();
+				frame.revalidate();
+			}
 		}
 	}
 	
 	public class idOverlapAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			frame.signUpPanel.isCheckedID=accountCreation.CheckID(frame.signUpPanel.getInsertData().get(0));
+			frame.signUpPanel.isCheckedID=accountCreation.isCorrectID(frame.signUpPanel.getInsertData().get(0));
 		}
 	}
 	
 	public class personalOverlapAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			frame.signUpPanel.isCheckedPersonal=accountCreation.CheckPersonal(frame.signUpPanel.getInsertData().get(4));
+			frame.signUpPanel.isCheckedPersonal=accountCreation.isCorrectPersonal(frame.signUpPanel.getInsertData().get(4));
 		}
 	}
 	

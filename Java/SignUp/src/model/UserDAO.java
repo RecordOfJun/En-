@@ -29,12 +29,12 @@ public class UserDAO {
 			System.out.print("연결실패");
 		}
 	}
-	public String insertRecord(String id,String pw, String name, String personal,String phone,String adress) {
+	public String insertUser(String id,String pw, String name, String personal,String phone,String adress,String detailAdress) {
 		try {
 			connectDB();
 			Statement statement=connection.createStatement();
 			
-			query=String.format("\nInsert INTO user VALUES('%s','%s','%s','%s','%s','%s');", id,pw,name,personal,phone,adress);
+			query=String.format("\nInsert INTO user VALUES('%s','%s','%s','%s','%s','%s','%s');", id,pw,name,personal,phone,adress,detailAdress);
 			statement.executeUpdate(query);
 			connection.close();
 			return "연결성공";
@@ -44,7 +44,7 @@ public class UserDAO {
 		}
 	}
 	
-	public ArrayList<String> SelectRecord(String id) {
+	public ArrayList<String> SelectUser(String id) {
 		ArrayList<String> list=new ArrayList<String>();
 		try {
 			connectDB();
@@ -87,10 +87,11 @@ public class UserDAO {
 	
 	public String FindID(String name,String personal) {
 		try {
+			System.out.println(personal);
 			String foundID="";
 			connectDB();
 			Statement statement=connection.createStatement();
-			query="SELECT ID FROM user WHERE Name="+name+" and PersonalCode="+personal+";";
+			query=String.format("SELECT ID FROM user Where Name='%s' and PersonalCode='%s';", name,personal);
 			ResultSet result=statement.executeQuery(query);
 			while(result.next())
 				foundID=result.getString("ID");
@@ -100,6 +101,64 @@ public class UserDAO {
 		catch(Exception e) {
 			System.out.println(e.getClass().toString());
 			return "연결실패";
+		}
+	}
+	
+	public String FindPW(String name,String personal,String id) {
+		try {
+			String foundPW="";
+			connectDB();
+			Statement statement=connection.createStatement();
+			query=String.format("SELECT PW FROM user Where Name='%s' and PersonalCode='%s' and Id='%s';", name,personal,id);
+			ResultSet result=statement.executeQuery(query);
+			while(result.next())
+				foundPW=result.getString("PW");
+			connection.close();
+			return foundPW;
+		}
+		catch(Exception e) {
+			System.out.println(e.getClass().toString());
+			return "연결실패";
+		}
+	}
+	
+	public boolean isExistedID(String id) {
+		try {
+			String foundID="";
+			connectDB();
+			Statement statement=connection.createStatement();
+			query="SELECT ID FROM user WHERE ID="+id+";";
+			ResultSet result=statement.executeQuery(query);
+			while(result.next())
+				foundID=result.getString("ID");
+			connection.close();
+			if(foundID.length()!=0)
+				return true;
+			return false;
+		}
+		catch(Exception e) {
+			System.out.println(e.getClass().toString());
+			return false;
+		}
+	}
+	
+	public boolean isExistedPersonal(String personal) {
+		try {
+			String foundPersonal="";
+			connectDB();
+			Statement statement=connection.createStatement();
+			query="SELECT Personal FROM user WHERE Personal="+personal+";";
+			ResultSet result=statement.executeQuery(query);
+			while(result.next())
+				foundPersonal=result.getString("Personal");
+			connection.close();
+			if(foundPersonal.length()!=0)
+				return true;
+			return false;
+		}
+		catch(Exception e) {
+			System.out.println(e.getClass().toString());
+			return false;
 		}
 	}
 }

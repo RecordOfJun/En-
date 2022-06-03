@@ -84,10 +84,10 @@ public class SignUpPanel extends JPanel {
 		idField.addKeyListener(new idRevised());
 		pwField.setEchoChar((char)0);
 		ListenerManagement.getInstance().linkPasswordFocusEvent("영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.", pwField);
-		setTextBoundAndLimit(pwField,0,125,300,20,"영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.");
+		setTextBoundAndLimit(pwField,0,125,300,15,"영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.");
 		pwConfirmField.setEchoChar((char)0);
 		ListenerManagement.getInstance().linkPasswordFocusEvent("비밀번호를 동일하게 한번 더 입력해주세요.", pwConfirmField);
-		setTextBoundAndLimit(pwConfirmField,0,200,300,20,"비밀번호를 동일하게 한번 더 입력해주세요.");
+		setTextBoundAndLimit(pwConfirmField,0,200,300,15,"비밀번호를 동일하게 한번 더 입력해주세요.");
 		setTextBoundAndLimit(nameField,0,275,200,10,"이름을 입력해주세요.");
 		nameField.addKeyListener(new personalRevised());
 		birthField.addKeyListener(new personalRevised());
@@ -101,7 +101,7 @@ public class SignUpPanel extends JPanel {
 		setTextBoundAndLimit(phoneNumberRightField,220,425,100,4,"xxxx");
 		adressField.setEditable(false);
 		setTextBoundAndLimit(adressField,0,500,300,0,"");
-		setTextBoundAndLimit(detailAdressField,0,575,400,0,"세부 주소를 입력해주세요.");
+		setTextBoundAndLimit(detailAdressField,0,575,400,50,"세부 주소를 입력해주세요.");
 	}
 	
 	private void setTextBoundAndLimit(JTextField textField,int x,int y,int width,int maxLength,String text) {

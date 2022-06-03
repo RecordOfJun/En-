@@ -1,5 +1,8 @@
 package view;
 import javax.swing.*;
+
+import model.UserDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +12,14 @@ public class UserSearchingFrame extends JFrame {
 	private Container container=getContentPane();
 	private JLabel nameLabel=new JLabel("이름");
 	private JLabel personalLabel=new JLabel("주민번호");
-	private JLabel idLabel=new JLabel("ID");
-	private JTextField nameField=new JTextField();
-	private JTextField birthField=new JTextField();
-	private JPasswordField personalField=new JPasswordField();
-	private JTextField idField=new JTextField();
+	public JLabel idLabel=new JLabel("ID");
+	public JTextField nameField=new JTextField();
+	public JTextField birthField=new JTextField();
+	public JPasswordField personalField=new JPasswordField();
+	public JTextField idField=new JTextField();
 	private JButton idSearchButton=new JButton("아이디 찾기");
 	private JButton pwSearchButton=new JButton("비밀번호 찾기");
-	private JButton searchButton=new JButton("검색");
+	public JButton searchButton=new JButton("검색");
 	
 	public UserSearchingFrame() {
 		setContainer();
@@ -71,6 +74,7 @@ public class UserSearchingFrame extends JFrame {
 		searchButton.setBounds(45, 280, 150, 60);
 		idSearchButton.setBounds(205, 280, 150, 60);
 		pwSearchButton.setBounds(205, 280, 150, 60);
+		searchButton.addActionListener(new searchAction());
 		idSearchButton.addActionListener(new convertToIdForm());
 		pwSearchButton.addActionListener(new convertToPasswordForm());
 		this.add(searchButton);
@@ -102,6 +106,26 @@ public class UserSearchingFrame extends JFrame {
 			hideIDForm();
 			repaint();
 			revalidate();
+		}
+	}
+	
+	public class searchAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(idLabel.isVisible()) {
+				String result=UserDAO.getInstance().FindPW(nameField.getText(), birthField.getText()+String.valueOf(personalField.getPassword()),idField.getText());
+				if(result.length()!=0&&!result.equals("연결실패")) {
+					Dialog.getInstance().informPW(result);
+					return;
+				}
+				Dialog.getInstance().alertNotExist();
+				return;
+			}
+			String result=UserDAO.getInstance().FindID(nameField.getText(), birthField.getText()+String.valueOf(personalField.getPassword()));
+			if(result.length()!=0&&!result.equals("연결실패")) {
+				Dialog.getInstance().informID(result);
+				return;
+			}
+			Dialog.getInstance().alertNotExist();
 		}
 	}
 }

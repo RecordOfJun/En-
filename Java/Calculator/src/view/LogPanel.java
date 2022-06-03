@@ -44,7 +44,7 @@ public class LogPanel extends JPanel {
 		button.setHorizontalAlignment(SwingConstants.RIGHT);
 		button.setPreferredSize(new Dimension(350,formula.length()/30*20+50));
 		formula=formula.replace(" ", "\t").replace("(", "( ").replace(")", " )");
-		button.setText("<html><p style=\"text-align:right;\">"+formula+"<br><font size=6>"+result+"</font></p></html>");
+		button.setText("<html><p style=\"text-align:left;\">"+formula+"<br><font size=6>"+result+"</font></p></html>");
 		button.addMouseListener(new buttonFocusAdapter());
 		mainBox.add(button,0);
 		this.repaint();

@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class mainFrame extends JFrame {
-	private Container container=getContentPane();
+	public Container container=getContentPane();
 	public LoginPanel loginPanel=new LoginPanel();
 	public SignUpPanel signUpPanel=new SignUpPanel();
 	public UserPanel userPanel=new UserPanel();

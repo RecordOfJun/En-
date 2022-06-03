@@ -29,15 +29,15 @@ public class AdressSearching {
 			URL url=new URL("https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+1
 					+"&countPerPage=99&keyword="+URLEncoder.encode(query,"UTF-8")
 					+"&confmKey=devU01TX0FVVEgyMDIyMDYwNDA0MTAyMjExMjY0ODc=&resultType=json");
-			BufferedReader br=new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-			StringBuffer sb=new StringBuffer();
-			String temp=null;
+			BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+			StringBuffer stringBuffer=new StringBuffer();
+			String temporary=null;
 			while(true) {
-				temp=br.readLine();
-				if(temp==null)break;
-				sb.append(temp);
+				temporary=bufferedReader.readLine();
+				if(temporary==null)break;
+				stringBuffer.append(temporary);
 			}
-			result=sb.toString();
+			result=stringBuffer.toString();
 		}
 		catch(Exception e) {
 			result="결과없음";
