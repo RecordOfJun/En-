@@ -13,7 +13,7 @@ public class RecordDAO {
 	private String query;
 	private void ConnectDB() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection=DriverManager.getConnection(Constant.URL,Constant.USERNAME,Constant.PASSWORD);
 		}
 		catch(Exception e) {

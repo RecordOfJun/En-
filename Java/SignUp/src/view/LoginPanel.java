@@ -2,6 +2,7 @@ package view;
 import javax.swing.*;
 
 import utility.ListenerManagement;
+import view.mainFrame.signUpButtonAction;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -51,9 +52,12 @@ public class LoginPanel extends JPanel {
 	
 	private void setButton() {
 		loginButton.setBounds(850, 400, 300, 50);
+		loginButton.setFocusable(false);
 		pwFindButton.setBounds(850, 450, 300, 50);
+		pwFindButton.setFocusable(false);
 		pwFindButton.addActionListener(new searchButtonAction());
 		singUpButton.setBounds(850, 500, 300, 50);
+		singUpButton.setFocusable(false);
 		this.add(loginButton);
 		this.add(pwFindButton);
 		this.add(singUpButton);
