@@ -16,9 +16,10 @@ public class mainFrame extends JFrame {
 	private void setFrame() {
 		setTitle("SignUP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000,838);
+		setSize(1280,758);
 		setResizable(false);
 		container.add(loginPanel);
+		container.setBackground(Color.BLACK);
 		setVisible(true);
 	}
 	

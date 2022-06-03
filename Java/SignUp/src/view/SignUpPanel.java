@@ -4,7 +4,7 @@ import javax.swing.*;
 import utility.ListenerManagement;
 import java.awt.*;
 public class SignUpPanel extends JPanel {
-	private Image backgroundImage=new ImageIcon("images/battleGround.jpg").getImage().getScaledInstance(1000, 800, Image.SCALE_DEFAULT);
+	private Image backgroundImage=new ImageIcon("images/earth.jpg").getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT);
 	public JButton backButton=new JButton("뒤로가기");
 	private JButton idCheckButton=new JButton("ID 중복 확인");
 	private JButton personalCheckButton=new JButton("주민번호 확인");
@@ -39,11 +39,11 @@ public class SignUpPanel extends JPanel {
 	}
 	
 	private void setButton() {
-		idCheckButton.setBounds(700, 50, 150, 50);
-		personalCheckButton.setBounds(700, 350, 150, 50);
-		adressFindButton.setBounds(700, 500, 150, 50);
-		completeButton.setBounds(300, 650, 200, 50);
-		backButton.setBounds(550, 650, 200, 50);
+		idCheckButton.setBounds(800, 50, 150, 50);
+		personalCheckButton.setBounds(800, 350, 150, 50);
+		adressFindButton.setBounds(800, 500, 150, 50);
+		completeButton.setBounds(450, 650, 200, 50);
+		backButton.setBounds(650, 650, 200, 50);
 		this.add(backButton);
 		this.add(idCheckButton);
 		this.add(completeButton);
@@ -62,7 +62,7 @@ public class SignUpPanel extends JPanel {
 	}
 	
 	private void setLabelFont(int y,JLabel label) {
-		label.setBounds(120, y, 200, 50);
+		label.setBounds(220, y, 200, 50);
 		label.setForeground(Color.white);
 		label.setFont(new Font("맑은 고딕",Font.BOLD,30));
 		label.setHorizontalAlignment(JLabel.RIGHT);
@@ -90,7 +90,7 @@ public class SignUpPanel extends JPanel {
 	}
 	
 	private void setTextBoundAndLimit(JTextField textField,int x,int y,int width,int maxLength,String text) {
-		textField.setBounds(370+x, y, width, 50);
+		textField.setBounds(470+x, y, width, 50);
 		textField.setFont(new Font("맑은 고딕",Font.PLAIN,10));
 		textField.setText(text);
 		ListenerManagement.getInstance().linkTextLengthLimited(maxLength, textField);

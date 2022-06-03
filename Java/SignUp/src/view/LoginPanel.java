@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 public class LoginPanel extends JPanel {
-	private Image backgroundImage=new ImageIcon("images/space.jpg").getImage().getScaledInstance(1000, 800, Image.SCALE_DEFAULT);
+	private Image backgroundImage=new ImageIcon("images/FBI2.jpg").getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT);
 	private JTextField idText=new JTextField();
 	private JPasswordField pwText=new JPasswordField();
-	private JLabel idLabel=new JLabel("ID");
-	private JLabel pwLabel=new JLabel("PW");
+	private JLabel idLabel=new JLabel("Agent ID");
+	private JLabel pwLabel=new JLabel("Password");
 	private JButton loginButton=new JButton("로그인");
 	private JButton pwFindButton=new JButton("아이디/비밀번호 찾기");
 	public JButton singUpButton=new JButton("회원가입");
@@ -29,10 +29,10 @@ public class LoginPanel extends JPanel {
 	}
 	
 	private void setTextField() {
-		idText.setBounds(420, 450, 220, 50);
+		idText.setBounds(400, 400, 400, 50);
 		ListenerManagement.getInstance().linkTextLengthLimited(20, idText);
 		idText.setFont(new Font("맑은 고딕",Font.PLAIN,20));
-		pwText.setBounds(420, 525, 220, 50);
+		pwText.setBounds(400, 500, 400, 50);
 		ListenerManagement.getInstance().linkTextLengthLimited(20, pwText);
 		pwText.setFont(new Font("맑은 고딕",Font.PLAIN,20));
 		this.add(idText);
@@ -40,21 +40,23 @@ public class LoginPanel extends JPanel {
 	}
 	
 	private void setLabel() {
-		idLabel.setBounds(370, 450, 100, 50);
-		pwLabel.setBounds(350, 525, 100, 50);
+		idLabel.setBounds(400, 350, 200, 50);
+		pwLabel.setBounds(400, 450, 200, 50);
 		idLabel.setForeground(Color.white);
 		idLabel.setFont(new Font("맑은 고딕",Font.BOLD,30));
+		idLabel.setHorizontalAlignment(JLabel.LEFT);
 		pwLabel.setForeground(Color.white);
 		pwLabel.setFont(new Font("맑은 고딕",Font.BOLD,30));
+		pwLabel.setHorizontalAlignment(JLabel.LEFT);
 		this.add(idLabel);
 		this.add(pwLabel);
 	}
 	
 	private void setButton() {
-		loginButton.setBounds(350, 590, 300, 50);
-		pwFindButton.setBounds(350, 645, 300, 50);
+		loginButton.setBounds(850, 400, 300, 50);
+		pwFindButton.setBounds(850, 450, 300, 50);
 		pwFindButton.addActionListener(new searchButtonAction());
-		singUpButton.setBounds(350, 700, 300, 50);
+		singUpButton.setBounds(850, 500, 300, 50);
 		this.add(loginButton);
 		this.add(pwFindButton);
 		this.add(singUpButton);
