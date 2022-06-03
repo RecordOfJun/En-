@@ -58,6 +58,14 @@ public static Dialog instance;
 	}
 	
 	public void alertPersonalOverlap() {
-		showMessageDialog(null, "이미 가입된 사용자입니다.!", "중복확인 오류",JOptionPane.ERROR_MESSAGE);
+		showMessageDialog(null, "이미 가입된 사용자입니다!", "중복확인 오류",JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void idCheckSucess() {
+		showMessageDialog(null, "사용가능한 ID입니다!", "중복확인 성공",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void personalCheckSucess() {
+		showMessageDialog(null, "확인 되었습니다!", "중복확인 성공",JOptionPane.INFORMATION_MESSAGE);
 	}
 }

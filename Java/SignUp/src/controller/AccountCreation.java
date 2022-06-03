@@ -19,7 +19,7 @@ public class AccountCreation {
 		if(isEmptyName(userData.get(3)))
 			return false;
 		if(!isCheckedPersonal) {
-			Dialog.getInstance().alertPersonal();
+			Dialog.getInstance().alertPersonalCheck();
 			return false;
 		}
 		if(!isCorrectPhoneNumber(userData.get(5)))
@@ -76,10 +76,11 @@ public class AccountCreation {
 		}
 		중복확인하기
 		*/
+		Dialog.getInstance().idCheckSucess();
 		return true;
 	}
-	public boolean CheckPersonal(String id) {//id중복확인 버튼 리스너에 달아줌
-		if(!id.matches("[0-9]{2}([0][1-9]|[1][0-2])([0][1-9]|[1-2][0-9]|[3][0-1])[-]*[1-4][0-9]{6}")) {
+	public boolean CheckPersonal(String personal) {//id중복확인 버튼 리스너에 달아줌
+		if(!personal.matches("[0-9]{2}([0][1-9]|[1][0-2])([0][1-9]|[1-2][0-9]|[3][0-1])[-]*[1-4][0-9]{6}")) {
 			Dialog.getInstance().alertPersonal();
 			return false;
 		}
@@ -90,6 +91,7 @@ public class AccountCreation {
 		}
 		중복확인하기
 		*/
+		Dialog.getInstance().personalCheckSucess();
 		return true;
 	}
 }

@@ -31,6 +31,7 @@ public class MainController {
 		loginButton.addActionListener(new loginAction());
 		completeButton.addActionListener(new completeAction());
 		frame.signUpPanel.idCheckButton.addActionListener(new idOverlapAction());
+		frame.signUpPanel.personalCheckButton.addActionListener(new personalOverlapAction());
 	}
 	
 	public class loginAction implements ActionListener{
@@ -50,6 +51,12 @@ public class MainController {
 	public class idOverlapAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			frame.signUpPanel.isCheckedID=accountCreation.CheckID(frame.signUpPanel.getInsertData().get(0));
+		}
+	}
+	
+	public class personalOverlapAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			frame.signUpPanel.isCheckedPersonal=accountCreation.CheckPersonal(frame.signUpPanel.getInsertData().get(4));
 		}
 	}
 }

@@ -12,7 +12,6 @@ import java.awt.Image;
 import org.json.simple.JSONArray;
 public class ImageDAO {
 	private ImageIcon[] imageArray;
-	/*
 	public ImageIcon[] getImage(String searchInput) {
 		try {
 			System.out.println(searchInput);
@@ -70,5 +69,4 @@ public class ImageDAO {
 		return imageArray;
 		
 	}
-	*/
 }
