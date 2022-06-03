@@ -1,8 +1,5 @@
 package view;
 import javax.swing.*;
-
-import view.mainFrame.signUpButtonAction;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +24,7 @@ public class mainFrame extends JFrame {
 	
 	public class signUpButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			signUpPanel.setTextField();
 			container.remove(loginPanel);
 			container.add(signUpPanel);
 			signUpPanel.repaint();
@@ -37,14 +35,14 @@ public class mainFrame extends JFrame {
 		}
 		
 	}
+	
 	public class backButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			container.remove(signUpPanel);
 			container.add(loginPanel);
 			repaint();
 			revalidate();
-			signUpPanel.setVisible(true);
 		}
-		
 	}
+	
 }

@@ -1,6 +1,12 @@
 package view;
 import javax.swing.*;
+
+import utility.ListenerManagement;
+import view.mainFrame.signUpButtonAction;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 public class LoginPanel extends JPanel {
@@ -24,10 +30,10 @@ public class LoginPanel extends JPanel {
 	
 	private void setTextField() {
 		idText.setBounds(420, 450, 220, 50);
-		idText.addKeyListener(new setTextLengthLimited(20));
+		ListenerManagement.getInstance().linkTextLengthLimited(20, idText);
 		idText.setFont(new Font("맑은 고딕",Font.PLAIN,20));
 		pwText.setBounds(420, 525, 220, 50);
-		pwText.addKeyListener(new setTextLengthLimited(20));
+		ListenerManagement.getInstance().linkTextLengthLimited(20, pwText);
 		pwText.setFont(new Font("맑은 고딕",Font.PLAIN,20));
 		this.add(idText);
 		this.add(pwText);
@@ -47,6 +53,7 @@ public class LoginPanel extends JPanel {
 	private void setButton() {
 		loginButton.setBounds(350, 590, 300, 50);
 		pwFindButton.setBounds(350, 645, 300, 50);
+		pwFindButton.addActionListener(new searchButtonAction());
 		singUpButton.setBounds(350, 700, 300, 50);
 		this.add(loginButton);
 		this.add(pwFindButton);
@@ -58,19 +65,9 @@ public class LoginPanel extends JPanel {
 		setOpaque(false);
 	}
 	
-	public class setTextLengthLimited extends KeyAdapter{
-		int maxLength;
-		public setTextLengthLimited(int maxLength) {
-			this.maxLength=maxLength;
-		}
-		public void keyTyped(KeyEvent e) {
-			JTextField textField=(JTextField)e.getComponent();
-			if(textField.getText().length()>maxLength) {
-				e.consume();
-				textField.setText(textField.getText().substring(0,maxLength-1));
-			}
-			else if(textField.getText().length()>=maxLength)
-				e.consume();
+	public class searchButtonAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			UserSearchingFrame searchFrame=new UserSearchingFrame();
 		}
 	}
 }

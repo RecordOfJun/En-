@@ -1,16 +1,15 @@
 package view;
 import javax.swing.*;
+
+import utility.ListenerManagement;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 public class SignUpPanel extends JPanel {
 	private Image backgroundImage=new ImageIcon("images/battleGround.jpg").getImage().getScaledInstance(1000, 800, Image.SCALE_DEFAULT);
 	public JButton backButton=new JButton("뒤로가기");
-	private JButton idCheckButton=new JButton("ID확인");
+	private JButton idCheckButton=new JButton("ID 중복 확인");
+	private JButton personalCheckButton=new JButton("주민번호 확인");
 	private JButton adressFindButton=new JButton("주소 찾기");
+	private JButton completeButton=new JButton("가입 완료");
 	private JLabel idLabel=new JLabel("ID");
 	private JLabel pwLabel=new JLabel("PW");
 	private JLabel pwConfirmLabel=new JLabel("PW확인");
@@ -18,17 +17,17 @@ public class SignUpPanel extends JPanel {
 	private JLabel personalCodeLabel=new JLabel("주민번호");
 	private JLabel phoneNumberLabel=new JLabel("전화번호");
 	private JLabel adressLabel=new JLabel("주소");
-	private JTextField idField=new JTextField("영문과 숫자를 혼합해 15자 이내로 입력해주세요.");
-	private JPasswordField pwField=new JPasswordField("영문과 숫자를 혼합해 15자 이내로 입력해주세요.");
-	private JPasswordField pwConfirmField=new JPasswordField("비밀번호를 동일하게 한번 더 입력해주세요.");
-	private JTextField nameField=new JTextField("이름을 입력해주세요.");
-	private JTextField birthField=new JTextField("생년월일을 입력해주세요");
-	private JTextField personalField=new JTextField("주민등록번호 뒤 7자리를 입력해주세요.");
-	private JTextField phoneNumberLeftField=new JTextField("xxx");
-	private JTextField phoneNumberCenterField=new JTextField("xxxx");
-	private JTextField phoneNumberRightField=new JTextField("xxxx");
-	private JTextField adressField=new JTextField("");
-	private JTextField detailAdressField=new JTextField("세부 주소를 입력해주세요.");
+	private JTextField idField=new JTextField();
+	private JPasswordField pwField=new JPasswordField();
+	private JPasswordField pwConfirmField=new JPasswordField();
+	private JTextField nameField=new JTextField();
+	private JTextField birthField=new JTextField();
+	private JPasswordField personalField=new JPasswordField();
+	private JTextField phoneNumberLeftField=new JTextField();
+	private JTextField phoneNumberCenterField=new JTextField();
+	private JTextField phoneNumberRightField=new JTextField();
+	private JTextField adressField=new JTextField();
+	private JTextField detailAdressField=new JTextField();
 	
 	public SignUpPanel() {
 		setSize(new Dimension(backgroundImage.getWidth(null), backgroundImage.getHeight(null)));
@@ -40,8 +39,16 @@ public class SignUpPanel extends JPanel {
 	}
 	
 	private void setButton() {
-		backButton.setBounds(500, 700, 100, 50);
+		idCheckButton.setBounds(700, 50, 150, 50);
+		personalCheckButton.setBounds(700, 350, 150, 50);
+		adressFindButton.setBounds(700, 500, 150, 50);
+		completeButton.setBounds(300, 650, 200, 50);
+		backButton.setBounds(550, 650, 200, 50);
 		this.add(backButton);
+		this.add(idCheckButton);
+		this.add(completeButton);
+		this.add(adressFindButton);
+		this.add(personalCheckButton);
 	}
 	
 	private void setLabel() {
@@ -62,15 +69,19 @@ public class SignUpPanel extends JPanel {
 		this.add(label);
 	}
 	
-	private void setTextField() {
+	public void setTextField() {
 		setTextBoundAndLimit(idField,0,50,300,15,"영문과 숫자를 혼합해 15자 이내로 입력해주세요.");
+		pwField.setEchoChar((char)0);
+		ListenerManagement.getInstance().linkPasswordFocusEvent("영문과 숫자를 혼합해 15자 이내로 입력해주세요.", pwField);
 		setTextBoundAndLimit(pwField,0,125,300,20,"영문과 숫자를 혼합해 15자 이내로 입력해주세요.");
-		pwField.addFocusListener(new passwordFocusEvent("영문과 숫자를 혼합해 15자 이내로 입력해주세요.", pwField));
+		pwConfirmField.setEchoChar((char)0);
+		ListenerManagement.getInstance().linkPasswordFocusEvent("비밀번호를 동일하게 한번 더 입력해주세요.", pwConfirmField);
 		setTextBoundAndLimit(pwConfirmField,0,200,300,20,"비밀번호를 동일하게 한번 더 입력해주세요.");
-		pwConfirmField.addFocusListener(new passwordFocusEvent("비밀번호를 동일하게 한번 더 입력해주세요.", pwConfirmField));
 		setTextBoundAndLimit(nameField,0,275,200,10,"이름을 입력해주세요.");
 		setTextBoundAndLimit(birthField,0,350,150,6,"생년월일을 입력해주세요");
-		setTextBoundAndLimit(personalField,160,350,150,7,"주민등록번호 뒤 7자리를 입력해주세요.");
+		personalField.setEchoChar((char)0);
+		ListenerManagement.getInstance().linkPasswordFocusEvent("뒤 7자리를 입력해주세요.", personalField);
+		setTextBoundAndLimit(personalField,160,350,150,7,"뒤 7자리를 입력해주세요.");
 		setTextBoundAndLimit(phoneNumberLeftField,0,425,100,3,"xxx");
 		setTextBoundAndLimit(phoneNumberCenterField,110,425,100,4,"xxxx");
 		setTextBoundAndLimit(phoneNumberRightField,220,425,100,4,"xxxx");
@@ -81,8 +92,9 @@ public class SignUpPanel extends JPanel {
 	private void setTextBoundAndLimit(JTextField textField,int x,int y,int width,int maxLength,String text) {
 		textField.setBounds(370+x, y, width, 50);
 		textField.setFont(new Font("맑은 고딕",Font.PLAIN,10));
-		textField.addKeyListener(new setTextLengthLimited(maxLength));
-		textField.addFocusListener(new textFocusEvent(text, textField));
+		textField.setText(text);
+		ListenerManagement.getInstance().linkTextLengthLimited(maxLength, textField);
+		ListenerManagement.getInstance().linkTextFocusEvent(text, textField);
 		this.add(textField);
 	}
 	
@@ -91,64 +103,7 @@ public class SignUpPanel extends JPanel {
 		g.drawImage(backgroundImage, 0,0,null);
 		setOpaque(false);
 	}
-	public class setTextLengthLimited extends KeyAdapter{
-		int maxLength;
-		public setTextLengthLimited(int maxLength) {
-			this.maxLength=maxLength;
-		}
-		public void keyTyped(KeyEvent e) {
-			JTextField textField=(JTextField)e.getComponent();
-			if(textField.getText().length()>maxLength) {
-				e.consume();
-				textField.setText(textField.getText().substring(0,maxLength-1));
-			}
-			else if(textField.getText().length()>=maxLength)
-				e.consume();
-		}
-	}
 	
-	public class textFocusEvent implements FocusListener{
-		String defaultText;
-		JTextField textField;
-		public textFocusEvent(String defaultText,JTextField textField) {
-			this.defaultText=defaultText;
-			this.textField=textField;
-		}
-		public void focusGained(FocusEvent e) {
-			if(textField.getText().equals(defaultText)) {
-				textField.setText("");
-				textField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
-			}
-		}
-
-		public void focusLost(FocusEvent e) {
-			if(textField.getText().length()==0) {
-				textField.setFont(new Font("맑은 고딕",Font.PLAIN,10));
-				textField.setText(defaultText);
-			}
-		}
-		
-	}
-	public class passwordFocusEvent implements FocusListener{
-		String defaultText;
-		JPasswordField textField;
-		public passwordFocusEvent(String defaultText,JPasswordField textField) {
-			this.defaultText=defaultText;
-			this.textField=textField;
-		}
-		public void focusGained(FocusEvent e) {
-			if(textField.getPassword().toString().equals(defaultText)) {
-				textField.setEchoChar('*');
-			}
-		}
-
-		public void focusLost(FocusEvent e) {
-			if(textField.getPassword().toString().length()==0) {
-				textField.setEchoChar((char)0);
-			}
-		}
-		
-	}
 	
 }
 
