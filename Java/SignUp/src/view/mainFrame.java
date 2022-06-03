@@ -13,13 +13,13 @@ public class mainFrame extends JFrame {
 	public mainFrame() {
 		setFrame();
 		loginPanel.singUpButton.addActionListener(new signUpButtonAction());
-		signUpPanel.a.addActionListener(new backButtonAction());
+		signUpPanel.backButton.addActionListener(new backButtonAction());
 	}
 	
 	private void setFrame() {
-		setTitle("안녕");
+		setTitle("SignUP");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000,638);
+		setSize(1000,838);
 		setResizable(false);
 		container.add(loginPanel);
 		setVisible(true);
