@@ -1,10 +1,12 @@
 package main;
-import view.*;
+
+import controller.MainController;
+
 public class SignUpProgramm {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		mainFrame frame=new mainFrame();
+		MainController mainController=new MainController();
 	}
 
 }
