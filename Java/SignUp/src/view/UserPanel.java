@@ -2,7 +2,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 public class UserPanel extends JPanel {
-	private Image backgroundImage=new ImageIcon("images/battleGround.jpg").getImage().getScaledInstance(1000, 800, Image.SCALE_DEFAULT);
+	private Image backgroundImage=new ImageIcon("images/space.jpg").getImage().getScaledInstance(1200, 720, Image.SCALE_DEFAULT);
 	private JButton logOutButton=new JButton("로그아웃");
 	private JButton withdrawalButton=new JButton("회원탈퇴");
 	private JButton reviseButton=new JButton("정보수정");

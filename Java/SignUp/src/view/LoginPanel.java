@@ -2,21 +2,18 @@ package view;
 import javax.swing.*;
 
 import utility.ListenerManagement;
-import view.mainFrame.signUpButtonAction;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 public class LoginPanel extends JPanel {
 	private Image backgroundImage=new ImageIcon("images/FBI2.jpg").getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT);
 	private JTextField idText=new JTextField();
 	private JPasswordField pwText=new JPasswordField();
 	private JLabel idLabel=new JLabel("Agent ID");
 	private JLabel pwLabel=new JLabel("Password");
-	private JButton loginButton=new JButton("로그인");
-	private JButton pwFindButton=new JButton("아이디/비밀번호 찾기");
+	public JButton loginButton=new JButton("로그인");
+	public JButton pwFindButton=new JButton("아이디/비밀번호 찾기");
 	public JButton singUpButton=new JButton("회원가입");
 	
 	public LoginPanel() {
@@ -71,5 +68,9 @@ public class LoginPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			UserSearchingFrame searchFrame=new UserSearchingFrame();
 		}
+	}
+	
+	public String getIdAndPw() {
+		return idText.getText()+"/"+String.valueOf(pwText.getPassword());
 	}
 }

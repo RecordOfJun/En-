@@ -5,8 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class mainFrame extends JFrame {
 	private Container container=getContentPane();
-	private LoginPanel loginPanel=new LoginPanel();
-	private SignUpPanel signUpPanel=new SignUpPanel();
+	public LoginPanel loginPanel=new LoginPanel();
+	public SignUpPanel signUpPanel=new SignUpPanel();
+	public UserPanel userPanel=new UserPanel();
 	public mainFrame() {
 		setFrame();
 		loginPanel.singUpButton.addActionListener(new signUpButtonAction());
@@ -28,8 +29,6 @@ public class mainFrame extends JFrame {
 			signUpPanel.setTextField();
 			container.remove(loginPanel);
 			container.add(signUpPanel);
-			signUpPanel.repaint();
-			signUpPanel.revalidate();
 			container.repaint();
 			revalidate();
 			
@@ -44,6 +43,17 @@ public class mainFrame extends JFrame {
 			repaint();
 			revalidate();
 		}
+	}
+	
+	public void setUserPanel() {
+		container.remove(loginPanel);
+		container.add(userPanel);
+		repaint();
+		revalidate();
+	}
+	
+	public void showLoginException() {
+		
 	}
 	
 }

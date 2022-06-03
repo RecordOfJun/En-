@@ -10,10 +10,19 @@ public class UserDAO {
 	private Connection connection;
 	private String query;
 	LocalDateTime now=LocalDateTime.now();
+	public static UserDAO instance;
+	
+	private UserDAO() {};
+	
+	public static synchronized UserDAO getInstance() {
+		if(instance==null)
+			instance=new UserDAO();
+		return instance;
+	}
 	
 	private void connectDB() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/signup","root","0000");
 		}
 		catch(Exception e) {
@@ -60,15 +69,18 @@ public class UserDAO {
 	
 	public String CheckID(String id,String pw) {
 		try {
+			String foundID="";
 			connectDB();
 			Statement statement=connection.createStatement();
 			query="SELECT ID FROM user WHERE ID="+id+" and PW="+pw+";";
 			ResultSet result=statement.executeQuery(query);
-			String foundID=result.getString("ID");
+			while(result.next())
+				foundID=result.getString("ID");
 			connection.close();
 			return foundID;
 		}
 		catch(Exception e) {
+			System.out.println(e.getClass().toString());
 			return "연결실패";
 		}
 	}
