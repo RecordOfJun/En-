@@ -12,9 +12,7 @@ public class SignUpProgramm {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//MainController mainController=new MainController();
-		AdressSearching a=new AdressSearching();
-		a.getAdresses("고산로 539번길");
+		MainController mainController=new MainController();
 	}
 
 }

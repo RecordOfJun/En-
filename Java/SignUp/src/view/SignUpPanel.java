@@ -29,7 +29,7 @@ public class SignUpPanel extends JPanel {
 	private JTextField phoneNumberLeftField=new JTextField();
 	private JTextField phoneNumberCenterField=new JTextField();
 	private JTextField phoneNumberRightField=new JTextField();
-	private JTextField adressField=new JTextField();
+	public JTextField adressField=new JTextField();
 	private JTextField detailAdressField=new JTextField();
 	public boolean isCheckedID=false;
 	public boolean isCheckedPersonal=false;
