@@ -72,7 +72,25 @@ public class UserDAO {
 			String foundID="";
 			connectDB();
 			Statement statement=connection.createStatement();
-			query="SELECT ID FROM user WHERE ID="+id+" and PW="+pw+";";
+			query=String.format("SELECT ID FROM user WHERE ID='%s' and PW='%s';", id,pw);
+			ResultSet result=statement.executeQuery(query);
+			while(result.next())
+				foundID=result.getString("ID");
+			connection.close();
+			return foundID;
+		}
+		catch(Exception e) {
+			System.out.println(e.getClass().toString());
+			return "연결실패";
+		}
+	}
+	
+	public String FindID(String name,String personal) {
+		try {
+			String foundID="";
+			connectDB();
+			Statement statement=connection.createStatement();
+			query="SELECT ID FROM user WHERE Name="+name+" and PersonalCode="+personal+";";
 			ResultSet result=statement.executeQuery(query);
 			while(result.next())
 				foundID=result.getString("ID");
