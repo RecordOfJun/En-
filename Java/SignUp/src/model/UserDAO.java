@@ -127,7 +127,7 @@ public class UserDAO {
 			String foundID="";
 			connectDB();
 			Statement statement=connection.createStatement();
-			query="SELECT ID FROM user WHERE ID="+id+";";
+			query="SELECT ID FROM user WHERE ID='"+id+"';";
 			ResultSet result=statement.executeQuery(query);
 			while(result.next())
 				foundID=result.getString("ID");
@@ -147,10 +147,10 @@ public class UserDAO {
 			String foundPersonal="";
 			connectDB();
 			Statement statement=connection.createStatement();
-			query="SELECT Personal FROM user WHERE Personal="+personal+";";
+			query="SELECT PersonalCode FROM user WHERE PersonalCode='"+personal+"';";
 			ResultSet result=statement.executeQuery(query);
 			while(result.next())
-				foundPersonal=result.getString("Personal");
+				foundPersonal=result.getString("PersonalCode");
 			connection.close();
 			if(foundPersonal.length()!=0)
 				return true;

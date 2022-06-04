@@ -52,8 +52,15 @@ public class mainFrame extends JFrame {
 		revalidate();
 	}
 	
-	public void showLoginException() {
-		
-	}
+	public class logOutButtonAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int reply=Dialog.getInstance().askLogOut();
+			if(reply==JOptionPane.YES_OPTION) {
+				container.remove(userPanel);
+				container.add(loginPanel);
+				repaint();
+				revalidate();
+			}
+		}
 	
 }

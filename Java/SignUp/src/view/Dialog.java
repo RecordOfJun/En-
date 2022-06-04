@@ -84,4 +84,8 @@ public static Dialog instance;
 	public void alertNotExist() {
 		showMessageDialog(null, "존재하지 않는 사용자 정보입니다.", "로그인 정보 찾기",JOptionPane.ERROR_MESSAGE);
 	}
+	
+	public int askLogOut() {
+		return showConfirmDialog(null, "정말 로그아웃 하시겠습니까?", "로그아웃",JOptionPane.YES_NO_OPTION);
+	}
 }

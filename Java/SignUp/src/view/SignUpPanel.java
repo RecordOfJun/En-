@@ -83,8 +83,8 @@ public class SignUpPanel extends JPanel {
 		setTextBoundAndLimit(idField,0,50,300,15,"영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.");
 		idField.addKeyListener(new idRevised());
 		pwField.setEchoChar((char)0);
-		ListenerManagement.getInstance().linkPasswordFocusEvent("영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.", pwField);
-		setTextBoundAndLimit(pwField,0,125,300,15,"영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.");
+		ListenerManagement.getInstance().linkPasswordFocusEvent("하나 이상의 대문자,소문자,숫자,특수문자를 혼합해 8~15자 이내로 입력해주세요.", pwField);
+		setTextBoundAndLimit(pwField,0,125,300,15,"하나 이상의 대문자,소문자,숫자,특수문자를 혼합해 8~15자 이내로 입력해주세요.");
 		pwConfirmField.setEchoChar((char)0);
 		ListenerManagement.getInstance().linkPasswordFocusEvent("비밀번호를 동일하게 한번 더 입력해주세요.", pwConfirmField);
 		setTextBoundAndLimit(pwConfirmField,0,200,300,15,"비밀번호를 동일하게 한번 더 입력해주세요.");
