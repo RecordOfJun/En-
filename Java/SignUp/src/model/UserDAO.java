@@ -177,4 +177,18 @@ public class UserDAO {
 			return false;
 		}
 	}
+	
+	public void deleteUser(String id) {
+		try {
+			System.out.println(id);
+			connectDB();
+			Statement statement=connection.createStatement();
+			query="DELETE FROM user WHERE ID='"+id+"';";
+			statement.executeUpdate(query);
+			connection.close();
+		}
+		catch(Exception e) {
+			System.out.println(e.getClass().toString());
+		}
+	}
 }

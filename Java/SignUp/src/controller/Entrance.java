@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 import model.UserDAO;
 import view.Dialog;
-import view.mainFrame;
+import view.MainFrame;
 
 public class Entrance {
 	

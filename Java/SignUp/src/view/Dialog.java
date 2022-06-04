@@ -92,4 +92,16 @@ public static Dialog instance;
 	public void reviseSucess() {
 		showMessageDialog(null, "수정이 완료되었습니다!", "회원정보 수정",JOptionPane.INFORMATION_MESSAGE);
 	}
+	
+	public int askDelete() {
+		return showConfirmDialog(null, "정말 삭제 하시겠습니까?", "회원탈퇴",JOptionPane.YES_NO_OPTION);
+	}
+	
+	public void deleteSucess() {
+		showMessageDialog(null, "탈퇴가 완료되었습니다...", "회원탈퇴",JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void deleteFail() {
+		showMessageDialog(null, "잘못된 비밀번호 입니다.", "회원탈퇴",JOptionPane.ERROR_MESSAGE);
+	}
 }

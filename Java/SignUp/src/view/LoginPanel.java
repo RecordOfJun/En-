@@ -2,7 +2,7 @@ package view;
 import javax.swing.*;
 
 import utility.ListenerManagement;
-import view.mainFrame.signUpButtonAction;
+import view.MainFrame.signUpButtonAction;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

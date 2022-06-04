@@ -6,12 +6,12 @@ import model.UserDAO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class mainFrame extends JFrame {
+public class MainFrame extends JFrame {
 	public Container container=getContentPane();
 	public LoginPanel loginPanel=new LoginPanel();
 	public SignUpPanel signUpPanel=new SignUpPanel();
-	public UserPanel userPanel=new UserPanel();
-	public mainFrame() {
+	public UserPanel userPanel=new UserPanel(this);
+	public MainFrame() {
 		setFrame();
 		loginPanel.singUpButton.addActionListener(new signUpButtonAction());
 		signUpPanel.backButton.addActionListener(new backButtonAction());
@@ -43,6 +43,8 @@ public class mainFrame extends JFrame {
 	
 	public class backButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			loginPanel.idText.setText("");
+			loginPanel.pwText.setText("");
 			container.remove(signUpPanel);
 			container.add(loginPanel);
 			repaint();
@@ -50,8 +52,9 @@ public class mainFrame extends JFrame {
 		}
 	}
 	
-	public void setUserPanel(String id) {
+	public void setUserPanel(String id,String password) {
 		userPanel.id=id;
+		userPanel.password=password;
 		loginPanel.idText.setText("");
 		loginPanel.pwText.setText("");
 		container.remove(loginPanel);

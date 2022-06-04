@@ -7,26 +7,24 @@ import java.awt.*;
 import view.AdressFrame;
 import view.Dialog;
 import view.SignUpPanel;
-import view.mainFrame;
-import view.mainFrame.signUpButtonAction;
+import view.MainFrame;
+import view.MainFrame.signUpButtonAction;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainController {
-	private mainFrame frame;
+	private MainFrame frame;
 	private Entrance entrance;
 	private AccountCreation accountCreation;
-	private AccountFinding accountFinding;
 	private JButton loginButton;
 	private JButton completeButton;
 	private AdressSearching adressSearching;
 	
 	public MainController() {
-		this.frame=new mainFrame();
+		this.frame=new MainFrame();
 		this.accountCreation=new AccountCreation();
-		this.accountFinding=new AccountFinding();
 		this.loginButton=frame.loginPanel.loginButton;
 		this.entrance=new Entrance();
 		this.completeButton=frame.signUpPanel.completeButton;
@@ -48,7 +46,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			String idAndPw=frame.loginPanel.getIdAndPw();
 			if(entrance.isExistedID(idAndPw))
-				frame.setUserPanel(idAndPw.split("/")[0]);
+				frame.setUserPanel(idAndPw.split("/")[0],idAndPw.split("/")[1]);
 		}
 	}
 	
@@ -70,6 +68,7 @@ public class MainController {
 			ArrayList<String> userData=frame.userPanel.revisePanel.getInsertData();
 			if(accountCreation.isCorrectData(frame.userPanel.revisePanel.isCheckedID, frame.userPanel.revisePanel.isCheckedPersonal, userData)) {
 				UserDAO.getInstance().UpdateUser(userData.get(0), userData.get(1), userData.get(3), userData.get(5), userData.get(6), userData.get(7));
+				frame.userPanel.password=userData.get(1);
 				Dialog.getInstance().reviseSucess();
 				frame.container.remove(frame.userPanel.revisePanel);
 				frame.container.add(frame.userPanel);
