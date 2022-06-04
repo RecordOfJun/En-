@@ -88,4 +88,8 @@ public static Dialog instance;
 	public int askLogOut() {
 		return showConfirmDialog(null, "정말 로그아웃 하시겠습니까?", "로그아웃",JOptionPane.YES_NO_OPTION);
 	}
+	
+	public void reviseSucess() {
+		showMessageDialog(null, "수정이 완료되었습니다!", "회원정보 수정",JOptionPane.INFORMATION_MESSAGE);
+	}
 }

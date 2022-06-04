@@ -1,5 +1,8 @@
 package view;
 import javax.swing.*;
+
+import model.UserDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +15,8 @@ public class mainFrame extends JFrame {
 		setFrame();
 		loginPanel.singUpButton.addActionListener(new signUpButtonAction());
 		signUpPanel.backButton.addActionListener(new backButtonAction());
+		userPanel.logOutButton.addActionListener(new logOutButtonAction());
+		userPanel.reviseButton.addActionListener(new setRviseAction());
 	}
 	
 	private void setFrame() {
@@ -45,7 +50,10 @@ public class mainFrame extends JFrame {
 		}
 	}
 	
-	public void setUserPanel() {
+	public void setUserPanel(String id) {
+		userPanel.id=id;
+		loginPanel.idText.setText("");
+		loginPanel.pwText.setText("");
 		container.remove(loginPanel);
 		container.add(userPanel);
 		repaint();
@@ -62,5 +70,27 @@ public class mainFrame extends JFrame {
 				revalidate();
 			}
 		}
+	}
+	
+	public class setRviseAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(userPanel.id);
+			userPanel.revisePanel.setReviesForm(UserDAO.getInstance().SelectUser(userPanel.id));
+			userPanel.revisePanel.backToUserButton.addActionListener(new reviseToUserAction());
+			container.remove(userPanel);
+			container.add(userPanel.revisePanel);
+			repaint();
+			revalidate();
+		}
+	}
+	
+	public class reviseToUserAction implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			container.remove(userPanel.revisePanel);
+			container.add(userPanel);
+			repaint();
+			revalidate();
+		}
+	}
 	
 }

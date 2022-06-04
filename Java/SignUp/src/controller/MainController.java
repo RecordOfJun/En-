@@ -39,14 +39,16 @@ public class MainController {
 		completeButton.addActionListener(new completeAction());
 		frame.signUpPanel.idCheckButton.addActionListener(new idOverlapAction());
 		frame.signUpPanel.personalCheckButton.addActionListener(new personalOverlapAction());
-		frame.signUpPanel.adressFindButton.addActionListener(new addressFindAction());
+		frame.signUpPanel.adressFindButton.addActionListener(new addressFindAction(frame.signUpPanel.adressField));
+		frame.userPanel.revisePanel.adressFindButton.addActionListener(new addressFindAction(frame.userPanel.revisePanel.adressField));
+		frame.userPanel.revisePanel.reviseButton.addActionListener(new reviseAction());
 	}
 	
 	public class loginAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String idAndPw=frame.loginPanel.getIdAndPw();
 			if(entrance.isExistedID(idAndPw))
-				frame.setUserPanel();
+				frame.setUserPanel(idAndPw.split("/")[0]);
 		}
 	}
 	
@@ -57,6 +59,20 @@ public class MainController {
 				accountCreation.addAccount(userData);
 				frame.container.remove(frame.signUpPanel);
 				frame.container.add(frame.loginPanel);
+				frame.repaint();
+				frame.revalidate();
+			}
+		}
+	}
+	
+	public class reviseAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			ArrayList<String> userData=frame.userPanel.revisePanel.getInsertData();
+			if(accountCreation.isCorrectData(frame.userPanel.revisePanel.isCheckedID, frame.userPanel.revisePanel.isCheckedPersonal, userData)) {
+				UserDAO.getInstance().UpdateUser(userData.get(0), userData.get(1), userData.get(3), userData.get(5), userData.get(6), userData.get(7));
+				Dialog.getInstance().reviseSucess();
+				frame.container.remove(frame.userPanel.revisePanel);
+				frame.container.add(frame.userPanel);
 				frame.repaint();
 				frame.revalidate();
 			}
@@ -76,22 +92,28 @@ public class MainController {
 	}
 	
 	public class addressFindAction implements ActionListener {
+		JTextField addressField;
+		public addressFindAction(JTextField addressField) {
+			this.addressField=addressField;
+		}
 		public void actionPerformed(ActionEvent e) {
 			AdressFrame adressFrame=new AdressFrame();
-			adressFrame.searchButton.addActionListener(new adressSearchAction(adressFrame));
+			adressFrame.searchButton.addActionListener(new adressSearchAction(adressFrame,addressField));
 		}
 	}
 	
 	public class adressSearchAction implements ActionListener{
 		AdressFrame adressFrame;
-		public adressSearchAction(AdressFrame adressFrame) {
+		JTextField addressField;
+		public adressSearchAction(AdressFrame adressFrame,JTextField addressField) {
 			this.adressFrame=adressFrame;
+			this.addressField=addressField;
 		}
 		public void actionPerformed(ActionEvent e) {
 			adressFrame.mainBox.removeAll();
 			ArrayList<String> adress=adressSearching.getAdresses(adressFrame.adressField.getText());
 			for(int count=0;count<adress.size();count+=2) {
-				adressFrame.addButton(adress.get(count),adress.get(count+1),frame.signUpPanel.adressField);
+				adressFrame.addButton(adress.get(count),adress.get(count+1),addressField);
 			}
 			adressFrame.repaint();
 			adressFrame.revalidate();

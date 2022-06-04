@@ -34,7 +34,7 @@ public class UserDAO {
 			connectDB();
 			Statement statement=connection.createStatement();
 			
-			query=String.format("\nInsert INTO user VALUES('%s','%s','%s','%s','%s','%s','%s');", id,pw,name,personal,phone,adress,detailAdress);
+			query=String.format("Insert INTO user VALUES('%s','%s','%s','%s','%s','%s','%s');", id,pw,name,personal,phone,adress,detailAdress);
 			statement.executeUpdate(query);
 			connection.close();
 			return "연결성공";
@@ -49,15 +49,16 @@ public class UserDAO {
 		try {
 			connectDB();
 			Statement statement=connection.createStatement();
-			query="SELECT * FROM user WHERE ID="+id+";";
+			query="SELECT * FROM user WHERE ID='"+id+"';";
 			ResultSet result=statement.executeQuery(query);
 			while(result.next()) {
 				list.add(result.getString("ID"));
 				list.add(result.getString("PW"));
 				list.add(result.getString("Name"));
-				list.add(result.getString("Personal"));
-				list.add(result.getString("Phone"));
+				list.add(result.getString("PersonalCode"));
+				list.add(result.getString("PhoneNumber"));
 				list.add(result.getString("Adress"));
+				list.add(result.getString("DetailAdress"));
 			}
 			connection.close();
 		}
@@ -65,6 +66,21 @@ public class UserDAO {
 			System.out.print("연결실패");
 		}
 		return list;
+	}
+	
+	public String UpdateUser(String id,String pw, String name,String phone,String adress,String detailAdress) {
+		try {
+			connectDB();
+			Statement statement=connection.createStatement();
+			
+			query=String.format("UPDATE user SET PW='%s', Name='%s', PhoneNumber='%s', Adress='%s', DetailAdress='%s' WHERE ID='%s';", pw,name,phone,adress,detailAdress,id);
+			statement.executeUpdate(query);
+			connection.close();
+			return "연결성공";
+		}
+		catch(Exception e) {
+			return "연결실패";
+		}
 	}
 	
 	public String CheckID(String id,String pw) {

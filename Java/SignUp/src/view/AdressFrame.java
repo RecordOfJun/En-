@@ -41,13 +41,11 @@ public class AdressFrame extends JFrame {
 	public void addButton(String jibun,String road,JTextField adressField) {
 		mainBox.remove(label);
 		JButton button=new JButton();
-		//button.setBorder(null);
 		button.addActionListener(new setText(adressField));
 		button.setBackground(Color.white);
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		button.setPreferredSize(new Dimension(400,100));
 		button.setText("<html><p style=\"text-align:left;\">"+jibun+"<br>"+road+"</p></html>");
-		//button.addMouseListener(new buttonFocusAdapter());
 		mainBox.add(button,0);
 		this.repaint();
 		this.revalidate();

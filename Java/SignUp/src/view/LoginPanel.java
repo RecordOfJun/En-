@@ -9,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class LoginPanel extends JPanel {
 	private Image backgroundImage=new ImageIcon("images/FBI2.jpg").getImage().getScaledInstance(1280, 720, Image.SCALE_DEFAULT);
-	private JTextField idText=new JTextField();
-	private JPasswordField pwText=new JPasswordField();
+	public JTextField idText=new JTextField();
+	public JPasswordField pwText=new JPasswordField();
 	private JLabel idLabel=new JLabel("Agent ID");
 	private JLabel pwLabel=new JLabel("Password");
 	public JButton loginButton=new JButton("로그인");
@@ -71,7 +71,6 @@ public class LoginPanel extends JPanel {
 	public class searchButtonAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			UserSearchingFrame searchFrame=new UserSearchingFrame();
-			
 		}
 	}
 	

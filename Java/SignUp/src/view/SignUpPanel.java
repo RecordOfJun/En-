@@ -1,5 +1,7 @@
 package view;
 import javax.swing.*;
+import javax.swing.text.AttributeSet.ColorAttribute;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import utility.ListenerManagement;
@@ -13,6 +15,8 @@ public class SignUpPanel extends JPanel {
 	public JButton personalCheckButton=new JButton("주민번호 확인");
 	public JButton adressFindButton=new JButton("주소 찾기");
 	public JButton completeButton=new JButton("가입 완료");
+	public JButton reviseButton=new JButton("수정 완료");
+	public JButton backToUserButton=new JButton("뒤로가기");
 	private JLabel idLabel=new JLabel("ID");
 	private JLabel pwLabel=new JLabel("PW");
 	private JLabel pwConfirmLabel=new JLabel("PW확인");
@@ -83,13 +87,12 @@ public class SignUpPanel extends JPanel {
 		setTextBoundAndLimit(idField,0,50,300,15,"영문과 숫자를 혼합해 8~15자 이내로 입력해주세요.");
 		idField.addKeyListener(new idRevised());
 		pwField.setEchoChar((char)0);
-		ListenerManagement.getInstance().linkPasswordFocusEvent("하나 이상의 대문자,소문자,숫자,특수문자를 혼합해 8~15자 이내로 입력해주세요.", pwField);
-		setTextBoundAndLimit(pwField,0,125,300,15,"하나 이상의 대문자,소문자,숫자,특수문자를 혼합해 8~15자 이내로 입력해주세요.");
+		ListenerManagement.getInstance().linkPasswordFocusEvent("대문자,소문자,숫자,특수문자 포함 8~15자 이내로 입력해주세요.", pwField);
+		setTextBoundAndLimit(pwField,0,125,300,15,"대문자,소문자,숫자,특수문자 포함 8~15자 이내로 입력해주세요.");
 		pwConfirmField.setEchoChar((char)0);
 		ListenerManagement.getInstance().linkPasswordFocusEvent("비밀번호를 동일하게 한번 더 입력해주세요.", pwConfirmField);
 		setTextBoundAndLimit(pwConfirmField,0,200,300,15,"비밀번호를 동일하게 한번 더 입력해주세요.");
 		setTextBoundAndLimit(nameField,0,275,200,10,"이름을 입력해주세요.");
-		nameField.addKeyListener(new personalRevised());
 		birthField.addKeyListener(new personalRevised());
 		personalField.addKeyListener(new personalRevised());
 		setTextBoundAndLimit(birthField,0,350,150,6,"생년월일을 입력해주세요");
@@ -150,6 +153,71 @@ public class SignUpPanel extends JPanel {
 		else
 			return textField.getText();
 		
+	}
+	
+	public void setReviesForm(ArrayList<String> userData) {
+		setReviseButton();
+		setReviseField(userData);
+		isCheckedID=true;
+		isCheckedPersonal=true;
+	}
+	
+	private void setReviseButton() {
+		idCheckButton.setVisible(false);
+		personalCheckButton.setVisible(false);
+		completeButton.setVisible(false);
+		backButton.setVisible(false);
+		reviseButton.setBounds(450, 650, 200, 50);
+		reviseButton.setFocusable(false);
+		backToUserButton.setBounds(650, 650, 200, 50);
+		backToUserButton.setFocusable(false);
+		this.add(reviseButton);
+		this.add(backToUserButton);
+	}
+	
+	private void setReviseField(ArrayList<String> userData) {
+		String leftPhone=userData.get(4).substring(0,3);
+		String CenterPhone;
+		String rightPhone;
+		if(userData.get(4).length()==10) {
+			CenterPhone=userData.get(4).substring(3, 6);
+			rightPhone=userData.get(4).substring(6);
+		}
+		else {
+			CenterPhone=userData.get(4).substring(3,7);
+			rightPhone=userData.get(4).substring(7);
+		}
+		idField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		idField.setEditable(false);
+		idField.setBackground(Color.lightGray);
+		pwField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		pwField.setEchoChar('*');
+		pwConfirmField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		pwConfirmField.setEchoChar('*');
+		idField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		nameField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		birthField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		birthField.setEditable(false);
+		birthField.setBackground(Color.lightGray);
+		personalField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		personalField.setEditable(false);
+		personalField.setBackground(Color.lightGray);
+		phoneNumberLeftField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		phoneNumberCenterField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		phoneNumberRightField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		adressField.setFont(new Font("맑은 고딕",Font.PLAIN,15));
+		detailAdressField.setFont(new Font("맑은 고딕",Font.PLAIN,20));
+		idField.setText(userData.get(0));
+		pwField.setText(userData.get(1));
+		pwConfirmField.setText(userData.get(1));
+		nameField.setText(userData.get(2));
+		birthField.setText(userData.get(3).substring(0,6));
+		personalField.setText(userData.get(3).substring(6));
+		phoneNumberLeftField.setText(leftPhone);
+		phoneNumberCenterField.setText(CenterPhone);
+		phoneNumberRightField.setText(rightPhone);
+		adressField.setText(userData.get(5));
+		detailAdressField.setText(userData.get(6));
 	}
 }
 
